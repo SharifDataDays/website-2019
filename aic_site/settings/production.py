@@ -1,31 +1,36 @@
-from .base import *
-from .production_secret import *
+SECRET_KEY = "allahoakbar"
 
-INSTALLED_APPS += [
+ADMINS = [('Arya', 'aryakowsary@gmail.com')]
 
-]
-
-DEBUG = False
-
-ALLOWED_HOSTS = ['81.31.168.207', 'aichallenge.sharif.edu', 'aichallenge.sharif.ir', 'aichallenge.sharif.ac.ir']
-CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.com'
-EMAIL_HOST_USER = 'info@aichallenge.ir'
-DEFAULT_FROM_EMAIL = 'info@aichallenge.ir'
+DEBUG = True
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'aic_db',
-        'PORT': 5432,
+    "default": {
+        # Add "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        # DB name or path to database file if using sqlite3.
+        "NAME": "datadays",
+        # Not used with sqlite3.
+        "USER": "datauser",
+        # Not used with sqlite3.
+        "PASSWORD": "passpass",
+        # Set to empty string for localhost. Not used with sqlite3.
+        "HOST": "localhost",
+        # Set to empty string for default. Not used with sqlite3.
+        "PORT": "5432",
     }
 }
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+CACHE_MIDDLEWARE_SECONDS = 60
+
+CACHE_MIDDLEWARE_KEY_PREFIX = "datadays"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": "127.0.0.1:11211",
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+

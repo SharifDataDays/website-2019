@@ -33,3 +33,6 @@ LOGGING['handlers'] = {
 }
 
 INFRA_AUTH_TOKEN = 'test_token'
+
+from aic_site.local_settings import *
+
