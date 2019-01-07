@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
-    return render(request, 'intro/index.html', {
+    return render(request, 'intro/landing/index.html', {
         'no_sidebar': False,
         'users_count': User.objects.count(),
         'submits_count': TeamSubmission.objects.count(),

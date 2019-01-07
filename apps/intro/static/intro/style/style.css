@@ -1,0 +1,512 @@
+
+*{
+    font-family:Shabnam ;
+    box-sizing: border-box;
+}
+body{
+
+    background: #02213d;
+    padding: 28px 50px;
+    margin: 0;
+}
+
+
+.home-background {
+    position: absolute;
+    width: 100%;
+    height: 860px;
+    top: -50px;
+    left: 0;
+    z-index: -1;
+    background: url("../images/Main-Section.jpg") no-repeat center center;
+    background-size: 100%;
+}
+.home-background-2 {
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    top: 700px;
+    left: 0;
+    z-index: -1;
+    background: url("../images/wave.png") no-repeat center center;
+    background-size: 100%;
+}
+.circle-right {
+    position: absolute;
+    width: 400px;
+    height: 800px;
+    top: 540px;
+    left: 0px;
+}
+.circle-right img {
+    height: 100%;
+}
+.blur-right {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: 610px;
+    left: -300px;
+    background: #0497ec;
+    border-radius: 50%;
+    opacity: 0.08;
+    filter: blur(40px);
+}
+.circle-left {
+    position: absolute;
+    width: 400px;
+    height: 800px;
+    top: 2000px;
+    right: 0px;
+    transform: rotate(180deg);
+}
+.circle-left img {
+    height: 100%;
+}
+.blur-left {
+    position: absolute;
+    width: 300px;
+    height: 500px;
+    top: 2150px;
+    right: 0px;
+    background: #0497ec;
+    border-radius: 50% 0 0 50%;
+    opacity: 0.08;
+    filter: blur(40px);
+}
+.footer-background {
+    background: url("../images/footerWave.svg") no-repeat center center;
+    background-size: 100%;
+    position: absolute;
+    width: 100%;
+    height: 340px;
+    top: 3400px;
+    left: 0;
+    z-index: -1;
+}
+.time-line-mask {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    top: 1820px;
+    left: 0;
+    right: 0;
+}
+.time-line-mask img {
+    width: 100%;
+}
+.navBar {
+    width: 100%;
+    height: 22px;
+    line-height: 20px;
+}
+.navBar .menu {
+    float: right;
+    height: 100%;
+}
+.navBar .menu a {
+    cursor: pointer;
+    text-decoration: none;
+}
+.navBar .menu .menu-item {
+    color: #036398;
+    font-size: 12px;
+    float: right;
+    /*border: 1px solid red;*/
+    height: 100%;
+    padding: 0px 12px;
+}
+.navBar .menu .menu-item.active {
+    border: 1px solid #036398;
+    border-radius: 4px;
+    color: #eee;
+}
+.navBar .left-menu {
+    height: 100%;
+    float: left;
+    width: 40%;
+}
+.navBar .left-menu i {
+    font-size: 12px;
+    line-height: initial;
+    vertical-align: top;
+}
+.content {
+    margin: 0 auto 5vh;
+    position: relative;
+    width: 82vw;
+}
+.content .home {
+    height: 800px;
+}
+.content .home .home-info {
+    opacity: 0;
+}
+.content .home .timer {
+    width: 290px;
+    margin: 650px auto 0;
+    height: 72px;
+}
+.content .home .timer .timer-box {
+    width: 54px;
+    height: 50px;
+    border: 1.4px solid #0081cb;
+    border-radius: 2.5px;
+    line-height: 48px;
+}
+.content .home .timer .timer-box span {
+    color: #eee;
+    font-size: 27.8px;
+}
+.content .home .timer span {
+    color: #0081cb;
+    font-size: 15.6px;
+}
+.content .info {
+    margin-bottom: 100px;
+    direction: rtl;
+    height: 300px;
+    color: #f5f5f5;
+}
+.content .info h4 {
+    font-size: 18.5px;
+}
+.content .info p {
+    font-size: 14.8px;
+    text-align: justify;
+}
+.content .info .info-btn {
+    border-radius: 25px;
+    font-size: 17px;
+    background: linear-gradient(45deg, #0e5aec, #64d9f5);
+    color: white;
+    width: 160px;
+    height: 44px;
+    cursor: pointer;
+}
+.content .info .info-btn:hover{
+    background: #64d9f5;
+}
+.content .awards {
+    margin-bottom: 100px;
+    direction: rtl;
+    color: #f5f5f5;
+    overflow: hidden;
+}
+.content .awards h4 {
+    font-size: 18.5px;
+}
+.content .awards .awards-info-1 {
+    height: 230px;
+}
+.content .awards .awards-info-1 .awards-info-one {
+    /*background: url("../images/avval.png") no-repeat center center ;*/
+    /*background-size: 90%;*/
+}
+.content .awards .awards-info-1 .awards-info-one h5 {
+    color: #0497ec;
+    font-size: 15px;
+}
+.content .awards .awards-info-1 .awards-info-one .awards-info-one-img {
+    transition: 0.5s;
+    background: url("../images/avval.png") no-repeat center center;
+    background-size: 95%;
+    height: 60%;
+}
+.content .awards .awards-info-1 .awards-info-one .awards-info-one-img:hover {
+    background-size: 100%;
+}
+.content .awards .awards-info-1 .awards-info-one h4 {
+    color: #f5f5f5;
+    font-size: 21px;
+}
+.content .awards .awards-info-1 .awards-info-two h5, .content .awards .awards-info-1 .awards-info-three h5 {
+    color: #0497ec;
+    font-size: 13.5px;
+}
+.content .awards .awards-info-1 .awards-info-two .awards-info-two-img, .content .awards .awards-info-1 .awards-info-three .awards-info-two-img {
+    transition: 0.5s;
+    background: url("../images/dovvom.png") no-repeat center center;
+    background-size: 86%;
+    height: 60%;
+}
+.content .awards .awards-info-1 .awards-info-two .awards-info-two-img:hover, .content .awards .awards-info-1 .awards-info-three .awards-info-two-img:hover {
+    background-size: 90%;
+}
+.content .awards .awards-info-1 .awards-info-two h4, .content .awards .awards-info-1 .awards-info-three h4 {
+    color: #f5f5f5;
+    font-size: 17.2px;
+}
+.content .awards .awards-info-1 .awards-info-three .awards-info-three-img {
+    transition: 0.5s;
+    background: url("../images/sevvom.png") no-repeat center center;
+    background-size: 86%;
+    height: 60%;
+}
+.content .awards .awards-info-1 .awards-info-three .awards-info-three-img:hover {
+    background-size: 90%;
+}
+.content .awards .awards-info-2 {
+    height: 170px;
+}
+.content .awards .awards-info-2 .awards-info-four, .content .awards .awards-info-2 .awards-info-five {
+    /*background: url("../images/chaharrom.png") no-repeat center 30% ;*/
+    /*background-size: 80%;*/
+}
+.content .awards .awards-info-2 .awards-info-four h5, .content .awards .awards-info-2 .awards-info-five h5 {
+    font-size: 13.5px;
+    color: #0497ec;
+}
+.content .awards .awards-info-2 .awards-info-four .awards-info-four-img, .content .awards .awards-info-2 .awards-info-five .awards-info-four-img {
+    transition: 0.5s;
+    background: url("../images/chaharrom.png") no-repeat center 40%;
+    background-size: 86%;
+    height: 60%;
+}
+.content .awards .awards-info-2 .awards-info-four .awards-info-four-img:hover, .content .awards .awards-info-2 .awards-info-five .awards-info-four-img:hover {
+    background-size: 90%;
+}
+.content .awards .awards-info-2 .awards-info-four h4, .content .awards .awards-info-2 .awards-info-five h4 {
+    font-size: 17.2px;
+    color: #f5f5f5;
+}
+.content .awards .awards-info-2 .awards-info-five {
+    /*background: url("../images/panjom.png") no-repeat center 36% ;*/
+    /*background-size: 80%;*/
+}
+.content .awards .awards-info-2 .awards-info-five .awards-info-five-img {
+    transition: 0.5s;
+    background: url("../images/panjom.png") no-repeat center center;
+    background-size: 86%;
+    height: 60%;
+}
+.content .awards .awards-info-2 .awards-info-five .awards-info-five-img:hover {
+    background-size: 90%;
+}
+.content .timing {
+    margin-bottom: 100px;
+    height: 300px;
+    direction: rtl;
+    color: #f5f5f5;
+}
+.content .timing h4 {
+    font-size: 18.5px;
+}
+.content .timing .timing-item {
+    float: right;
+    position: relative;
+    height: 100px;
+}
+.content .timing .timing-item h4 {
+    color: #f5f5f5;
+    font-size: 15.32px;
+    margin-top: 50px;
+}
+.content .timing .timing-item h5 {
+    color: #0081cb;
+    font-size: 12.2px;
+}
+.content .timing .timing-item.item-1 {
+    top: 120px;
+    right: 138px;
+}
+.content .timing .timing-item.item-2 {
+    top: 98px;
+    right: 250px;
+}
+.content .timing .timing-item.item-3 {
+    top: 120px;
+    right: 376px;
+}
+.content .timing .timing-item.item-4 {
+    top: 28px;
+    right: 478px;
+}
+.content .footer {
+    position: relative;
+    margin: 730px auto 0;
+    height: 800px;
+    border: 1px solid transparent;
+}
+.content .footer .footer-info {
+    margin-top: 210px;
+    height: 320px;
+    color: #f5f5f5;
+    direction: rtl;
+}
+.content .footer .footer-info h4 {
+    font-size: 18.5px;
+}
+.content .footer .footer-info .map {
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.content .footer .footer-info .contact {
+    height: 25px;
+    line-height: 24px;
+    color: #f5f5f5;
+    font-size: 12px;
+    text-align: right;
+}
+.content .footer .footer-info .contact-logo {
+    height: 70px;
+}
+.content .footer .footer-info .contact-logo .sharif-logo {
+    width: 70px;
+    background: url("../images/shariflogo.svg") no-repeat center center;
+    background-size: 80%;
+}
+.content .footer .footer-info .contact-logo .ssc-logo {
+    width: 110px;
+    background: url("../images/ssclogo.svg") no-repeat center center;
+    background-size: 90%;
+}
+.content .footer .footer-info .contact-logo .software-logo {
+    width: 160px;
+    background: url("../images/Logos.png") no-repeat center center;
+    background-size: 90%;
+}
+.content .footer .footer-contact-icon {
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    bottom: 2px;
+}
+.content .footer .footer-contact-icon span {
+    color: #f5f5f5;
+    font-size: 14px;
+}
+.content .footer .copy-right {
+    position: absolute;
+    bottom: -26px;
+    font-size: 14px;
+    color: #f5f5f5;
+    font-family: Nexa;
+}
+@media screen and (min-width: 1370px) {
+    .home-background {
+        background-size: 80%;
+    }
+    .home-background-2 {
+        height: 300px;
+        top: 800px;
+    }
+    .circle-right {
+        top: 840px;
+    }
+    .blur-right {
+        top: 710px;
+    }
+    .circle-left {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        top: 2200px;
+        right: 0px;
+        background: url("../images/CircleCircle.png") no-repeat center center;
+        background-size: cover;
+        transform: rotate(180deg);
+    }
+    .blur-left {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        top: 2100px;
+        right: -300px;
+        background: #0497ec;
+        border-radius: 50%;
+        opacity: 0.08;
+        filter: blur(40px);
+    }
+    .footer-background {
+        height: 460px;
+        top: 2700px;
+    }
+    .time-line-mask {
+        top: 1886px;
+    }
+    .navBar {
+        width: 100%;
+        height: 22px;
+        line-height: 20px;
+    }
+    .navBar .menu {
+        float: right;
+        height: 100%;
+    }
+    .navBar .menu a {
+        text-decoration: none;
+    }
+    .navBar .menu .menu-item {
+        color: #036398;
+        font-size: 12px;
+        float: right;
+        /*border: 1px solid red;*/
+        height: 100%;
+        padding: 0px 12px;
+    }
+    .navBar .menu .menu-item.active {
+        border: 1px solid #036398;
+        border-radius: 4px;
+        color: #eee;
+    }
+    .navBar .left-menu {
+        height: 100%;
+        float: left;
+        width: 40%;
+    }
+    .navBar .left-menu i {
+        font-size: 12px;
+        line-height: initial;
+        vertical-align: top;
+    }
+    .content {
+        margin: 0 auto 5vh;
+        position: relative;
+        width: 82vw;
+    }
+    .content .home .timer {
+        margin: 680px auto 0;
+    }
+    .content .info {
+        margin-top: 100px;
+    }
+    .content .awards .awards-info-1 .awards-info-one {
+        background-size: 70%;
+    }
+    .content .awards .awards-info-1 .awards-info-two, .content .awards .awards-info-1 .awards-info-three {
+        background-size: 58%;
+    }
+    .content .awards .awards-info-1 .awards-info-three {
+        background-size: 58%;
+    }
+    .content .awards .awards-info-2 .awards-info-four, .content .awards .awards-info-2 .awards-info-five {
+        background-size: 60%;
+    }
+    .content .awards .awards-info-2 .awards-info-five {
+        background-size: 60%;
+    }
+    .content .timing {
+        margin-top: 180px;
+    }
+    .content .timing .timing-item.item-1 {
+        top: 118px;
+        right: 206px;
+    }
+    .content .timing .timing-item.item-2 {
+        top: 88px;
+        right: 422px;
+    }
+    .content .timing .timing-item.item-3 {
+        top: 122px;
+        right: 664px;
+    }
+    .content .timing .timing-item.item-4 {
+        top: -12px;
+        right: 868px;
+    }
+    .content .footer {
+        height: 400px;
+    }
+}
