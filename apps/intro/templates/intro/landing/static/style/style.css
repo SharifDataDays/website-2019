@@ -208,13 +208,15 @@ body{
     font-size: 15px;
 }
 .content .awards .awards-info-1 .awards-info-one .awards-info-one-img {
+    position: relative;
+    
     transition: 0.5s;
     background: url("../images/avval.png") no-repeat center center;
-    background-size: 95%;
+    background-size: 80%;
     height: 60%;
 }
-.content .awards .awards-info-1 .awards-info-one .awards-info-one-img:hover {
-    background-size: 100%;
+.content .awards .awards-info-1 .awards-info-one :hover {
+    background-size: 95%;
 }
 .content .awards .awards-info-1 .awards-info-one h4 {
     color: #f5f5f5;
@@ -227,11 +229,11 @@ body{
 .content .awards .awards-info-1 .awards-info-two .awards-info-two-img, .content .awards .awards-info-1 .awards-info-three .awards-info-two-img {
     transition: 0.5s;
     background: url("../images/dovvom.png") no-repeat center center;
-    background-size: 86%;
+    background-size: 65%;
     height: 60%;
 }
 .content .awards .awards-info-1 .awards-info-two .awards-info-two-img:hover, .content .awards .awards-info-1 .awards-info-three .awards-info-two-img:hover {
-    background-size: 90%;
+    background-size: 75%;
 }
 .content .awards .awards-info-1 .awards-info-two h4, .content .awards .awards-info-1 .awards-info-three h4 {
     color: #f5f5f5;
@@ -240,11 +242,11 @@ body{
 .content .awards .awards-info-1 .awards-info-three .awards-info-three-img {
     transition: 0.5s;
     background: url("../images/sevvom.png") no-repeat center center;
-    background-size: 86%;
+    background-size: 65%;
     height: 60%;
 }
 .content .awards .awards-info-1 .awards-info-three .awards-info-three-img:hover {
-    background-size: 90%;
+    background-size: 75%;
 }
 .content .awards .awards-info-2 {
     height: 170px;
@@ -260,11 +262,11 @@ body{
 .content .awards .awards-info-2 .awards-info-four .awards-info-four-img, .content .awards .awards-info-2 .awards-info-five .awards-info-four-img {
     transition: 0.5s;
     background: url("../images/chaharrom.png") no-repeat center 40%;
-    background-size: 86%;
+    background-size: 65%;
     height: 60%;
 }
 .content .awards .awards-info-2 .awards-info-four .awards-info-four-img:hover, .content .awards .awards-info-2 .awards-info-five .awards-info-four-img:hover {
-    background-size: 90%;
+    background-size: 75%;
 }
 .content .awards .awards-info-2 .awards-info-four h4, .content .awards .awards-info-2 .awards-info-five h4 {
     font-size: 17.2px;
@@ -277,11 +279,11 @@ body{
 .content .awards .awards-info-2 .awards-info-five .awards-info-five-img {
     transition: 0.5s;
     background: url("../images/panjom.png") no-repeat center center;
-    background-size: 86%;
+    background-size: 65%;
     height: 60%;
 }
 .content .awards .awards-info-2 .awards-info-five .awards-info-five-img:hover {
-    background-size: 90%;
+    background-size: 75%;
 }
 .content .timing {
     margin-bottom: 100px;
