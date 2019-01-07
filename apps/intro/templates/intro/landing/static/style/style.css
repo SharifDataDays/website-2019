@@ -10,6 +10,15 @@ body{
     margin: 0;
 }
 
+.time-line-vis {
+    margin-top: 20%;
+    height: 100px;
+    height: 1px !important;
+    background-color: #5cbdf5;
+    border-color: #0193e7;
+    border-radius: 45%;
+    box-shadow: 0 0 20px #0081cb;
+}
 
 .home-background {
     position: absolute;
@@ -84,6 +93,7 @@ body{
     left: 0;
     z-index: -1;
 }
+
 .time-line-mask {
     position: absolute;
     width: 100%;
