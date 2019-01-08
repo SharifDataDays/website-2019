@@ -18,6 +18,8 @@ def index(request):
         'teams_count': Team.objects.count(),
     })
 
+def index_2(request):
+    return render(request, 'intro/index_2.html')
 
 def faq(request):
     return render(request, 'intro/faq.html')

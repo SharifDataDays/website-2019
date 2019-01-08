@@ -1,0 +1,232 @@
+.section {
+    height: auto;
+    width: 100vw !important;
+    padding-bottom: 50px !important;
+}
+
+.odd {
+    background-color: #F0F0F0;
+}
+
+.even {
+    background-color: #ffffff;
+}
+
+.odd.banner.section {
+    background-image: url("/static/intro/image/banner-background.png");
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: 15;
+}
+
+.banner.text.image.bidi {
+    height: 100vh;
+    z-index: 1;
+}
+
+.banner.text.image {
+    height: 100vh;
+    z-index: 1;
+    -webkit-clip-path: inset(20px 0 20px 0);
+    clip-path: inset(20px 0 20px 0);
+}
+
+.section.header {
+    height: auto !important;
+    text-align: center;
+    z-index: -1;
+}
+
+#history-text, history-video {
+
+}
+
+#video {
+    -webkit-clip-path: inset(0 45px 0 45px);
+    clip-path: inset(0 45px 0 45px);
+}
+
+.circle {
+    width: 167px;
+    height: 167px;
+
+    border-radius: 50%;
+    background-size:cover !important;
+
+    font-weight:bold;
+
+    font-size: 20px;
+    color: #fff;
+    line-height: 65px;
+    text-align: center;
+    background: #ff43d8;
+    margin: 42px;
+    padding-top: 10px;
+}
+
+.circle a {
+    line-height: 65px;
+    font-size: 60px;
+    color: #fff;
+}
+
+.circle#purple a {
+    -webkit-text-stroke: 2px #6d144e;
+}
+
+.circle#yellow a {
+    -webkit-text-stroke: 2px #e29234;
+}
+
+.circle#blue a {
+    -webkit-text-stroke: 2px #659d97;
+}
+
+.circle#purple {
+    background-image: url("/static/intro/image/square_red.png");
+    /*-webkit-text-stroke: 1px #6d144e;*/
+    /*background: #7D184F;*/
+    color: #FFF;
+}
+
+.circle#yellow {
+    background-image: url("/static/intro/image/square_yellow.png");
+    /*-webkit-text-stroke: 1px #d2d2d2;*/
+    /*background: #E29234;*/
+    color: #FFF;
+}
+
+.circle#blue {
+    background-image: url("/static/intro/image/square_blue.png");
+    /*-webkit-text-stroke: 1px #659d97;*/
+    /*background: #68ACBF;*/
+    color: #FFF;
+}
+
+.aic18-stamp {
+    --scale-factor: 3px;
+    --scale-factor_npx: 3;
+    --scale-factor_prc: 3%;
+    position: fixed;
+    margin-top: -40% !important;
+    margin-left: -15% !important;
+
+    width: 300px;
+
+    line-height: calc(13*var(--scale-factor));
+    height: calc(17*var(--scale-factor));
+
+    border-radius: calc(2*var(--scale-factor));
+    border: calc(1.5*var(--scale-factor)) solid;
+
+    text-transform: uppercase;
+    font-size: calc(10*var(--scale-factor));
+    letter-spacing: calc(-0.3*var(--scale-factor));
+
+    -ms-transform: rotate(-35deg);
+    -webkit-transform: rotate(-35deg);
+    transform: rotate(-35deg);
+    opacity: 1;
+
+    background: -webkit-linear-gradient(45deg, #59648c, #a4d4d3, #eab05f, #efc35f, #991e38, #f19681);
+    background: linear-gradient(45deg, #59648c, #a4d4d3, #eab05f, #efc35f, #991e38, #f19681);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: white;
+
+    -webkit-text-stroke: 4px white;
+    -webkit-text-stroke-color: transparent;
+
+    background-color: white;
+    border-image:url("/static/intro/image/stamp_texture.png") calc(3*var(--scale-factor_npx));
+}
+
+/*.aic18-stamp-back {*/
+    /*--scale-factor: 3px;*/
+    /*--scale-factor_npx: 3;*/
+
+    /*width: 40%;*/
+    /*margin-top: -20% !important;*/
+
+    /*height: calc(17*var(--scale-factor));*/
+
+    /*-ms-transform: rotate(-20deg);*/
+    /*-webkit-transform: rotate(-20deg);*/
+    /*transform: rotate(-20deg);*/
+    /*opacity: 0.9;*/
+
+    /*background: white;*/
+/*}*/
+
+
+/*Counter*/
+.countdown {
+    /*display: block;*/
+    /*position: relative;*/
+    /*clear: both;*/
+    /*height: auto;*/
+    /*padding-top: 100px;*/
+    /*background-size: cover;*/
+}
+
+#clockdiv {
+    display: block;
+    color: #fff;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+}
+
+#clockdiv > div {
+    padding: 10px;
+    border-radius: 3px;
+    display: inline-block;
+    width: 90px;
+}
+
+#clockdiv div > span {
+    padding: 15px;
+    border-radius: 3px;
+    display: inline-block;
+    width: 70px;
+}
+
+.smalltext {
+    padding-top: 5px;
+    font-size: 16px;
+}
+
+
+.days {
+    background-color: #991e38;
+}
+
+.days_div{
+    background-color: #e07384;
+}
+
+.hours {
+    background-color: #de8731;
+}
+
+.hours_div{
+    background-color: #f1cd6e;
+}
+
+.minutes {
+    background-color: #61a6a1;
+}
+
+.minutes_div{
+    background-color: #aad0b9;
+}
+
+.seconds {
+    background-color: #1f5590;
+}
+
+.seconds_div{
+    background-color: #55a8d1;
+}
