@@ -94,8 +94,145 @@
     </section>
     <!--.about-->
 
+    <section class="intro" style="background: #02213d; color: white; text-align: center;">
+	    <br>
+	    <h1 class="header-txt">تا شروع ثبت نام</h1>
+	    <div class="divider">
+		    <img src="{% static 'assets/divider_white.png' %}"/>
+		</div>
+	<div id="clockdiv" class="scroll-reveal">
+	  <div>
+	    <span class="days scroll-reveal"></span>
+	    <div class="smalltext scroll-reveal">روز</div>
+	  </div>
+	  <div>
+	    <span class="hours scroll-reveal"></span>
+	    <div class="smalltext scroll-reveal">ساعت</div>
+	  </div>
+	  <div>
+	    <span class="minutes screll-reveal"></span>
+	    <div class="smalltext scroll-reveal">دقیقه</div>
+	  </div>
+	  <div>
+	    <span class="seconds scroll-reveal"></span>
+	    <div class="smalltext scroll-reveal">ثانیه</div>
+	  </div>
+	</div>
+	<br>
+	<br>
+	<img src="{% static 'assets/time-line.png' %}"/>
+    </section>
 
-    <section id="specials-grid" class="month-specials" data-scroll-reveal="enter from the bottom after 0.9s" style="font-family: Shabnam;">
+<style>
+
+#clockdiv{
+	font-family: Shabnam;
+	color: #fff;
+	display: inline-block;
+	font-weight: 100;
+	text-align: center;
+}
+
+#clockdiv > div{
+	padding: 5px;
+	border-radius: 1px;
+	width: 60px;
+	margin: 10px;
+	border: 1px solid white;
+	background: transparent;
+	display: inline-block;
+	text-align: center;
+}
+
+#clockdiv div > span{
+	border-radius: 1px;
+	width: 40px;
+	height: 40px;
+	padding-top: 7px;
+	padding-bottom: auto;
+	border: 1px solid white;
+	display: inline-block;
+	font-family: Shabnam;
+	font-size: 1.5em;
+}
+
+.smalltext{
+	padding-top: 5px;
+	text-align: center;
+	margin: auto;
+	font-family: Shabnam;
+}
+</style>
+	<script>
+		function toPersianNum( num, dontTrim ) {
+
+    			var i = 0,
+
+        		dontTrim = dontTrim || false,
+
+        		num = dontTrim ? num.toString() : num.toString().trim(),
+        		len = num.length,
+
+        		res = '',
+        		pos,
+
+       			persianNumbers = typeof persianNumber == 'undefined' ?
+            		['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'] :
+            		persianNumbers;
+
+    			for (; i < len; i++)
+       				if (( pos = persianNumbers[num.charAt(i)] ))
+            				res += pos;
+        			else
+            		res += num.charAt(i);
+
+    			return res;
+			}
+
+function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+function initializeClock(id, endtime) {
+  var clock = document.getElementById(id);
+  var daysSpan = clock.querySelector('.days');
+  var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+
+  function updateClock() {
+    var t = getTimeRemaining(endtime);
+
+    daysSpan.innerHTML = toPersianNum(t.days);
+    hoursSpan.innerHTML = toPersianNum(t.hours);
+    minutesSpan.innerHTML = toPersianNum(t.minutes);
+    secondsSpan.innerHTML = toPersianNum(t.seconds);
+
+    if (t.total <= 0) {
+      clearInterval(timeinterval);
+    }
+  }
+
+  updateClock();
+  var timeinterval = setInterval(updateClock, 1000);
+}
+
+var deadline = new Date("Jan 15, 2019 0:0:0");
+initializeClock('clockdiv', deadline);
+</script>
+
+    <section id="specials-grid" class="month-specials" data-scroll-reveal="enter from the bottom after 0.9s" style="font-family: Shabnam; background: white">
         <div class="container">
             <h1 class="header-txt">محتوا</h1>
             <div class="divider">
@@ -323,10 +460,10 @@
                 <!--.contact-info-->
                 <div class="social-icons scroll-reveal" data-duration="1500">
                     <div class="fb-i">
-			    <img src="{% static 'assets/telegram_icon.png' %}" href="t.me/datadays"/>
+			   <a href="https://t.me/datadays_sharif" target="_blank"><img src="{% static 'assets/telegram_icon.png' %}" href="t.me/datadays"/></a>
                     </div>
                     <div class="insta-i">
-			<img src="{% static 'assets/insta_icon.png' %}" href="insta/datadays"/>
+			    <a href="https://instagram.com/datadays_sharif" target="_blank"><img src="{% static 'assets/insta_icon.png' %}" href="insta/datadays"/></a>
                     </div>
                 </div>
                 <!--.social-icons-->
@@ -355,7 +492,7 @@
         .slider .slick-track .slide1{background:url("{% static 'assets/img/hero01.png' %}") no-repeat;background-size:cover;background-position:20% 0%}
         .slider .slick-track .slide1{background:url("{% static 'assets/img/hero01.png' %}") no-repeat;background-size:cover;background-position:20% 0%}
         .category-icons{background-image:url("{% static 'assets/yellow-bg.png' %}");box-shadow:inset 0px 9px 19px -9px rgba(176,145,9,0.62)}
-	.about{padding:3.125rem 0;background:#eeefef url("{% static 'assets/img/beans.png' %}")
+	.about{padding:3.125rem 0;background:white url("{% static 'assets/img/beans.png' %}")
 no-repeat;background-size:90%;background-position:left -6.25rem bottom
 -9.375rem;height:100%}@media print, screen and(min-width:
 40em){.about{padding-bottom:6.25rem;height:80%;background-position:50%
@@ -403,6 +540,9 @@ img.signature{width:9.375rem}}
 	.scroll-reveal{font-family: Shabnam;}
 	p {font-family: Shabnam;}
 	h1, h2, h3, h4, h5, h6 {font-family: Shabnam;}
+	footer .footer-content .social-icons .fb-i, footer .footer-content .social-icons .insta-i{border:1px solid #87baf0;}
+	footer .footer-content .social-icons .fb-i:before, footer .footer-content .social-icons .insta-i:before{background: #87baf0;}
+
     </style>    
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.js"></script>
