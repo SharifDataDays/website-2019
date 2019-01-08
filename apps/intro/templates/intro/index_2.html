@@ -1,4 +1,7 @@
 <!doctype html>
+
+{% load static %}
+
 <html class="no-js" lang="en">
 
 <head>
@@ -11,8 +14,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.css" />
     <script src="https://unpkg.com/scrollreveal@4.0.0-beta.6"></script>
 
-    <link rel="stylesheet" href="assets/fonts/fonts.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/style.css"/>
+    <link rel="stylesheet" href="{% static 'assets/fonts/fonts.css' %}"/>
+    <link rel="stylesheet" type=text/css" href="{% static 'assets/style.css' %}"/>
 
 
 </head>
@@ -116,7 +119,7 @@
             <div class="specials-content">
                 <div class="special">
                     <div class="special-img img-01 scroll-reveal">
-                        <img src="assets/img/data_cleaning.png" />
+			    <img src="{% static 'assets/img/data_cleaning.png' %}" />
                     </div>
                     <div class="special-items spec-01">
                         <h2 class="scroll-reveal" data-origin="top" data-distance="20%">پاکسازی داده</h2>
@@ -127,7 +130,7 @@
                 <!--.special-->
                 <div class="special">
                     <div class="special-img img-02 scroll-reveal">
-                        <img src="assets/img/data_analytics.png" />
+			    <img src="{% static 'assets/img/data_analytics.png' %}" />
                     </div>
                     <div class="special-items spec-02">
                         <h2 class="scroll-reveal" data-origin="top" data-distance="20%">تحلیل داده</h2>
@@ -138,7 +141,7 @@
                 <!--.special-->
                 <div class="special">
                     <div class="special-img img-03 scroll-reveal">
-                        <img src="assets/img/data_discovery.png" />
+			    <img src="{% static 'assets/img/data_discovery.png' %}" />
                     </div>
                     <div class="special-items spec-03">
                         <h2 class="scroll-reveal" data-origin="top" data-distance="20%">کشف حقایق</h2>
@@ -158,7 +161,7 @@
                         <p class="scroll-reveal color-change" data-origin="bottom" data-distance="30%">ابزارهای کار با داده های به بزرگی ۱ گیگابایت را فراهم آورید</p>
                     </div>
                     <div class="special-img img-04 scroll-reveal">
-                        <img src="assets/img/data_bigdata.png" />
+			    <img src="{% static 'assets/img/data_bigdata.png' %}" />
                     </div>
                 </div>
                 <!--.special-->
@@ -169,7 +172,7 @@
                         <p class="scroll-reveal color-change" data-origin="bottom" data-distance="30%">با ابزار بهینه یادگیری ماشین از داده یاد بگیرید تا بتوانید متغیرهای خواسته شده را پیشبینی کنید</p>
                     </div>
                     <div class="special-img img-05 scroll-reveal">
-                        <img src="assets/img/data_machinelearning.png" />
+			    <img src="{% static 'assets/img/data_machinelearning.png' %}" />
                     </div>
                 </div>
                 <!--.special-->
@@ -180,7 +183,7 @@
                         <p class="scroll-reveal color-change" data-origin="bottom" data-distance="30%">با استفاده شبکه‌های عصبی به سراغ یادگیری داده‌‌‌های پیچیده بروید</p>
                     </div>
                     <div class="special-img img-06 scroll-reveal">
-                        <img src="assets/img/data_deeplearning.png" />
+			    <img src="{% static 'assets/img/data_deeplearning.png' %}" />
                     </div>
                 </div>
                 <!--.special-->
@@ -191,7 +194,7 @@
             <div class="specials-content">
                 <div class="special">
                     <div class="special-img img-01 scroll-reveal">
-                       <img src="assets/img/data_machinelearning.png" />
+			    <img src="{% static 'assets/img/data_machinelearning.png' %}" />
                     </div>
                     <div class="special-items spec-01">
                         <h2 class="scroll-reveal" data-origin="top" data-distance="20%">یادگیری ماشین</h2>
@@ -202,7 +205,7 @@
                 <!--.special-->
                 <div class="special">
                     <div class="special-img img-02 scroll-reveal">
-                        <img src="assets/img/data_analytics.png" />
+			    <img src="{% static 'assets/img/data_analytics.png' %}" />
                     </div>
                     <div class="special-items spec-02">
                         <h2 class="scroll-reveal" data-origin="top" data-distance="20%">تحلیل داده</h2>
@@ -213,7 +216,7 @@
                 <!--.special-->
                 <div class="special">
                     <div class="special-img img-03 scroll-reveal">
-                        <img src="assets/img/data_knowledge.png" />
+			    <img src="{% static 'assets/img/data_knowledge.png' %}" />
                     </div>
                     <div class="special-items spec-03">
                         <h2 class="scroll-reveal" data-origin="top" data-distance="20%">تولید دانش</h2>
@@ -228,41 +231,41 @@
     </section>
     <!--.month-specials-->
     
-    <section id="prizes" class="category-icons" style="color: white; background:#02213D url("assets/img/prizes.png");">
+    <section id="prizes" class="category-icons" style="color: white; background:#02213D url("{% static 'assets/img/prizes.png' %}");">
         <br>
         <br>
         <h1 class="header-txt">جوایز</h1>
         <div class="divider">
-            <img src="assets/divider_white.png">
+		<img src="{% static 'assets/divider_white.png' %}">
         </div>
         <!--.divider-->
         <div class="container">
             <div class="yellow-content">
                 <div class="icon">
-                    <img class="scroll-reveal" data-origin="top" data-distance="20%" src="assets/3.png" />
+			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/3.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">سه میلیون تومان</h3>
                     <p class="scroll-reveal" data-distance="0" data-duration="500">جایزه تیم سوم</p>
                 </div>
                 <div class="icon">
-                    <img class="scroll-reveal" data-origin="top" data-distance="20%" src="assets/1.png" />
+			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/1.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">هفت میلیون تومان</h3>
                     <p class="scroll-reveal" data-distance="0" data-duration="700">جایزه تیم اول</p>
                 </div>
                 <div class="icon">
-                    <img class="scroll-reveal" data-origin="top" data-distance="20%" src="assets/2.png" />
+			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/2.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">پنج میلیون تومان</h3>
                     <p class="scroll-reveal" data-distance="0" data-duration="900">جایزه تیم دوم</p>
                 </div>
             </div>
              <div class="yellow-content" style="position: relative; top:-100px;">
                 <div class="icon">
-                    <img class="scroll-reveal" data-origin="top" data-distance="20%" src="assets/4_10.png" />
+			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/4_10.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">دو میلیون تومان</h3>
                     <p class="scroll-reveal" data-distance="0" data-duration="700">دو تیم از بین تیم‌های ۴ تا ۱۰</p>
                 </div>
                 <div class="icon"></div>
                 <div class="icon">                                                                                                                                                            
-                    <img class="scroll-reveal" data-origin="top" data-distance="20%" src="assets/11_20.png" />
+			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/11_20.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">یک میلیون تومان</h3>
                    <p class="scroll-reveal" data-distance="0" data-duration="900">دو تیم از بین تیم‌های ۱۱ تا ۲۰</p>
                </div>
@@ -357,7 +360,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.0.2/what-input.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
-    <script src="js/app.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.js"></script>
     <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
 
