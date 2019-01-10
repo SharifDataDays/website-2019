@@ -1,57 +1,22 @@
-{% load static %}
-{% load i18n %}
-{% get_current_language_bidi as LANGUAGE_BIDI %}
-
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    <title>{% block head_title %}AI Challenge 2018{% endblock %}</title>
-    <meta name="description"
-          content="{% block head_description %}{% endblock %}">
-    <meta content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="fontiran.com:license" content="RC4QT">
-    <link rel="stylesheet" href="
-            {% if LANGUAGE_BIDI %}{% static 'semantic/semantic.rtl.min.css' %}{% else %}{% static 'semantic/semantic.min.css' %}{% endif %}">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'semantic/semantic.min.js' %}"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
-
-    {% block extra_header %}{% endblock %}
-</head>
-<body {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
-{% block sidebar %}
-    {% include 'base/sidebar.html' %}
-{% endblock %}
-{% block body %}
-    <div class="pusher">
-    <div id="main">
-    {% block header %}
-        {% include 'base/header.html' %}
-    {% endblock %}
-
-    {% block navbar %}
-        {% include 'base/navbar.html' %}
-    {% endblock %}
-
-    {% block content %}
-        <div class="ui container">
-            {% block container %}
-
-            {% endblock %}
+<div class="container">
+  <div class="header-content">
+    <div class="top-menu  scroll-reveal">
+      <div class="menu">
+        <div class="title-bar" data-responsive-toggle="main-nav" data-hide-for="medium">
+          <button class="menu-icon dark" type="button" data-toggle="main-nav"></button>
+          <div class="title-bar-title">Menu</div>
         </div>
-    {% endblock %}
-
-    {% block footer %}
-        {% include 'base/footer.html' %}
-    {% endblock %}
-{% endblock %}
+        <nav id="main-nav" data-animate="menu-in menu-out">
+          <ul class="main-navigation">
+            <li><a class="m-anim" style="color: white;" href="#contact-us" data-text="تماس با ما">تماس با ما </a></li>
+            <li><a class="m-anim" style="color: white;" href="#timeline" data-text="تایملاین">تایملاین</a></li>
+            <li><a class="m-anim" style="color: white;" href="#about-us" data-text="About">درباره ما</a></li>
+            <li><a class="m-anim" style="color: white;" href="#prizes" data-text="جوایز">جوایز</a></li>
+            <li><a class="m-anim" style="color: white;" href="#specials-grid" data-text="محتوا">محتوا</a></li><li><a class="m-anim" style="color: white;" href="#intro" data-text="معرفی">معرفی</a></li>
+            <li><a class="m-anim" style="color: white;" href="#" data-text="خانه">خانه</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-<script src="{% static 'js/jquery.inview.min.js' %}"></script>
-<script src="{% static 'js/footer_scripts.js' %}"></script>
-{% block footer_scripts %}{% endblock %}
-</body>
-</html>
-
