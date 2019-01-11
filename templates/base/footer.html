@@ -1,25 +1,33 @@
-{% load i18n %}
-<div class="ui borderless fluid stackable attached segment center aligned" id="footer">
-    <div style="margin-left: auto; margin-right: auto;">
-        <a class="ui icon telegram button" href="https://t.me/aichallenge">
-            <i class="telegram icon"></i>
-        </a>
-        <a class="ui icon instagram button" href="https://www.instagram.com/aichallenge/">
-            <i class="instagram icon"></i>
-        </a>
+{% load static %}
 
-        <a class="ui icon twitter button" href="https://twitter.com/aichallenge">
-            <i class="twitter icon"></i>
-        </a>
-        <a class="ui icon linkedin button"
-           href="https://www.linkedin.com/showcase/sharif-ai-challenge/">
-            <i class="linkedin icon"></i>
-        </a>
-        <div class="horizonal divider"></div>
-        <div class="ui grey label">
-	{% blocktrans %}
-            © All rights reserved for <a href=\"http://ssc.ce.sharif.edu">Students' Scientific Chapter (SSC)</a>, 2018
-	{% endblocktrans %}
+<footer id="contact-us" style="color: white;">
+        <div class="container">
+            <div class="footer-content">
+                <h1 class="header-txt scroll-reveal">تماس با ما</h1>
+		<img src="{% static 'assets/divider_white.png' %}">
+                <!--.divider-->
+                <div class="contact-info scroll-reveal">
+                    <div class="info-address">
+                        <h3>آدرس</h3>
+                        <p>تهران، خیابان آزادی<br>خیابان حبیب‌الله، میدان تیموری</p>
+                    </div>
+                    <div class="reservations">
+                        <h3>ایمیل</h3>
+                        <p>datadays@sharif.edu</p>
+                    </div>
+                </div>
+                <!--.contact-info-->
+                <div class="social-icons scroll-reveal" data-duration="1500">
+                    <div class="fb-i">
+			   <a href="https://t.me/datadays_sharif" target="_blank"><img src="{% static 'assets/telegram_icon.png' %}" href="t.me/datadays"/></a>
+                    </div>
+                    <div class="insta-i">
+			    <a href="https://instagram.com/datadays_sharif" target="_blank"><img src="{% static 'assets/insta_icon.png' %}" href="insta/datadays"/></a>
+                    </div>
+                </div>
+                <!--.social-icons-->
+            </div>
+            <!--.footer-content-->
         </div>
-    </div>
-</div>
+        <!--.container-->
+</footer>

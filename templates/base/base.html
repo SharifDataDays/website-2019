@@ -1,6 +1,5 @@
 {% load static %}
 {% load i18n %}
-{% get_current_language_bidi as LANGUAGE_BIDI %}
 
 <!DOCTYPE html>
 <html lang="fa">
@@ -18,9 +17,19 @@
     <script type="text/javascript" src="{% static 'semantic/semantic.min.js' %}"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
 
-    {% block extra_header %}{% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> DATADAYS </title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.css" />
+    <script src="https://unpkg.com/scrollreveal@4.0.0-beta.6"></script>
+
+    <link rel="stylesheet" href="{% static 'assets/fonts/fonts.css' %}"/>
+    <link rel="stylesheet" type=text/css" href="{% static 'assets/style.css' %}"/>
 </head>
-<body {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<body>
 {% block sidebar %}
     {% include 'base/sidebar.html' %}
 {% endblock %}
@@ -51,6 +60,10 @@
 </div>
 <script src="{% static 'js/jquery.inview.min.js' %}"></script>
 <script src="{% static 'js/footer_scripts.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.0.2/what-input.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
+<script src="{% static 'js/app.js' %}"></script>
 {% block footer_scripts %}{% endblock %}
 </body>
 </html>
