@@ -5,6 +5,7 @@ from apps.game.models import Competition
 
 
 def menu(request):
+    return {}
     context = {
         'ai': {
             'navbar': {
