@@ -12,11 +12,13 @@ DATABASES = {
         'PORT': 5432,
     }
 }
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.com'
-EMAIL_HOST_USER = 'info@aichallenge.ir'
-DEFAULT_FROM_EMAIL = 'info@aichallenge.ir'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'datadays.sharif@gmail.com'
+EMAIL_HOST_PASSWORD = 'eybabatorochikarkonamdige'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'datadays@sharif.edu'
 INFRA_IP = '144.202.6.232'
 INFRA_PORT = '8000'
 INFRA_URL = 'http://{}:{}'.format(INFRA_IP, INFRA_PORT)
@@ -26,3 +28,5 @@ SECURE_PROXY_SSL_HEADER = None
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
+
+

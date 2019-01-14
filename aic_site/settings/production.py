@@ -34,3 +34,10 @@ CACHES = {
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'datadays.sharif@gmail.com'
+EMAIL_HOST_PASSWORD = 'eybabatorochikarkonamdige'
+EMAIL_PORT = 587

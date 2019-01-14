@@ -8,11 +8,12 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> DATADAYS </title>
+    <title> DATA DAYS 2019 </title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/favicon.png' %}"/>
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.css" />
-    <script src="https://unpkg.com/scrollreveal@4.0.0-beta.6"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
 
     <link rel="stylesheet" href="{% static 'assets/fonts/fonts.css' %}"/>
     <link rel="stylesheet" type=text/css" href="{% static 'assets/style.css' %}"/>
@@ -33,13 +34,13 @@
 
                         <nav id="main-nav" data-animate="menu-in menu-out">
                             <ul class="main-navigation">
-                                <li><a class="m-anim" style="color: white;" href="#contact-us" data-text="تماس با ما">تماس با ما </a></li>
-                                <li><a class="m-anim" style="color: white;" href="#timeline" data-text="تایملاین">تایملاین</a></li>
-                                <li><a class="m-anim" style="color: white;" href="#about-us" data-text="About">درباره ما</a></li>
-                                <li><a class="m-anim" style="color: white;" href="#prizes" data-text="جوایز">جوایز</a></li>
-                                <li><a class="m-anim" style="color: white;" href="#specials-grid" data-text="محتوا">محتوا</a></li>
-                                <li><a class="m-anim" style="color: white;" href="#intro" data-text="معرفی">معرفی</a></li>
-                                <li><a class="m-active" style="color: white;" href="#" data-text="خانه">خانه</a></li>
+                                <li><a class="m-anim" style="color: white;" href="#contact-us">تماس با ما </a></li>
+				<li><a class="m-anim" style="color: white;" href="#about-us">درباره ما</a></li>
+                                <li><a class="m-anim" style="color: white;" href="#prizes">جوایز</a></li>
+                                <li><a class="m-anim" style="color: white;" href="#specials-grid">محتوا</a></li>
+				<li><a class="m-anim" style="color: white;" href="#timeline">گاه‌شمار</a></li>
+                                <li><a class="m-anim" style="color: white;" href="#intro">معرفی</a></li>
+				<li><a class="m-active" style="color: white;" href="#">خانه</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -94,7 +95,7 @@
     </section>
     <!--.about-->
 
-    <section class="intro" style="background: #02213d; color: white; text-align: center;">
+    <section class="intro" id="timeline" style="background: #011C37; color: white; text-align: center;">
 	    <br>
 	    <h1 class="header-txt">تا شروع ثبت نام</h1>
 	    <div class="divider">
@@ -142,7 +143,11 @@
 	background: transparent;
 	display: inline-block;
 	text-align: center;
+	transition: 0.5s ease;
 }
+
+
+#clockdiv > div:hover{transform:scale(1.2);}
 
 #clockdiv div > span{
 	border-radius: 1px;
@@ -252,6 +257,7 @@ initializeClock('clockdiv', deadline);
                                 </svg>
             </div>
             <!--.divider-->
+	    <div class="hover-scale-2">
             <div class="header-txt" style="font-size: 1.3em; border-bottom: 1px solid #494949">مرحله اول</div>
             <div class="specials-content">
                 <div class="special">
@@ -288,7 +294,8 @@ initializeClock('clockdiv', deadline);
                 </div>
                 <!--.special-->
             </div>
-               
+	    </div>   
+	    <div class="hover-scale-2">
             <div class="header-txt" style="font-size: 1.3em; border-bottom: 1px solid #494949">مرحله دوم</div>
             <div class="specials-content">
                 <div class="special">
@@ -326,7 +333,8 @@ initializeClock('clockdiv', deadline);
                 <!--.special-->
             </div>                
             <!--.specials-content-->
-            
+	    </div>
+	    <div class="hover-scale-2">
             <div class="header-txt" style="font-size: 1.3em; border-bottom: 1px solid #494949">مرحله حضوری</div>
             <div class="specials-content">
                 <div class="special">
@@ -363,7 +371,9 @@ initializeClock('clockdiv', deadline);
                </div>
                 <!--.special-->
             </div>
+	    </div>
         </div>
+	<style> .hover-scale-2{transition: 0.5s ease;-webkit-transition: 0.5s ease;}.hover-scale-2:hover{transform:scale(1.01);} </style>
         <!--.container-->
     </section>
     <!--.month-specials-->
@@ -378,30 +388,30 @@ initializeClock('clockdiv', deadline);
         <!--.divider-->
         <div class="container">
             <div class="yellow-content">
-                <div class="icon">
+                <div class="icon hover-scale">
 			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/3.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">سه میلیون تومان</h3>
                     <p class="scroll-reveal" data-distance="0" data-duration="500">جایزه تیم سوم</p>
                 </div>
-                <div class="icon">
+                <div class="icon hover-scale">
 			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/1.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">هفت میلیون تومان</h3>
                     <p class="scroll-reveal" data-distance="0" data-duration="700">جایزه تیم اول</p>
                 </div>
-                <div class="icon">
+                <div class="icon hover-scale">
 			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/2.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">پنج میلیون تومان</h3>
                     <p class="scroll-reveal" data-distance="0" data-duration="900">جایزه تیم دوم</p>
                 </div>
             </div>
              <div class="yellow-content" style="position: relative; top:-100px;">
-                <div class="icon">
+                <div class="icon hover-scale">
 			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/4_10.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">دو میلیون تومان</h3>
                     <p class="scroll-reveal" data-distance="0" data-duration="700">دو تیم از بین تیم‌های ۴ تا ۱۰</p>
                 </div>
                 <div class="icon"></div>
-                <div class="icon">                                                                                                                                                            
+                <div class="icon hover-scale">                                                                                                                                                            
 			<img class="scroll-reveal" data-origin="top" data-distance="20%" src="{% static 'assets/11_20.png' %}" />
                     <h3 class="scroll-reveal" data-origin="top" data-distance="20%">یک میلیون تومان</h3>
                    <p class="scroll-reveal" data-distance="0" data-duration="900">دو تیم از بین تیم‌های ۱۱ تا ۲۰</p>
@@ -409,6 +419,7 @@ initializeClock('clockdiv', deadline);
            </div>
         <!--.yellow-content-->
         </div>
+	<style> .hover-scale{transition:0.5s ease;-webkit-transition: 0.5s ease;}.hover-scale:hover{transform:scale(1.2);} </style>
         <!--.container-->
     </section>
     <!--.category-icons-->
@@ -465,14 +476,14 @@ initializeClock('clockdiv', deadline);
                     <div class="insta-i">
 			    <a href="https://instagram.com/datadays_sharif" target="_blank"><img src="{% static 'assets/insta_icon.png' %}" href="insta/datadays"/></a>
                     </div>
-                </div>
                 <!--.social-icons-->
-            </div>
             <!--.footer-content-->
-        </div>
+		</div>
+	</div>
+	</div>
         <!--.container-->
     </footer>
-
+<!--
     <div id="preloader">
         <div class="loader">
             <span></span>
@@ -481,10 +492,10 @@ initializeClock('clockdiv', deadline);
             <span></span>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.0.2/what-input.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
+    --!>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.0.2/what-input.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
     <script src="{% static 'js/app.js' %}"></script>
     
 
@@ -542,17 +553,21 @@ img.signature{width:9.375rem}}
 	h1, h2, h3, h4, h5, h6 {font-family: Shabnam;}
 	footer .footer-content .social-icons .fb-i, footer .footer-content .social-icons .insta-i{border:1px solid #87baf0;}
 	footer .footer-content .social-icons .fb-i:before, footer .footer-content .social-icons .insta-i:before{background: #87baf0;}
-
+	@media screen and (max-width: 39.9375em)
+.menu .main-navigation {
+    padding-top: .375rem;
+    background-color: #011c37;
+}
+	.tito {text-shadow: 0 0 6px #011c37;}
     </style>    
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.js"></script>
-    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.js"></script>
 
     <script type="text/javascript">
         $('.slider').slick({
             infinite: true,
             autoplay: true,
-            autoplaySpeed: 3500,
+            autoplaySpeed: 4000,
             arrows: false,
             fade: true,
             cssEase: 'linear'

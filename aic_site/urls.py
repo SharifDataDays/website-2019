@@ -26,7 +26,7 @@ from apps.billing import urls as billing_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include(intro_urls)),
+    url(r'^$', include(intro_urls)),
 
     url(r'^accounts/password_reset/$', auth_views.password_reset, name='password_reset'),
     url(r'^accounts/password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
@@ -40,8 +40,9 @@ urlpatterns = [
     url(r'^articles/comments/', include('django_comments.urls')),
     url(r'^tinymce/filebrowser/', include('zinnia_tinymce.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^billing/', include(billing_urls))
-]
+    url(r'^billing/', include(billing_urls)),
+    ]
+
 
 if settings.DEBUG:
     from django.conf.urls.static import static
