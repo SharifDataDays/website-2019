@@ -5,21 +5,21 @@ from apps.game.models import Competition
 
 
 def menu(request):
-    return {}
     context = {
         'ai': {
+            'test': reverse('accounts:panel'),
             'navbar': {
-                _('Home'): {
-                    'dropdown': {
-                        _('Main Page'): reverse('intro:index'),
+              #  _('Home'): {
+              #      'dropdown': {
+                        _('Main Page'): "index/",# reverse('intro:index'),
                         _('Introduction'): reverse('intro:index') + '#section-intro',
                         _('Prize'): reverse('intro:index') + '#section-prizes',
                         _('History'): reverse('intro:index') + "#section-history",
                         _('Schedule'): reverse('intro:index') + '#section-schedule',
                         _('FAQ'): reverse('intro:faq'),
                         _('Contact Us'): reverse('intro:index') + '#section-organizer',
-                    }
-                },
+              #      }
+              #  },
                 _('Access'): {
                     'dropdown': {
                         _('Panel'): reverse('accounts:panel'),

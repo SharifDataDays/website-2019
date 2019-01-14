@@ -1,22 +1,29 @@
-<div class="container" style="background-color: {% if request.path != '/index_2' %}rgb(9,33,52){% endif %};">
-  <div class="header-content">
-    <div class="top-menu  scroll-reveal">
-      <div class="menu">
-        <div class="title-bar" data-responsive-toggle="main-nav" data-hide-for="medium">
-          <button class="menu-icon dark" type="button" data-toggle="main-nav"></button>
-          <div class="title-bar-title">Menu</div>
-        </div>
-        <nav id="main-nav" data-animate="menu-in menu-out">
-          <ul class="main-navigation">
-            <li><a class="m-anim" style="color: white;" href="#contact-us" data-text="تماس با ما"> تماس با ما </a></li>
-            <li><a class="m-anim" style="color: white;" href="#timeline" data-text="تایملاین">تایملاین</a></li>
-            <li><a class="m-anim" style="color: white;" href="#about-us" data-text="About">درباره ما</a></li>
-            <li><a class="m-anim" style="color: white;" href="#prizes" data-text="جوایز">جوایز</a></li>
-            <li><a class="m-anim" style="color: white;" href="#specials-grid" data-text="محتوا">محتوا</a></li><li><a class="m-anim" style="color: white;" href="#intro" data-text="معرفی">معرفی</a></li>
-            <li><a class="{% if request.path == '/index_2' %}m-active{% else %}m-anim{% endif %}" style="color: white;" href="#" data-text="خانه">خانه</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </div>
+{% load static %}
+<div class="container" style="background: {% if request.path != '/index_2' %} url({% static 'images/header.png' %}); {% endif %} width: 100vw; height: 4em;">
+    <div class="header-content">
+        <div class="top-menu  scroll-reveal">
+            <div class="menu">
+                <div class="title-bar" data-responsive-toggle="main-nav" data-hide-for="medium">
+                    <button class="menu-icon dark" type="button" data-toggle="main-nav"></button>
+	            <div class="title-bar-title">گزینه‌ها</div>
+                </div>
+                <nav id="main-nav" data-animate="menu-in menu-out">
+	            <ul class="main-navigation">
+		        {% for title, link in ai.navbar.items %}
+		            <li><a class="{% if link.active %} m-active {% else %} m-anim {% endif %}" style="color: white;" href="{{ link.address }}">{{ title }}</a></li>
+		        {% endfor %}
+		        {% if request.user.is_authenticated %}
+		            <li><a class="m-anim" href="{% url 'accounts:panel' %}" id="panel-button">پنل کاربری</a></li>
+		            <li><a class="m-anim" href="{% url 'accounts:logout' %}">خروج</a></li>
+		        {% else %}
+		            <li><a class="m-anim" href="{% url 'accounts:login' %}">ورود</a></li>
+		            <li><a class="m-anim" href="{% url 'accounts:signup' %}">ثبت‌نام</a></li>
+		        {% endif %}
+                    </ul>
+                </nav>
+           </div>
+       </div>
+   </div>
 </div>
+
+{{ ai.test }}

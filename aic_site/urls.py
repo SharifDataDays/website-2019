@@ -26,7 +26,7 @@ from apps.billing import urls as billing_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', include(intro_urls)),
+    url(r'^', include(intro_urls)),
 
     url(r'^accounts/password_reset/$', auth_views.password_reset, name='password_reset'),
     url(r'^accounts/password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
