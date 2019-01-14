@@ -63,7 +63,7 @@ class SignUpForm(UserCreationForm):
 
             send_mail(subject='Activate Your Account',
                       message=email_text,
-                      from_email='Sharif AI Challenge <info@aichallenge.ir>',
+                      from_email='DataDays <datadays@sharif.edu>',
                       recipient_list=[user.email],
                       fail_silently=False,
                       html_message=email_html

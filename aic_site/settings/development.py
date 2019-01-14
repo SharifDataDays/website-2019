@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = True
-ALLOWED_HOSTS = ['datadays.sharif.edu', 'datadays.sharif.ir']
+ALLOWED_HOSTS += ['datadays.sharif.edu', 'datadays.sharif.ir']
 
 INSTALLED_APPS += [
 
@@ -39,3 +39,11 @@ try:
 except Exception as e:
 	pass
 
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'datadays.sharif@gmail.com'
+EMAIL_HOST_PASSWORD = 'eybabatorochikarkonamdige'
+EMAIL_PORT = 587
