@@ -120,7 +120,7 @@
                                 </svg>
                 </div>
                 <!--.divider-->
-                <p class="scroll-reveal" data-origin="top" data-distance="10%" style="font-size: 1.2em">اولین رویداد علوم داده دانشگاه شریف، یک رقابت چند مرحله‌ای آموزشی است که مهمترین هدف آن، گسترش آموزش و ایجاد علاقه‌مندی در این حوزه به همراه محک زدن سطح دانش علوم داده در جامعه علمی ایران است. این رویداد با همکاری جمعی از دانشجویان دانشکده مهندسی کامپیوتر و با پشتیبانی اساتید پیشگام در این حوزه طراحی شده‌ است. مسائل این رقابت به گونه‌ای است که شرکت‌کنندگان با هر سطحی از دانش مبتدی تا متخصص بتوانند آورده‌ای از مسابقات داشته باشند.</p>
+                <p class="scroll-reveal" data-origin="top" data-distance="10%">اولین رویداد علوم داده دانشگاه شریف، یک رقابت چند مرحله‌ای آموزشی است که مهمترین هدف آن، گسترش آموزش و ایجاد علاقه‌مندی در این حوزه به همراه محک زدن سطح دانش علوم داده در جامعه علمی ایران است. این رویداد با همکاری جمعی از دانشجویان دانشکده مهندسی کامپیوتر و با پشتیبانی اساتید پیشگام در این حوزه طراحی شده‌ است. مسائل این رقابت به گونه‌ای است که شرکت‌کنندگان با هر سطحی از دانش مبتدی تا متخصص بتوانند آورده‌ای از مسابقات داشته باشند.</p>
             </div>
         </div>
         <!--.container-->
@@ -134,19 +134,19 @@
 		</div>
 	<div id="clockdiv" class="scroll-reveal" style="direction: ltr">
 	  <div>
-	    <span class="days scroll-reveal">۰</span>
+	    <span class="days scroll-reveal"></span>
 	    <div class="smalltext scroll-reveal">روز</div>
 	  </div>
 	  <div>
-	    <span class="hours scroll-reveal">۰</span>
+	    <span class="hours scroll-reveal"></span>
 	    <div class="smalltext scroll-reveal">ساعت</div>
 	  </div>
 	  <div>
-	    <span class="minutes screll-reveal">۰</span>
+	    <span class="minutes screll-reveal"></span>
 	    <div class="smalltext scroll-reveal">دقیقه</div>
 	  </div>
 	  <div>
-	    <span class="seconds scroll-reveal">۰</span>
+	    <span class="seconds scroll-reveal"></span>
 	    <div class="smalltext scroll-reveal">ثانیه</div>
 	  </div>
 	</div>
@@ -155,8 +155,7 @@
 	<div>
 		<div class="scroll-reveal" style="text-align: center; color: white;"><p>مسابقه در قالب تیم‌های سه‌نفره صورت می‌پذیرد. ابتدا به صورت فردی ثبت‌نام کنید و سپس از طریق پنل کاربری تیم خود را تشکیل دهید.</p></div>
 		<br>
-		<br>
-		<a href="accounts/signup"><h1 class="signup-link">همین حالا ثبت‌نام کنید</h1></a>
+		<!--	<a href="accounts/signup"><h1 class="signup-link">همین حالا ثبت‌نام کنید</h1></a> --!>
 	<br>
 	</div>
 	<img src="{% static 'assets/time-line.png' %}"/>
@@ -206,8 +205,61 @@
 	margin: auto;
 	font-family: Shabnam;
 }
-html{font-size: 1em;}
 </style>
+	<script>
+		function toPersianNum( num, dontTrim ) {
+    			var i = 0,
+        		dontTrim = dontTrim || false,
+        		num = dontTrim ? num.toString() : num.toString().trim(),
+        		len = num.length,
+        		res = '',
+        		pos,
+       			persianNumbers = typeof persianNumber == 'undefined' ?
+            		['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'] :
+            		persianNumbers;
+    			for (; i < len; i++)
+       				if (( pos = persianNumbers[num.charAt(i)] ))
+            				res += pos;
+        			else
+            		res += num.charAt(i);
+    			return res;
+			}
+function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+function initializeClock(id, endtime) {
+  var clock = document.getElementById(id);
+  var daysSpan = clock.querySelector('.days');
+  var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+  function updateClock() {
+    var t = getTimeRemaining(endtime);
+    daysSpan.innerHTML = toPersianNum(t.days);
+    hoursSpan.innerHTML = toPersianNum(t.hours);
+    minutesSpan.innerHTML = toPersianNum(t.minutes);
+    secondsSpan.innerHTML = toPersianNum(t.seconds);
+    if (t.total <= 0) {
+      clearInterval(timeinterval);
+    }
+  }
+  updateClock();
+  var timeinterval = setInterval(updateClock, 1000);
+}
+var deadline = new Date("Jan 15, 2019 19:0:0");
+initializeClock('clockdiv', deadline);
+</script>
     <section id="specials-grid" class="month-specials" data-scroll-reveal="enter from the bottom after 0.9s" style="font-family: Shabnam; background: white">
         <div class="container">
             <h1 class="header-txt">محتوای مسابقه</h1>

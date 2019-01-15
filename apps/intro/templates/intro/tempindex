@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
     <link rel="stylesheet" href="{% static 'assets/fonts/fonts.css' %}"/>
     <link rel="stylesheet" type=text/css" href="{% static 'assets/style.css' %}"/>
+
     <link rel="stylesheet" href="
             {% if LANGUAGE_BIDI %}{% static 'semantic/semantic.rtl.min.css' %}{% else %}{% static 'semantic/semantic.min.css' %}{% endif %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
@@ -28,10 +29,14 @@
     <script type="text/javascript" src="{% static 'semantic/semantic.min.js' %}"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
     {% block extra_header %}{% endblock %}
+
+
 </head>
+
 <body>
 	<div style="text-align: center; width: 80vw">
 <div class="ui attached inverted sticky borderless menu navbar-color" id="navbar" style="direction: rtl; position: fixed; top: 0; left: 0; z-index: 999; width: 100%; height: 2em; color: white;">
+
 	<div style="display: inline-block; width: 5%;"></div>
     {% for title, link in ai.navbar.items %}
         {% if not link.dropdown %}
@@ -49,6 +54,7 @@
         {% endif %}
     {% endfor %}
 	<div style="display: inline-block; width: 5%;"></div>
+
     <div class="right menu" id="right-navbar">
         <div class="ui dropdown fitted item">
 		<div style="display: inline-block; width: 5%;"></div>
@@ -98,6 +104,7 @@
                 </div>
             </div>
         </div>
+
     </header>
     <section id="intro" class="about">
         <div class="container">
@@ -120,12 +127,13 @@
                                 </svg>
                 </div>
                 <!--.divider-->
-                <p class="scroll-reveal" data-origin="top" data-distance="10%" style="font-size: 1.2em">اولین رویداد علوم داده دانشگاه شریف، یک رقابت چند مرحله‌ای آموزشی است که مهمترین هدف آن، گسترش آموزش و ایجاد علاقه‌مندی در این حوزه به همراه محک زدن سطح دانش علوم داده در جامعه علمی ایران است. این رویداد با همکاری جمعی از دانشجویان دانشکده مهندسی کامپیوتر و با پشتیبانی اساتید پیشگام در این حوزه طراحی شده‌ است. مسائل این رقابت به گونه‌ای است که شرکت‌کنندگان با هر سطحی از دانش مبتدی تا متخصص بتوانند آورده‌ای از مسابقات داشته باشند.</p>
+                <p class="scroll-reveal" data-origin="top" data-distance="10%">اولین رویداد علوم داده دانشگاه شریف، یک رقابت چند مرحله‌ای آموزشی است که مهمترین هدف آن، گسترش آموزش و ایجاد علاقه‌مندی در این حوزه به همراه محک زدن سطح دانش علوم داده در جامعه علمی ایران است. این رویداد با همکاری جمعی از دانشجویان دانشکده مهندسی کامپیوتر و با پشتیبانی اساتید پیشگام در این حوزه طراحی شده‌ است. مسائل این رقابت به گونه‌ای است که شرکت‌کنندگان با هر سطحی از دانش مبتدی تا متخصص بتوانند آورده‌ای از مسابقات داشته باشند.</p>
             </div>
         </div>
         <!--.container-->
     </section>
     <!--.about-->
+
     <section class="intro" id="timeline" style="background: #011C37; color: white; text-align: center; direction: rtl">
 	    <br>
 	    <h1 class="header-txt">تا شروع ثبت نام</h1>
@@ -153,23 +161,26 @@
 	<br>
 	<br>
 	<div>
-		<div class="scroll-reveal" style="text-align: center; color: white;"><p>مسابقه در قالب تیم‌های سه‌نفره صورت می‌پذیرد. ابتدا به صورت فردی ثبت‌نام کنید و سپس از طریق پنل کاربری تیم خود را تشکیل دهید.</p></div>
-		<br>
-		<br>
+		<div class="scroll-reveal" style="text-align: center; color: white;"><h3>مسابقه در قالب تیم‌های سه‌نفره صورت می‌پذیرد. ابتدا به صورت فردی ثبت‌نام کنید و سپس از طریق پنل کاربری تیم خود را تشکیل دهید.</h3></div>
+		<br><br>
 		<a href="accounts/signup"><h1 class="signup-link">همین حالا ثبت‌نام کنید</h1></a>
 	<br>
 	</div>
 	<img src="{% static 'assets/time-line.png' %}"/>
     </section>
+
 <style>
+
 .signup-link {
 	transition: 0.3s ease;
 	text-shadow: 0 0 1em;
 		color: white;
 	}
+
 .signup-link:hover {
 	transform: scale(2);
 }
+
 #clockdiv{
 	font-family: Shabnam;
 	color: #fff;
@@ -177,6 +188,7 @@
 	font-weight: 100;
 	text-align: center;
 }
+
 #clockdiv > div{
 	padding: 5px;
 	border-radius: 1px;
@@ -188,7 +200,10 @@
 	text-align: center;
 	transition: 0.5s ease;
 }
+
+
 #clockdiv > div:hover{transform:scale(1.2);}
+
 #clockdiv div > span{
 	border-radius: 1px;
 	width: 40px;
@@ -200,14 +215,13 @@
 	font-family: Shabnam;
 	font-size: 1.5em;
 }
+
 .smalltext{
 	padding-top: 5px;
 	text-align: center;
 	margin: auto;
 	font-family: Shabnam;
 }
-html{font-size: 1em;}
-</style>
     <section id="specials-grid" class="month-specials" data-scroll-reveal="enter from the bottom after 0.9s" style="font-family: Shabnam; background: white">
         <div class="container">
             <h1 class="header-txt">محتوای مسابقه</h1>
@@ -394,6 +408,7 @@ html{font-size: 1em;}
         <!--.container-->
     </section>
     <!--.category-icons-->
+
   <section id="about-us" class="menu-cart scroll-reveal">
         <div class="container">
             <h1 class="header-txt">درباره ما</h1>
@@ -421,6 +436,7 @@ html{font-size: 1em;}
         <!--.container-->
     </section>
     <!--.menu-cart-->
+
     <footer id="contact-us" style="color: white; ">
         <div class="container">
             <div class="footer-content" style="direction: ltr">
@@ -467,6 +483,7 @@ html{font-size: 1em;}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
     <script src="{% static 'js/app.js' %}"></script>
     
+
     <style>
         .slider .slick-track .slide1{background:url("{% static 'assets/img/hero01.png' %}") no-repeat;background-size:cover;background-position:20% 0%}
         .slider .slick-track .slide1{background:url("{% static 'assets/img/hero01.png' %}") no-repeat;background-size:cover;background-position:20% 0%}
@@ -530,7 +547,9 @@ img.signature{width:9.375rem}}
 	.slider{height:100vh;}
 	.slider .slick-track{height:100vh;}
     </style>    
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.js"></script>
+
     <script type="text/javascript">
         $('.slider').slick({
             infinite: true,
@@ -540,17 +559,23 @@ img.signature{width:9.375rem}}
             fade: true,
             cssEase: 'linear'
         });
+
+
 $(document)
     .ready(function () {
         var navbar = $('#navbar');
         navbar.css('z-index', '999');
+
         $('time').attr("dir", "ltr")
+
     })
     .scroll(function(){
         var navbar = $('#navbar');
         navbar.css('z-index', '999');
+
         var scrollY = window.pageYOffset;
         var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
         if (scrollY >= 50) {
             navbar.addClass('reverse-navbar-color');
             navbar.removeClass('navbar-color');
@@ -559,14 +584,21 @@ $(document)
             navbar.addClass('navbar-color');
             navbar.removeClass('reverse-navbar-color');
         }
+
 });
+
 $('.ui.dropdown').dropdown();
+
     </script>
+
     <script>
         $(window).on('load', function() {
             $("#preloader").fadeOut();
         });
     </script>
+
     <script src="{% static 'js/jquery.inview.min.js' %}"></script>
+
 </body>
+
 </html>

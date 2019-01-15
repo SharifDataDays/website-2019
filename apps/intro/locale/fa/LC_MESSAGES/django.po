@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-16 22:36+0430\n"
+"POT-Creation-Date: 2019-01-15 18:32+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,6 +63,7 @@ msgid "Participate"
 msgstr "شرکت در مسابقه"
 
 #: apps/intro/templates/intro/index.html:87
+#: apps/intro/templates/intro/index_2.html:75
 msgid "Register"
 msgstr "ثبت نام"
 
@@ -337,45 +338,50 @@ msgstr "ایمیل:"
 msgid "Phone: "
 msgstr "شماره تماس:"
 
-#: apps/intro/templates/intro/staffs.html:7
-msgid "Technical"
-msgstr "فنی"
+#: apps/intro/templates/intro/index_2.html:66
+msgid "Logout"
+msgstr ""
 
-#: apps/intro/templates/intro/staffs.html:8
+#: apps/intro/templates/intro/index_2.html:71
+msgid "Login"
+msgstr ""
+
+#: apps/intro/templates/intro/index_2.html:80
+msgid "Blog and Q&A"
+msgstr ""
+
+#: apps/intro/templates/intro/staffs.html:7
 msgid "Executive"
 msgstr "اجرایی"
+
+#: apps/intro/templates/intro/staffs.html:8
+msgid "Technical"
+msgstr "فنی"
 
 #: apps/intro/templates/intro/staffs.html:9
 msgid "Head Of Committee"
 msgstr "کمیته برگزاری"
 
-#: apps/intro/templates/intro/staffs.html:453
-msgid "Website Team"
-msgstr "تیم وبسایت"
+#~ msgid "Website Team"
+#~ msgstr "تیم وبسایت"
 
-#: apps/intro/templates/intro/staffs.html:454
-msgid "Infrastructure Team"
-msgstr "تیم زیرساخت"
+#~ msgid "Infrastructure Team"
+#~ msgstr "تیم زیرساخت"
 
-#: apps/intro/templates/intro/staffs.html:455
-msgid "Server Team"
-msgstr "تیم سرور"
+#~ msgid "Server Team"
+#~ msgstr "تیم سرور"
 
-#: apps/intro/templates/intro/staffs.html:456
-msgid "Client Team"
-msgstr "تیم کلاینت"
+#~ msgid "Client Team"
+#~ msgstr "تیم کلاینت"
 
-#: apps/intro/templates/intro/staffs.html:457
-msgid "Graphic Team"
-msgstr "تیم گرافیک"
+#~ msgid "Graphic Team"
+#~ msgstr "تیم گرافیک"
 
-#: apps/intro/templates/intro/staffs.html:458
-msgid "Game Design Team"
-msgstr "تیم طراحی بازی"
+#~ msgid "Game Design Team"
+#~ msgstr "تیم طراحی بازی"
 
-#: apps/intro/templates/intro/staffs.html:459
-msgid "Test"
-msgstr "تیم تست"
+#~ msgid "Test"
+#~ msgstr "تیم تست"
 
 #~ msgid "View Schedule"
 #~ msgstr "مشاهده زمان‌بندی"
