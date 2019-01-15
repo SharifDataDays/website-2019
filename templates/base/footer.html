@@ -1,12 +1,14 @@
 {% load static %}
 
-<footer id="contact-us" style="color: white;">
+<link rel="stylesheet" href="{% static 'css/app.css' %}"/>
+
+<footer id="contact-us" style="color: white; direction: ltr">
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-content" style="direction: ltr">
                 <h1 class="header-txt scroll-reveal">تماس با ما</h1>
 		<img src="{% static 'assets/divider_white.png' %}">
                 <!--.divider-->
-                <div class="contact-info scroll-reveal">
+                <div class="contact-info scroll-reveal" style="direction: ltr">
                     <div class="info-address">
                         <h3>آدرس</h3>
                         <p>تهران، خیابان آزادی<br>خیابان حبیب‌الله، میدان تیموری</p>
@@ -17,7 +19,7 @@
                     </div>
                 </div>
                 <!--.contact-info-->
-                <div class="social-icons scroll-reveal" data-duration="1500">
+                <div class="social-icons scroll-reveal" data-duration="1500" style="direction: ltr">
                     <div class="fb-i">
 			   <a href="https://t.me/datadays_sharif" target="_blank"><img src="{% static 'assets/telegram_icon.png' %}" href="t.me/datadays"/></a>
                     </div>

@@ -1,8 +1,10 @@
 <!doctype html>
 
 {% load static %}
+{% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
 
-<html class="no-js" lang="en">
+<html class="no-js" lang="fa">
 
 <head>
     <meta charset="utf-8">
@@ -15,38 +17,75 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.css" />
     <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
 
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
     <link rel="stylesheet" href="{% static 'assets/fonts/fonts.css' %}"/>
     <link rel="stylesheet" type=text/css" href="{% static 'assets/style.css' %}"/>
+
+    <link rel="stylesheet" href="
+            {% if LANGUAGE_BIDI %}{% static 'semantic/semantic.rtl.min.css' %}{% else %}{% static 'semantic/semantic.min.css' %}{% endif %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/fonts/fonts.css' %}"/>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'semantic/semantic.min.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    {% block extra_header %}{% endblock %}
 
 
 </head>
 
 <body>
-    <header class="site-header" style="color: white;">
-        <div class="container">
-            <div class="header-content">
-                <div class="top-menu  scroll-reveal" style="direction: ltr">
-                    <div class="menu">
-                        <div class="title-bar" data-responsive-toggle="main-nav" data-hide-for="medium">
-                            <button class="menu-icon dark" type="button" data-toggle="main-nav"></button>
-                            <div class="title-bar-title">Menu</div>
-                        </div>
+	<div style="text-align: center; width: 80vw">
+<div class="ui attached inverted sticky borderless menu navbar-color" id="navbar" style="direction: rtl; position: fixed; top: 0; left: 0; z-index: 999; width: 100%; height: 2em; color: white;">
 
-                        <nav id="main-nav" data-animate="menu-in menu-out">
-                            <ul class="main-navigation">
-                                <li><a class="m-anim" style="color: white;" href="#contact-us">تماس با ما </a></li>
-				<li><a class="m-anim" style="color: white;" href="#about-us">درباره ما</a></li>
-                                <li><a class="m-anim" style="color: white;" href="#prizes">جوایز</a></li>
-                                <li><a class="m-anim" style="color: white;" href="#specials-grid">محتوای مسابقه</a></li>
-				<li><a class="m-anim" style="color: white;" href="#timeline">گاه‌شمار</a></li>
-                                <li><a class="m-anim" style="color: white;" href="#intro">معرفی</a></li>
-				<li><a class="m-active" style="color: white;" href="#">خانه</a></li>
-                            </ul>
-                        </nav>
-                    </div>
+	<div style="display: inline-block; width: 5%;"></div>
+    {% for title, link in ai.navbar.items %}
+        {% if not link.dropdown %}
+            <a href="{{ link.address }}" class="{% if link.active %}active {% endif %}item">{{ title }}</a>
+        {% else %}
+            <div class="ui dropdown link item">
+                <span>{{ title }}</span>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    {% for dtitle, dlink in link.dropdown.items %}
+                        <a href="{{ dlink }}" class="item">{{ dtitle }}</a>
+                    {% endfor %}
                 </div>
             </div>
+        {% endif %}
+    {% endfor %}
+	<div style="display: inline-block; width: 5%;"></div>
+
+    <div class="right menu" id="right-navbar">
+        <div class="ui dropdown fitted item">
+		<div style="display: inline-block; width: 5%;"></div>
+            <i class="user icon large-icon"></i>
+            <div class="ui inverted menu" style="margin-right: -60px;">
+                {% if request.user.is_authenticated %}
+                    <a class="item" href="{% url 'accounts:logout' %}">
+                        <i class="sign out icon"></i>
+                        {% trans 'Logout' %}
+                    </a>
+                {% else %}
+                    <a class="item" href="{% url 'accounts:login' %}">
+                        <i class="sign in icon"></i>
+                        {% trans 'Login' %}
+                    </a>
+                    <a class="item" href="{% url 'accounts:signup' %}">
+                        <i class="add user icon"></i>
+                        {% trans 'Register' %}
+                    </a>
+                {% endif %}
+            </div>
         </div>
+        <a class="fitted item popup-link" href="/blog" data-tooltip="{% trans 'Blog and Q&A' %}" data-position="left center" data-inverted="">
+            <i class="help icon large-icon"></i>
+        </a>
+	<div style="display: inline-block; width: 5%;"></div>
+    </div>
+</div>
+	</div>
+	
+    <header class="site-header" style="color: white;">
         <div class="slider">
             <div class="a-slide slide1">
                 <div class="container">
@@ -101,7 +140,7 @@
 	    <div class="divider">
 		    <img src="{% static 'assets/divider_white.png' %}"/>
 		</div>
-	<div id="clockdiv" class="scroll-reveal">
+	<div id="clockdiv" class="scroll-reveal" style="direction: ltr">
 	  <div>
 	    <span class="days scroll-reveal"></span>
 	    <div class="smalltext scroll-reveal">روز</div>
@@ -121,10 +160,26 @@
 	</div>
 	<br>
 	<br>
+	<div>
+		<div class="scroll-reveal" style="text-align: center; color: white;"><p>مسابقه در قالب تیم‌های سه‌نفره صورت می‌پذیرد. ابتدا به صورت فردی ثبت‌نام کنید و سپس از طریق پنل کاربری تیم خود را تشکیل دهید.</p></div>
+		<br>
+		<!--	<a href="accounts/signup"><h1 class="signup-link">همین حالا ثبت‌نام کنید</h1></a> --!>
+	<br>
+	</div>
 	<img src="{% static 'assets/time-line.png' %}"/>
     </section>
 
 <style>
+
+.signup-link {
+	transition: 0.3s ease;
+	text-shadow: 0 0 1em;
+		color: white;
+	}
+
+.signup-link:hover {
+	transform: scale(2);
+}
 
 #clockdiv{
 	font-family: Shabnam;
@@ -233,7 +288,7 @@ function initializeClock(id, endtime) {
   var timeinterval = setInterval(updateClock, 1000);
 }
 
-var deadline = new Date("Jan 16, 2019 0:0:0");
+var deadline = new Date("Jan 15, 2019 19:0:0");
 initializeClock('clockdiv', deadline);
 </script>
 
@@ -493,7 +548,7 @@ initializeClock('clockdiv', deadline);
         </div>
     </div>
     --!>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --!>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.0.2/what-input.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
     <script src="{% static 'js/app.js' %}"></script>
@@ -575,6 +630,35 @@ img.signature{width:9.375rem}}
             cssEase: 'linear'
         });
 
+
+$(document)
+    .ready(function () {
+        var navbar = $('#navbar');
+        navbar.css('z-index', '999');
+
+        $('time').attr("dir", "ltr")
+
+    })
+    .scroll(function(){
+        var navbar = $('#navbar');
+        navbar.css('z-index', '999');
+
+        var scrollY = window.pageYOffset;
+        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+        if (scrollY >= 50) {
+            navbar.addClass('reverse-navbar-color');
+            navbar.removeClass('navbar-color');
+        }
+        else {
+            navbar.addClass('navbar-color');
+            navbar.removeClass('reverse-navbar-color');
+        }
+
+});
+
+$('.ui.dropdown').dropdown();
+
     </script>
 
     <script>
@@ -582,6 +666,8 @@ img.signature{width:9.375rem}}
             $("#preloader").fadeOut();
         });
     </script>
+
+    <script src="{% static 'js/jquery.inview.min.js' %}"></script>
 
 </body>
 

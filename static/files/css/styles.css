@@ -105,7 +105,7 @@ This set of fonts are used in this project under the license: RC4QT
 }
 
 .reverse-navbar-color {
-    background-color: #40444d !important;
+    background-color: #028CA4 !important;
 }
 
 /*.reverse-navbar-color * {*/
@@ -117,7 +117,7 @@ This set of fonts are used in this project under the license: RC4QT
 }
 
 .navbar-color * {
-    color: #40444d !important;
+    color: white !important;
 }
 
 .ai.background {
