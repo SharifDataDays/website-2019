@@ -21,6 +21,7 @@ $(document)
 	}
 
     })
+
     .scroll(function() {
 	if (location.pathname != "/" && location.pathname != "") {
 		console.log("gg");

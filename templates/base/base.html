@@ -59,6 +59,7 @@
 </div>
 </div>
 <script src="{% static 'js/jquery.inview.min.js' %}"></script>
+
 <script src="{% static 'js/footer_scripts.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.0.2/what-input.js"></script>
