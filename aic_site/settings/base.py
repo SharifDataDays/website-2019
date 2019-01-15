@@ -17,7 +17,7 @@ SECRET_KEY = 'r=2mdcuth+5g8o6)s*z7c61bss)%0ku2b9w72d3ph^x&)^gx$t'
 
 TESTING = sys.argv[1:2] == ['test']
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 # Application definition
 
