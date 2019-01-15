@@ -1,7 +1,5 @@
 $('.ui.dropdown').dropdown();
 
-$('#navbar').sticky({context: '#main'});
-
 $('.ui.accordion').accordion();
 
 $('.popup-link').popup();

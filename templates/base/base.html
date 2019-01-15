@@ -51,9 +51,8 @@
         {% include 'base/footer.html' %}
     {% endblock %}
 <script src="{% static 'js/jquery.inview.min.js' %}"></script>
-{% if request.path == '/' %}
+
 <script src="{% static 'js/footer_scripts.js' %}"></script>
-{% endif %}
 {% block footer_scripts %}{% endblock %}
 </body>
 </html>
