@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-15 18:32+0330\n"
+"POT-Creation-Date: 2019-01-16 13:53+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgid "Participate"
 msgstr "شرکت در مسابقه"
 
 #: apps/intro/templates/intro/index.html:87
-#: apps/intro/templates/intro/index_2.html:75
+#: apps/intro/templates/intro/index_2.html:69
 msgid "Register"
 msgstr "ثبت نام"
 
@@ -338,15 +338,15 @@ msgstr "ایمیل:"
 msgid "Phone: "
 msgstr "شماره تماس:"
 
-#: apps/intro/templates/intro/index_2.html:66
+#: apps/intro/templates/intro/index_2.html:60
 msgid "Logout"
 msgstr ""
 
-#: apps/intro/templates/intro/index_2.html:71
+#: apps/intro/templates/intro/index_2.html:65
 msgid "Login"
 msgstr ""
 
-#: apps/intro/templates/intro/index_2.html:80
+#: apps/intro/templates/intro/index_2.html:74
 msgid "Blog and Q&A"
 msgstr ""
 
