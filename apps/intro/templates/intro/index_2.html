@@ -414,12 +414,39 @@ html{font-size: 1em;}
                                 </svg>
             </div>
             <!--.divider-->
-            <div style="text-align: center;">
-                <p class="scroll-reveal" style="direction: rtl; font-size: 1.5em;">انجمن علمی دانشکده مهندسی کامپیوتر شریف که اعضای آن تمام دانشجویان دانشکده است، مسئولیت برگزاری رویدادهای فوق برنامه‌ی دانشجویی از جمله مسابقات علمی، سمینارها، کارگاه‌های آموزشی، جشن‌ها و سایر رویدادهای دانشجویی در دانشکده مهندسی کامپیوتر شریف را داراست.</p>
-            </div>
         </div>
         <!--.container-->
+    <div class="even section" id="section-organizer">
+      <div class="ui center aligned stackable grid">
+          <div class="eight wide column">
+              <h1 class="ui header">{% trans 'Organizer' %}</h1>
+              <a href="http://ssc.ce.sharif.edu/"><img class="ui centered medium image"
+                                                       src="{% static 'intro/image/SSC.png' %}" alt="SSC Image"></a>
+              <div class="ui horizontal divider"></div>
+              <h1 class="ui header">{% trans 'Sponsors' %}</h1>
+              <a href="https://cafebazaar.ir/"><img class="ui centered medium image"
+                                                    src="{% static 'intro/image/sponsors.png' %}"></a>
+          </div>
+          <div class="eight wide column">
+              <h1 class="ui header">{% trans 'Location' %}</h1>
+              <iframe id="google_maps_iframe" src=""
+                      frameborder="0" style="border: 0"></iframe>
+              <p>
+                  {% trans 'Address: ' %}
+                  {% blocktrans %}
+                  Dept. of Computer Eng., Sharif University of Technology<br>
+                  Azadi St, Tehran
+                  {% endblocktrans %}<br>
+              </p>
+              <div class="ui horizontal divider"></div>
+              <h1 class="ui header">{% trans 'Contact Info' %}</h1>
+              <b>{% trans 'Email: ' %}<a href="mailto:datadays@sharif.edu">datadays@sharif.edu</a></b>
+              <br><b>{% trans 'Phone: ' %}<span dir="ltr">021-6616-5781</span></b></p>
+          </div>
+      </div>
+  </div>
     </section>
+
     <!--.menu-cart-->
     <footer id="contact-us" style="color: white; ">
         <div class="container">
