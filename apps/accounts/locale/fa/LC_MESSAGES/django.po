@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-15 18:32+0330\n"
+"POT-Creation-Date: 2019-01-16 13:53+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -438,8 +438,8 @@ msgid "Last Name"
 msgstr "نام خانوادگی"
 
 #: apps/accounts/templates/accounts/profile/signup.html:46
-msgid "College/School"
-msgstr "دانشگاه/مدرسه"
+msgid "University"
+msgstr ""
 
 #: apps/accounts/templates/accounts/profile/signup.html:50
 msgid "Phone Number"
@@ -453,7 +453,7 @@ msgstr "ایمیل"
 msgid "Password Confirm"
 msgstr "تکرار رمز"
 
-#: apps/accounts/templates/accounts/profile/signup.html:126
+#: apps/accounts/templates/accounts/profile/signup.html:120
 msgid "SignUp"
 msgstr "ثبت نام"
 
@@ -523,6 +523,9 @@ msgstr "رده‌بندی دوستانه"
 #: apps/accounts/views/panel.py:82
 msgid "League"
 msgstr "لیگ"
+
+#~ msgid "College/School"
+#~ msgstr "دانشگاه/مدرسه"
 
 #~ msgid "With:"
 #~ msgstr "با:"

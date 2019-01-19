@@ -20,3 +20,7 @@ $(document)
         }
 
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9f7a5e4e41d2e3b26e6fb0cdfb6c72f62d7e8e3

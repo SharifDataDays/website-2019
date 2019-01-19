@@ -157,11 +157,25 @@
 		<br>
 		<br>
 		<a href="accounts/signup"><h1 class="signup-link">همین حالا ثبت‌نام کنید</h1></a>
-	<br>
+		<br>
+		<br>
+		<div class="scroll-reveal" style="text-align: center; color: white;"><p class="inl">تا کنون </p> <p id="count" class="inl">{{ users_count }}</p> <p class="inl">نفر ثبت‌نام کرده‌اند.</p></div>
 	</div>
-	<img src="{% static 'assets/time-line.png' %}"/>
+	<img src="{% static 'assets/time-line-v2.png' %}"/>
     </section>
+	<script>
+	  String.prototype.toPersianDigits= function(){
+        var id= ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+        return this.replace(/[0-9]/g, function(w){
+            return id[+w]
+        });
+    }
+	x = document.getElementById("count").innerHTML.toPersianDigits();
+	document.getElementById("count").innerHTML = x;
+	</script>
 <style>
+.inl {display: inline-block;}
+#count{ font-size: 2em;}
 .signup-link {
 	transition: 0.3s ease;
 	text-shadow: 0 0 1em;

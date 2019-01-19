@@ -10,16 +10,13 @@ from apps.game.models import TeamSubmission
 logger = logging.getLogger(__name__)
 
 
-def index(request):
-    return render(request, 'intro/landing/index.html', {
+def index_2(request):
+    return render(request, 'intro/index_2.html', {
         'no_sidebar': False,
         'users_count': User.objects.count(),
         'submits_count': TeamSubmission.objects.count(),
         'teams_count': Team.objects.count(),
     })
-
-def index_2(request):
-    return render(request, 'intro/index_2.html')
 
 def faq(request):
     return render(request, 'intro/faq.html')

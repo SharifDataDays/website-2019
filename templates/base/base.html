@@ -14,11 +14,15 @@
     <meta name="fontiran.com:license" content="RC4QT">
     <link rel="stylesheet" href="
             {% if LANGUAGE_BIDI %}{% static 'semantic/semantic.rtl.min.css' %}{% else %}{% static 'semantic/semantic.min.css' %}{% endif %}">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1"/>
     <link rel="stylesheet" href="{% static 'assets/fonts/fonts.css' %}"/>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'semantic/semantic.min.js' %}"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
+
+    <style> html, p, label, time {font-family: Shabnam !important;}
+            #navbar {max-height: 30px; position: fixed; top: 0px; left: 0px}</style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 
     {% block extra_header %}{% endblock %}
 </head>
@@ -36,7 +40,7 @@
     {% block navbar %}
         {% include 'base/navbar.html' %}
     {% endblock %}
-
+    <br><br><br><br>
     {% block content %}
         <div class="ui container">
             {% block container %}
@@ -51,9 +55,12 @@
         {% include 'base/footer.html' %}
     {% endblock %}
 <script src="{% static 'js/jquery.inview.min.js' %}"></script>
+<<<<<<< HEAD
 {% if request.path == "/" %}
   <script src="{% static 'js/scroll.js' %}"></script>
 {% endif %}
+=======
+>>>>>>> a9f7a5e4e41d2e3b26e6fb0cdfb6c72f62d7e8e3
 <script src="{% static 'js/footer_scripts.js' %}"></script>
 {% block footer_scripts %}{% endblock %}
 </body>

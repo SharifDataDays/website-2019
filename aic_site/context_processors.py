@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 
 from apps.game.models import Competition
+from apps.accounts.models import Profile
 
 
 def menu(request):
@@ -58,8 +59,14 @@ def menu(request):
 #                    'dropdown': {},
 #                },
             }
+        },
+        'stats': {
+                'profiles': len(Profile.objects.all()),
+                'teams': 1,
+                'submits': 1,
         }
     }
+
 
 
     if request.user.is_authenticated():

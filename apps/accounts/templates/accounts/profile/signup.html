@@ -43,7 +43,7 @@
 
         <div class="two fields">
             <div class="field required">
-                <label>{% trans 'College/School' %}</label>
+                <label>{% trans 'University' %}</label>
                 {{ form.organization }}
             </div>
             <div class="field">
@@ -112,16 +112,10 @@
           <a href="https://translate.google.com/#view=home&op=translate&sl=fa&tl=en&text=%D8%B3%D8%B7%D8%AD">privacy and policies</a> {#  need to link to a blog page  #}
         </span>
 	--!>
-        <div class="field">
+
+	<div class="field">
             {{ form.captcha }}
         </div>
-        {% if form.captcha.errors %}
-            <div class="ui message error">
-                {{ form.captcha.errors }}
-            </div>
-        {% endif %}
-
-
 
         <button type="submit" class="ui green button">{% trans 'SignUp' %}</button>
     </form>
