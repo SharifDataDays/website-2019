@@ -25,6 +25,7 @@ def menu(request):
                         _('Panel'): reverse('accounts:panel'),
 #                        _('Resources'): 'https://aichallenge.sharif.edu/blog/2018/02/05/Server-Client-MapMaker/',
                         _('Blog and Q&A'): '/blog',
+                        _('FAQ'): reverse('intro:faq'),
 #                        _('Staff'): '/staff',
                     }
                 },
@@ -41,7 +42,7 @@ def menu(request):
                 },
                 _('Blog'): {
                     'dropdown': {
-#                        _('FAQ'): reverse('intro:faq'),
+                        _('FAQ'): reverse('intro:faq'),
                         _('Blog and Q&A'): '/blog',
                     }
                 },
