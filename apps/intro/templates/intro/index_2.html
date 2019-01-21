@@ -430,20 +430,37 @@ html{font-size: 1em;}
             <!--.divider-->
         </div>
         <!--.container-->
-    <div class="ui stackable three column grid container aligned" dir="rtl">
-            <div class="five column aligned" style="text-align: center; margin-left: 30%">
+  <div class="ui stackable two column very relaxed grid container aligned">
+    <div class="column" style="text-align: center">
+      <h1 class="ui header">{% trans 'Organizer' %}</h1>
+
+      <a href="http://sharif.edu/"><img class="ui centered medium image" src="{% static 'images/shariflogo.png' %}" style="height: 15vh; width: auto;" ></a>
+    </div>
+    <div class="column" style="text-align: center">
+      <h1 class="ui header">{% trans 'Sponsors' %}</h1>
+      <a href="https://cafebazaar.ir/"><img class="ui centered medium image" src="{% static 'images/Logos.png' %}" style="height: 15vh; width: auto;"></a>
+
+    </div>
+    <div class="column">
+      <a href="http://ssc.ce.sharif.edu/"><img class="ui centered medium image" src="{% static 'images/SSC.svg' %}" alt="SSC Image" style="height: 15vh; width: auto;"></a>
+    </div>
+  </div>
+
+{#</div>#}
+{#    <div class="ui stackable three column grid container aligned" dir="rtl">#}
+{#            <div class="five column aligned" style="text-align: center; margin-left: 30%">#}
 {#              <h1 class="ui header">{% trans 'Organizer' %}</h1>#}
-              <a href="http://sharif.edu/"><img class="ui centered medium image" src="{% static 'images/shariflogo.png' %}" style="height: 20vh; width: auto; margin-bottom: 15%" ></a>
-              <a href="http://ssc.ce.sharif.edu/"><img class="ui centered medium image" src="{% static 'images/SSC.svg' %}" alt="SSC Image" style="height: 20vh; width: auto; margin-bottom: 15%"></a>
-
-            </div>
-            <div class="four column aligned" style="text-align: center; width: auto">
+{#              <a href="http://sharif.edu/"><img class="ui centered medium image" src="{% static 'images/shariflogo.png' %}" style="height: 20vh; width: auto; margin-bottom: 15%" ></a>#}
+{#              <a href="http://ssc.ce.sharif.edu/"><img class="ui centered medium image" src="{% static 'images/SSC.svg' %}" alt="SSC Image" style="height: 20vh; width: auto; margin-bottom: 15%"></a>#}
+{##}
+{#            </div>#}
+{#            <div class="four column aligned" style="text-align: center; width: auto">#}
 {#              <h1 class="ui header">{% trans 'Sponsors' %}</h1>#}
-              <a href="https://cafebazaar.ir/"><img class="ui centered medium image" src="{% static 'images/Logos.png' %}" style="height: 15vh; width: auto; margin-top: 30%"></a>
-            </div>
-  </div>
-
-  </div>
+{#              <a href="https://cafebazaar.ir/"><img class="ui centered medium image" src="{% static 'images/Logos.png' %}" style="height: 15vh; width: auto; margin-top: 30%"></a>#}
+{#            </div>#}
+{#  </div>#}
+{##}
+{#  </div>#}
 
     </section>
 
