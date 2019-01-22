@@ -3,7 +3,8 @@ from random import shuffle
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from apps.game.models import Challenge, Game, Competition, TeamParticipatesChallenge, TeamSubmission, Trial, Question, MultipleChoiceQuestion
+from apps.game.models import Challenge, Game, Competition, TeamParticipatesChallenge, TeamSubmission, Trial, Question, \
+  MultipleChoiceQuestion, FileUploadQuestion
 
 from apps.game.models.challenge import UserAcceptsTeamInChallenge
 
@@ -46,11 +47,15 @@ class TrialAdmin(admin.ModelAdmin):
 
 
 class MultipleChoiceAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'value', 'correct_answer', 'choice1', 'choice2']
+    fields = ['stmt', 'value', 'correct_answer', 'choice1', 'choice2', 'choice3', 'choice4']
 
 
 class QuestionAdmin(admin.ModelAdmin):
   fields = ['stmt', 'value', 'correct_answer']
+
+
+class FileUploadAdmin(admin.ModelAdmin):
+  fields = ['stmt', 'value', 'correct_answer', 'download_url', 'upload_url']
 
 
 class ChallengeAdmin(admin.ModelAdmin):
@@ -193,3 +198,4 @@ admin.site.register(TeamSubmission)
 admin.site.register(Trial, TrialAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(MultipleChoiceQuestion, MultipleChoiceAdmin)
+admin.site.register(FileUploadQuestion, FileUploadAdmin)
