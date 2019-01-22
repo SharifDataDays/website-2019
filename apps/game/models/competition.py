@@ -55,12 +55,15 @@ class Question(models.Model):
 
 
 class MultipleChoiceQuestion(Question):
-    choice1 = models.CharField(max_length=50)
-    choice2 = models.CharField(max_length=50)
+    choice1 = models.CharField(max_length=200)
+    choice2 = models.CharField(max_length=200)
+    choice3 = models.CharField(max_length=200)
+    choice4 = models.CharField(max_length=200)
 
- 
-class ShortAnswerQuestion(Question):
-    pass
+
+class FileUploadQuestion(Question):
+    download_url = models.CharField(max_length=200)
+    upload_url = models.CharField(max_length=200)
 
 
 class Trial(models.Model):
