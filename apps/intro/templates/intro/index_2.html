@@ -159,7 +159,12 @@
 		<a href="accounts/signup"><h1 class="signup-link">همین حالا ثبت‌نام کنید</h1></a>
 		<br>
 		<br>
-		<div class="scroll-reveal" style="text-align: center; color: white;"><p class="inl">تا کنون </p> <p id="count" class="inl">{{ users_count }}</p> <p class="inl">نفر ثبت‌نام کرده‌اند.</p></div>
+    <div>
+      <div style="display: inline;"><p id="ucount" class="inl" style="font-size: 200%"></p></div>
+      <div style="display: inline; margin-left: 10%; margin-right:10%"><p id="tcount" class="inl" style="font-size: 200%"></p></div>
+      <div style="display: inline;"><p id="scount" class="inl" style="font-size: 200%"></p></div>
+    </div>
+{#		<div class="scroll-reveal" style="text-align: center; color: white;"><p class="inl">تا کنون </p> <p id="count" class="inl">{{ users_count }}</p> <p class="inl">نفر ثبت‌نام کرده‌اند.</p></div>#}
 	</div>
 	<img src="{% static 'assets/time-line-v2.png' %}"/>
     </section>
@@ -170,8 +175,25 @@
             return id[+w]
         });
     }
-	x = document.getElementById("count").innerHTML.toPersianDigits();
-	document.getElementById("count").innerHTML = x;
+    number = 0;
+    setInterval(function () {
+          if(number <= {{ users_count }}){
+            $('#ucount').text(number);
+            document.getElementById("ucount").innerHTML = document.getElementById("ucount").innerHTML.toPersianDigits() + "<br>" + "ثبت نام";
+          }
+          if(number <= {{ teams_count }}){
+            $('#tcount').text(number);
+            document.getElementById("tcount").innerHTML = document.getElementById("tcount").innerHTML.toPersianDigits() + "<br>" + "تیم ها";
+          }
+          if(number <= {{ submits_count }}){
+            $('#scount').text(number);
+            document.getElementById("scount").innerHTML = document.getElementById("scount").innerHTML.toPersianDigits() + "<br>" + "ارسال ها";
+          }
+          number++;
+
+        }, 30);
+	  document.getElementById("tcount").innerHTML = document.getElementById("tcount").innerHTML.toPersianDigits();
+	  document.getElementById("scount").innerHTML = document.getElementById("scount").innerHTML.toPersianDigits();
 	</script>
 <style>
 .inl {display: inline-block;}
