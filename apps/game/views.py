@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.game import functions
-from apps.game.models import Competition, TeamSubmission, SingleMatch, Challenge
+from apps.game.models import Competition, TeamSubmission, Challenge
 from apps.game.utils import get_scoreboard_table_competition, get_scoreboard_table_tag, \
     get_scoreboard_table_from_single_matches
 
