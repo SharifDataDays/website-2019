@@ -75,7 +75,7 @@ class MultipleAnswerQuestion(Question):
 
 class Answer(models.Model):
     text = models.CharField(max_length=200)
-    question = models.ForeignKey(MultipleChoiceQuestion)
+    question = models.ForeignKey(MultipleAnswerQuestion)
 
 
 class Trial(models.Model):
