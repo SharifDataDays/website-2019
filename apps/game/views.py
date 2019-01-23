@@ -26,7 +26,7 @@ def render_scoreboard(request, competition_id):
     if competition is None:
         # error handling in template #
         raise ValueError('There is not such Competition')
-    
+
 
     # if competition.type == 'league':
     return render_phase_scoreboard(request, competition_id)
@@ -148,6 +148,8 @@ def get_total_score(team_id):
     for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id)):
         result+=Trial.score
     return result
+
+
 def render_league(request, competition_id):
     matches = list(Competition.objects.get(pk=int(competition_id)).matches.all())
 
