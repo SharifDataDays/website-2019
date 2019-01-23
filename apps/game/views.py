@@ -21,15 +21,14 @@ from apps.game.utils import get_scoreboard_table_competition, get_scoreboard_tab
 logger = logging.getLogger(__name__)
 
 
-def render_scoreboard(request, competition_id):
-    competition = Competition.objects.get(pk=int(competition_id))
+def render_scoreboard(request):
     if competition is None:
         # error handling in template #
         raise ValueError('There is not such Competition')
 
 
     # if competition.type == 'league':
-    return render_phase_scoreboard(request, competition_id)
+    return render_phase_scoreboard(request)
     # if competition.type == 'friendly':
     #     return render_friendly(request, competition_id)
     # if competition.type == 'double' or competition.type == 'elim':
@@ -124,8 +123,7 @@ def render_friendly(request, competition_id):
 
 def sortSecond(val):
     return val[1]
-def render_phase_scoreboard(request,competition_id):
-    phase = Competition.objects.get(id=competition_id)
+def render_phase_scoreboard(request):
     phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=challenge.Challenge.objects.all()[0])
     ranks = []
     for team in phase_scoreboard:
