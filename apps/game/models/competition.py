@@ -78,7 +78,5 @@ class Trial(models.Model):
         self.end_time += self.datetime.timedelta(hours=self.competition.trial_time)
 
 
-
-
 def get_log_file_directory(instance, filename):
     return os.path.join('logs', filename + str(uuid.uuid4()))

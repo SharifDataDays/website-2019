@@ -55,34 +55,17 @@ def get_shared_context(request):
         if request.user.profile.panel_active_teampc:
             if request.user.profile.panel_active_teampc.should_pay and not request.user.profile.panel_active_teampc.has_paid:
                 context['payment'] = request.user.profile.panel_active_teampc
-            if request.user.profile.panel_active_teampc.challenge.competitions.filter(
-                    type='friendly'
-            ).exists():
+            for comp in request.user.profile.panel_active_teampc.challenge.competitions.all():
                 context['menu_items'].append(
                     {
-                        'name': 'friendly_scoreboard',
+                        'name': comp.name,
                         'link': reverse('game:scoreboard', args=[
-                            request.user.profile.panel_active_teampc.challenge.competitions.get(
-                                type='friendly'
-                            ).id
+                            comp.id
                         ]),
-                        'text': _('Friendly Scoreboard')
+                        'text': _('Scoreboard')
                     }
                 )
-
-            if request.user.profile.panel_active_teampc.challenge.competitions.filter(
-                    type='league'
-            ).exists():
-                context['menu_items'].append(
-                    {
-                        'name': 'friendly_scoreboard',
-                        'link': reverse('game:league_scoreboard', args=[
-                            request.user.profile.panel_active_teampc.challenge.id
-                        ]),
-                        'text': _('League')
-                    }
-                )
-
+                
     return context
 
 
