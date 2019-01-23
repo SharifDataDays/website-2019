@@ -21,16 +21,12 @@ logger = logging.getLogger(__name__)
 
 
 class Competition(models.Model):
-
     challenge = models.ForeignKey(Challenge, related_name='competitions')
-
     name = models.CharField(max_length=128, null=True)
     tag = models.CharField(max_length=128, null=True)
     trial_time = models.IntegerField()
-
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-
     scoreboard_freeze_time = models.DateTimeField(null=True, blank=True)
 
     def get_freeze_time(self):
