@@ -48,6 +48,7 @@ class Question(models.Model):
     stmt = models.CharField(max_length=500)
     value = models.CharField(max_length=200)
     correct_answer = models.CharField(max_length=200)
+    score = models.FloatField()
 
 
 class MultipleChoiceQuestion(Question):
@@ -68,6 +69,7 @@ class Trial(models.Model):
     competition = models.ForeignKey(Competition)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    score = models.FloatField()
     team = models.ForeignKey(TeamParticipatesChallenge)
 
     def save(self):
