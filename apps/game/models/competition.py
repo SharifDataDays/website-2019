@@ -63,8 +63,21 @@ class FileUploadQuestion(Question):
     upload_url = models.CharField(max_length=200)
 
 
-class Trial(models.Model):
+class RangeAcceptQuestion(Question):
+    min_range = models.FloatField()
+    max_range = models.FloatField()
 
+
+class MultipleAnswerQuestion(Question):
+    pass
+
+
+class Answer(models.Model):
+    text = models.CharField(max_length=200)
+    question = models.ForeignKey(MultipleChoiceQuestion)
+
+
+class Trial(models.Model):
     questions = models.ManyToManyField(Question, blank=True)
     competition = models.ForeignKey(Competition)
     start_time = models.DateTimeField()
