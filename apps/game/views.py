@@ -23,6 +23,7 @@ def render_scoreboard(request, competition_id):
     if competition is None:
         # error handling in template #
         raise ValueError('There is not such Competition')
+    
 
     if competition.type == 'league':
         return render_league(request, competition_id)
