@@ -11,7 +11,10 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.game import functions
-from apps.game.models import Competition, TeamSubmission, Challenge
+from apps.game.models import competition, TeamSubmission, challenge
+from apps.game.models.competition import Competition,Trial
+
+from apps.game.models.challenge import TeamParticipatesChallenge
 from apps.game.utils import get_scoreboard_table_competition, get_scoreboard_table_tag, \
     get_scoreboard_table_from_single_matches
 
@@ -24,13 +27,13 @@ def render_scoreboard(request, competition_id):
         # error handling in template #
         raise ValueError('There is not such Competition')
 
-    if competition.type == 'league':
-        return render_league(request, competition_id)
-    if competition.type == 'friendly':
-        return render_friendly(request, competition_id)
-    if competition.type == 'double' or competition.type == 'elim':
-        return render_double_elimination(request, competition_id)
-    return HttpResponse('There is not such Competition!')
+    # if competition.type == 'league':
+    return render_phase_scoreboard(request, competition_id)
+    # if competition.type == 'friendly':
+    #     return render_friendly(request, competition_id)
+    # if competition.type == 'double' or competition.type == 'elim':
+    #     return render_double_elimination(request, competition_id)
+    # return HttpResponse('There is not such Competition!')
 
 
 def render_double_elimination(request, competition_id):
@@ -118,6 +121,32 @@ def render_friendly(request, competition_id):
     })
 
 
+def sortSecond(val):
+    return val[1]
+def render_phase_scoreboard(request,competition_id):
+    phase = Competition.objects.get(id=competition_id)
+    phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=challenge.Challenge.objects.all()[0])
+    ranks = []
+    for team in phase_scoreboard:
+        temp = (team.team.name,get_total_score(team.id),0)
+        ranks.append(temp)
+    ranks.sort(key=sortSecond,reverse=True)
+    for i in range(0,len(phase_scoreboard)):
+        x = list(ranks[i])
+        x[2] = i+1
+        ranks[i] = tuple(x)
+    return render(request,'scoreboard/group_table.html',{
+        'teams':ranks,
+    })
+
+
+
+
+def get_total_score(team_id):
+    result = 0
+    for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id)):
+        result+=Trial.score
+    return result
 def render_league(request, competition_id):
     matches = list(Competition.objects.get(pk=int(competition_id)).matches.all())
 
