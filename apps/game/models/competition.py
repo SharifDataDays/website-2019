@@ -25,6 +25,7 @@ class Competition(models.Model):
     name = models.CharField(max_length=128, null=True)
     tag = models.CharField(max_length=128, null=True)
     trial_time = models.IntegerField()
+    trial_instruction = models.CharField(max_length=1000)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     scoreboard_freeze_time = models.DateTimeField(null=True, blank=True)
