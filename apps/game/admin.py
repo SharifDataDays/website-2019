@@ -74,7 +74,7 @@ class ChallengeAdmin(admin.ModelAdmin):
 
 
 class CompetitionAdmin(admin.ModelAdmin):
-    fields = ['challenge', 'name', 'tag', 'trial_time', 'start_time', 'end_time', 'scoreboard_freeze_time']
+    fields = ['challenge', 'name', 'tag', 'trial_duration', 'start_time', 'end_time', 'scoreboard_freeze_time']
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)

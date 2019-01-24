@@ -48,7 +48,7 @@ def get_shared_context(request):
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
         {'name':'total Scoreboard','link':reverse('game:scoreboard_total'),'text':_('Scoreboard')},
-       {'name': 'submissions', 'link': reverse('accounts:panel_submissions'), 'text': _('Submissions')},
+      # {'name': 'submissions', 'link': reverse('accounts:panel_submissions'), 'text': _('Submissions')},
 #        {'name': 'battle_history', 'link': reverse('accounts:panel_battle_history'), 'text': _('Battle history')},
     ]
 
@@ -151,8 +151,12 @@ def render_phase(request,phase_id):
             if item['name'] == phase.name:
                 item['active'] = True
         context.update({
-            'phase':phase,
+            'phase': phase,
         })
+        context.update({
+            'trials': team_pc.trials
+        })
+
     return render(request,'accounts/panel/panel_phase.html',context)
 
 

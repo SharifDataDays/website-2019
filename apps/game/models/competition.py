@@ -26,6 +26,7 @@ class Competition(models.Model):
     tag = models.CharField(max_length=128, null=True)
     trial_time = models.IntegerField()
     trial_instruction = models.CharField(max_length=1000)
+    trial_duration = models.IntegerField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     scoreboard_freeze_time = models.DateTimeField(null=True, blank=True)
@@ -49,7 +50,7 @@ class Question(models.Model):
     stmt = models.CharField(max_length=500)
     value = models.CharField(max_length=200)
     correct_answer = models.CharField(max_length=200)
-    score = models.FloatField()
+    score = models.FloatField(default=0)
 
 
 class MultipleChoiceQuestion(Question):
@@ -83,8 +84,9 @@ class Trial(models.Model):
     competition = models.ForeignKey(Competition)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    score = models.FloatField()
-    team = models.ForeignKey(TeamParticipatesChallenge)
+    submit_time = models.DateTimeField()
+    score = models.FloatField(default=0)
+    team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials')
 
     def save(self):
         self.end_time += self.datetime.timedelta(hours=self.competition.trial_time)
