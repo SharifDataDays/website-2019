@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^email_confirm$', views.email_confirm, name='email_confirm'),
     url(r'^email_invalid$', views.email_invalid, name='email_invalid'),
     url(r'^challenge_a_team/(?P<participation_id>\d+)$', views.challenge_a_team, name='challenge_a_team'),
-
+    url(r'^panel/phase/(?P<phase_id>\d+)$',views.render_phase,name='panel_phase'),
     url(r'^panel/submissions', views.submissions, name='panel_submissions'),
     url(r'^panel/team$', views.team_management, name='panel_team_management'),
     url(r'^panel/bhistory', views.battle_history, name='panel_battle_history'),

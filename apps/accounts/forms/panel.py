@@ -7,8 +7,7 @@ from django.forms.models import ModelForm
 from django.utils.timezone import utc
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from apps.game.models import TeamSubmission, Map, Team, TeamParticipatesChallenge, Match, Competition, Participant, \
-    SingleMatch
+from apps.game.models import TeamSubmission, Team, TeamParticipatesChallenge, Competition
 
 import logging
 

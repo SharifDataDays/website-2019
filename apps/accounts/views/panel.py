@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
-from apps.game.models import TeamSubmission, Match, TeamParticipatesChallenge, Competition
+from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition
 from django.core.paginator import Paginator
 from django.db.models import Q
 
@@ -47,7 +47,8 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
-#        {'name': 'submissions', 'link': reverse('accounts:panel_submissions'), 'text': _('Submissions')},
+        {'name':'total Scoreboard','link':reverse('game:scoreboard_total'),'text':_('Scoreboard')},
+      # {'name': 'submissions', 'link': reverse('accounts:panel_submissions'), 'text': _('Submissions')},
 #        {'name': 'battle_history', 'link': reverse('accounts:panel_battle_history'), 'text': _('Battle history')},
     ]
 
@@ -55,33 +56,17 @@ def get_shared_context(request):
         if request.user.profile.panel_active_teampc:
             if request.user.profile.panel_active_teampc.should_pay and not request.user.profile.panel_active_teampc.has_paid:
                 context['payment'] = request.user.profile.panel_active_teampc
-            if request.user.profile.panel_active_teampc.challenge.competitions.filter(
-                    type='friendly'
-            ).exists():
+            for comp in request.user.profile.panel_active_teampc.challenge.competitions.all():
                 context['menu_items'].append(
                     {
-                        'name': 'friendly_scoreboard',
-                        'link': reverse('game:scoreboard', args=[
-                            request.user.profile.panel_active_teampc.challenge.competitions.get(
-                                type='friendly'
-                            ).id
+                        'name': comp.name,
+                        'link': reverse('accounts:panel_phase', args=[
+                            comp.id
                         ]),
-                        'text': _('Friendly Scoreboard')
+                        'text': _(comp.name)
                     }
                 )
 
-            if request.user.profile.panel_active_teampc.challenge.competitions.filter(
-                    type='league'
-            ).exists():
-                context['menu_items'].append(
-                    {
-                        'name': 'friendly_scoreboard',
-                        'link': reverse('game:league_scoreboard', args=[
-                            request.user.profile.panel_active_teampc.challenge.id
-                        ]),
-                        'text': _('League')
-                    }
-                )
 
     return context
 
@@ -151,6 +136,29 @@ def redirect_to_somewhere_better(request):
         return HttpResponseRedirect(reverse(
             'intro:index'
         ))
+
+@login_required
+def render_phase(request,phase_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase == None:
+        redirect("/accounts/panel/team")
+    else:
+        team_pc = get_team_pc(request)
+        if team_pc is None:
+            return redirect_to_somewhere_better(request)
+        context = get_shared_context(request)
+        for item in context['menu_items']:
+            if item['name'] == phase.name:
+                item['active'] = True
+        context.update({
+            'phase': phase,
+        })
+        context.update({
+            'trials': team_pc.trials
+        })
+
+    return render(request,'accounts/panel/panel_phase.html',context)
+
 
 
 @login_required

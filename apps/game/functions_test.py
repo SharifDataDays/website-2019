@@ -9,7 +9,7 @@ import coreapi
 from coreapi.utils import DownloadedFile, File
 from django.conf import settings
 
-from apps.game.models import TeamSubmission, Match
+from apps.game.models import TeamSubmission
 
 test_json = os.path.join(settings.BASE_DIR, 'apps', 'game', 'code_log.json')
 

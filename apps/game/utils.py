@@ -1,6 +1,6 @@
 from django.utils import timezone
 
-from apps.game.models import SingleMatch, Competition
+from apps.game.models import Competition
 
 
 def get_scoreboard_table_from_single_matches(single_matches):
