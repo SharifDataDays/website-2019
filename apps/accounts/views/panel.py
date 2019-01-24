@@ -6,10 +6,10 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
-from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition
+from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial
 from django.core.paginator import Paginator
 from django.db.models import Q
-
+from datetime import datetime
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 
 
@@ -240,3 +240,37 @@ def battle_history(request):
                     5).page(battles_page)
             })
     return render(request, 'accounts/panel/battle_history.html', context)
+
+
+
+@login_required
+def get_new_trial(request,phase_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase == None:
+        redirect("/accounts/panel/team")
+    else:
+        team_pc = get_team_pc(request)
+        if team_pc is None:
+            return redirect_to_somewhere_better(request)
+        context = get_shared_context(request)
+        for item in context['menu_items']:
+            if item['name'] == phase.name:
+                item['active'] = True
+        context.update({
+            'phase': phase,
+        })
+        context.update({
+            'trials': team_pc.trials
+        })
+
+        current_trial = Trial.objects.get(id= phase.current_trial_id)
+        phase.current_trial_id +=1
+        current_trial.start_time = datetime.now()
+        current_trial.team = team_pc
+        current_trial.save()
+
+        context.update({
+          'current_trial': current_trial
+        })
+
+    return render(request,'accounts/panel/panel_trial.html',context)
