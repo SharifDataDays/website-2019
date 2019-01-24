@@ -21,16 +21,16 @@
         </thead>
         <tbody>
 
-        {% for competitor in league_scoreboard %}
+        {% for competitor in teams %}
             <tr>
                 <td>
-                    <div class="ui green label">{{ competitor.rank }}</div>
+                    <div class="ui green label">{{ competitor.2 }}</div>
                 </td>
-                <td>{{ competitor.name }}</td>
-                <td>{{ competitor.score }}</td>
-                <td>{{ competitor.total_num }}</td>
-                <td>{{ competitor.win_num }}</td>
-                <td>{{ competitor.lose_num }}</td>
+                <td>{{ competitor.0 }}</td>
+                <td>{{ competitor.1 }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         {% endfor %}
         </tbody>

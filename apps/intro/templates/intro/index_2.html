@@ -11,13 +11,13 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> DATA DAYS 2019 </title>
-    <link rel="shortcut icon" type="image/png" href="{% static 'assets/favicon.png' %}?v=2"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/favicon.png' %}"/>
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.css" />
     <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
 
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1"/>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
     <link rel="stylesheet" href="{% static 'assets/fonts/fonts.css' %}"/>
     <link rel="stylesheet" type=text/css" href="{% static 'assets/style.css' %}"/>
     <link rel="stylesheet" href="
@@ -128,7 +128,7 @@
     <!--.about-->
     <section class="intro" id="timeline" style="background: #011C37; color: white; text-align: center; direction: rtl">
 	    <br>
-	    <h1 class="header-txt">تا مرحله اول مسابقه</h1>
+	    <h1 class="header-txt">تا شروع ثبت نام</h1>
 	    <div class="divider">
 		    <img src="{% static 'assets/divider_white.png' %}"/>
 		</div>
@@ -159,8 +159,12 @@
 		<a href="accounts/signup"><h1 class="signup-link">همین حالا ثبت‌نام کنید</h1></a>
 		<br>
 		<br>
-		<div class="scroll-reveal" style="text-align: center; color: white;"><p class="inl">تا کنون </p> <p id="count" class="inl">{{ users_count }}</p> <p class="inl">نفر ثبت‌نام کرده‌اند.</p></div>
-		<div class="scroll-reveal" style="text-align: center; colo: white;"><p class="inl">برای ثبت‌نام فقط تا شروع مرحله اول زمان دارید. عجله کنید!</p></div>
+    <div>
+      <div style="display: inline;"><p id="ucount" class="inl" style="font-size: 200%"></p></div>
+      <div style="display: inline; margin-left: 10%; margin-right:10%"><p id="tcount" class="inl" style="font-size: 200%"></p></div>
+      <div style="display: inline;"><p id="scount" class="inl" style="font-size: 200%"></p></div>
+    </div>
+{#		<div class="scroll-reveal" style="text-align: center; color: white;"><p class="inl">تا کنون </p> <p id="count" class="inl">{{ users_count }}</p> <p class="inl">نفر ثبت‌نام کرده‌اند.</p></div>#}
 	</div>
 	<img src="{% static 'assets/time-line-v2.png' %}"/>
     </section>
@@ -171,44 +175,25 @@
             return id[+w]
         });
     }
-	x = document.getElementById("count").innerHTML.toPersianDigits();
-	document.getElementById("count").innerHTML = x;
+    number = 0;
+    setInterval(function () {
+          if(number <= {{ users_count }}){
+            $('#ucount').text(number);
+            document.getElementById("ucount").innerHTML = document.getElementById("ucount").innerHTML.toPersianDigits() + "<br>" + "ثبت نام";
+          }
+          if(number <= {{ teams_count }}){
+            $('#tcount').text(number);
+            document.getElementById("tcount").innerHTML = document.getElementById("tcount").innerHTML.toPersianDigits() + "<br>" + "تیم ها";
+          }
+          if(number <= {{ submits_count }}){
+            $('#scount').text(number);
+            document.getElementById("scount").innerHTML = document.getElementById("scount").innerHTML.toPersianDigits() + "<br>" + "ارسال ها";
+          }
+          number++;
 
- function getTimeRemaining(endtime) {
-  var t = Date.parse(endtime) - Date.parse(new Date());
-  var seconds = Math.floor((t / 1000) % 60);
-  var minutes = Math.floor((t / 1000 / 60) % 60);
-  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-  var days = Math.floor(t / (1000 * 60 * 60 * 24));
-  return {
-    'total': t,
-    'days': days,
-    'hours': hours,
-    'minutes': minutes,
-    'seconds': seconds
-  };
-}
- function initializeClock(id, endtime) {
-  var clock = document.getElementById(id);
-  var daysSpan = clock.querySelector('.days');
-  var hoursSpan = clock.querySelector('.hours');
-  var minutesSpan = clock.querySelector('.minutes');
-  var secondsSpan = clock.querySelector('.seconds');
-   function updateClock() {
-    var t = getTimeRemaining(endtime);
-     daysSpan.innerHTML = t.days.toString().toPersianDigits();
-    hoursSpan.innerHTML = t.hours.toString().toPersianDigits();
-    minutesSpan.innerHTML = t.minutes.toString().toPersianDigits();
-    secondsSpan.innerHTML = t.seconds.toString().toPersianDigits();
-     if (t.total <= 0) {
-      clearInterval(timeinterval);
-    }
-  }
-   updateClock();
-  var timeinterval = setInterval(updateClock, 1000);
-}
- var deadline = new Date("Jan 31, 2019 12:0:0");
-initializeClock('clockdiv', deadline);
+        }, 30);
+	  document.getElementById("tcount").innerHTML = document.getElementById("tcount").innerHTML.toPersianDigits();
+	  document.getElementById("scount").innerHTML = document.getElementById("scount").innerHTML.toPersianDigits();
 	</script>
 <style>
 .inl {display: inline-block;}
@@ -451,51 +436,54 @@ html{font-size: 1em;}
             <div class="divider">
                 <?xml version="1.0" encoding="utf-8"?>
                 <!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1930 255.5" style="enable-background:new 0 0 1930 255.5;" xml:space="preserve">
+                <sv version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1930 255.5" style="enable-background:new 0 0 1930 255.5;" xml:space="preserve">
                                 <style type="text/css">
                                     .st0{fill:none;stroke:#3c3c3c;stroke-width:10;stroke-linecap:square;stroke-miterlimit:10;}
                                 </style>
-                                <polyline class="st0" points="1224,171.8 1181.3,171.8 1139.2,129.6 1065,203.9 970.5,110.4 876,203.6 801.8,129.4 759.7,171.5 
+                                <polyline class="st0" points="1224,171.8 1181.3,171.8 1139.2,129.6 1065,203.9 970.5,110.4 876,203.6 801.8,129.4 759.7,171.5
                                     717,171.5 "/>
-                                <polyline class="st0" points="5,131.5 757.3,131.5 801.8,176.1 885.9,91.9 868.3,74.2 831.5,111 870.4,149.9 970.2,50.2 1070,149.9 
+                                <polyline class="st0" points="5,131.5 757.3,131.5 801.8,176.1 885.9,91.9 868.3,74.2 831.5,111 870.4,149.9 970.2,50.2 1070,149.9
                                     1108.8,111 1072.1,74.2 1054.4,91.9 1138.5,176.1 1183.1,131.5 1925,131.5 "/>
                                 <rect x="921.9" y="26.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 231.426 707.2043)" class="st0" width="95" height="95"/>
                                 <rect x="921.9" y="99.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 179.8072 728.5855)" class="st0" width="95" height="95"/>
                                 <rect x="940.3" y="178.1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 137.3893 746.1556)" class="st0" width="58.2" height="58.2"/>
-                                </svg>
+                                </sv>
             </div>
             <!--.divider-->
         </div>
         <!--.container-->
-    <div class="even section" id="section-organizer" style="font-family: Shabnam;">
-      <div class="ui center aligned stackable grid">
-          <div class="eight wide column">
-		  <div class="o scroll-reveal">
-              <h3 class="ui header" style="font-family: Shabnam">{% trans 'Organizer' %}</h3>
-              <a href="http://ssc.ce.sharif.edu/"><img class="ui centered medium image"
-                                                    src="{% static 'intro/image/SSC.png' %}" alt="SSC Image"></a></div>
-              <div class="ui horizontal divider"></div>
-	      	  <div class="o scroll-reveal">
-              <h3 class="ui header" style="font-family: Shabnam">{% trans 'Sponsors' %}</h3>
-              <a href="https://cafebazaar.ir/"><img class="ui centered medium image"
-						    src="{% static 'intro/image/sponsors.png' %}?v=1"></a></div>
-          </div>
-          <div class="eight wide column">
-		  <div class="o scroll-reveal">
-              <h3 class="ui header" style="font-family: Shabnam">{% trans 'Location' %}</h3>
-	      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.9177766530624!2d51.349404314695725!3d35.703640936351135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e00a8bc1a7e63%3A0x61a5a909b878501!2sSharif+University+of+Technology!5e0!3m2!1sen!2s!4v1547987339373" width="400" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
-              <p style="font-family: Shabnam">
-                  {% trans 'Address: ' %}
-                  تهران ،خیابان آزادی، دانشگاه صنعتی شریف، دانشکده مهندسی کامپیوتر
-              </p>
-	      <div class="ui horizontal divider"></div></div>
-	      	<div class="o scroll-reveal">
-              <h3 class="ui header" style="font-family: Shabnam">{% trans 'Contact Info' %}</h3>
-              <b>{% trans 'Email: ' %}<a href="mailto:datadays@sharif.edu">datadays@sharif.edu</a></b>
-		</div>
-          </div>
+  <div class="ui stackable two column very relaxed grid container aligned">
+    <div class="column" style="text-align: center">
+      <h1 class="ui header">{% trans 'Organizer' %}</h1>
+      <div>
+        <a href="http://sharif.edu/"><img class="ui centered medium image" src="{% static 'images/shariflogo.png' %}" style="height: 15vh; width: auto;" ></a>
+        <div style="height: 5vh"></div>
+        <a href="http://ssc.ce.sharif.edu/"><img class="ui centered medium image" src="{% static 'images/SSC.svg' %}" alt="SSC Image" style="height: 15vh; width: auto;"></a>
       </div>
+    </div>
+    <div class="column" style="text-align: center">
+      <h1 class="ui header">{% trans 'Sponsors' %}</h1>
+      <a href="https://cafebazaar.ir/"><img class="ui centered medium image" src="{% static 'images/Logos.png' %}" style="height: 15vh; width: auto; margin-top: 10vh"></a>
+
+    </div>
   </div>
+
+{#</div>#}
+{#    <div class="ui stackable three column grid container aligned" dir="rtl">#}
+{#            <div class="five column aligned" style="text-align: center; margin-left: 30%">#}
+{#              <h1 class="ui header">{% trans 'Organizer' %}</h1>#}
+{#              <a href="http://sharif.edu/"><img class="ui centered medium image" src="{% static 'images/shariflogo.png' %}" style="height: 20vh; width: auto; margin-bottom: 15%" ></a>#}
+{#              <a href="http://ssc.ce.sharif.edu/"><img class="ui centered medium image" src="{% static 'images/SSC.svg' %}" alt="SSC Image" style="height: 20vh; width: auto; margin-bottom: 15%"></a>#}
+{##}
+{#            </div>#}
+{#            <div class="four column aligned" style="text-align: center; width: auto">#}
+{#              <h1 class="ui header">{% trans 'Sponsors' %}</h1>#}
+{#              <a href="https://cafebazaar.ir/"><img class="ui centered medium image" src="{% static 'images/Logos.png' %}" style="height: 15vh; width: auto; margin-top: 30%"></a>#}
+{#            </div>#}
+{#  </div>#}
+{##}
+{#  </div>#}
+
     </section>
 
     <!--.menu-cart-->
@@ -507,12 +495,12 @@ html{font-size: 1em;}
                 <!--.divider-->
                 <div class="contact-info scroll-reveal" style="direction: ltr">
                     <div class="info-address">
-                        <h3>نشانی</h3>
-			<p>تهران، خیابان آزادی<br>دانشگاه صنعتی شریف<br>دانشکده مهندسی کامپیوتر</p>
+                        <h3>آدرس</h3>
+                        <p>تهران، خیابان آزادی<br>خیابان حبیب‌الله، میدان تیموری</p>
                     </div>
                     <div class="reservations">
                         <h3>ایمیل</h3>
-			<a href="mailto:datadays@sharif.edu" style="color: white"><p>datadays@sharif.edu</p></a>
+                        <p>datadays@sharif.edu</p>
                     </div>
                 </div>
                 <!--.contact-info-->
@@ -544,12 +532,12 @@ html{font-size: 1em;}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.0.2/what-input.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
     <script src="{% static 'js/app.js' %}"></script>
-    
+
     <style>
         .slider .slick-track .slide1{background:url("{% static 'assets/img/hero01.png' %}") no-repeat;background-size:cover;background-position:20% 0%}
         .slider .slick-track .slide1{background:url("{% static 'assets/img/hero01.png' %}") no-repeat;background-size:cover;background-position:20% 0%}
         .category-icons{background-image:url("{% static 'assets/yellow-bg.png' %}");box-shadow:inset 0px 9px 19px -9px rgba(176,145,9,0.62)}
-	.about{padding:3.125rem 0;background:white url("{% static 'assets/ddl.png' %}")
+	.about{padding:3.125rem 0;background:white url("{% static 'assets/img/beans.png' %}")
 no-repeat;background-size:90%;background-position:left -6.25rem bottom
 -9.375rem;height:100%}@media print, screen and(min-width:
 40em){.about{padding-bottom:6.25rem;height:80%;background-position:50%
@@ -607,7 +595,6 @@ img.signature{width:9.375rem}}
 	.tito {text-shadow: 0 0 6px #011c37;}
 	.slider{height:100vh;}
 	.slider .slick-track{height:100vh;}
-	.ui.header {font-weight: 100};
     </style>    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.js"></script>
     <script type="text/javascript">
