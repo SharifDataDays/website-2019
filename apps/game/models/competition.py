@@ -82,8 +82,9 @@ class Trial(models.Model):
     competition = models.ForeignKey(Competition)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    submit_time = models.DateTimeField()
     score = models.FloatField()
-    team = models.ForeignKey(TeamParticipatesChallenge)
+    team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials')
 
     def save(self):
         self.end_time += self.datetime.timedelta(hours=self.competition.trial_time)

@@ -151,8 +151,12 @@ def render_phase(request,phase_id):
             if item['name'] == phase.name:
                 item['active'] = True
         context.update({
-            'phase':phase,
+            'phase': phase,
         })
+        context.update({
+            'trials': team_pc.trials
+        })
+
     return render(request,'accounts/panel/panel_phase.html',context)
 
 

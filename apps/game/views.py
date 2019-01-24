@@ -123,8 +123,10 @@ def render_friendly(request, competition_id):
 
 def sortSecond(val):
     return val[1]
+
+
 def render_phase_scoreboard(request):
-    phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=challenge.Challenge.objects.all()[0])
+    phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
     ranks = []
     for team in phase_scoreboard:
         temp = (team.team.name,get_total_score(team.id),0)
@@ -137,8 +139,6 @@ def render_phase_scoreboard(request):
     return render(request,'scoreboard/group_table.html',{
         'teams':ranks,
     })
-
-
 
 
 def get_total_score(team_id):
