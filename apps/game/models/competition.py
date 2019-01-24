@@ -24,6 +24,8 @@ class Competition(models.Model):
     challenge = models.ForeignKey(Challenge, related_name='competitions')
     name = models.CharField(max_length=128, null=True)
     tag = models.CharField(max_length=128, null=True)
+    trial_time = models.IntegerField()
+    trial_instruction = models.CharField(max_length=1000)
     trial_duration = models.IntegerField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
