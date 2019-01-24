@@ -24,11 +24,10 @@ class Competition(models.Model):
     challenge = models.ForeignKey(Challenge, related_name='competitions')
     name = models.CharField(max_length=128, null=True)
     tag = models.CharField(max_length=128, null=True)
-    trial_time = models.IntegerField()
-    trial_instruction = models.CharField(max_length=1000)
-    trial_duration = models.IntegerField()
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    trial_time = models.IntegerField(null=True)
+    trial_duration = models.IntegerField(null=True)
+    start_time = models.DateTimeField(null=True)
+    end_time = models.DateTimeField(null=True)
     scoreboard_freeze_time = models.DateTimeField(null=True, blank=True)
 
     def get_freeze_time(self):
@@ -82,9 +81,9 @@ class Answer(models.Model):
 class Trial(models.Model):
     questions = models.ManyToManyField(Question, blank=True)
     competition = models.ForeignKey(Competition)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-    submit_time = models.DateTimeField()
+    start_time = models.DateTimeField(null=True)
+    end_time = models.DateTimeField(null=True)
+    submit_time = models.DateTimeField(null=True)
     score = models.FloatField(default=0)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials')
 
