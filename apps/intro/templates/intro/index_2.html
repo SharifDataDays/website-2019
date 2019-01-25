@@ -128,11 +128,11 @@
     <!--.about-->
     <section class="intro" id="timeline" style="background: #011C37; color: white; text-align: center; direction: rtl">
 	    <br>
-	    <h1 class="header-txt">تا شروع ثبت نام</h1>
+	    <h1 class="header-txt">تا مرحله اول مسابقه</h1>
 	    <div class="divider">
 		    <img src="{% static 'assets/divider_white.png' %}"/>
 		</div>
-	<div id="clockdiv" class="scroll-reveal" style="direction: ltr">
+		<div id="clockdiv" class="scroll-reveal" style="direction: ltr">
 	  <div>
 	    <span class="days scroll-reveal">۰</span>
 	    <div class="smalltext scroll-reveal">روز</div>
@@ -160,6 +160,7 @@
 		<br>
 		<br>
 		<div class="scroll-reveal" style="text-align: center; color: white;"><p class="inl">تا کنون </p> <p id="count" class="inl">{{ users_count }}</p> <p class="inl">نفر ثبت‌نام کرده‌اند.</p></div>
+		<div class="scroll-reveal" style="text-align: center; colo: white;"><p class="inl">برای ثبت‌نام فقط تا شروع مرحله اول زمان دارید. عجله کنید!</p></div>
 	</div>
 	<img src="{% static 'assets/time-line-v2.png' %}"/>
     </section>
@@ -172,7 +173,43 @@
     }
 	x = document.getElementById("count").innerHTML.toPersianDigits();
 	document.getElementById("count").innerHTML = x;
+ function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+ function initializeClock(id, endtime) {
+  var clock = document.getElementById(id);
+  var daysSpan = clock.querySelector('.days');
+  var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+   function updateClock() {
+    var t = getTimeRemaining(endtime);
+     daysSpan.innerHTML = t.days.toString().toPersianDigits();
+    hoursSpan.innerHTML = t.hours.toString().toPersianDigits();
+    minutesSpan.innerHTML = t.minutes.toString().toPersianDigits();
+    secondsSpan.innerHTML = t.seconds.toString().toPersianDigits();
+     if (t.total <= 0) {
+      clearInterval(timeinterval);
+    }
+  }
+   updateClock();
+  var timeinterval = setInterval(updateClock, 1000);
+}
+ var deadline = new Date("Jan 31, 2019 12:0:0");
+initializeClock('clockdiv', deadline);
 	</script>
+
 <style>
 .inl {display: inline-block;}
 #count{ font-size: 2em;}
@@ -432,17 +469,16 @@ html{font-size: 1em;}
         <!--.container-->
   <div class="ui stackable two column very relaxed grid container aligned">
     <div class="column" style="text-align: center">
-      <h1 class="ui header">{% trans 'Organizer' %}</h1>
-
-      <a href="http://sharif.edu/"><img class="ui centered medium image" src="{% static 'images/shariflogo.png' %}" style="height: 15vh; width: auto;" ></a>
+      <h1 class="ui header" style="font-weight: 100; font-size:1.75em; font-family: Shabnam">{% trans 'Organizer' %}</h1>
+   <div>
+        <a href="http://sharif.edu/"><img class="ui centered medium image" src="{% static 'images/shariflogo.png' %}" style="height: 15vh; width: auto;" ></a>
+        <div style="height: 5vh"></div>
+        <a href="http://ssc.ce.sharif.edu/"><img class="ui centered medium image" src="{% static 'images/SSC.svg' %}" alt="SSC Image" style="height: 15vh; width: auto;"></a>
+      </div>
     </div>
     <div class="column" style="text-align: center">
-      <h1 class="ui header">{% trans 'Sponsors' %}</h1>
-      <a href="https://cafebazaar.ir/"><img class="ui centered medium image" src="{% static 'images/Logos.png' %}" style="height: 15vh; width: auto;"></a>
-
-    </div>
-    <div class="column">
-      <a href="http://ssc.ce.sharif.edu/"><img class="ui centered medium image" src="{% static 'images/SSC.svg' %}" alt="SSC Image" style="height: 15vh; width: auto;"></a>
+      <h1 class="ui header" style="font-weight: 100; font-size: 1.75em; font-family: Shabnam">{% trans 'Sponsors' %}</h1>
+<a href="https://cafebazaar.ir/"><img class="ui centered medium image" src="{% static 'images/Logos.png' %}" style="height: 18vh; width: auto; margin-top: 10vh"></a>
     </div>
   </div>
 
@@ -474,7 +510,7 @@ html{font-size: 1em;}
                 <div class="contact-info scroll-reveal" style="direction: ltr">
                     <div class="info-address">
                         <h3>آدرس</h3>
-                        <p>تهران، خیابان آزادی<br>خیابان حبیب‌الله، میدان تیموری</p>
+                        <p>تهران، خیابان آزادی<br>دانشگاه صنعتی شریف</p>
                     </div>
                     <div class="reservations">
                         <h3>ایمیل</h3>
