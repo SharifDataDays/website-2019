@@ -247,7 +247,7 @@ def report(request):
                 logger.debug("Report status is OK")
                 logfile = functions.download_file(single_report['parameters']['game_log'])
                 single_match.status = 'done'
-                single_match.log.save(name='log', content=File(logfile.file))
+                single_match.log.save()
                 single_match.update_scores_from_log()
             elif single_report['status'] == 3:
                 single_match.status = 'failed'

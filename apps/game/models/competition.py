@@ -24,7 +24,6 @@ class Competition(models.Model):
     challenge = models.ForeignKey(Challenge, related_name='competitions')
     name = models.CharField(max_length=128, null=True)
     tag = models.CharField(max_length=128, null=True)
-    trial_time = models.IntegerField(null=True)
     trial_duration = models.IntegerField(null=True)
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
@@ -48,9 +47,9 @@ class Competition(models.Model):
 
 class Question(models.Model):
     stmt = models.CharField(max_length=500)
-    value = models.CharField(max_length=200)
+    value = models.CharField(max_length=200, null=True)
     correct_answer = models.CharField(max_length=200)
-    score = models.FloatField(default=0)
+    score = models.FloatField(default=0, null=True)
 
 
 class MultipleChoiceQuestion(Question):
@@ -86,10 +85,12 @@ class Trial(models.Model):
     end_time = models.DateTimeField(null=True)
     submit_time = models.DateTimeField(null=True)
     score = models.FloatField(default=0)
-    team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials')
+    team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials', null=True)
 
-    def save(self):
-        self.end_time += self.datetime.timedelta(hours=self.competition.trial_time)
+    def save(self, *args, **kwargs):
+        super(Trial, self).save()
+        self.end_time += datetime.timedelta(hours=self.competition.trial_duration)
+        super(Trial, self).save()
 
 
 def get_log_file_directory(instance, filename):

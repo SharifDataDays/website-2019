@@ -137,6 +137,7 @@ def redirect_to_somewhere_better(request):
             'intro:index'
         ))
 
+
 @login_required
 def render_phase(request,phase_id):
     phase = Competition.objects.get(id=phase_id)
@@ -153,8 +154,9 @@ def render_phase(request,phase_id):
         context.update({
             'phase': phase,
         })
+        trials = Trial.objects.filter(team_id=team_pc.id)
         context.update({
-            'trials': team_pc.trials
+            'trials': trials
         })
 
     return render(request,'accounts/panel/panel_phase.html',context)

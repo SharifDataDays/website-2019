@@ -14,11 +14,7 @@
     
             {% for trial in trials %}
                 <tr>
-                    {% if LANGUAGE_BIDI %}
-                    <td>{{ trial.submit_time|jalali }}</td>
-                    {% else %}
-                    <td>{{ trial.submit_time }}</td>
-                    {% endif %}
+                    <td>{{ trial.name }}</td>
                     <td>
                         {{ trial.score }}
                     </td>
@@ -27,9 +23,6 @@
             </tbody>
         </table>
     {% endif %}
-    <form class="ui form" action="{% url 'game:trial' participation_id %}" method="post"
-          style="width: 100% !important;">
-        <input type="submit" class="ui green button" value="{% trans 'Submit' %}">
-    </form>
+
 
 {% endblock %}
