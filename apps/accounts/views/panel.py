@@ -265,6 +265,7 @@ def get_new_trial(request,phase_id):
 
         current_trial = Trial.objects.get(id= phase.current_trial_id)
         phase.current_trial_id +=1
+        phase.save()
         current_trial.start_time = datetime.now()
         current_trial.team = team_pc
         current_trial.save()
