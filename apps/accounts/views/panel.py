@@ -6,12 +6,13 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
-from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial
+from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
+    Instruction
 from django.core.paginator import Paginator
 from django.db.models import Q
 from datetime import datetime
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
-
+from django.apps import apps
 
 @login_required
 def get_team_pc(request):
@@ -261,19 +262,22 @@ def get_new_trial(request,phase_id):
         context.update({
             'phase': phase,
         })
+        trials = Trial.objects.filter(team_id=team_pc.id)
         context.update({
-            'trials': team_pc.trials
+            'trials': trials
         })
+        current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(),team=team_pc)
+        phase_instruction_set = PhaseInstructionSet.objects.get(phase=phase)
+        instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
+        for instruction in instructions:
+            question_model = apps.get_model(instruction.app, instruction.type)
+            questions = question_model.objects.exclude(trial__team=team_pc)[:instruction.number]
+            questions = list(questions)
+            current_trial.questions.add(*questions)
 
-        current_trial = Trial.objects.get(id= phase.current_trial_id)
-        phase.current_trial_id +=1
-        phase.save()
-        current_trial.start_time = datetime.now()
-        current_trial.team = team_pc
         current_trial.save()
-
         context.update({
-          'current_trial': current_trial
+            'current_trial': current_trial
         })
 
     return render(request,'accounts/panel/panel_trial.html',context)

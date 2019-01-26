@@ -99,6 +99,7 @@ class PhaseInstructionSet(models.Model):
 
 class Instruction(models.Model):
     type = models.CharField(max_length=200)
+    app = models.CharField(max_length=200)
     number = models.IntegerField()
     phase_instruction_set = models.ForeignKey(PhaseInstructionSet)
 
