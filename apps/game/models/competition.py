@@ -93,5 +93,15 @@ class Trial(models.Model):
         super(Trial, self).save()
 
 
+class PhaseInstructionSet(models.Model):
+    phase = models.OneToOneField(Competition)
+
+
+class Instruction(models.Model):
+    type = models.CharField(max_length=200)
+    number = models.IntegerField()
+    phase_instruction_set = models.ForeignKey(PhaseInstructionSet)
+
+
 def get_log_file_directory(instance, filename):
     return os.path.join('logs', filename + str(uuid.uuid4()))
