@@ -14,10 +14,9 @@
                 <th>{% trans 'Trial' %}</th>
                 <th>{% trans 'Submit' %}</th>
                 <th>{% trans 'Score' %}</th>
-    
             {% for trial in trials %}
                 <tr>
-                    <td>{{ trial.id }}</td>
+                    <td>{{ forloop.counter }}</td>
                     <td>
                         {{ trial.score }}
                     </td>
@@ -28,5 +27,33 @@
     {% endif %}
 
     <a href="{% url 'accounts:new_trial' phase.id %}">ouoi</a>
+<div
+    class="ui four cards"
+>
+{% for trial in trials %}
+    {% if forloop.counter == trials|length %}
+        <div class="ui link card inverted">
+        {% else %}
+        <div class="ui card inverted">
+    {% endif %}
+      <div class="content">
+        <div class="header">
+            {% trans 'Trial' %} {{ forloop.counter }}
+        </div>
+      </div>
+      <div class="content">
+        <h4 class="ui sub header">
+            {% trans 'Start Time' %}
+        </h4>
+        {{ trial.start_time|timesince }}
+        <h4 class="ui sub header">
+            {% trans 'Submit Time' %}
+        </h4>
+          {{ trial.submit_time }}
+      </div>
+    </div>
+
+{% endfor %}
+</div>
 
 {% endblock %}
