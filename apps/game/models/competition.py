@@ -51,6 +51,9 @@ class Question(models.Model):
     correct_answer = models.CharField(max_length=200)
     score = models.FloatField(default=0, null=True)
 
+    def __str__(self):
+        return str('%s: %s' % (self.__class__.__name__, self.stmt))
+
 
 class MultipleChoiceQuestion(Question):
     choice1 = models.CharField(max_length=200)
@@ -96,12 +99,18 @@ class Trial(models.Model):
 class PhaseInstructionSet(models.Model):
     phase = models.OneToOneField(Competition)
 
+    def __str__(self):
+        return str('%s InstructionSet' % self.phase)
+
 
 class Instruction(models.Model):
     type = models.CharField(max_length=200)
     app = models.CharField(max_length=200)
     number = models.IntegerField()
     phase_instruction_set = models.ForeignKey(PhaseInstructionSet)
+
+    def __str__(self):
+        return str('%s : %s' % (self.type ,self.number))
 
 
 def get_log_file_directory(instance, filename):
