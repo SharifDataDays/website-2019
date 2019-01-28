@@ -55,7 +55,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class FileUploadAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'correct_answer', 'download_url', 'upload_url']
+  fields = ['stmt', 'value',  'download_url', 'upload_url']
 
 
 class PhaseInstructionSetAdmin(admin.ModelAdmin):
