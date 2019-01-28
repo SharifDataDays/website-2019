@@ -273,13 +273,12 @@ def get_new_trial(request,phase_id):
                 context.update({
                     'error': _('You have one active trial.')
                 })
-                return render(request, 'accounts/panel/panel_phase.html', context)
-                # return redirect(reverse('accounts:new_trial'), phase_id=phase_id, kwargs= context)
+                return render(request, 'accounts/panel/no_new_trial.html', context)
         if len(trials) >= 5:
             context.update({
                 'error': _('You can not get any new trial.')
             })
-            return render(request, 'accounts/panel/panel_phase.html', context)
+            return render(request, 'accounts/panel/no_new_trial.html', context)
 
         current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(),team=team_pc)
         phase_instruction_set = PhaseInstructionSet.objects.get(phase=phase)
