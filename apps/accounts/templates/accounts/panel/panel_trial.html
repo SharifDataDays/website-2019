@@ -4,6 +4,8 @@
 
 {% block panel_content %}
     <h2 style="margin-top: 20px;">{% trans 'Trial' %}</h2>
-
+    {% for trial in trials %}
+    {{ trial.id }}
+    {% endfor %}
 
 {% endblock %}

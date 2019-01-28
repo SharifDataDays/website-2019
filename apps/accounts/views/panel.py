@@ -160,7 +160,7 @@ def render_phase(request,phase_id):
             'trials': trials
         })
 
-    return render(request,'accounts/panel/panel_phase.html',context)
+    return render(request,'accounts/panel/panel_phase.html', context)
 
 
 
@@ -263,6 +263,7 @@ def get_new_trial(request,phase_id):
             'phase': phase,
         })
         trials = Trial.objects.filter(team_id=team_pc.id)
+        #TODO check trial open
         context.update({
             'trials': trials
         })

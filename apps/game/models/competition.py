@@ -89,7 +89,7 @@ class Trial(models.Model):
 
     def save(self, *args, **kwargs):
         super(Trial, self).save()
-        self.end_time += datetime.timedelta(hours=self.competition.trial_duration)
+        self.end_time = self.start_time + datetime.timedelta(hours=self.competition.trial_duration)
         super(Trial, self).save()
 
 
