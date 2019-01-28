@@ -95,6 +95,9 @@ class Trial(models.Model):
         self.end_time = self.start_time + datetime.timedelta(hours=self.competition.trial_duration)
         super(Trial, self).save()
 
+    def __str__(self):
+        return str('%s Trial number %d' %(self.competition, self.id))
+
 
 class PhaseInstructionSet(models.Model):
     phase = models.OneToOneField(Competition)
