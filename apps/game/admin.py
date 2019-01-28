@@ -58,6 +58,14 @@ class FileUploadAdmin(admin.ModelAdmin):
   fields = ['stmt', 'value', 'correct_answer', 'download_url', 'upload_url']
 
 
+class PhaseInstructionSetAdmin(admin.ModelAdmin):
+    fields = ['phase']
+
+
+class InstructionAdmin(admin.ModelAdmin):
+    fields = ['type', 'app', 'number', 'phase_instruction_set']
+
+
 class ChallengeAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Challenge', {'fields': ['title', 'description', 'registration_open', 'scoreboard_freeze_time']}),
