@@ -3,6 +3,7 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
@@ -264,7 +265,7 @@ def get_new_trial(request,phase_id):
         })
         trials = Trial.objects.filter(team_id=team_pc.id)
         for trial in trials:
-            if trial.end_time>datetime.now() and trial.submit_time is None:
+            if trial.end_time > timezone.now() and trial.submit_time is None:
                 context.update({
                     'error': '_(You have one active trial.)'
                 })

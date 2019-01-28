@@ -6,6 +6,7 @@
 
 {% block panel_content %}
     <h2 style="margin-top: 20px;">{% trans phase.name %}</h2>
+    <h1>{{ error }}</h1>
     {% if trials|length %}
         <table class="ui center aligned table table-bordered">
             <thead>
