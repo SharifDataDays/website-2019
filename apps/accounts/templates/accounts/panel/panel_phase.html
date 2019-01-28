@@ -5,36 +5,16 @@
 {#todo if context contains error ...#}
 
 {% block panel_content %}
-    <h2 style="margin-top: 20px;">{% trans phase.name %}</h2>
-    <h1>{{ error }}</h1>
-    {% if trials|length %}
-        <table class="ui center aligned table table-bordered">
-            <thead>
-            <tr>
-                <th>{% trans 'Trial' %}</th>
-                <th>{% trans 'Submit' %}</th>
-                <th>{% trans 'Score' %}</th>
-            {% for trial in trials %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>
-                        {{ trial.score }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
-
-    <a href="{% url 'accounts:new_trial' phase.id %}">{% trans 'get new trial' %}</a>
+{#    <a href="{% url 'accounts:new_trial' phase.id %}">ouoi</a>#}
 <div
-    class="ui four cards"
+    class="ui two cards"
 >
 {% for trial in trials %}
     {% if forloop.counter == trials|length %}
-        <div class="ui link card inverted">
+{#        TODO add link to trial#}
+        <div  class="ui link card active panel_phase">
         {% else %}
-        <div class="ui card inverted">
+        <div class="ui card panel_phase">
     {% endif %}
       <div class="content">
         <div class="header">
@@ -45,14 +25,25 @@
         <h4 class="ui sub header">
             {% trans 'Start Time' %}
         </h4>
-        {{ trial.start_time|timesince }}
+        {{ trial.start_time }}
         <h4 class="ui sub header">
             {% trans 'Submit Time' %}
         </h4>
           {{ trial.submit_time }}
+        <h4 class="ui sub header">
+            {% trans 'Time Left' %}
+        </h4>
+          {{ trial.end_time|timeuntil }}
+        <h4 class="ui sub header">
+            {% trans 'Score' %}
+        </h4>
+          {{ trial.score }}
       </div>
-    </div>
-
+    {% if forloop.counter == trials|length %}
+        </div>
+        {% else %}
+        </div>
+    {% endif %}
 {% endfor %}
 </div>
 
