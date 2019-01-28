@@ -121,31 +121,28 @@ def render_friendly(request, competition_id):
     })
 
 
-def sortSecond(val):
-    return val[1]
 
-
-def render_phase_scoreboard(request):
-    phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
-    ranks = []
-    for team in phase_scoreboard:
-        temp = (team.team.name,get_total_score(team.id),0)
-        ranks.append(temp)
-    ranks.sort(key=sortSecond,reverse=True)
-    for i in range(0,len(phase_scoreboard)):
-        x = list(ranks[i])
-        x[2] = i+1
-        ranks[i] = tuple(x)
-    return render(request,'scoreboard/group_table.html',{
-        'teams':ranks,
-    })
-
-
-def get_total_score(team_id):
-    result = 0
-    for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id)):
-        result+=trial.score
-    return result
+# def render_phase_scoreboard(request):
+#     phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
+#     ranks = []
+#     for team in phase_scoreboard:
+#         temp = (team.team.name,get_total_score(team.id),0)
+#         ranks.append(temp)
+#     ranks.sort(key=sortSecond,reverse=True)
+#     for i in range(0,len(phase_scoreboard)):
+#         x = list(ranks[i])
+#         x[2] = i+1
+#         ranks[i] = tuple(x)
+#     return render(request,'scoreboard/group_table.html',{
+#         'teams':ranks,
+#     })
+#
+#
+# def get_total_score(team_id):
+#     result = 0
+#     for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id)):
+#         result+=trial.score
+#     return result
 
 
 def render_league(request, competition_id):
