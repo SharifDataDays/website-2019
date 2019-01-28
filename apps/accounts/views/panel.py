@@ -327,8 +327,34 @@ def get_new_trial(request,phase_id):
             current_trial.questions.add(*questions)
 
         current_trial.save()
-        context.update({
-            'current_trial': current_trial
-        })
+        # context.update({
+        #     'current_trial': current_trial
+        # })
+    return redirect('accounts:panel_trial', phase_id= phase_id, trial_id= current_trial.id)
 
-    return render(request,'accounts/panel/panel_trial.html',context)
+
+
+@login_required
+def render_trial(request, phase_id, trial_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase == None:
+        redirect("/accounts/panel/team")
+    else:
+        team_pc = get_team_pc(request)
+        if team_pc is None:
+            return redirect_to_somewhere_better(request)
+        context = get_shared_context(request)
+        for item in context['menu_items']:
+            if item['name'] == phase.name:
+                item['active'] = True
+        context.update({
+            'phase': phase,
+        })
+        trial = Trial.objects.get(id=trial_id)
+        context.update({
+            'trial': trial
+        })
+        if trial.team.id is not team_pc.id:
+            return render(request, '403.html')
+        else:
+            return render(request, 'accounts/panel/panel_trial.html')
