@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from apps.game.models import Challenge, Game, Competition, TeamParticipatesChallenge, TeamSubmission, Trial, Question, \
-  MultipleChoiceQuestion, FileUploadQuestion
+    MultipleChoiceQuestion, FileUploadQuestion, PhaseInstructionSet, Instruction
 
 from apps.game.models.challenge import UserAcceptsTeamInChallenge
 
@@ -207,3 +207,5 @@ admin.site.register(Trial, TrialAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(MultipleChoiceQuestion, MultipleChoiceAdmin)
 admin.site.register(FileUploadQuestion, FileUploadAdmin)
+admin.site.register(PhaseInstructionSet, PhaseInstructionSetAdmin)
+admin.site.register(Instruction, InstructionAdmin)
