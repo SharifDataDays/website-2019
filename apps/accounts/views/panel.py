@@ -263,7 +263,18 @@ def get_new_trial(request,phase_id):
             'phase': phase,
         })
         trials = Trial.objects.filter(team_id=team_pc.id)
-        #TODO check trial open
+        for trial in trials:
+            if trial.end_time>datetime.now() and trial.submit_time is None:
+                context.update({
+                    'error': '_(You have one active trial.)'
+                })
+                return render(request, 'accounts/panel/panel_phase.html', context)
+        if len(trials)>=5:
+            context.update({
+                'error': '_(You can not get any new trial.)'
+            })
+            return render(request, 'accounts/panel/panel_phase.html', context)
+            
         context.update({
             'trials': trials
         })

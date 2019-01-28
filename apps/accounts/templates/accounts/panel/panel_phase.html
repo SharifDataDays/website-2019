@@ -2,6 +2,8 @@
 {% load static i18n ai_filters tz %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 
+{#todo if context contains error ...#}
+
 {% block panel_content %}
     <h2 style="margin-top: 20px;">{% trans phase.name %}</h2>
     {% if trials|length %}
