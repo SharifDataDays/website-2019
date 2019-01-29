@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
-    Instruction, MultipleChoiceQuestion, FileUploadQuestion, RangeAcceptQuestion, MultipleAnswerQuestion, Question, \
+    Instruction, MultipleChoiceQuestion, FileUploadQuestion, IntervalQuestion, MultipleAnswerQuestion, Question, \
     Choice
 from django.core.paginator import Paginator
 from django.db.models import Q

@@ -52,18 +52,19 @@ class Question(models.Model):
         ('easy', _('easy'))
     )
     TYPE_CHOICES = (
-        ('multiple_choice', _('multiple_choice')),
-        ('single_answer', _('single_answer')),
-        ('multiple_answer', _('multiple_answer')),
-        ('single_sufficient_answer', _('single_sufficient_answer')),
-        ('single_number', _('single_number')),
-        ('interval_number', _('interval_number')),
-        ('file_upload', _('file_upload'))
+        ('multiple_choice', _('multiple_choice')), # MultipleChoiceQuestion
+        ('single_answer', _('single_answer')), # Question
+        ('multiple_answer', _('multiple_answer')), # MultipleAnswerQuestion
+        ('single_sufficient_answer', _('single_sufficient_answer')), # Question
+        ('single_number', _('single_number')), # Question type=number specified in template
+        ('interval_number', _('interval_number')), # IntervalQuestion type=number specified in template
+        ('file_upload', _('file_upload')) # FileUploadQuestion
     )
     UI_TYPE_CHOICES = (
         ('text_number', _('text_number')),
         ('text_string', _('text_string')),
         ('choices', _('choices')),
+        ('multiple', _('multiple')),
         ('file', _('file'))
     )
 
@@ -83,7 +84,8 @@ class MultipleChoiceQuestion(Question):
 
     def save(self):
 
-        self.type = 'MultipleChoiceQuestion'
+        self.type = 'multiple_choice'
+        self.ui_type = 'choices'
         super(MultipleChoiceQuestion, self).save()
 
 
@@ -97,22 +99,26 @@ class FileUploadQuestion(Question):
     upload_url = models.CharField(max_length=200)
 
     def save(self, **kwargs):
-        self.type = 'FileUploadQuestion'
+        self.type = 'file_upload'
+        self.ui_type = 'file'
         super(FileUploadQuestion, self).save()
 
 
-class RangeAcceptQuestion(Question):
+class IntervalQuestion(Question):
     min_range = models.FloatField()
     max_range = models.FloatField()
 
     def save(self):
-        self.type = 'RangeAcceptQuestion'
-        super(RangeAcceptQuestion, self).save()
+        self.type = 'interval_number'
+        self.ui_type = 'text_number'
+        super(IntervalQuestion, self).save()
 
 
 class MultipleAnswerQuestion(Question):
+
     def save(self):
-        self.type = 'MultipleAnswerQuestion'
+        self.type = 'multiple_answer'
+        self.ui_type = 'multiple'
         super(MultipleAnswerQuestion, self).save()
 
 
