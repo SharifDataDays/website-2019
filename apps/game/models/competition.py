@@ -56,21 +56,21 @@ class Question(models.Model):
     correct_answer = models.CharField(max_length=200)
     score = models.FloatField(default=0, null=True)
     type = models.CharField(max_length=200, blank=True)
-    level = models.CharField(max_length=200 , choices=CHOICES, blank=True)
+    level = models.CharField(max_length=200 , choices=CHOICES, blank=True, null=True)
 
     def __str__(self):
         return str('%s: %s' % (self.type, self.stmt))
 
 
 class MultipleChoiceQuestion(Question):
-    choice1 = models.CharField(max_length=200)
-    choice2 = models.CharField(max_length=200)
-    choice3 = models.CharField(max_length=200)
-    choice4 = models.CharField(max_length=200)
-
     def save(self):
         self.type = 'MultipleChoiceQuestion'
         super(MultipleChoiceQuestion, self).save()
+
+
+class Choice(models.Model):
+    text = models.CharField(max_length=200)
+    question = models.ForeignKey(MultipleChoiceQuestion)
 
 
 class FileUploadQuestion(Question):
