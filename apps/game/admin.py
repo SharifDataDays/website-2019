@@ -93,7 +93,7 @@ class PhaseInstructionSetAdmin(admin.ModelAdmin):
 
 
 class InstructionAdmin(admin.ModelAdmin):
-    fields = ['type', 'app', 'number', 'phase_instruction_set']
+    fields = ['type', 'app', 'number', 'level', 'phase_instruction_set']
 
 
 class ChallengeAdmin(admin.ModelAdmin):
