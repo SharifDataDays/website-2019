@@ -2,6 +2,8 @@
 {% load static i18n ai_filters tz %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 
+{% block panel_content %}
+
 <div class="ui one cards">
     <div class="ui link card active">
         <p style="color:red">{{ error }}</p>
@@ -13,8 +15,7 @@
         <a href="{% url 'accounts:new_trial' phase.id %}">{% trans 'Try' %}</a>
     </div>
 </div>
-{% block panel_content %}
-{#    <a href="{% url 'accounts:new_trial' phase.id %}">ouoi</a>#}
+    <a href="{% url 'accounts:new_trial' phase.id %}">ouoi</a>
 <div
     class="ui two cards "
 >
@@ -24,7 +25,7 @@
         <div  class="ui card link active panel_phase">
 
         {% else %}
-        <div class="ui link card panel_phase">
+        <div class="ui card panel_phase">
     {% endif %}
       <div class="content">
         <div class="header">
@@ -41,7 +42,7 @@
             <h4 class="ui sub header">
             {% trans 'Time Left' %}
         </h4>
-          {{ trial.end_time|timeuntil }}
+            <span>{{ trial.end_time|timeuntil }}</span>
         {% endif %}
 
         <h4 class="ui sub header">
