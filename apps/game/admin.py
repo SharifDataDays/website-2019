@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from apps.game.models import Challenge, Game, Competition, TeamParticipatesChallenge, TeamSubmission, Trial, Question, \
     MultipleChoiceQuestion, FileUploadQuestion, PhaseInstructionSet, Instruction, MultipleAnswerQuestion, \
-    IntervalQuestion, Choice
+    IntervalQuestion, Choice, Answer
 
 from apps.game.models.challenge import UserAcceptsTeamInChallenge
 
@@ -58,23 +58,34 @@ class MultipleChoiceAdmin(admin.ModelAdmin):
         ChoiceInline
     ]
 
-    fields = ['stmt', 'value', 'correct_answer', 'type', 'level']
+    fields = ['stmt', 'value', 'correct_answer', 'type', 'ui_type', 'level']
 
 
 class QuestionAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'correct_answer', 'type', 'level']
+  fields = ['stmt', 'value', 'correct_answer', 'type', 'ui_type', 'level']
+
+
+class AnswerInline(admin.StackedInline):
+    model = Answer
+    extra = 1
+    show_change_link = True
+    # fields = ['text', 'question']
 
 
 class MultipleAnswerAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'value', 'correct_answer', 'type', 'level']
+    inlines = [
+        AnswerInline
+    ]
+    fields = ['stmt', 'value', 'type', 'ui_type', 'level']
 
 
 class FileUploadAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'type', 'level', 'download_url', 'upload_url']
+  fields = ['stmt', 'value', 'type', 'ui_type', 'level', 'download_url', 'upload_url']
 
 
-class RangeAcceptAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'value', 'type', 'level', 'min_range', 'max_range']
+class IntervalQuestionAdmin(admin.ModelAdmin):
+    fields = ['stmt', 'value', 'type', 'ui_type', 'level', 'min_range', 'max_range']
+
 
 
 class PhaseInstructionSetAdmin(admin.ModelAdmin):
@@ -227,6 +238,6 @@ admin.site.register(Question, QuestionAdmin)
 admin.site.register(MultipleChoiceQuestion, MultipleChoiceAdmin)
 admin.site.register(FileUploadQuestion, FileUploadAdmin)
 admin.site.register(MultipleAnswerQuestion,  MultipleAnswerAdmin)
-admin.site.register(IntervalQuestion, RangeAcceptAdmin)
+admin.site.register(IntervalQuestion, IntervalQuestionAdmin)
 admin.site.register(PhaseInstructionSet, PhaseInstructionSetAdmin)
 admin.site.register(Instruction, InstructionAdmin)
