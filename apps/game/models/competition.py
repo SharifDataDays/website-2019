@@ -73,7 +73,7 @@ class FileUploadQuestion(Question):
 
     def save(self):
         self.type = 'FileUploadQuestion'
-        super(MultipleChoiceQuestion, self).save()
+        super(FileUploadQuestion, self).save()
 
 
 class RangeAcceptQuestion(Question):
@@ -82,13 +82,13 @@ class RangeAcceptQuestion(Question):
 
     def save(self):
         self.type = 'RangeAcceptQuestion'
-        super(MultipleChoiceQuestion, self).save()
+        super(RangeAcceptQuestion, self).save()
 
 
 class MultipleAnswerQuestion(Question):
     def save(self):
         self.type = 'MultipleAnswerQuestion'
-        super(MultipleChoiceQuestion, self).save()
+        super(MultipleAnswerQuestion, self).save()
 
 
 class Answer(models.Model):
