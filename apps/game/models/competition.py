@@ -61,11 +61,11 @@ class Question(models.Model):
         ('file_upload', _('file_upload')) # FileUploadQuestion
     )
     UI_TYPE_CHOICES = (
-        ('text_number', _('text_number')),
-        ('text_string', _('text_string')),
-        ('choices', _('choices')),
-        ('multiple', _('multiple')),
-        ('file', _('file'))
+        ('text_number', _('text_number')), # single_number, interval_number
+        ('text_string', _('text_string')), # single_answer, single_sufficient_answer
+        ('choices', _('choices')), # multiple_choices
+        ('multiple', _('multiple')), # multiple_answer
+        ('file', _('file')) # file_upload
     )
 
     stmt = models.CharField(max_length=500)
