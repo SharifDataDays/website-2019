@@ -2,53 +2,59 @@
 {% load static i18n ai_filters tz %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 
-{#todo if context contains error ...#}
 
 {% block panel_content %}
-{#    <a href="{% url 'accounts:new_trial' phase.id %}">ouoi</a>#}
-<div
-    class="ui two cards"
->
-{% for trial in trials %}
-    {% if forloop.counter == trials|length %}
-{#        TODO add link to trial#}
-        <div  class="ui link card active panel_phase">
-
-        {% else %}
-        <div class="ui card panel_phase">
-    {% endif %}
-      <div class="content">
-        <div class="header">
-            {% trans 'Trial' %} #{{ forloop.counter }}
-        </div>
-      </div>
-      <div class="content">
-        <h4 class="ui sub header">
-            {% trans 'Start Time' %}
-        </h4>
-        {{ trial.start_time }}
-        <h4 class="ui sub header">
-            {% trans 'Time Left' %}
-        </h4>
-          {{ trial.end_time|timeuntil }}
-        <h4 class="ui sub header">
-            {% trans 'Submit Time' %}
-        </h4>
-          {{ trial.submit_time|timesince }}
-
-      </div>
-      <div class="extra content">
-
-        <h4 class="ui label grey bottom attached">
-            {% trans 'Score ' %}{{ trial.score|floatformat:2 }}
-        </h4>
-      </div>
-    {% if forloop.counter == trials|length %}
-        </div>
-        {% else %}
-        </div>
-    {% endif %}
-{% endfor %}
+<div class="ui one cards">
+    <div class="ui link card active">
+        <p style="color:red">{{ error }}</p>
+    </div>
 </div>
 
+<div class="ui one cards">
+    <div class="ui link card active">
+<a href="{% url 'accounts:new_trial' phase.id %}">{% trans 'Try' %}</a>
+    </div>
+</div>
+<div class="ui two cards">
+    {% for trial in trials %}
+    <a href="{% url 'accounts:panel_trial' phase.id trial.id %}">
+        {% if forloop.counter == trials|length %}
+        <div class="ui link card active panel_phase">
+            {% else %}
+            <div class="ui link card panel_phase">
+                {% endif %}
+                <div class="content">
+                    <div class="header">
+                        {% trans 'Trial' %} {{ forloop.counter }}
+                    </div>
+                </div>
+                <div class="content">
+                    <h4 class="ui sub header">
+                        {% trans 'Start Time' %}
+                    </h4>
+                    {{ trial.start_time }}
+                    <h4 class="ui sub header">
+                        {% trans 'Time Left' %}
+                    </h4>
+                    {{ trial.end_time|timeuntil }}
+                    <h4 class="ui sub header">
+                        {% trans 'Submit Time' %}
+                    </h4>
+                    {{ trial.submit_time|timesince }}
+
+                </div>
+                <div class="extra content">
+
+                    <h4 class="ui label grey bottom attached">
+                        {% trans 'Score ' %}{{ trial.score|floatformat:2 }}
+                    </h4>
+                </div>
+                {% if forloop.counter == trials|length %}
+            </div>
+            {% else %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </a>
+</div>
 {% endblock %}

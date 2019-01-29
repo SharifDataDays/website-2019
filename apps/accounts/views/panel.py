@@ -8,12 +8,13 @@ from django.utils.translation import ugettext_lazy as _
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
-    Instruction
+    Instruction, MultipleChoiceQuestion, FileUploadQuestion, RangeAcceptQuestion, MultipleAnswerQuestion
 from django.core.paginator import Paginator
 from django.db.models import Q
 from datetime import datetime
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 from django.apps import apps
+
 
 @login_required
 def get_team_pc(request):
@@ -49,9 +50,9 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
-        {'name':'total Scoreboard','link':reverse('game:scoreboard_total'),'text':_('Scoreboard')},
-      # {'name': 'submissions', 'link': reverse('accounts:panel_submissions'), 'text': _('Submissions')},
-#        {'name': 'battle_history', 'link': reverse('accounts:panel_battle_history'), 'text': _('Battle history')},
+        {'name': 'total Scoreboard', 'link': reverse('game:scoreboard_total'), 'text': _('Scoreboard')},
+        # {'name': 'submissions', 'link': reverse('accounts:panel_submissions'), 'text': _('Submissions')},
+        #        {'name': 'battle_history', 'link': reverse('accounts:panel_battle_history'), 'text': _('Battle history')},
     ]
 
     if request.user.profile:
@@ -68,7 +69,6 @@ def get_shared_context(request):
                         'text': _(comp.name)
                     }
                 )
-
 
     return context
 
@@ -141,7 +141,7 @@ def redirect_to_somewhere_better(request):
 
 
 @login_required
-def render_phase(request,phase_id):
+def render_phase(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase == None:
         redirect("/accounts/panel/team")
@@ -161,8 +161,7 @@ def render_phase(request,phase_id):
             'trials': trials
         })
 
-    return render(request,'accounts/panel/panel_phase.html', context)
-
+    return render(request, 'accounts/panel/panel_phase.html', context)
 
 
 @login_required
@@ -246,11 +245,10 @@ def battle_history(request):
     return render(request, 'accounts/panel/battle_history.html', context)
 
 
-
 @login_required
-def get_new_trial(request,phase_id):
+def get_new_trial(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
-    if phase == None:
+    if phase is None:
         redirect("/accounts/panel/team")
     else:
         team_pc = get_team_pc(request)
@@ -280,7 +278,7 @@ def get_new_trial(request,phase_id):
             })
             return render(request, 'accounts/panel/no_new_trial.html', context)
 
-        current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(),team=team_pc)
+        current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(), team=team_pc)
         phase_instruction_set = PhaseInstructionSet.objects.get(phase=phase)
         instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
         for instruction in instructions:
@@ -293,14 +291,13 @@ def get_new_trial(request,phase_id):
         # context.update({
         #     'current_trial': current_trial
         # })
-    return redirect('accounts:panel_trial', phase_id= phase_id, trial_id= current_trial.id)
-
+    return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
 
 
 @login_required
 def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
-    if phase == None:
+    if phase is None:
         redirect("/accounts/panel/team")
     else:
         team_pc = get_team_pc(request)
@@ -315,7 +312,11 @@ def render_trial(request, phase_id, trial_id):
         })
         trial = Trial.objects.get(id=trial_id)
         context.update({
-            'trial': trial
+            'trial': trial,
+            'mcqs': [x for x in trial.questions.all() if x is MultipleChoiceQuestion],
+            'fuqs': [x for x in trial.questions.all() if x is FileUploadQuestion],
+            'raqs': [x for x in trial.questions.all() if x is RangeAcceptQuestion],
+            'maqs': [x for x in trial.questions.all() if x is MultipleAnswerQuestion]
         })
         if trial.team.id is not team_pc.id:
             return render(request, '403.html')
