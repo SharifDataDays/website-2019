@@ -3,73 +3,41 @@
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 
 {% block panel_content %}
+{# TODO action dest#}
+<form action="aaa"
+      class="form"
+>
 
-<form action="aaa">
-{#    <h2 style="margin-top: 20px;">{% trans 'Trial' %}</h2>#}
-{#    {% for q in mcqs %}#}
-{#    <div id="{{ q.id }}">#}
-{#        <h4>{{ q.stmt }}</h4>#}
-{#        {% for c in q.choices %}#}
-{#        <input type="radio" name="{{ q.id }}_{{ c.id }}" value="{{ c.text }}">{{ c.text }}#}
-{#        {% endfor %}#}
-{#    </div>#}
-{##}
-{#    {% endfor %}#}
-{#    {% for q in fuqs %}#}
-{#    <div id="{{ q.id }}">#}
-{#        <h4>{{ q.stmt }}</h4>#}
-{#        <input type="file">#}
-{#    </div>#}
-{#    {% endfor %}#}
-{#    {% for q in raqs %}#}
-{#    <div id="{{ q.id }}">#}
-{#        <h4>{{ q.stmt }}</h4>#}
-{#        <input type="number" value="0.00">#}
-{#    </div>#}
-{#    {% endfor %}#}
-{#    {% for q in maqs %}#}
-{#    <div id="q.id">#}
-{#        <h4>{{ q.stmt }}</h4>#}
-{#        {% for c in q.choices %}#}
-{#            <input type="checkbox" name="{{ c.text }}" value="{{ c.text }}">#}
-{#        {% endfor %}#}
-{#    </div>#}
-{#    {% endfor %}#}
 {# Aeonem:Zee #}
 {# Numeric-Text Inputs #}
-<div class="piled segments">
+<div class="piled segments fields">
 {% for question in numeric_text_questions %}
-
-<div class="ui segment ui input fluid"
-     style="margin: 15px 0px;padding:0px;"
->
-<h6 class="ui top attached label " style="margin:0">
- {{ question.stmt }}
-</h6>
-    <input
-           required
-           class=""
-           type="number"
-           step="0.0000001"
-           name="{{ trial.id  }}_{{ question.id }}"
-           style="margin:10px 0 0 0px; border-radius: 0 0 2px 2px; border:none;"
-           value="{{ question.value }}"
-           {% if question.value|length == 0 %}
-               placeholder="{% trans 'No answer yet' %}"
-           {% endif %}
+    <div class="ui segment ui input fluid field"
+         style="margin: 15px 0px;padding:0px;"
     >
-</div>
+        <h6 class="ui top attached label " style="margin:0">
+         {{ question.stmt }}
+        </h6>
+            <input
+                   required
+                   class="ui input"
+                   type="number"
+                   step="0.00000001"
+                   name="{{ trial.id  }}_{{ question.id }}"
+                   style="margin:10px 0 0 0px; border-radius: 0 0 2px 2px; border:none;"
+                   placeholder="{% trans 'No answer yet' %}"
+            >
+    </div>
 {% endfor %}
 </div>
 
     <button
-        class="fluid ui button teal"
+        class="fluid ui submit blue button"
         style="margin: 20px 0px"
         type="submit"
     >
         {% trans 'Submit' %}
     </button>
-
 </form>
 
 {% endblock %}
