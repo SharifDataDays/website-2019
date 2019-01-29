@@ -72,8 +72,8 @@ class Question(models.Model):
     value = models.CharField(max_length=200, null=True, blank=True)
     correct_answer = models.CharField(max_length=200)
     score = models.FloatField(default=0, null=True)
-    type = models.CharField(max_length=200, blank=True)
-    ui_type = models.CharField(max_length=200, blank=True)
+    type = models.CharField(max_length=200, blank=True, choices=TYPE_CHOICES)
+    ui_type = models.CharField(max_length=200, blank=True, choices=UI_TYPE_CHOICES)
     level = models.CharField(max_length=200, choices=LEVEL_CHOICES, blank=True, null=True)
 
     def __str__(self):
