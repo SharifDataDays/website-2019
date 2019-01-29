@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
-    Instruction, MultipleChoiceQuestion, FileUploadQuestion, RangeAcceptQuestion, MultipleAnswerQuestion
+    Instruction, MultipleChoiceQuestion, FileUploadQuestion, RangeAcceptQuestion, MultipleAnswerQuestion, Question
 from django.core.paginator import Paginator
 from django.db.models import Q
 from datetime import datetime
@@ -344,16 +344,20 @@ def render_trial(request, phase_id, trial_id):
         context.update({
             'phase': phase,
         })
-        trial = Trial.objects.get(id=trial_id)
+        trial = Trial.objects.filter(id=trial_id).all()
+        if len(trial) is 0:
+            return render(request, '404.html')
+        else:
+            trial = trial[0]
         context.update({
             'trial': trial,
-            'mcqs': [x for x in trial.questions.all() if isinstance(x, MultipleChoiceQuestion)],
-            'fuqs': [x for x in trial.questions.all() if isinstance(x, FileUploadQuestion)],
-            'raqs': [x for x in trial.questions.all() if isinstance(x, RangeAcceptQuestion)],
-            'maqs': [x for x in trial.questions.all() if isinstance(x, MultipleAnswerQuestion)],
-            'queleng': len(trial.questions.all())
+            'mcqs': [x for x in trial.questions.filter(type='MultipleChoiceQuestion')],
+            'fuqs': [x for x in trial.questions.filter(type='FileUploadQuestion')],
+            'raqs': [x for x in trial.questions.filter(type='RangeAcceptQuestion')],
+            'maqs': [x for x in trial.questions.filter(type='MultipleAnswerQuestion')],
+            'queleng': len(trial.questions.all()),
         })
         if trial.team.id is not team_pc.id:
             return render(request, '403.html')
         else:
-            return render(request, 'accounts/panel/panel_trial.html')
+            return render(request, 'accounts/panel/panel_trial.html', context)

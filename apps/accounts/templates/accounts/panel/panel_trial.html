@@ -5,18 +5,16 @@
 {% block panel_content %}
     <h2 style="margin-top: 20px;">{% trans 'Trial' %}</h2>
     {% for q in mcqs %}
-        {{ q }}
+        {{ q.stmt }}
     {% endfor %}
     {% for q in fuqs %}
-        {{ q }}
+        {{ q.stmt }}
     {% endfor %}
     {% for q in raqs %}
-        {{ q }}
+        {{ q.stmt }}
     {% endfor %}
     {% for q in maqs %}
-        {{ q }}
+        {{ q.stmt }}
     {% endfor %}
 
-        {{ queleng }}
-{{trial.questions}}
 {% endblock %}

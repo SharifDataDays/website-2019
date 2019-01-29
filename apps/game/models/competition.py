@@ -47,12 +47,13 @@ class Competition(models.Model):
 
 class Question(models.Model):
     stmt = models.CharField(max_length=500)
-    value = models.CharField(max_length=200, null=True)
+    value = models.CharField(max_length=200, null=True, blank=True)
     correct_answer = models.CharField(max_length=200)
     score = models.FloatField(default=0, null=True)
+    type = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
-        return str('%s: %s' % (self.__class__.__name__, self.stmt))
+        return str('%s: %s' % (self.type, self.stmt))
 
 
 class MultipleChoiceQuestion(Question):
@@ -61,19 +62,33 @@ class MultipleChoiceQuestion(Question):
     choice3 = models.CharField(max_length=200)
     choice4 = models.CharField(max_length=200)
 
+    def save(self):
+        self.type = 'MultipleChoiceQuestion'
+        super(MultipleChoiceQuestion, self).save()
+
 
 class FileUploadQuestion(Question):
     download_url = models.CharField(max_length=200)
     upload_url = models.CharField(max_length=200)
+
+    def save(self):
+        self.type = 'FileUploadQuestion'
+        super(MultipleChoiceQuestion, self).save()
 
 
 class RangeAcceptQuestion(Question):
     min_range = models.FloatField()
     max_range = models.FloatField()
 
+    def save(self):
+        self.type = 'RangeAcceptQuestion'
+        super(MultipleChoiceQuestion, self).save()
+
 
 class MultipleAnswerQuestion(Question):
-    pass
+    def save(self):
+        self.type = 'MultipleAnswerQuestion'
+        super(MultipleChoiceQuestion, self).save()
 
 
 class Answer(models.Model):

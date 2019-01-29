@@ -47,15 +47,19 @@ class TrialAdmin(admin.ModelAdmin):
 
 
 class MultipleChoiceAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'value', 'correct_answer', 'choice1', 'choice2', 'choice3', 'choice4']
+    fields = ['stmt', 'value', 'correct_answer', 'type', 'choice1', 'choice2', 'choice3', 'choice4']
 
 
 class QuestionAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'correct_answer']
+  fields = ['stmt', 'value', 'correct_answer', 'type']
+
+
+class MultipleAnswerAdmin(admin.ModelAdmin):
+    fields = ['stmt', 'value', 'correct_answer', 'type']
 
 
 class FileUploadAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value',  'download_url', 'upload_url']
+  fields = ['stmt', 'value', 'type',  'download_url', 'upload_url']
 
 
 class PhaseInstructionSetAdmin(admin.ModelAdmin):
