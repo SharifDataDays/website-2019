@@ -46,11 +46,17 @@ class Competition(models.Model):
 
 
 class Question(models.Model):
+    CHOICES = (
+        ('difficult', _('difficult')),
+        ('medium', _('medium')),
+        ('easy', _('easy'))
+    )
     stmt = models.CharField(max_length=500)
     value = models.CharField(max_length=200, null=True, blank=True)
     correct_answer = models.CharField(max_length=200)
     score = models.FloatField(default=0, null=True)
     type = models.CharField(max_length=200, blank=True)
+    level = models.CharField(max_length=200 , choices=CHOICES, blank=True)
 
     def __str__(self):
         return str('%s: %s' % (self.type, self.stmt))
