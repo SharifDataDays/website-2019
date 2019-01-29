@@ -228,13 +228,13 @@ This set of fonts are used in this project under the license: RC4QT
 
 
 .ui.card.panel_phase {
-  background-color: #253E5499;
-  color: white;
+  background-color: #253E5422;
+  /*color: white;*/
 
 }
 .ui.card.panel_phase.active {
-  background-color: #253E54ff;
-  color: white;
+  background-color: #253E5400;
+  /*color: white;*/
 
 }
 
@@ -244,19 +244,19 @@ This set of fonts are used in this project under the license: RC4QT
 
 
 .ui.card.panel_phase>.content>.sub.header{
-    color: #437099;
+    /*color: #437099;*/
 }
 
 .ui.card.panel_phase>.content>.header{
-    color: #31516d;
+    /*color: #31516d;*/
 }
 
 .ui.card.panel_phase.active>.content>.sub.header{
-    color: #437099;
+    /*color: #437099;*/
 }
 
 .ui.card.panel_phase.active>.content>.header{
-    color: #6eb3f499;
+    /*color: #6eb3f499;*/
 }
 
 .ui.card>.content>.header,
@@ -267,5 +267,5 @@ This set of fonts are used in this project under the license: RC4QT
 .ui.cards>.card>.content>.description,
 .ui.card>.extra a:not(.ui),
 .ui.cards>.card>.extra a:not(.ui) {
-  color: white;
+  /*color: white;*/
 }
