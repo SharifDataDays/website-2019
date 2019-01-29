@@ -347,10 +347,11 @@ def render_trial(request, phase_id, trial_id):
         trial = Trial.objects.get(id=trial_id)
         context.update({
             'trial': trial,
-            'mcqs': [x for x in trial.questions.all() if x is MultipleChoiceQuestion],
-            'fuqs': [x for x in trial.questions.all() if x is FileUploadQuestion],
-            'raqs': [x for x in trial.questions.all() if x is RangeAcceptQuestion],
-            'maqs': [x for x in trial.questions.all() if x is MultipleAnswerQuestion]
+            'mcqs': [x for x in trial.questions.all() if isinstance(x, MultipleChoiceQuestion)],
+            'fuqs': [x for x in trial.questions.all() if isinstance(x, FileUploadQuestion)],
+            'raqs': [x for x in trial.questions.all() if isinstance(x, RangeAcceptQuestion)],
+            'maqs': [x for x in trial.questions.all() if isinstance(x, MultipleAnswerQuestion)],
+            'queleng': len(trial.questions.all())
         })
         if trial.team.id is not team_pc.id:
             return render(request, '403.html')
