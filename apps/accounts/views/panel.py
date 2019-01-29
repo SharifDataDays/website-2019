@@ -189,6 +189,7 @@ def render_phase(request, phase_id):
             if item['name'] == phase.name:
                 item['active'] = True
         context.update({
+            'participation': team_pc,
             'phase': phase,
         })
         trials = Trial.objects.filter(team_id=team_pc.id,competition=phase)
@@ -294,6 +295,7 @@ def get_new_trial(request, phase_id):
             if item['name'] == phase.name:
                 item['active'] = True
         context.update({
+            'participation': team_pc,
             'phase': phase,
         })
         trials = Trial.objects.filter(team_id=team_pc.id)
@@ -343,6 +345,7 @@ def render_trial(request, phase_id, trial_id):
             if item['name'] == phase.name:
                 item['active'] = True
         context.update({
+            'participation': team_pc,
             'phase': phase,
         })
         trial = Trial.objects.filter(id=trial_id).all()
