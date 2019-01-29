@@ -4,13 +4,13 @@
 
 {% block panel_content %}
 
-<form action="aoeusntoehiseouithouseothueostunhoa">
+<form action="aaa">
     <h2 style="margin-top: 20px;">{% trans 'Trial' %}</h2>
     {% for q in mcqs %}
     <div id="{{ q.id }}">
         <h4>{{ q.stmt }}</h4>
         {% for c in q.choices %}
-            <input type="radio" name="{{ c.text }}" value="{{ c.text }}">{{ c.text }}
+        <input type="radio" name="{{ q.id }}_{{ c.id }}" value="{{ c.text }}">{{ c.text }}
         {% endfor %}
     </div>
 

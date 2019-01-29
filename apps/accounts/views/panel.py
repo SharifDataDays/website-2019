@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -365,3 +365,7 @@ def render_trial(request, phase_id, trial_id):
             return render(request, '403.html')
         else:
             return render(request, 'accounts/panel/panel_trial.html', context)
+
+
+def jsonr(request):
+    return HttpResponse(request)
