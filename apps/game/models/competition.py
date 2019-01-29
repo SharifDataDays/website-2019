@@ -128,8 +128,14 @@ class PhaseInstructionSet(models.Model):
 
 
 class Instruction(models.Model):
+    CHOICES = (
+        ('difficult', _('difficult')),
+        ('medium', _('medium')),
+        ('easy', _('easy'))
+    )
     type = models.CharField(max_length=200)
     app = models.CharField(max_length=200)
+    level = models.CharField(max_length=200, choices=CHOICES)
     number = models.IntegerField()
     phase_instruction_set = models.ForeignKey(PhaseInstructionSet)
 

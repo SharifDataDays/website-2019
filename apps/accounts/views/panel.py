@@ -317,7 +317,7 @@ def get_new_trial(request, phase_id):
         instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
         for instruction in instructions:
             question_model = apps.get_model(instruction.app, instruction.type)
-            questions = question_model.objects.exclude(trial__team=team_pc)[:instruction.number]
+            questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[:instruction.number]
             questions = list(questions)
             current_trial.questions.add(*questions)
 
