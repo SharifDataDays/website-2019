@@ -34,5 +34,6 @@ urlpatterns = [
     url(r'^panel/submissions', views.submissions, name='panel_submissions'),
     url(r'^panel/team$', views.team_management, name='panel_team_management'),
     url(r'^panel/bhistory', views.battle_history, name='panel_battle_history'),
-    url(r'^panel/teampc/(?P<team_pc>\d+)$', views.change_team_pc, name='panel_change_team_pc')
+    url(r'^panel/teampc/(?P<team_pc>\d+)$', views.change_team_pc, name='panel_change_team_pc'),
+    url(r'^panel/scoreboard/total/', views.render_panel_phase_scoreboard, name='scoreboard_total'),
 ]

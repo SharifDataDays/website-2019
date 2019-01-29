@@ -50,9 +50,6 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
-        {'name': 'total Scoreboard', 'link': reverse('game:scoreboard_total'), 'text': _('Scoreboard')},
-        # {'name': 'submissions', 'link': reverse('accounts:panel_submissions'), 'text': _('Submissions')},
-        #        {'name': 'battle_history', 'link': reverse('accounts:panel_battle_history'), 'text': _('Battle history')},
     ]
 
     if request.user.profile:
@@ -139,6 +136,43 @@ def redirect_to_somewhere_better(request):
             'intro:index'
         ))
 
+def sortSecond(val):
+    return val[1][0]
+
+
+
+def render_panel_phase_scoreboard(request):
+    phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
+    ranks = []
+    context = get_shared_context(request)
+    for item in context['menu_items']:
+        if item['name'] == 'total Scoreboard':
+            item['active'] = True
+    for team in phase_scoreboard:
+        temp = (team.team.name,get_total_score(team.id),0)
+        ranks.append(temp)
+    ranks.sort(key=sortSecond,reverse=True)
+    for i in range(0,len(phase_scoreboard)):
+        x = list(ranks[i])
+        x[2] = i+1
+        ranks[i] = tuple(x)
+    context.update({
+        'teams':ranks,
+        'phases':Competition.objects.all()
+    })
+    return render(request,'accounts/panel/group_table.html',context)
+
+
+def get_total_score(team_id):
+    result = {}
+    result[0] = 0
+    for phase in Competition.objects.all():
+        result[phase.name] = 0
+        for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id),competition=phase):
+            result[phase.name]+=trial.score
+        result[0] += result[phase.name]
+    return result
+
 
 @login_required
 def render_phase(request, phase_id):
@@ -156,7 +190,7 @@ def render_phase(request, phase_id):
         context.update({
             'phase': phase,
         })
-        trials = Trial.objects.filter(team_id=team_pc.id)
+        trials = Trial.objects.filter(team_id=team_pc.id,competition=phase)
         context.update({
             'trials': trials
         })

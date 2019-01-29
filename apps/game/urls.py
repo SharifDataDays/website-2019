@@ -5,8 +5,7 @@ from . import views
 
 app_name = "game"
 urlpatterns = [
-    url(r'^scoreboard/(?P<competition_id>[0-9]+)/$', views.render_scoreboard, name='scoreboard'),
-    url(r'^scoreboard/total/', views.render_scoreboard, name='scoreboard_total'),
+    url(r'^panel/scoreboard/(?P<competition_id>[0-9]+)/$', views.render_scoreboard, name='scoreboard'),
     url(r'^league_scoreboard/(?P<challenge_id>[0-9]+)/$', views.render_challenge_league, name='league_scoreboard'),
     url(r'^tag_scoreboard/(?P<tag_name>.+)', views.render_tag, name='tag_scoreboard'),
     url(r'^api/report', views.report, name='report'),
