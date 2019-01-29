@@ -178,6 +178,7 @@ def get_total_score(team_id):
 
 @login_required
 def render_phase(request, phase_id):
+    user = request.user
     phase = Competition.objects.get(id=phase_id)
     if phase == None:
         redirect("/accounts/panel/team")
@@ -193,8 +194,19 @@ def render_phase(request, phase_id):
             'participation': team_pc,
             'phase': phase,
         })
-        trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
+        from apps.accounts.models import Team
+        for team in Team.objects.all():
+            for user_participation in team.participants.all():
+                if user_participation.user == user:
+                    current_team = team
+                    break
+        if len(current_team.participants.all()) == Challenge.objects.all()[0].team_size :
+            is_team_completed = True
+        else:
+            is_team_completed = False
+        trials = Trial.objects.filter(team_id=team_pc.id,competition=phase)
         context.update({
+            'is_team_completed':is_team_completed,
             'trials': trials
         })
 

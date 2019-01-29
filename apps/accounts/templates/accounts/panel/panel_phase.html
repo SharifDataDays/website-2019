@@ -6,13 +6,16 @@
 
 {#    Get New Trial Button #}
 <div>
-    <a
-        class="fluid ui button teal"
-        style="margin: 20px 0px"
-        href="{% url 'accounts:new_trial' phase.id %}"
-    >
-        {% trans 'Get a new trial' %}
-    </a>
+  {% if is_team_completed %}
+  <a
+      class="fluid ui button teal"
+      style="margin: 20px 0px"
+      href="{% url 'accounts:new_trial' phase.id %}"
+  >
+      {% trans 'Get a new trial' %}
+  </a>
+  {% endif %}
+
 </div>
 
 
