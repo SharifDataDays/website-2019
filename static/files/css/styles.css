@@ -269,3 +269,13 @@ This set of fonts are used in this project under the license: RC4QT
 .ui.cards>.card>.extra a:not(.ui) {
   /*color: white;*/
 }
+
+input.middle:focus {
+    outline-width: 0;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
