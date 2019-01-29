@@ -56,7 +56,7 @@ class Question(models.Model):
     correct_answer = models.CharField(max_length=200)
     score = models.FloatField(default=0, null=True)
     type = models.CharField(max_length=200, blank=True)
-    level = models.CharField(max_length=200 , choices=CHOICES, blank=True)
+    level = models.CharField(max_length=200 , choices=CHOICES, blank=True, null=True)
 
     def __str__(self):
         return str('%s: %s' % (self.type, self.stmt))
@@ -64,7 +64,7 @@ class Question(models.Model):
 
 class MultipleChoiceQuestion(Question):
 
-    def save(self, **kwargs):
+    def save(self):
         self.type = 'MultipleChoiceQuestion'
         super(MultipleChoiceQuestion, self).save()
 
@@ -129,8 +129,14 @@ class PhaseInstructionSet(models.Model):
 
 
 class Instruction(models.Model):
+    CHOICES = (
+        ('difficult', _('difficult')),
+        ('medium', _('medium')),
+        ('easy', _('easy'))
+    )
     type = models.CharField(max_length=200)
     app = models.CharField(max_length=200)
+    level = models.CharField(max_length=200, choices=CHOICES)
     number = models.IntegerField()
     phase_instruction_set = models.ForeignKey(PhaseInstructionSet)
 
