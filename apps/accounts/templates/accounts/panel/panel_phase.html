@@ -4,24 +4,24 @@
 
 {% block panel_content %}
 
-<div class="ui one cards">
-    <div class="ui link card active">
-        <p style="color:red">{{ error }}</p>
-    </div>
+{#    Get New Trial Button #}
+<div>
+    <a
+        class="fluid ui button teal"
+        href="{% url 'accounts:new_trial' phase.id %}"
+    >
+        {% trans 'Get New Trial' %}
+    </a>
 </div>
 
-<div class="ui one cards">
-    <div class="ui link card active">
-        <a href="{% url 'accounts:new_trial' phase.id %}">{% trans 'Try' %}</a>
-    </div>
-</div>
-    <a href="{% url 'accounts:new_trial' phase.id %}">ouoi</a>
+
+
+{# Trials List #}
 <div
     class="ui two cards "
 >
 {% for trial in trials %}
     {% if forloop.counter == trials|length %}
-{#        TODO add link to trial#}
         <div  class="ui card link active panel_phase">
 
         {% else %}
@@ -61,7 +61,7 @@
     <div class="extra content">
     <a
               href="{% url 'accounts:panel_trial' phase.id trial.id %}"
-              class="ui label bottom attached teal center aligned">
+              class="ui label bottom attached blue center aligned">
           {% trans 'View Trial' %}
       </a>
     </div>
