@@ -35,7 +35,7 @@ class Competition(models.Model):
             return self.scoreboard_freeze_time
         return self.challenge.scoreboard_freeze_time
 
-    def save(self):
+    def save(self, ):
         super(Competition, self).save()
         # TODO: write save
 
@@ -46,17 +46,34 @@ class Competition(models.Model):
 
 
 class Question(models.Model):
-    CHOICES = (
+    LEVEL_CHOICES = (
         ('difficult', _('difficult')),
         ('medium', _('medium')),
         ('easy', _('easy'))
     )
+    TYPE_CHOICES = (
+        ('multiple_choice', _('multiple_choice')),
+        ('single_answer', _('single_answer')),
+        ('multiple_answer', _('multiple_answer')),
+        ('single_sufficient_answer', _('single_sufficient_answer')),
+        ('single_number', _('single_number')),
+        ('interval_number', _('interval_number')),
+        ('file_upload', _('file_upload'))
+    )
+    UI_TYPE_CHOICES = (
+        ('text_number', _('text_number')),
+        ('text_string', _('text_string')),
+        ('choices', _('choices')),
+        ('file', _('file'))
+    )
+
     stmt = models.CharField(max_length=500)
     value = models.CharField(max_length=200, null=True, blank=True)
     correct_answer = models.CharField(max_length=200)
     score = models.FloatField(default=0, null=True)
     type = models.CharField(max_length=200, blank=True)
-    level = models.CharField(max_length=200 , choices=CHOICES, blank=True, null=True)
+    ui_type = models.CharField(max_length=200, blank=True)
+    level = models.CharField(max_length=200, choices=LEVEL_CHOICES, blank=True, null=True)
 
     def __str__(self):
         return str('%s: %s' % (self.type, self.stmt))
@@ -65,6 +82,7 @@ class Question(models.Model):
 class MultipleChoiceQuestion(Question):
 
     def save(self):
+
         self.type = 'MultipleChoiceQuestion'
         super(MultipleChoiceQuestion, self).save()
 
