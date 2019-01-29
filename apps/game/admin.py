@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from apps.game.models import Challenge, Game, Competition, TeamParticipatesChallenge, TeamSubmission, Trial, Question, \
-    MultipleChoiceQuestion, FileUploadQuestion, PhaseInstructionSet, Instruction
+    MultipleChoiceQuestion, FileUploadQuestion, PhaseInstructionSet, Instruction, MultipleAnswerQuestion, \
+    RangeAcceptQuestion
 
 from apps.game.models.challenge import UserAcceptsTeamInChallenge
 
@@ -47,19 +48,23 @@ class TrialAdmin(admin.ModelAdmin):
 
 
 class MultipleChoiceAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'value', 'correct_answer', 'type', 'choice1', 'choice2', 'choice3', 'choice4']
+    fields = ['stmt', 'value', 'correct_answer', 'type', 'level', 'choice1', 'choice2', 'choice3', 'choice4']
 
 
 class QuestionAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'correct_answer', 'type']
+  fields = ['stmt', 'value', 'correct_answer', 'type', 'level']
 
 
 class MultipleAnswerAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'value', 'correct_answer', 'type']
+    fields = ['stmt', 'value', 'correct_answer', 'type', 'level']
 
 
 class FileUploadAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'type',  'download_url', 'upload_url']
+  fields = ['stmt', 'value', 'type', 'level', 'download_url', 'upload_url']
+
+
+class RangeAcceptAdmin(admin.ModelAdmin):
+    fields = ['stmt', 'value', 'type', 'level', 'min_range', 'max_range']
 
 
 class PhaseInstructionSetAdmin(admin.ModelAdmin):
@@ -211,5 +216,7 @@ admin.site.register(Trial, TrialAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(MultipleChoiceQuestion, MultipleChoiceAdmin)
 admin.site.register(FileUploadQuestion, FileUploadAdmin)
+admin.site.register(MultipleAnswerQuestion,  MultipleAnswerAdmin)
+admin.site.register(RangeAcceptQuestion, RangeAcceptAdmin)
 admin.site.register(PhaseInstructionSet, PhaseInstructionSetAdmin)
 admin.site.register(Instruction, InstructionAdmin)
