@@ -15,6 +15,8 @@ from django.db.models import Q
 from datetime import datetime
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 from django.apps import apps
+from itertools import chain
+
 
 
 @login_required
@@ -353,16 +355,16 @@ def render_trial(request, phase_id, trial_id):
             return render(request, '404.html')
         else:
             trial = trial[0]
-        context.update({
-            'trial': trial,
-            'mcqs': [x for x in trial.questions.filter(type='MultipleChoiceQuestion')],
-            'fuqs': [x for x in trial.questions.filter(type='FileUploadQuestion')],
-            'raqs': [x for x in trial.questions.filter(type='RangeAcceptQuestion')],
-            'maqs': [x for x in trial.questions.filter(type='MultipleAnswerQuestion')],
-        })
-        for x in context['mcqs']:
-            x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
-        for x in context['maqs']:
+            context.update({
+                'text_number': [x for x in list(chain(trial.questions.filter(type='single_number')
+                                , trial.questions.filter(type='interval_number')))],
+                'text_string': [x for x in list(chain(trial.questions.filter(type='single_answer')
+                                , trial.questions.filter(type='single_sufficient_number')))],
+                'choices': [x for x in trial.questions.filter(type='multiple_choices')],
+                'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
+                'file': [x for x in trial.questions.filter(type='file_upload')],
+            })
+        for x in context['choices']:
             x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
         if trial.team.id is not team_pc.id:
             return render(request, '403.html')
