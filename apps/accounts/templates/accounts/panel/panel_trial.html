@@ -3,18 +3,38 @@
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 
 {% block panel_content %}
+
+<form action="aoeusntoehiseouithouseothueostunhoa">
     <h2 style="margin-top: 20px;">{% trans 'Trial' %}</h2>
     {% for q in mcqs %}
-        {{ q.stmt }}
+    <div id="{{ q.id }}">
+        <h4>{{ q.stmt }}</h4>
+        {% for c in q.choices %}
+            <input type="radio" name="{{ c.text }}" value="{{ c.text }}">{{ c.text }}
+        {% endfor %}
+    </div>
+
     {% endfor %}
     {% for q in fuqs %}
-        {{ q.stmt }}
+    <div id="{{ q.id }}">
+        <h4>{{ q.stmt }}</h4>
+        <input type="file">
+    </div>
     {% endfor %}
     {% for q in raqs %}
-        {{ q.stmt }}
+    <div id="{{ q.id }}">
+        <h4>{{ q.stmt }}</h4>
+        <input type="number" value="0.00">
+    </div>
     {% endfor %}
     {% for q in maqs %}
-        {{ q.stmt }}
+    <div id="q.id">
+        <h4>{{ q.stmt }}</h4>
+        {% for c in q.choices %}
+            <input type="checkbox" name="{{ c.text }}" value="{{ c.text }}">
+        {% endfor %}
+    </div>
     {% endfor %}
+</form>
 
 {% endblock %}

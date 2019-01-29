@@ -8,7 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
-    Instruction, MultipleChoiceQuestion, FileUploadQuestion, RangeAcceptQuestion, MultipleAnswerQuestion, Question
+    Instruction, MultipleChoiceQuestion, FileUploadQuestion, RangeAcceptQuestion, MultipleAnswerQuestion, Question, \
+    Choice
 from django.core.paginator import Paginator
 from django.db.models import Q
 from datetime import datetime
@@ -355,8 +356,11 @@ def render_trial(request, phase_id, trial_id):
             'fuqs': [x for x in trial.questions.filter(type='FileUploadQuestion')],
             'raqs': [x for x in trial.questions.filter(type='RangeAcceptQuestion')],
             'maqs': [x for x in trial.questions.filter(type='MultipleAnswerQuestion')],
-            'queleng': len(trial.questions.all()),
         })
+        for x in context['mcqs']:
+            x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
+        for x in context['maqs']:
+            x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
         if trial.team.id is not team_pc.id:
             return render(request, '403.html')
         else:

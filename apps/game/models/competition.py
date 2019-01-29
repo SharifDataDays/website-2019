@@ -63,21 +63,22 @@ class Question(models.Model):
 
 
 class MultipleChoiceQuestion(Question):
-    choice1 = models.CharField(max_length=200)
-    choice2 = models.CharField(max_length=200)
-    choice3 = models.CharField(max_length=200)
-    choice4 = models.CharField(max_length=200)
 
-    def save(self):
+    def save(self, **kwargs):
         self.type = 'MultipleChoiceQuestion'
         super(MultipleChoiceQuestion, self).save()
+
+
+class Choice(models.Model):
+    text = models.CharField(max_length=200)
+    question = models.ForeignKey(MultipleChoiceQuestion, related_name='choices')
 
 
 class FileUploadQuestion(Question):
     download_url = models.CharField(max_length=200)
     upload_url = models.CharField(max_length=200)
 
-    def save(self):
+    def save(self, **kwargs):
         self.type = 'FileUploadQuestion'
         super(FileUploadQuestion, self).save()
 

@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from apps.game.models import Challenge, Game, Competition, TeamParticipatesChallenge, TeamSubmission, Trial, Question, \
     MultipleChoiceQuestion, FileUploadQuestion, PhaseInstructionSet, Instruction, MultipleAnswerQuestion, \
-    RangeAcceptQuestion
+    RangeAcceptQuestion, Choice
 
 from apps.game.models.challenge import UserAcceptsTeamInChallenge
 
@@ -47,8 +47,18 @@ class TrialAdmin(admin.ModelAdmin):
 #     fields = ['stmt', 'value', 'correct_answer']
 
 
+class ChoiceInline(admin.StackedInline):
+    model = Choice
+    extra = 1
+    show_change_link = True
+
+
 class MultipleChoiceAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'value', 'correct_answer', 'type', 'level', 'choice1', 'choice2', 'choice3', 'choice4']
+    inlines = [
+        ChoiceInline
+    ]
+
+    fields = ['stmt', 'value', 'correct_answer', 'type', 'level']
 
 
 class QuestionAdmin(admin.ModelAdmin):
