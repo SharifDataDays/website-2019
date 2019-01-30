@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponse
+from django.forms import Form, ModelForm
+from django.http import Http404, HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -347,6 +348,10 @@ def render_trial(request, phase_id, trial_id):
 
 
 def submit_trial(request, phase_id, trial_id):
+    if request.POST:
+        form = Form(request.POST)
+    else:
+        return redirect('accounts:panel')
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
@@ -366,15 +371,15 @@ def submit_trial(request, phase_id, trial_id):
         if len(trial) is 0:
             return render(request, '404.html')
         trial = trial[0]
-        if not request.form:
-            return HttpResponse('submit form error')
-        else:
-            clean = request.form.cleaned_data
-
+        if not form.is_valid():
+            return redirect('accounts:panel')
+        clean = form.cleaned_data
+        print()
         trial.submit_time = timezone.now()
         trialSubmit = TrialSubmission()
         trialSubmit.competition = phase
         trialSubmit.team = get_team_pc(request)
+        trialSubmit.trial = trial
         trialSubmit.save()
         for inp in clean:
             trial_id, question_id = inp.name.split("_")
