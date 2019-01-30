@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
+from apps.accounts.decorators import complete_team_required
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
@@ -178,6 +180,7 @@ def get_total_score(team_id):
 
 
 @login_required
+@complete_team_required
 def render_phase(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase == None:
@@ -284,6 +287,7 @@ def battle_history(request):
 
 
 @login_required
+@complete_team_required
 def get_new_trial(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
@@ -334,6 +338,7 @@ def get_new_trial(request, phase_id):
 
 
 @login_required
+@complete_team_required
 def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
