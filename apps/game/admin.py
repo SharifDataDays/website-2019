@@ -83,15 +83,15 @@ class MultipleAnswerAdmin(admin.ModelAdmin):
     inlines = [
         AnswerInline
     ]
-    fields = ['stmt', 'value', 'type', 'ui_type', 'level']
+    fields = ['stmt', 'max_score', 'type', 'ui_type', 'level']
 
 
 class FileUploadAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'type', 'ui_type', 'level', 'download_url', 'upload_url']
+  fields = ['stmt', 'max_score', 'type', 'ui_type', 'level', 'download_url', 'upload_url']
 
 
 class IntervalQuestionAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'value', 'type', 'ui_type', 'level', 'min_range', 'max_range']
+    fields = ['stmt', 'max_score', 'type', 'ui_type', 'level', 'min_range', 'max_range']
 
 
 
