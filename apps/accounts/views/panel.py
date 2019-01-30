@@ -21,6 +21,8 @@ from django.apps import apps
 from itertools import chain
 
 
+
+
 @login_required
 def get_team_pc(request):
     if request.user.profile.panel_active_teampc:
@@ -328,7 +330,6 @@ def render_trial(request, phase_id, trial_id):
     else:
         team_pc = get_team_pc(request)
         if team_pc is None:
-            print("inja")
             return redirect_to_somewhere_better(request)
         context = get_shared_context(request)
         for item in context['menu_items']:
@@ -378,6 +379,7 @@ def submit_trial(request, phase_id, trial_id):
         if team_pc is None:
             return redirect_to_somewhere_better(request)
         context = get_shared_context(request)
+        file = request.FILES['file']
         for item in context['menu_items']:
             if item['name'] == phase.name:
                 item['active'] = True
@@ -396,6 +398,29 @@ def submit_trial(request, phase_id, trial_id):
         trial = trial[0]
         if not form.is_valid():
             return redirect('accounts:panel')
+        if file.size > 1048576:
+            error_msg = 'Max size of file is 1MB'
+            context.update({
+                'error':error_msg,
+            })
+            context.update({
+                'trial': trial,
+                'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
+                                                                 , trial.questions.filter(type='interval_number')))],
+                'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
+                                                         , trial.questions.filter(type='single_sufficient_number')))],
+                'choices': [x for x in trial.questions.filter(type='multiple_choices')],
+                'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
+                'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
+            })
+            for x in context['choices']:
+                x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
+            if trial.team.id is not team_pc.id:
+                return render(request, '403.html')
+            else:
+                return render(request, 'accounts/panel/panel_trial.html', context)
+        save_to_storage(file)
+        clean = form.cleaned_data
         trial.submit_time = timezone.now()
         trial.save()
         trialSubmit = TrialSubmission()
@@ -413,5 +438,23 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.value = clean[inp]
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
+<<<<<<< HEAD
+        return render_phase(request, phase.id)
+
+def save_to_storage(request):
+    folder = request.path.replace("/", "_")
+    uploaded_filename = request.FILES['file'].name
+    try:
+        os.mkdir(os.path.join(settings.MEDIA_ROOT, folder))
+    except:
+        pass
+    full_filename = os.path.join(settings.MEDIA_ROOT, folder, uploaded_filename)
+    fout = open(full_filename, 'wb+')
+    file_content = ContentFile( request.FILES['file'].read() )
+    for chunk in file_content.chunks():
+        fout.write(chunk)
+    fout.close()
+=======
         trialSubmit.handle()
         return redirect('accounts:panel_phase', phase.id)
+>>>>>>> be9a6fcdd2625b7ba2fda0b0710dbe263cc6af9f

@@ -227,13 +227,16 @@
                         <input
                                type="file"
                                class="link"
-                               name="{{ trial.id  }}_{{ question.id }}"
-                               accept="text/plain"
+                               {# name="{{ trial.id  }}_{{ question.id }}" #}
+                               name="file"
+                               {# accept="text/plain" #}
                         >
                     </div>
                 </div>
             </div>
         {% endfor %}
+        <p>{{error}}</p>
+
     </div>
 
     {# Submit Button#}

@@ -100,7 +100,11 @@ class Choice(models.Model):
 class FileUploadQuestion(Question):
     download_url = models.CharField(max_length=200)
     upload_url = models.CharField(max_length=200)
+<<<<<<< HEAD
+    answer_file = models.FileField(upload_to=upload_url,null=True)
+=======
     is_chosen = models.BooleanField(default=False)
+>>>>>>> be9a6fcdd2625b7ba2fda0b0710dbe263cc6af9f
 
     def save(self, **kwargs):
         self.type = 'file_upload'
