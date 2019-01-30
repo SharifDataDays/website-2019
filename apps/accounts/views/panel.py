@@ -182,7 +182,7 @@ def render_phase(request, phase_id):
     user = request.user
     phase = Competition.objects.get(id=phase_id)
     if phase == None:
-        redirect("/accounts/panel/team")
+        redirect(reverse('accounts:panel_team_management'))
     else:
         team_pc = get_team_pc(request)
         if team_pc is None:
