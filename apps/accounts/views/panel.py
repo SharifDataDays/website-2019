@@ -1,5 +1,3 @@
-import os
-
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.forms import Form, ModelForm
@@ -442,8 +440,7 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.value = clean[inp]
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
-
-        trialSubmit.handle()
+        trialSubmit.upload()
         return redirect('accounts:panel_phase', phase.id)
 
 
@@ -460,3 +457,12 @@ def save_to_storage(request):
     for chunk in file_content.chunks():
         fout.write(chunk)
     fout.close()
+
+
+def get_judge_response(request):
+    team_id = request.POST.get('team_id')
+    phase_id = request.POST.get('phase_id')
+    trial_id = request.POST.get('trial_id')
+    submissions = request.POST.get('submissions')
+    trial = Trial.objects.get(id=trial_id)
+
