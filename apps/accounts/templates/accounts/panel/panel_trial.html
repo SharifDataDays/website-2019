@@ -31,43 +31,44 @@
     {% endfor %}
 </div>
 
-<div class="">
-    {% for question in text_questions %}
-        <div class="ui top attached header"
-                    style="
-                        margin:0;
-                        height: auto;
-                        display: block;
-                        word-wrap: break-word;
-                        white-space: normal;
-                        background-color: #e8e8e8;
-                    "
-        >
-             {{ question.stmt }}
-        </div>
-        <div class="ui attached ui input fluid field"
-             style="
-                    padding:0px;
-                    "
-        >
-
-                <input
+    <div >
+        {% for question in text_questions %}
+            <div class="field"
+                 style="margin: 15px 0"
+            >
+                <div class="ui top attached header"
+                            style="
+                                margin:0;
+                                height: auto;
+                                display: block;
+                                word-wrap: break-word;
+                                white-space: normal;
+                                background-color: #e8e8e8;
+                            "
+                >
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached input fluid"
+                     style="padding:0;"
+                >
+                    <input
                        required
                        type="text"
                        name="{{ trial.id  }}_{{ question.id }}"
                        style="margin:0px 0 0 0px;
                                 border-radius: 0 0 .28571429rem .28571429rem;
-                                border-top-color: transparent;
                                 border:1px solid #d4d4d5;
+                                border-top-color: transparent;
                               "
                        placeholder="{% trans 'No answer yet : Text Field ' %}"
-                >
-        </div>
-    {% endfor %}
-</div>
+                    >
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     <button
         class="fluid ui submit blue button"
-        style="margin: 20px 0px"
+        style="margin: 20px 0"
         type="submit"
     >
         {% trans 'Submit' %}
