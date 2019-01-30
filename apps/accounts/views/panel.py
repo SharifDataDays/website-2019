@@ -348,44 +348,46 @@ def render_trial(request, phase_id, trial_id):
 
 
 def submit_trial(request, phase_id, trial_id):
-    if request.POST:
-        form = Form(request.POST)
-    else:
+    if not request.POST:
         return redirect('accounts:panel')
+
     phase = Competition.objects.get(id=phase_id)
+
     if phase is None:
         redirect("/accounts/panel/team")
-    else:
-        team_pc = get_team_pc(request)
-        if team_pc is None:
-            return redirect_to_somewhere_better(request)
-        context = get_shared_context(request)
-        for item in context['menu_items']:
-            if item['name'] == phase.name:
-                item['active'] = True
-        context.update({
-            'participation': team_pc,
-            'phase': phase,
-        })
-        trial = Trial.objects.filter(id=trial_id).all()
-        if len(trial) is 0:
-            return render(request, '404.html')
-        trial = trial[0]
-        if not form.is_valid():
-            return redirect('accounts:panel')
-        clean = form.cleaned_data
-        print()
-        trial.submit_time = timezone.now()
-        trialSubmit = TrialSubmission()
-        trialSubmit.competition = phase
-        trialSubmit.team = get_team_pc(request)
-        trialSubmit.trial = trial
-        trialSubmit.save()
-        for inp in clean:
-            trial_id, question_id = inp.name.split("_")
-            question = trial.questions.get(question_id=question_id)
-            questionSubmit = QuestionSubmission()
-            questionSubmit.question = question
-            questionSubmit.trialSubmission = trialSubmit
-            questionSubmit.save()
-        return render_phase(request, phase.id)
+
+    team_pc = get_team_pc(request)
+
+    if team_pc is None:
+        return redirect_to_somewhere_better(request)
+
+    context = get_shared_context(request)
+    context.update({
+        'participation': team_pc,
+        'phase': phase,
+    })
+    trial = Trial.objects.filter(id=trial_id).all()
+    if len(trial) is 0:
+        return render(request, '404.html')
+    trial = trial[0]
+
+    form = Form(request.POST)
+    clean = {}
+    for x in form.data.keys():
+        if x is not 'csrfmiddlewaretoken':
+            clean[x] = form.data.get(x)
+
+    trial.submit_time = timezone.now()
+    trialSubmit = TrialSubmission()
+    trialSubmit.competition = phase
+    trialSubmit.team = get_team_pc(request)
+    trialSubmit.trial = trial
+    trialSubmit.save()
+    for inp in clean:
+        trial_id, question_id = inp.name.split("_")
+        question = trial.questions.get(question_id=question_id)
+        questionSubmit = QuestionSubmission()
+        questionSubmit.question = question
+        questionSubmit.trialSubmission = trialSubmit
+        questionSubmit.save()
+    return render_phase(request, phase.id)

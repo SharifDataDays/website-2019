@@ -10,7 +10,7 @@
       class="form"
       method="post"
 >
-
+{% csrf_token %}
     {# Numeric Single-Answer Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in numeric_questions %}
