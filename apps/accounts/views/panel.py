@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
+from apps.accounts.decorators import complete_team_required
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
@@ -55,6 +57,7 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
+        {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'), 'text': _('Score Board')},
     ]
 
     if request.user.profile:
@@ -145,7 +148,8 @@ def redirect_to_somewhere_better(request):
 def sortSecond(val):
     return val[1][0]
 
-
+@login_required
+@complete_team_required
 def render_panel_phase_scoreboard(request):
     phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
     ranks = []
@@ -180,6 +184,7 @@ def get_total_score(team_id):
 
 
 @login_required
+@complete_team_required
 def render_phase(request, phase_id):
     user = request.user
     phase = Competition.objects.get(id=phase_id)
@@ -258,6 +263,7 @@ def team_management(request, participation_id=None):
 
 
 @login_required
+@complete_team_required
 def get_new_trial(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
@@ -296,7 +302,14 @@ def get_new_trial(request, phase_id):
         instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
         for instruction in instructions:
             question_model = apps.get_model(instruction.app, instruction.type)
-            questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[
+            if question_model.type is 'file_upload':
+                questions = question_model.objects.filter(is_chosen=False).all()
+                if len(questions) is 0:
+                    questions = question_model.objects.filter(trial__team=team_pc)
+                questions = questions[0]
+                questions.is_chosen(True)
+            else:
+                questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[
                         :instruction.number]
             questions = list(questions)
             current_trial.questions.add(*questions)
@@ -309,6 +322,7 @@ def get_new_trial(request, phase_id):
 
 
 @login_required
+@complete_team_required
 def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
@@ -330,6 +344,8 @@ def render_trial(request, phase_id, trial_id):
             return render(request, '404.html')
         else:
             trial = trial[0]
+            if trial.submit_time is not None:
+                return redirect('accounts:panel_phase', phase_id)
             context.update({
                 'phase': phase,
                 'trial': trial,
@@ -337,7 +353,7 @@ def render_trial(request, phase_id, trial_id):
                                                                  , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
                                                          , trial.questions.filter(type='single_sufficient_number')))],
-                'choices': [x for x in trial.questions.filter(type='multiple_choices')],
+                'choices': [x for x in trial.questions.filter(type='multiple_choice')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
                 'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
             })
@@ -348,7 +364,8 @@ def render_trial(request, phase_id, trial_id):
         else:
             return render(request, 'accounts/panel/panel_trial.html', context)
 
-
+@login_required
+@complete_team_required
 def submit_trial(request, phase_id, trial_id):
     if not request.POST:
         return redirect('accounts:panel')
@@ -373,8 +390,8 @@ def submit_trial(request, phase_id, trial_id):
         form = Form(request.POST)
         clean = {}
         for x in form.data.keys():
-            if x is not 'csrfmiddlewaretoken':
-                clean[x] = form.data.get(x)
+            if x != 'csrfmiddlewaretoken':
+                clean[x] = form.data[x]
         trial = Trial.objects.filter(id=trial_id).all()
         if len(trial) is 0:
             return render(request, '404.html')
@@ -405,18 +422,23 @@ def submit_trial(request, phase_id, trial_id):
         save_to_storage(file)
         clean = form.cleaned_data
         trial.submit_time = timezone.now()
+        trial.save()
         trialSubmit = TrialSubmission()
         trialSubmit.competition = phase
         trialSubmit.team = get_team_pc(request)
         trialSubmit.trial = trial
         trialSubmit.save()
-        for inp in clean:
-            trial_id, question_id = inp.name.split("_")
-            question = trial.questions.get(question_id=question_id)
+
+        for inp in clean.keys():
+            print("hail")
+            trial_id, question_id = inp.split("_")
+            question = trial.questions.get(id=question_id)
             questionSubmit = QuestionSubmission()
             questionSubmit.question = question
+            questionSubmit.value = clean[inp]
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
+<<<<<<< HEAD
         return render_phase(request, phase.id)
 
 def save_to_storage(request):
@@ -432,3 +454,7 @@ def save_to_storage(request):
     for chunk in file_content.chunks():
         fout.write(chunk)
     fout.close()
+=======
+        trialSubmit.handle()
+        return redirect('accounts:panel_phase', phase.id)
+>>>>>>> be9a6fcdd2625b7ba2fda0b0710dbe263cc6af9f
