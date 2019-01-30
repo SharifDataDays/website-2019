@@ -8,7 +8,6 @@
 
 <form action="{% url 'accounts:submit_trial' phase_id=phase.id trial_id=trial.id %}"
       class="form"
-      method="post"
 >
 
     {# Numeric Single-Answer Questions #}
@@ -125,6 +124,7 @@
                             flex-direction: column;
                             justify-content: center;
                             align-items: center;
+                            border-left:1px solid #d4d4d5;
                             "
                     >
                         {# TODO href to download file #}
@@ -137,6 +137,7 @@
                         style="
                             width: 50%;
                             height: 100%;
+
                             display: flex;
                             justify-content: center;
                             align-items: center;
