@@ -145,7 +145,8 @@ def redirect_to_somewhere_better(request):
 def sortSecond(val):
     return val[1][0]
 
-
+@login_required
+@complete_team_required
 def render_panel_phase_scoreboard(request):
     phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
     ranks = []
@@ -352,7 +353,8 @@ def render_trial(request, phase_id, trial_id):
         else:
             return render(request, 'accounts/panel/panel_trial.html', context)
 
-
+@login_required
+@complete_team_required
 def submit_trial(request, phase_id, trial_id):
     if not request.POST:
         return redirect('accounts:panel')
