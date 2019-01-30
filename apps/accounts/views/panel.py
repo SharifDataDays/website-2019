@@ -336,7 +336,7 @@ def render_trial(request, phase_id, trial_id):
                                                          , trial.questions.filter(type='single_sufficient_number')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choices')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
-                'file': [x for x in trial.questions.filter(type='file_upload')],
+                'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
             })
         for x in context['choices']:
             x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
