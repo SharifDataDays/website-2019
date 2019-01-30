@@ -4,6 +4,8 @@ import json
 import uuid
 
 import os
+
+import requests
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -11,6 +13,8 @@ from django.http import HttpResponseServerError, Http404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, ugettext
 import datetime
+
+from aic_site.settings.base import JUDGE_IP
 from apps.game.tasks import handle_submission
 from apps.accounts.models import Team
 from apps.game.models.challenge import Challenge, TeamSubmission, TeamParticipatesChallenge
@@ -186,8 +190,7 @@ class TrialSubmission(models.Model):
             else:
                 question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value
             context['submissions'].append(question_context)
-
-        # todo send context to judge
+        requests.post(JUDGE_IP, data=context, headers={"Content-Type": "application/json"})
 
 
 class PhaseInstructionSet(models.Model):
