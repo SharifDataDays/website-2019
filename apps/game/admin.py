@@ -58,11 +58,11 @@ class MultipleChoiceAdmin(admin.ModelAdmin):
         ChoiceInline
     ]
 
-    fields = ['stmt', 'value', 'correct_answer', 'type', 'ui_type', 'level']
+    fields = ['stmt', 'correct_answer', 'type', 'ui_type', 'level']
 
 
 class QuestionAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'correct_answer', 'type', 'ui_type', 'level']
+  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level']
 
 
 class AnswerInline(admin.StackedInline):

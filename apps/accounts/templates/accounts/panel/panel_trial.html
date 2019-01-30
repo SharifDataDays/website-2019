@@ -4,7 +4,7 @@
 
 {% block panel_content %}
 {# TODO action dest#}
-<form action="aaa"
+<form action="{% url 'accounts:submit_trial' phase_id=phase.id trial_id=trial.id %}"
       class="form"
 >
 
@@ -15,7 +15,7 @@
         <div class="ui segment ui input fluid field"
              style="margin: 15px 0px;padding:0px;"
         >
-            <h6 class="ui top attached label " style="margin:0">
+            <h6 class="ui top attached label word-wrap" style="margin:0">
              {{ question.stmt }}
             </h6>
                 <input
@@ -25,7 +25,7 @@
                        step="0.00000001"
                        name="{{ trial.id  }}_{{ question.id }}"
                        style="margin:10px 0 0 0px; border-radius: 0 0 2px 2px; border:none;"
-                       placeholder="{% trans 'No answer yet : Numeric Field' %}"
+                       placeholder="{% trans 'No answer yet : Numeric Field ...' %}"
                 >
         </div>
     {% endfor %}
@@ -36,7 +36,16 @@
         <div class="ui segment ui input fluid field"
              style="margin: 15px 0px;padding:0px;"
         >
-            <h6 class="ui top attached label " style="margin:0">
+            <h6 class="ui top attached label "
+                style="
+                    margin:0;
+                    display: block;
+                    word-wrap: break-word;
+                    display: flex;
+                    flex: inherit;
+                    flex-wrap: wrap;
+                "
+            >
              {{ question.stmt }}
             </h6>
                 <input
@@ -45,7 +54,7 @@
                        type="text"
                        name="{{ trial.id  }}_{{ question.id }}"
                        style="margin:10px 0 0 0px; border-radius: 0 0 2px 2px; border:none;"
-                       placeholder="{% trans 'No answer yet : Numeric Field' %}"
+                       placeholder="{% trans 'No answer yet : Text Field ' %}"
                 >
         </div>
     {% endfor %}

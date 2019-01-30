@@ -200,13 +200,13 @@ def render_phase(request, phase_id):
                 if user_participation.user == user:
                     current_team = team
                     break
-        if len(current_team.participants.all()) == Challenge.objects.all()[0].team_size :
+        if len(current_team.participants.all()) == Challenge.objects.all()[0].team_size:
             is_team_completed = True
         else:
             is_team_completed = False
-        trials = Trial.objects.filter(team_id=team_pc.id,competition=phase)
+        trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
         context.update({
-            'is_team_completed':is_team_completed,
+            'is_team_completed': is_team_completed,
             'trials': trials
         })
 
@@ -328,11 +328,12 @@ def render_trial(request, phase_id, trial_id):
         else:
             trial = trial[0]
             context.update({
+                'phase': phase,
                 'trial': trial,
                 'numeric_text_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
                                                                  , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                                      , trial.questions.filter(type='single_sufficient_number')))],
+                                                         , trial.questions.filter(type='single_sufficient_number')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choices')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
                 'file': [x for x in trial.questions.filter(type='file_upload')],
