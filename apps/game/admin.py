@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from apps.game.models import Challenge, Game, Competition, TeamParticipatesChallenge, TeamSubmission, Trial, Question, \
     MultipleChoiceQuestion, FileUploadQuestion, PhaseInstructionSet, Instruction, MultipleAnswerQuestion, \
-    IntervalQuestion, Choice, Answer
+    IntervalQuestion, Choice, Answer, QuestionSubmission, TrialSubmission
 
 from apps.game.models.challenge import UserAcceptsTeamInChallenge
 
@@ -43,6 +43,13 @@ class TrialAdmin(admin.ModelAdmin):
     fields = ['questions', 'competition', 'start_time', 'end_time', 'team']
 
 
+class QuestionSubmissionAdmin(admin.ModelAdmin):
+    fields = ['question', 'score', 'trialSubmission']
+
+
+class TrialSubmissionAdmin(admin.ModelAdmin):
+    fields = ['score', 'competition', 'trial', 'team']
+
 # class QuestionAdmin(admin.ModelAdmin):
 #     fields = ['stmt', 'value', 'correct_answer']
 
@@ -58,11 +65,11 @@ class MultipleChoiceAdmin(admin.ModelAdmin):
         ChoiceInline
     ]
 
-    fields = ['stmt', 'value', 'correct_answer', 'type', 'ui_type', 'level']
+    fields = ['stmt', 'correct_answer', 'type', 'ui_type', 'level']
 
 
 class QuestionAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'correct_answer', 'type', 'ui_type', 'level']
+  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level']
 
 
 class AnswerInline(admin.StackedInline):
@@ -76,15 +83,15 @@ class MultipleAnswerAdmin(admin.ModelAdmin):
     inlines = [
         AnswerInline
     ]
-    fields = ['stmt', 'value', 'type', 'ui_type', 'level']
+    fields = ['stmt', 'max_score', 'type', 'ui_type', 'level']
 
 
 class FileUploadAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'value', 'type', 'ui_type', 'level', 'download_url', 'upload_url']
+  fields = ['stmt', 'max_score', 'type', 'ui_type', 'level', 'download_url', 'upload_url']
 
 
 class IntervalQuestionAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'value', 'type', 'ui_type', 'level', 'min_range', 'max_range']
+    fields = ['stmt', 'max_score', 'type', 'ui_type', 'level', 'min_range', 'max_range']
 
 
 
@@ -241,3 +248,5 @@ admin.site.register(MultipleAnswerQuestion,  MultipleAnswerAdmin)
 admin.site.register(IntervalQuestion, IntervalQuestionAdmin)
 admin.site.register(PhaseInstructionSet, PhaseInstructionSetAdmin)
 admin.site.register(Instruction, InstructionAdmin)
+admin.site.register(QuestionSubmission, QuestionSubmissionAdmin)
+admin.site.register(TrialSubmission, TrialSubmissionAdmin)

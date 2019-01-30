@@ -1,40 +1,174 @@
+{# Aeonem:Zee #}
+
 {% extends 'accounts/panel/panel.html' %}
 {% load static i18n ai_filters tz %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 
 {% block panel_content %}
 
-<form action="aaa">
-    <h2 style="margin-top: 20px;">{% trans 'Trial' %}</h2>
-    {% for q in mcqs %}
-    <div id="{{ q.id }}">
-        <h4>{{ q.stmt }}</h4>
-        {% for c in q.choices %}
-        <input type="radio" name="{{ q.id }}_{{ c.id }}" value="{{ c.text }}">{{ c.text }}
+<form action="{% url 'accounts:submit_trial' phase.id trial.id %}"
+      class="form"
+      method="post"
+>
+    {% csrf_token %}
+
+    {# Numeric Single-Answer Questions #}
+    <div style="margin:0 0 45px 0 ">
+        {% for question in numeric_questions %}
+            <div class="field"
+                 style="margin:0 0 15px 0"
+            >
+                <div class="ui top attached header"
+                            style="
+                                margin:0;
+                                height: auto;
+                                display: block;
+                                word-wrap: break-word;
+                                white-space: normal;
+                                background-color: #e8e8e8;
+                            "
+                >
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached input fluid"
+                     style="padding:0;"
+                >
+                    <input
+                       required
+                       type="number"
+                       step="0.00000000001"
+                       name="{{ trial.id  }}_{{ question.id }}"
+                       style="margin:0;
+                                border-radius: 0 0 .28571429rem .28571429rem;
+                                border:1px solid #d4d4d5;
+                                border-top-color: transparent;
+                              "
+                       placeholder="{% trans 'No answer yet : Numeric field' %}"
+                    >
+                </div>
+            </div>
         {% endfor %}
     </div>
 
-    {% endfor %}
-    {% for q in fuqs %}
-    <div id="{{ q.id }}">
-        <h4>{{ q.stmt }}</h4>
-        <input type="file">
-    </div>
-    {% endfor %}
-    {% for q in raqs %}
-    <div id="{{ q.id }}">
-        <h4>{{ q.stmt }}</h4>
-        <input type="number" value="0.00">
-    </div>
-    {% endfor %}
-    {% for q in maqs %}
-    <div id="q.id">
-        <h4>{{ q.stmt }}</h4>
-        {% for c in q.choices %}
-            <input type="checkbox" name="{{ c.text }}" value="{{ c.text }}">
+    {# Text-Only Short-Answer Questions #}
+    <div style="margin: 45px 0">
+        {% for question in text_questions %}
+            <div class="field"
+                 style="margin:0 0 15px 0"
+            >
+                <div class="ui top attached header"
+                            style="
+                                margin:0;
+                                height: auto;
+                                display: block;
+                                word-wrap: break-word;
+                                white-space: normal;
+                                background-color: #e8e8e8;
+                            "
+                >
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached input fluid"
+                     style="padding:0;"
+                >
+                    <input
+                       required
+                       type="text"
+                       name="{{ trial.id  }}_{{ question.id }}"
+                       style="margin:0;
+                                border-radius: 0 0 .28571429rem .28571429rem;
+                                border:1px solid #d4d4d5;
+                                border-top-color: transparent;
+                              "
+                       placeholder="{% trans 'No answer yet : Text field ' %}"
+                    >
+                </div>
+            </div>
         {% endfor %}
     </div>
-    {% endfor %}
+
+    {# File Based Questions #}
+    <div style="margin:0 0 45px 0 "
+    >
+        {% for question in file_based_questions %}
+            <div class="field"
+                 style="margin:0 0 15px 0"
+            >
+                <div
+                    class="ui top attached header"
+                    style="
+                        margin:0;
+                        height: auto;
+                        display: block;
+                        word-wrap: break-word;
+                        white-space: normal;
+                        background-color: #e8e8e8;
+                    "
+                >
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached"
+                     style="
+                        padding:0;
+                        display: flex;
+
+                        height: 10rem;
+                        border-radius: 0 0 .28571429rem .28571429rem;
+                        border:1px solid #d4d4d5;
+                        border-top-color: transparent;
+                        "
+                >
+                    <div
+                        style="
+                            width: 50%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            border-left:1px solid #d4d4d5;
+                            "
+                    >
+                        {# TODO href to download file #}
+                        <a href="{{ question.download_url }}" class="ui link">
+                           <i class="download icon huge"></i>
+                        </a>
+                        {% trans 'Download Dataset' %}
+                    </div>
+                    <div
+                        style="
+                            width: 50%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            "
+                    >
+                        <i class="upload icon huge"></i>
+                        {% trans 'Upload Answer' %}
+                        <input
+                               type="file"
+                               class="link"
+                               name="{{ trial.id  }}_{{ question.id }}"
+                               accept="text/plain"
+                        >
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Submit Button#}
+    <button
+        class="fluid ui submit blue button"
+        style="margin: 20px 0"
+        type="submit"
+    >
+        {% trans 'Submit' %}
+    </button>
+
+
 </form>
 
 {% endblock %}

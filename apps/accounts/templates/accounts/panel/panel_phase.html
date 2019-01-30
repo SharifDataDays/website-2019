@@ -4,17 +4,16 @@
 
 {% block panel_content %}
 
-{#    Get New Trial Button #}
+{#  Get New Trial Button #}
 <div>
-    <a
-        class="fluid ui button teal"
-        style="margin: 20px 0px"
-        href="{% url 'accounts:new_trial' phase.id %}"
-    >
-        {% trans 'Get a new trial' %}
-    </a>
+  <a
+      class="fluid ui button teal"
+      style="margin: 20px 0px"
+      href="{% url 'accounts:new_trial' phase.id %}"
+  >
+      {% trans 'Get a new trial' %}
+  </a>
 </div>
-
 
 
 {# Trials List #}

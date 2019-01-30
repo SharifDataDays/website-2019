@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponse
+from django.forms import Form, ModelForm
+from django.http import Http404, HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -11,14 +12,13 @@ from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
     Instruction, MultipleChoiceQuestion, FileUploadQuestion, IntervalQuestion, MultipleAnswerQuestion, Question, \
-    Choice
+    Choice, TrialSubmission, QuestionSubmission
 from django.core.paginator import Paginator
 from django.db.models import Q
 from datetime import datetime
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 from django.apps import apps
 from itertools import chain
-
 
 
 @login_required
@@ -141,9 +141,9 @@ def redirect_to_somewhere_better(request):
             'intro:index'
         ))
 
+
 def sortSecond(val):
     return val[1][0]
-
 
 
 def render_panel_phase_scoreboard(request):
@@ -154,18 +154,18 @@ def render_panel_phase_scoreboard(request):
         if item['name'] == 'total Scoreboard':
             item['active'] = True
     for team in phase_scoreboard:
-        temp = (team.team.name,get_total_score(team.id),0)
+        temp = (team.team.name, get_total_score(team.id), 0)
         ranks.append(temp)
-    ranks.sort(key=sortSecond,reverse=True)
-    for i in range(0,len(phase_scoreboard)):
+    ranks.sort(key=sortSecond, reverse=True)
+    for i in range(0, len(phase_scoreboard)):
         x = list(ranks[i])
-        x[2] = i+1
+        x[2] = i + 1
         ranks[i] = tuple(x)
     context.update({
-        'teams':ranks,
-        'phases':Competition.objects.all()
+        'teams': ranks,
+        'phases': Competition.objects.all()
     })
-    return render(request,'accounts/panel/group_table.html',context)
+    return render(request, 'accounts/panel/group_table.html', context)
 
 
 def get_total_score(team_id):
@@ -173,8 +173,8 @@ def get_total_score(team_id):
     result[0] = 0
     for phase in Competition.objects.all():
         result[phase.name] = 0
-        for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id),competition=phase):
-            result[phase.name]+=trial.score
+        for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase):
+            result[phase.name] += trial.score
         result[0] += result[phase.name]
     return result
 
@@ -182,9 +182,10 @@ def get_total_score(team_id):
 @login_required
 @complete_team_required
 def render_phase(request, phase_id):
+    user = request.user
     phase = Competition.objects.get(id=phase_id)
     if phase == None:
-        redirect("/accounts/panel/team")
+        redirect(reverse('accounts:panel_team_management'))
     else:
         team_pc = get_team_pc(request)
         if team_pc is None:
@@ -197,8 +198,19 @@ def render_phase(request, phase_id):
             'participation': team_pc,
             'phase': phase,
         })
-        trials = Trial.objects.filter(team_id=team_pc.id,competition=phase)
+        from apps.accounts.models import Team
+        for team in Team.objects.all():
+            for user_participation in team.participants.all():
+                if user_participation.user == user:
+                    current_team = team
+                    break
+        if len(current_team.participants.all()) == Challenge.objects.all()[0].team_size:
+            is_team_completed = True
+        else:
+            is_team_completed = False
+        trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
         context.update({
+            'is_team_completed': is_team_completed,
             'trials': trials
         })
 
@@ -246,46 +258,6 @@ def team_management(request, participation_id=None):
     return render(request, 'accounts/panel/team_management.html', context)
 
 
-@payment_required
-@login_required
-def battle_history(request):
-    team_pc = get_team_pc(request)
-    if team_pc is None:
-        return redirect_to_somewhere_better(request)
-    context = get_shared_context(request)
-    for item in context['menu_items']:
-        if item['name'] == 'battle_history':
-            item['active'] = True
-
-    battles_page = request.GET.get('battles_page', 1)
-
-    participation = team_pc
-    if participation:
-        participation_id = team_pc.id
-        context.update({
-            'participation': participation,
-            'participation_id': participation_id,
-        })
-
-    if participation is not None and participation.challenge.competitions.filter(type='friendly').exists():
-        context['form_challenge'] = ChallengeATeamForm(user=request.user, participation=participation)
-        context['friendly_competition'] = participation.challenge.competitions.get(type='friendly')
-        if participation is not None:
-            context['challenge_teams'] = [team_part.team for team_part in
-                                          TeamParticipatesChallenge.objects.filter(challenge=participation.challenge)]
-            context.update({
-                'battles_page': battles_page,
-                'battle_history': Paginator(
-                    Match.objects.filter(
-                        Q(part1__object_id=participation_id) |
-                        Q(part2__object_id=participation_id)).order_by('-id').filter(
-                        competition__type='friendly'
-                    ),
-                    5).page(battles_page)
-            })
-    return render(request, 'accounts/panel/battle_history.html', context)
-
-
 @login_required
 @complete_team_required
 def get_new_trial(request, phase_id):
@@ -326,7 +298,8 @@ def get_new_trial(request, phase_id):
         instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
         for instruction in instructions:
             question_model = apps.get_model(instruction.app, instruction.type)
-            questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[:instruction.number]
+            questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[
+                        :instruction.number]
             questions = list(questions)
             current_trial.questions.add(*questions)
 
@@ -346,6 +319,7 @@ def render_trial(request, phase_id, trial_id):
     else:
         team_pc = get_team_pc(request)
         if team_pc is None:
+            print("inja")
             return redirect_to_somewhere_better(request)
         context = get_shared_context(request)
         for item in context['menu_items']:
@@ -361,13 +335,15 @@ def render_trial(request, phase_id, trial_id):
         else:
             trial = trial[0]
             context.update({
-                'text_number': [x for x in list(chain(trial.questions.filter(type='single_number')
-                                , trial.questions.filter(type='interval_number')))],
-                'text_string': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                , trial.questions.filter(type='single_sufficient_number')))],
+                'phase': phase,
+                'trial': trial,
+                'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
+                                                                 , trial.questions.filter(type='interval_number')))],
+                'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
+                                                         , trial.questions.filter(type='single_sufficient_number')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choices')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
-                'file': [x for x in trial.questions.filter(type='file_upload')],
+                'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
             })
         for x in context['choices']:
             x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
@@ -377,5 +353,49 @@ def render_trial(request, phase_id, trial_id):
             return render(request, 'accounts/panel/panel_trial.html', context)
 
 
-def jsonr(request):
-    return HttpResponse(request)
+def submit_trial(request, phase_id, trial_id):
+    if not request.POST:
+        return redirect('accounts:panel')
+
+    phase = Competition.objects.get(id=phase_id)
+
+    if phase is None:
+        redirect("/accounts/panel/team")
+    else:
+        team_pc = get_team_pc(request)
+        if team_pc is None:
+            return redirect_to_somewhere_better(request)
+        context = get_shared_context(request)
+        for item in context['menu_items']:
+            if item['name'] == phase.name:
+                item['active'] = True
+        context.update({
+            'participation': team_pc,
+            'phase': phase,
+        })
+        form = Form(request.POST)
+        clean = {}
+        for x in form.data.keys():
+            if x is not 'csrfmiddlewaretoken':
+                clean[x] = form.data.get(x)
+        trial = Trial.objects.filter(id=trial_id).all()
+        if len(trial) is 0:
+            return render(request, '404.html')
+        trial = trial[0]
+        if not form.is_valid():
+            return redirect('accounts:panel')
+        clean = form.cleaned_data
+        trial.submit_time = timezone.now()
+        trialSubmit = TrialSubmission()
+        trialSubmit.competition = phase
+        trialSubmit.team = get_team_pc(request)
+        trialSubmit.trial = trial
+        trialSubmit.save()
+        for inp in clean:
+            trial_id, question_id = inp.name.split("_")
+            question = trial.questions.get(question_id=question_id)
+            questionSubmit = QuestionSubmission()
+            questionSubmit.question = question
+            questionSubmit.trialSubmission = trialSubmit
+            questionSubmit.save()
+        return render_phase(request, phase.id)
