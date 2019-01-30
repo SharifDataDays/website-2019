@@ -352,7 +352,7 @@ def render_trial(request, phase_id, trial_id):
                                                                  , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
                                                          , trial.questions.filter(type='single_sufficient_number')))],
-                'choices': [x for x in trial.questions.filter(type='multiple_choices')],
+                'choices': [x for x in trial.questions.filter(type='multiple_choice')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
                 'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
             })
