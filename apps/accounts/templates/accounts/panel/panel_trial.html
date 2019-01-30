@@ -31,29 +31,35 @@
     {% endfor %}
 </div>
 
-<div class="piled segments fields">
+<div class="">
     {% for question in text_questions %}
-        <div class="ui segment ui input fluid field"
-             style="margin: 15px 0px;padding:0px;"
+        <div class="ui top attached header"
+                    style="
+                        margin:0;
+                        height: auto;
+                        display: block;
+                        word-wrap: break-word;
+                        white-space: normal;
+                        background-color: #e8e8e8;
+                    "
         >
-            <h6 class="ui top attached label "
-                style="
-                    margin:0;
-                    display: block;
-                    word-wrap: break-word;
-                    display: flex;
-                    flex: inherit;
-                    flex-wrap: wrap;
-                "
-            >
              {{ question.stmt }}
-            </h6>
+        </div>
+        <div class="ui attached ui input fluid field"
+             style="
+                    padding:0px;
+                    "
+        >
+
                 <input
                        required
-                       class="ui input"
                        type="text"
                        name="{{ trial.id  }}_{{ question.id }}"
-                       style="margin:10px 0 0 0px; border-radius: 0 0 2px 2px; border:none;"
+                       style="margin:0px 0 0 0px;
+                                border-radius: 0 0 .28571429rem .28571429rem;
+                                border-top-color: transparent;
+                                border:1px solid #d4d4d5;
+                              "
                        placeholder="{% trans 'No answer yet : Text Field ' %}"
                 >
         </div>
