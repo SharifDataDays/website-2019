@@ -8,6 +8,7 @@
 
 <form action="{% url 'accounts:submit_trial' phase_id=phase.id trial_id=trial.id %}"
       class="form"
+      method="POST"
 >
 
     {# Numeric Single-Answer Questions #}
@@ -128,7 +129,7 @@
                             "
                     >
                         {# TODO href to download file #}
-                        <a href="{{  question.download_url}}" class="ui black input">
+                        <a href="{{ question.download_url }}" class="ui link">
                            <i class="download icon huge"></i>
                         </a>
                         {% trans 'Download Dataset' %}
@@ -137,13 +138,20 @@
                         style="
                             width: 50%;
                             height: 100%;
-
                             display: flex;
+                            flex-direction: column;
                             justify-content: center;
                             align-items: center;
                             "
                     >
-
+                        <i class="upload icon huge"></i>
+                        {% trans 'Upload Answer' %}
+                        <input
+                               type="file"
+                               class="link"
+                               name="{{ trial.id  }}_{{ question.id }}"
+                               accept="text/plain"
+                        >
                     </div>
                 </div>
             </div>
