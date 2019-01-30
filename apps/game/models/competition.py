@@ -69,9 +69,8 @@ class Question(models.Model):
     )
 
     stmt = models.CharField(max_length=500)
-    value = models.CharField(max_length=200, null=True, blank=True)
     correct_answer = models.CharField(max_length=200)
-    score = models.FloatField(default=0, null=True)
+    max_score = models.FloatField(default=0, null=True)
     type = models.CharField(max_length=200, blank=True, choices=TYPE_CHOICES)
     ui_type = models.CharField(max_length=200, blank=True, choices=UI_TYPE_CHOICES)
     level = models.CharField(max_length=200, choices=LEVEL_CHOICES, blank=True, null=True)
@@ -143,6 +142,19 @@ class Trial(models.Model):
 
     def __str__(self):
         return str('%s Trial number %d' %(self.competition, self.id))
+
+
+class QuestionSubmission(models.Model):
+    question = models.OneToOneField(Question)
+    score = models.FloatField(default=0)
+    trialSubmission = models.ForeignKey('TrialSubmission', related_name='questionSubmissions')
+
+
+class TrialSubmission(models.Model):
+    score = models.FloatField(default=0)
+    competition = models.ForeignKey(Competition)
+    trial = models.ForeignKey(Trial, null=True)
+    team = models.ForeignKey(TeamParticipatesChallenge, related_name='trialSubmissions')
 
 
 class PhaseInstructionSet(models.Model):
