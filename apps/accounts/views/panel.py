@@ -151,7 +151,6 @@ def sortSecond(val):
     return val[1][0]
 
 @login_required
-@complete_team_required
 def render_panel_phase_scoreboard(request):
     phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
     ranks = []
@@ -186,7 +185,6 @@ def get_total_score(team_id):
 
 
 @login_required
-@complete_team_required
 def render_phase(request, phase_id):
     user = request.user
     phase = Competition.objects.get(id=phase_id)
@@ -265,7 +263,6 @@ def team_management(request, participation_id=None):
 
 
 @login_required
-@complete_team_required
 def get_new_trial(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
@@ -324,7 +321,6 @@ def get_new_trial(request, phase_id):
 
 
 @login_required
-@complete_team_required
 def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
@@ -367,7 +363,6 @@ def render_trial(request, phase_id, trial_id):
             return render(request, 'accounts/panel/panel_trial.html', context)
 
 @login_required
-@complete_team_required
 def submit_trial(request, phase_id, trial_id):
     if not request.POST:
         return redirect('accounts:panel')
