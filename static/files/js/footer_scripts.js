@@ -18,5 +18,9 @@ $(document)
 		console.log("hh");
 	}
 
+<<<<<<< HEAD
     })
+=======
+>>>>>>> 92917ba05b540de4395ad6bf78f34bffe8fb3482
 
+});

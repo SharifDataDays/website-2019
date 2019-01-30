@@ -1,0 +1,20 @@
+{% extends 'accounts/panel/panel.html' %}
+{% load static i18n ai_filters tz %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block panel_content %}
+
+    <div
+        class="ui red message"
+        style="text-align: center"
+    >
+       {% trans error %}
+    </div>
+    <a
+        class="fluid ui button teal"
+        style="margin: 20px 0px"
+        href="/accounts/panel"
+    >
+        {% trans 'Back To Panel' %}
+    </a>
+{% endblock %}

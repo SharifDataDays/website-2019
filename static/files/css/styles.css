@@ -219,3 +219,53 @@ This set of fonts are used in this project under the license: RC4QT
 .ui.modal {
     top: 35%;
 }
+
+
+/* Zee: Panel Phase */
+.ui.card {
+  display: inline-block;
+}
+
+
+.ui.card.panel_phase {
+  background-color: #253E5411;
+  /*color: white;*/
+
+}
+.ui.card.panel_phase.active {
+  background-color: #253E5400;
+  /*color: white;*/
+
+}
+
+.ui.card.panel_phase>.content {
+   text-align: center;
+}
+
+
+.ui.card.panel_phase>.content>.sub.header{
+    /*color: #437099;*/
+}
+
+.ui.card.panel_phase>.content>.header{
+    /*color: #31516d;*/
+}
+
+.ui.card.panel_phase.active>.content>.sub.header{
+    /*color: #437099;*/
+}
+
+.ui.card.panel_phase.active>.content>.header{
+    /*color: #6eb3f499;*/
+}
+
+.ui.card>.content>.header,
+.ui.cards>.card>.content>a.header,
+.ui.card .meta,
+.ui.cards>.card .meta,
+.ui.card>.content>.description,
+.ui.cards>.card>.content>.description,
+.ui.card>.extra a:not(.ui),
+.ui.cards>.card>.extra a:not(.ui) {
+  /*color: white;*/
+}
