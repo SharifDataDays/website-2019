@@ -11,10 +11,10 @@ from django.http import HttpResponseServerError, Http404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, ugettext
 import datetime
-
+from apps.game.tasks import handle_submission
 from apps.accounts.models import Team
 from apps.game.models.challenge import Challenge, TeamSubmission, TeamParticipatesChallenge
-
+from django.conf import settings
 import logging
 
 logger = logging.getLogger(__name__)
@@ -156,6 +156,37 @@ class TrialSubmission(models.Model):
     competition = models.ForeignKey(Competition)
     trial = models.ForeignKey(Trial, null=True)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trialSubmissions')
+
+    def handle(self):
+        if settings.TESTING:
+            try:
+                self.upload()
+            except Exception as error:
+                # logger.error(error)
+                pass
+        else:
+            handle_submission.delay(self.id)
+
+    def upload(self):
+        context = {
+            'team_id': self.team.id,
+            'phase_id': self.competition.id,
+            'trial_id': self.trial.id,
+            'submissions': []
+        }
+        for q in self.trial.questions.all():
+            question_context = {
+                'question_id': q.id,
+                'question_type': q.type,
+                'submitted_answer': '',
+            }
+            if q.type is 'file_upload':
+                question_context['submitted_answer'] = q.upload_url
+            else:
+                question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value
+            context['submissions'].append(question_context)
+
+        # todo send context to judge
 
 
 class PhaseInstructionSet(models.Model):

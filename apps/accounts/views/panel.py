@@ -406,4 +406,5 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.value = clean[inp]
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
+        trialSubmit.handle()
         return redirect('accounts:panel_phase', phase.id)
