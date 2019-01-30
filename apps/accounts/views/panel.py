@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.forms import Form, ModelForm
@@ -453,7 +455,7 @@ def save_to_storage(request):
         pass
     full_filename = os.path.join(settings.MEDIA_ROOT, folder, uploaded_filename)
     fout = open(full_filename, 'wb+')
-    file_content = ContentFile( request.FILES['file'].read() )
+    file_content = ContentFile(request.FILES['file'].read())
     for chunk in file_content.chunks():
         fout.write(chunk)
     fout.close()
