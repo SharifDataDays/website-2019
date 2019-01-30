@@ -376,7 +376,8 @@ def submit_trial(request, phase_id, trial_id):
     for x in form.data.keys():
         if x is not 'csrfmiddlewaretoken':
             clean[x] = form.data.get(x)
-
+    form.is_valid()
+    print(clean)
     trial.submit_time = timezone.now()
     trialSubmit = TrialSubmission()
     trialSubmit.competition = phase
