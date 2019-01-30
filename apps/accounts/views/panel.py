@@ -330,7 +330,7 @@ def render_trial(request, phase_id, trial_id):
             context.update({
                 'phase': phase,
                 'trial': trial,
-                'numeric_text_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
+                'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
                                                                  , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
                                                          , trial.questions.filter(type='single_sufficient_number')))],

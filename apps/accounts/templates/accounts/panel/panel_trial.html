@@ -1,40 +1,58 @@
+{# Aeonem:Zee #}
+
 {% extends 'accounts/panel/panel.html' %}
 {% load static i18n ai_filters tz %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 
 {% block panel_content %}
-{# TODO action dest#}
+
 <form action="{% url 'accounts:submit_trial' phase_id=phase.id trial_id=trial.id %}"
       class="form"
 >
 
-{# Aeonem:Zee #}
-{# Numeric-Text Inputs #}
-<div class="piled segments fields">
-    {% for question in numeric_text_questions %}
-        <div class="ui segment ui input fluid field"
-             style="margin: 15px 0px;padding:0px;"
-        >
-            <h6 class="ui top attached label word-wrap" style="margin:0">
-             {{ question.stmt }}
-            </h6>
-                <input
-                       required
-                       class="ui input"
-                       type="number"
-                       step="0.00000001"
-                       name="{{ trial.id  }}_{{ question.id }}"
-                       style="margin:10px 0 0 0px; border-radius: 0 0 2px 2px; border:none;"
-                       placeholder="{% trans 'No answer yet : Numeric Field ...' %}"
+    {# Numeric Single-Answer Questions #}
+    <div style="margin:0 0 45px 0 ">
+        {% for question in numeric_questions %}
+            <div class="field"
+                 style="margin:0 0 15px 0"
+            >
+                <div class="ui top attached header"
+                            style="
+                                margin:0;
+                                height: auto;
+                                display: block;
+                                word-wrap: break-word;
+                                white-space: normal;
+                                background-color: #e8e8e8;
+                            "
                 >
-        </div>
-    {% endfor %}
-</div>
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached input fluid"
+                     style="padding:0;"
+                >
+                    <input
+                       required
+                       type="number"
+                       step="0.00000000001"
+                       name="{{ trial.id  }}_{{ question.id }}"
+                       style="margin:0;
+                                border-radius: 0 0 .28571429rem .28571429rem;
+                                border:1px solid #d4d4d5;
+                                border-top-color: transparent;
+                              "
+                       placeholder="{% trans 'No answer yet : Numeric field' %}"
+                    >
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
-    <div >
+    {# Text-Only Short-Answer Questions #}
+    <div style="margin: 45px 0">
         {% for question in text_questions %}
             <div class="field"
-                 style="margin: 15px 0"
+                 style="margin:0 0 15px 0"
             >
                 <div class="ui top attached header"
                             style="
@@ -60,12 +78,14 @@
                                 border:1px solid #d4d4d5;
                                 border-top-color: transparent;
                               "
-                       placeholder="{% trans 'No answer yet : Text Field ' %}"
+                       placeholder="{% trans 'No answer yet : Text field ' %}"
                     >
                 </div>
             </div>
         {% endfor %}
     </div>
+
+    {# Submit Button#}
     <button
         class="fluid ui submit blue button"
         style="margin: 20px 0"
