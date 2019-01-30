@@ -6,10 +6,11 @@
 
 {% block panel_content %}
 
-<form action="{% url 'accounts:submit_trial' phase_id=phase.id trial_id=trial.id %}"
+<form action="{% url 'accounts:submit_trial' phase.id trial.id %}"
       class="form"
       method="post"
 >
+    {% csrf_token %}
 
     {# Numeric Single-Answer Questions #}
     <div style="margin:0 0 45px 0 ">

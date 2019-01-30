@@ -314,6 +314,7 @@ def render_trial(request, phase_id, trial_id):
     else:
         team_pc = get_team_pc(request)
         if team_pc is None:
+            print("inja")
             return redirect_to_somewhere_better(request)
         context = get_shared_context(request)
         for item in context['menu_items']:
@@ -374,7 +375,6 @@ def submit_trial(request, phase_id, trial_id):
         if not form.is_valid():
             return redirect('accounts:panel')
         clean = form.cleaned_data
-        print()
         trial.submit_time = timezone.now()
         trialSubmit = TrialSubmission()
         trialSubmit.competition = phase
