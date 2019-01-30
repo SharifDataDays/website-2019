@@ -18,7 +18,6 @@ from django.apps import apps
 from itertools import chain
 
 
-
 @login_required
 def get_team_pc(request):
     if request.user.profile.panel_active_teampc:
@@ -139,9 +138,9 @@ def redirect_to_somewhere_better(request):
             'intro:index'
         ))
 
+
 def sortSecond(val):
     return val[1][0]
-
 
 
 def render_panel_phase_scoreboard(request):
@@ -152,18 +151,18 @@ def render_panel_phase_scoreboard(request):
         if item['name'] == 'total Scoreboard':
             item['active'] = True
     for team in phase_scoreboard:
-        temp = (team.team.name,get_total_score(team.id),0)
+        temp = (team.team.name, get_total_score(team.id), 0)
         ranks.append(temp)
-    ranks.sort(key=sortSecond,reverse=True)
-    for i in range(0,len(phase_scoreboard)):
+    ranks.sort(key=sortSecond, reverse=True)
+    for i in range(0, len(phase_scoreboard)):
         x = list(ranks[i])
-        x[2] = i+1
+        x[2] = i + 1
         ranks[i] = tuple(x)
     context.update({
-        'teams':ranks,
-        'phases':Competition.objects.all()
+        'teams': ranks,
+        'phases': Competition.objects.all()
     })
-    return render(request,'accounts/panel/group_table.html',context)
+    return render(request, 'accounts/panel/group_table.html', context)
 
 
 def get_total_score(team_id):
@@ -171,14 +170,15 @@ def get_total_score(team_id):
     result[0] = 0
     for phase in Competition.objects.all():
         result[phase.name] = 0
-        for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id),competition=phase):
-            result[phase.name]+=trial.score
+        for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase):
+            result[phase.name] += trial.score
         result[0] += result[phase.name]
     return result
 
 
 @login_required
 def render_phase(request, phase_id):
+    user = request.user
     phase = Competition.objects.get(id=phase_id)
     if phase == None:
         redirect("/accounts/panel/team")
@@ -194,8 +194,19 @@ def render_phase(request, phase_id):
             'participation': team_pc,
             'phase': phase,
         })
+        from apps.accounts.models import Team
+        for team in Team.objects.all():
+            for user_participation in team.participants.all():
+                if user_participation.user == user:
+                    current_team = team
+                    break
+        if len(current_team.participants.all()) == Challenge.objects.all()[0].team_size :
+            is_team_completed = True
+        else:
+            is_team_completed = False
         trials = Trial.objects.filter(team_id=team_pc.id,competition=phase)
         context.update({
+            'is_team_completed':is_team_completed,
             'trials': trials
         })
 
@@ -282,7 +293,8 @@ def get_new_trial(request, phase_id):
         instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
         for instruction in instructions:
             question_model = apps.get_model(instruction.app, instruction.type)
-            questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[:instruction.number]
+            questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[
+                        :instruction.number]
             questions = list(questions)
             current_trial.questions.add(*questions)
 
@@ -316,10 +328,11 @@ def render_trial(request, phase_id, trial_id):
         else:
             trial = trial[0]
             context.update({
-                'text_number': [x for x in list(chain(trial.questions.filter(type='single_number')
-                                , trial.questions.filter(type='interval_number')))],
+                'trial': trial,
+                'numeric_text_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
+                                                                 , trial.questions.filter(type='interval_number')))],
                 'text_string': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                , trial.questions.filter(type='single_sufficient_number')))],
+                                                      , trial.questions.filter(type='single_sufficient_number')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choices')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
                 'file': [x for x in trial.questions.filter(type='file_upload')],
