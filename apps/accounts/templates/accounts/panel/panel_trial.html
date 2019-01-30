@@ -11,26 +11,45 @@
 {# Aeonem:Zee #}
 {# Numeric-Text Inputs #}
 <div class="piled segments fields">
-{% for question in numeric_text_questions %}
-    <div class="ui segment ui input fluid field"
-         style="margin: 15px 0px;padding:0px;"
-    >
-        <h6 class="ui top attached label " style="margin:0">
-         {{ question.stmt }}
-        </h6>
-            <input
-                   required
-                   class="ui input"
-                   type="number"
-                   step="0.00000001"
-                   name="{{ trial.id  }}_{{ question.id }}"
-                   style="margin:10px 0 0 0px; border-radius: 0 0 2px 2px; border:none;"
-                   placeholder="{% trans 'No answer yet' %}"
-            >
-    </div>
-{% endfor %}
+    {% for question in numeric_text_questions %}
+        <div class="ui segment ui input fluid field"
+             style="margin: 15px 0px;padding:0px;"
+        >
+            <h6 class="ui top attached label " style="margin:0">
+             {{ question.stmt }}
+            </h6>
+                <input
+                       required
+                       class="ui input"
+                       type="number"
+                       step="0.00000001"
+                       name="{{ trial.id  }}_{{ question.id }}"
+                       style="margin:10px 0 0 0px; border-radius: 0 0 2px 2px; border:none;"
+                       placeholder="{% trans 'No answer yet : Numeric Field' %}"
+                >
+        </div>
+    {% endfor %}
 </div>
 
+<div class="piled segments fields">
+    {% for question in text_questions %}
+        <div class="ui segment ui input fluid field"
+             style="margin: 15px 0px;padding:0px;"
+        >
+            <h6 class="ui top attached label " style="margin:0">
+             {{ question.stmt }}
+            </h6>
+                <input
+                       required
+                       class="ui input"
+                       type="text"
+                       name="{{ trial.id  }}_{{ question.id }}"
+                       style="margin:10px 0 0 0px; border-radius: 0 0 2px 2px; border:none;"
+                       placeholder="{% trans 'No answer yet : Numeric Field' %}"
+                >
+        </div>
+    {% endfor %}
+</div>
     <button
         class="fluid ui submit blue button"
         style="margin: 20px 0px"
