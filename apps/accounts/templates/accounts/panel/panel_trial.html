@@ -74,13 +74,76 @@
                        required
                        type="text"
                        name="{{ trial.id  }}_{{ question.id }}"
-                       style="margin:0px 0 0 0px;
+                       style="margin:0;
                                 border-radius: 0 0 .28571429rem .28571429rem;
                                 border:1px solid #d4d4d5;
                                 border-top-color: transparent;
                               "
                        placeholder="{% trans 'No answer yet : Text field ' %}"
                     >
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# File Based Questions #}
+    <div style="margin:0 0 45px 0 "
+    >
+        {% for question in file_based_questions %}
+            <div class="field"
+                 style="margin:0 0 15px 0"
+            >
+                <div
+                    class="ui top attached header"
+                    style="
+                        margin:0;
+                        height: auto;
+                        display: block;
+                        word-wrap: break-word;
+                        white-space: normal;
+                        background-color: #e8e8e8;
+                    "
+                >
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached"
+                     style="
+                        padding:0;
+                        display: flex;
+
+                        height: 10rem;
+                        border-radius: 0 0 .28571429rem .28571429rem;
+                        border:1px solid #d4d4d5;
+                        border-top-color: transparent;
+                        "
+                >
+                    <div
+                        style="
+                            width: 50%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            "
+                    >
+                        {# TODO href to download file #}
+                        <a href="" class="ui black input">
+                           <i class="download icon huge"></i>
+                        </a>
+                        {% trans 'Download Dataset' %}
+                    </div>
+                    <div
+                        style="
+                            width: 50%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            "
+                    >
+
+                    </div>
                 </div>
             </div>
         {% endfor %}
@@ -94,6 +157,8 @@
     >
         {% trans 'Submit' %}
     </button>
+
+
 </form>
 
 {% endblock %}
