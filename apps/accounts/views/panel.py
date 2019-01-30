@@ -338,7 +338,7 @@ def render_trial(request, phase_id, trial_id):
                                                          , trial.questions.filter(type='single_sufficient_number')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choices')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
-                'file': [x for x in trial.questions.filter(type='file_upload')],
+                'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
             })
         for x in context['choices']:
             x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
@@ -349,11 +349,11 @@ def render_trial(request, phase_id, trial_id):
 
 
 def submit_trial(request, phase_id, trial_id):
-    if request.POST:
-        form = Form(request.POST)
-    else:
+    if not request.POST:
         return redirect('accounts:panel')
+
     phase = Competition.objects.get(id=phase_id)
+
     if phase is None:
         redirect("/accounts/panel/team")
     else:
@@ -368,6 +368,11 @@ def submit_trial(request, phase_id, trial_id):
             'participation': team_pc,
             'phase': phase,
         })
+        form = Form(request.POST)
+        clean = {}
+        for x in form.data.keys():
+            if x is not 'csrfmiddlewaretoken':
+                clean[x] = form.data.get(x)
         trial = Trial.objects.filter(id=trial_id).all()
         if len(trial) is 0:
             return render(request, '404.html')
