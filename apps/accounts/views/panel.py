@@ -301,7 +301,10 @@ def get_new_trial(request, phase_id):
         for instruction in instructions:
             question_model = apps.get_model(instruction.app, instruction.type)
             if question_model.type is 'file_upload':
-                questions = question_model.objects.filter(is_chosen=False)[0]
+                questions = question_model.objects.filter(is_chosen=False).all()
+                if len(questions) is 0:
+                    questions = question_model.objects.filter(trial__team=team_pc)
+                questions = questions[0]
                 questions.is_chosen(True)
             else:
                 questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[
