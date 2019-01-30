@@ -1,4 +1,7 @@
+import os
+
 from django.contrib.auth.decorators import login_required
+from django.core.files.base import ContentFile
 from django.forms import Form, ModelForm
 from django.http import Http404, HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
@@ -7,6 +10,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from aic_site import settings
 from apps.accounts.decorators import complete_team_required
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
@@ -438,8 +442,10 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.value = clean[inp]
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
-<<<<<<< HEAD
-        return render_phase(request, phase.id)
+
+        trialSubmit.handle()
+        return redirect('accounts:panel_phase', phase.id)
+
 
 def save_to_storage(request):
     folder = request.path.replace("/", "_")
@@ -454,7 +460,3 @@ def save_to_storage(request):
     for chunk in file_content.chunks():
         fout.write(chunk)
     fout.close()
-=======
-        trialSubmit.handle()
-        return redirect('accounts:panel_phase', phase.id)
->>>>>>> be9a6fcdd2625b7ba2fda0b0710dbe263cc6af9f
