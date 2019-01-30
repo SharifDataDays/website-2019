@@ -300,7 +300,14 @@ def get_new_trial(request, phase_id):
         instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
         for instruction in instructions:
             question_model = apps.get_model(instruction.app, instruction.type)
-            questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[
+            if question_model.type is 'file_upload':
+                questions = question_model.objects.filter(is_chosen=False).all()
+                if len(questions) is 0:
+                    questions = question_model.objects.filter(trial__team=team_pc)
+                questions = questions[0]
+                questions.is_chosen(True)
+            else:
+                questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[
                         :instruction.number]
             questions = list(questions)
             current_trial.questions.add(*questions)
@@ -345,7 +352,7 @@ def render_trial(request, phase_id, trial_id):
                                                                  , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
                                                          , trial.questions.filter(type='single_sufficient_number')))],
-                'choices': [x for x in trial.questions.filter(type='multiple_choices')],
+                'choices': [x for x in trial.questions.filter(type='multiple_choice')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
                 'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
             })
@@ -406,4 +413,5 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.value = clean[inp]
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
+        trialSubmit.handle()
         return redirect('accounts:panel_phase', phase.id)

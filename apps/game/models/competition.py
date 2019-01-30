@@ -4,6 +4,8 @@ import json
 import uuid
 
 import os
+
+import requests
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -12,9 +14,11 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, ugettext
 import datetime
 
+from aic_site.settings.base import JUDGE_IP
+from apps.game.tasks import handle_submission
 from apps.accounts.models import Team
 from apps.game.models.challenge import Challenge, TeamSubmission, TeamParticipatesChallenge
-
+from django.conf import settings
 import logging
 
 logger = logging.getLogger(__name__)
@@ -96,6 +100,7 @@ class Choice(models.Model):
 class FileUploadQuestion(Question):
     download_url = models.CharField(max_length=200)
     upload_url = models.CharField(max_length=200)
+    is_chosen = models.BooleanField(default=False)
 
     def save(self, **kwargs):
         self.type = 'file_upload'
@@ -156,6 +161,36 @@ class TrialSubmission(models.Model):
     competition = models.ForeignKey(Competition)
     trial = models.ForeignKey(Trial, null=True)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trialSubmissions')
+
+    def handle(self):
+        if settings.TESTING:
+            try:
+                self.upload()
+            except Exception as error:
+                # logger.error(error)
+                pass
+        else:
+            handle_submission.delay(self.id)
+
+    def upload(self):
+        context = {
+            'team_id': self.team.id,
+            'phase_id': self.competition.id,
+            'trial_id': self.trial.id,
+            'submissions': []
+        }
+        for q in self.trial.questions.all():
+            question_context = {
+                'question_id': q.id,
+                'question_type': q.type,
+                'submitted_answer': '',
+            }
+            if q.type is 'file_upload':
+                question_context['submitted_answer'] = q.upload_url
+            else:
+                question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value
+            context['submissions'].append(question_context)
+        requests.post(JUDGE_IP, data=context, headers={"Content-Type": "application/json"})
 
 
 class PhaseInstructionSet(models.Model):
