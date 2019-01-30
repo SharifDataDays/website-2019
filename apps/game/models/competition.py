@@ -145,7 +145,8 @@ class Trial(models.Model):
 
 
 class QuestionSubmission(models.Model):
-    question = models.OneToOneField(Question)
+    question = models.ForeignKey(Question)
+    value = models.CharField(max_length=1000, default=0)
     score = models.FloatField(default=0)
     trialSubmission = models.ForeignKey('TrialSubmission', related_name='questionSubmissions')
 

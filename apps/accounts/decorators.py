@@ -12,7 +12,7 @@ def complete_profile_required(view):
 
     wrap.__doc__ = view.__doc__
     wrap.__name__ = view.__name__
-    return wrapN
+    return wrap
 
 
 def complete_team_required(view):

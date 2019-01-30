@@ -53,6 +53,7 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
+        {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'), 'text': _('Score Board')},
     ]
 
     if request.user.profile:
@@ -329,6 +330,8 @@ def render_trial(request, phase_id, trial_id):
             return render(request, '404.html')
         else:
             trial = trial[0]
+            if trial.submit_time is not None:
+                return redirect('accounts:panel_phase', phase_id)
             context.update({
                 'phase': phase,
                 'trial': trial,
@@ -371,26 +374,29 @@ def submit_trial(request, phase_id, trial_id):
         form = Form(request.POST)
         clean = {}
         for x in form.data.keys():
-            if x is not 'csrfmiddlewaretoken':
-                clean[x] = form.data.get(x)
+            if x != 'csrfmiddlewaretoken':
+                clean[x] = form.data[x]
         trial = Trial.objects.filter(id=trial_id).all()
         if len(trial) is 0:
             return render(request, '404.html')
         trial = trial[0]
         if not form.is_valid():
             return redirect('accounts:panel')
-        clean = form.cleaned_data
         trial.submit_time = timezone.now()
+        trial.save()
         trialSubmit = TrialSubmission()
         trialSubmit.competition = phase
         trialSubmit.team = get_team_pc(request)
         trialSubmit.trial = trial
         trialSubmit.save()
-        for inp in clean:
-            trial_id, question_id = inp.name.split("_")
-            question = trial.questions.get(question_id=question_id)
+
+        for inp in clean.keys():
+            print("hail")
+            trial_id, question_id = inp.split("_")
+            question = trial.questions.get(id=question_id)
             questionSubmit = QuestionSubmission()
             questionSubmit.question = question
+            questionSubmit.value = clean[inp]
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
-        return render_phase(request, phase.id)
+        return redirect('accounts:panel_phase', phase.id)
