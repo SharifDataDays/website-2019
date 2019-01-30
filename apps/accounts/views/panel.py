@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
+from apps.accounts.decorators import complete_team_required
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
@@ -144,7 +146,8 @@ def redirect_to_somewhere_better(request):
 def sortSecond(val):
     return val[1][0]
 
-
+@login_required
+@complete_team_required
 def render_panel_phase_scoreboard(request):
     phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
     ranks = []
@@ -179,6 +182,7 @@ def get_total_score(team_id):
 
 
 @login_required
+@complete_team_required
 def render_phase(request, phase_id):
     user = request.user
     phase = Competition.objects.get(id=phase_id)
@@ -257,6 +261,7 @@ def team_management(request, participation_id=None):
 
 
 @login_required
+@complete_team_required
 def get_new_trial(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
@@ -308,6 +313,7 @@ def get_new_trial(request, phase_id):
 
 
 @login_required
+@complete_team_required
 def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
@@ -350,7 +356,8 @@ def render_trial(request, phase_id, trial_id):
         else:
             return render(request, 'accounts/panel/panel_trial.html', context)
 
-
+@login_required
+@complete_team_required
 def submit_trial(request, phase_id, trial_id):
     if not request.POST:
         return redirect('accounts:panel')
