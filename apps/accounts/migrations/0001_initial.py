@@ -25,6 +25,7 @@ class Migration(migrations.Migration):
                 ('age', models.IntegerField(blank=True, null=True, verbose_name='Age\u200c')),
                 ('national_code', models.CharField(blank=True, max_length=10, null=True, verbose_name='National code\u200c')),
                 ('tel_number', models.CharField(blank=True, max_length=20, null=True, verbose_name='Telephone number\u200c')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='teams', to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(

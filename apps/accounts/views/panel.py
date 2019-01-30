@@ -153,7 +153,7 @@ def render_panel_phase_scoreboard(request):
     ranks = []
     context = get_shared_context(request)
     for item in context['menu_items']:
-        if item['name'] == 'total Scoreboard':
+        if item['name'] == 'render_panel_phase_scoreboard':
             item['active'] = True
     for team in phase_scoreboard:
         temp = (team.team.name, get_total_score(team.id), 0)
