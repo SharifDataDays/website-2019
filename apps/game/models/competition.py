@@ -191,6 +191,7 @@ class TrialSubmission(models.Model):
             else:
                 question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value
             context['submissions'].append(question_context)
+        print(context)
         requests.post(JUDGE_IP, data=context, headers={"Content-Type": "application/json"})
 
 

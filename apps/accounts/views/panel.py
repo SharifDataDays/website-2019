@@ -431,7 +431,7 @@ def submit_trial(request, phase_id, trial_id):
             else:
                 return render(request, 'accounts/panel/panel_trial.html', context)
         # save_to_storage(file)
-        clean = form.cleaned_data
+        print(clean)
         trial.submit_time = timezone.now()
         trial.save()
         trialSubmit = TrialSubmission()
@@ -469,6 +469,7 @@ def save_to_storage(request):
 
 
 def get_judge_response(request):
+    print("response oomaaaad")
     team_id = request.POST['team_id']
     phase_id = request.POST['phase_id']
     trial_id = request.POST['trial_id']

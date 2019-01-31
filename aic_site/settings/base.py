@@ -208,4 +208,4 @@ if TESTING:
     LANGUAGE_CODE = 'en'
 
 
-JUDGE_IP = ''
+JUDGE_IP = 'localhost'

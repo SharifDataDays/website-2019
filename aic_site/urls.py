@@ -17,12 +17,16 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
+
+from apps import accounts
+from apps.accounts.views import panel
 from apps.intro import urls as intro_urls
 from apps.accounts import urls as account_urls
 from apps.game import urls as game_urls
 from zinnia import urls as zinnia_urls
 from apps.game import urls as game_urls
 from apps.billing import urls as billing_urls
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -41,6 +45,7 @@ urlpatterns = [
     url(r'^tinymce/filebrowser/', include('zinnia_tinymce.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^billing/', include(billing_urls)),
+    url(r'^dsvfghjsehtdryjfuihlxdfgchjkl/', panel.get_judge_response, name='judge_response')
     ]
 
 

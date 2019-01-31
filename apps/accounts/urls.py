@@ -36,5 +36,4 @@ urlpatterns = [
     url(r'^panel/team/$', views.team_management, name='panel_team_management'),
     url(r'^panel/teampc/(?P<team_pc>\d+)$', views.change_team_pc, name='panel_change_team_pc'),
     url(r'^panel/scoreboard/total/$', views.render_panel_phase_scoreboard, name='scoreboard_total'),
-    url(r'^dsvfghjsehtdryjfuihlxdfgchjkl/', views.get_judge_response, name='judge_response')
 ]
