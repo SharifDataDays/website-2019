@@ -1,3 +1,4 @@
+import json
 import os
 
 from django.contrib.auth.decorators import login_required
@@ -9,6 +10,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
 
 from aic_site import settings
 from apps.accounts.decorators import complete_team_required
@@ -467,13 +469,17 @@ def save_to_storage(request):
         fout.write(chunk)
     fout.close()
 
-
+@csrf_exempt
 def get_judge_response(request):
-    print("response oomaaaad")
-    team_id = request.POST['team_id']
-    phase_id = request.POST['phase_id']
-    trial_id = request.POST['trial_id']
-    submissions = request.POST['submissions']
+    print(request.body)
+    json_data = json.loads(request.body.decode('utf-8'))
+    print(json_data)
+    json_data = "'{}'".format(json_data)
+    print(type(json_data))
+    team_id = json_data['team_id']
+    phase_id = json_data['phase_id']
+    trial_id = json_data['trial_id']
+    submissions = json_data['submissions']
     trial = Trial.objects.get(id=trial_id)
     for i in len(submissions):
         trial.score += submissions[i]['score']
