@@ -12,16 +12,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='match',
-            name='infra_match_message',
-        ),
-        migrations.RemoveField(
-            model_name='match',
-            name='infra_token',
-        ),
-        migrations.RemoveField(
-            model_name='match',
-            name='log',
-        ),
     ]

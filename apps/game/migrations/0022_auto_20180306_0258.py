@@ -22,9 +22,4 @@ class Migration(migrations.Migration):
             name='scoreboard_freeze_time',
             field=models.DateTimeField(blank=True, null=True),
         ),
-        migrations.AlterField(
-            model_name='singlematch',
-            name='time',
-            field=models.DateTimeField(auto_now=True),
-        ),
     ]

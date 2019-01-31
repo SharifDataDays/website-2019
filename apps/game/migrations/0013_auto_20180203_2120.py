@@ -13,11 +13,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='singlematch',
-            name='status',
-            field=models.CharField(choices=[('running', 'Running'), ('failed', 'Failed'), ('done', 'Done'), ('waiting', 'Waiting')], default='waiting', max_length=128),
-        ),
         migrations.AlterField(
             model_name='competition',
             name='type',

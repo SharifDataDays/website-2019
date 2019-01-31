@@ -12,9 +12,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='map',
-            name='token',
-            field=models.CharField(max_length=256, null=True),
-        ),
     ]

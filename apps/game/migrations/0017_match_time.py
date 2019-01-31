@@ -12,9 +12,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='match',
-            name='time',
-            field=models.DateTimeField(auto_now_add=True, null=True),
-        ),
     ]

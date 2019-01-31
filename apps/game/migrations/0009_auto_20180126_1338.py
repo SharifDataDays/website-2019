@@ -17,5 +17,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(delete_null_matches)
     ]

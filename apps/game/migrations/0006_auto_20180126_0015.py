@@ -13,21 +13,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='match',
-            name='infra_match_message',
-            field=models.CharField(blank=True, max_length=1023, null=True),
-        ),
-        migrations.AddField(
-            model_name='match',
-            name='infra_token',
-            field=models.CharField(blank=True, max_length=256, null=True, unique=True),
-        ),
-        migrations.AddField(
-            model_name='match',
-            name='log',
-            field=models.FileField(blank=True, null=True, upload_to=apps.game.models.competition.get_log_file_directory),
-        ),
         migrations.AlterField(
             model_name='teamsubmission',
             name='status',

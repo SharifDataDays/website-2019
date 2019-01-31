@@ -18,9 +18,4 @@ class Migration(migrations.Migration):
             name='name',
             field=models.CharField(max_length=128, null=True),
         ),
-        migrations.AlterField(
-            model_name='match',
-            name='log',
-            field=models.FileField(blank=True, null=True, upload_to=apps.game.models.competition.get_log_file_directory),
-        ),
     ]

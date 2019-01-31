@@ -51,24 +51,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Match',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('done', models.BooleanField(default=False)),
-                ('competition', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='game.Competition')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Participant',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('object_id', models.PositiveIntegerField(null=True)),
-                ('depend_method', models.CharField(choices=[('winner', 'Winner'), ('loser', 'Loser'), ('itself', 'Itself')], max_length=127)),
-                ('score', models.IntegerField(default=0)),
-                ('content_type', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType')),
-            ],
-        ),
-        migrations.CreateModel(
             name='TeamParticipatesChallenge',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -96,21 +78,6 @@ class Migration(migrations.Migration):
                 ('team', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='users_acceptance', to='game.TeamParticipatesChallenge')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='accepted_teams', to=settings.AUTH_USER_MODEL)),
             ],
-        ),
-        migrations.AddField(
-            model_name='participant',
-            name='submission',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='game.TeamSubmission'),
-        ),
-        migrations.AddField(
-            model_name='match',
-            name='part1',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='mathces_as_first', to='game.Participant'),
-        ),
-        migrations.AddField(
-            model_name='match',
-            name='part2',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='matches_as_second', to='game.Participant'),
         ),
         migrations.AddField(
             model_name='challenge',

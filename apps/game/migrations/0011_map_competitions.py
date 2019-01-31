@@ -12,9 +12,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='map',
-            name='competitions',
-            field=models.ManyToManyField(related_name='maps', to='game.Competition'),
-        ),
     ]

@@ -28,21 +28,6 @@ class Migration(migrations.Migration):
             field=models.CharField(choices=[('elim', 'Elimination'), ('double', 'Double Elimination'), ('league', 'League')], max_length=128),
         ),
         migrations.AlterField(
-            model_name='game',
-            name='infra_token',
-            field=models.CharField(max_length=256, unique=True),
-        ),
-        migrations.AlterField(
-            model_name='game',
-            name='name',
-            field=models.CharField(max_length=256),
-        ),
-        migrations.AlterField(
-            model_name='participant',
-            name='depend_method',
-            field=models.CharField(choices=[('winner', 'Winner'), ('loser', 'Loser'), ('itself', 'Itself')], max_length=128),
-        ),
-        migrations.AlterField(
             model_name='teamsubmission',
             name='infra_token',
             field=models.CharField(blank=True, max_length=256, null=True, unique=True),

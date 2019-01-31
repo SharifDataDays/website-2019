@@ -81,36 +81,12 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.RemoveField(
-            model_name='map',
-            name='competitions',
-        ),
-        migrations.RemoveField(
-            model_name='match',
-            name='competition',
-        ),
-        migrations.RemoveField(
-            model_name='match',
-            name='part1',
-        ),
-        migrations.RemoveField(
-            model_name='match',
-            name='part2',
-        ),
-        migrations.RemoveField(
             model_name='participant',
             name='content_type',
         ),
         migrations.RemoveField(
             model_name='participant',
             name='submission',
-        ),
-        migrations.RemoveField(
-            model_name='singlematch',
-            name='map',
-        ),
-        migrations.RemoveField(
-            model_name='singlematch',
-            name='match',
         ),
         migrations.RemoveField(
             model_name='competition',
@@ -169,18 +145,6 @@ class Migration(migrations.Migration):
                 ('question_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='game.Question')),
             ],
             bases=('game.question',),
-        ),
-        migrations.DeleteModel(
-            name='Map',
-        ),
-        migrations.DeleteModel(
-            name='Match',
-        ),
-        migrations.DeleteModel(
-            name='Participant',
-        ),
-        migrations.DeleteModel(
-            name='SingleMatch',
         ),
         migrations.AddField(
             model_name='trialsubmission',

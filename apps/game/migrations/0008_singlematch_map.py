@@ -13,10 +13,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='singlematch',
-            name='map',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='game.Map'),
-            preserve_default=False,
-        ),
     ]
