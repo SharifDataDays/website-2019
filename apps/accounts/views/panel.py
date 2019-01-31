@@ -508,6 +508,7 @@ def get_dataset(request, phase_id, trial_id):
         if len(trial) is 0:
             return render(request, '404.html')
         else:
+
             trial = trial[0]
             if trial.submit_time is not None:
                 return redirect('accounts:panel_phase', phase_id)
@@ -518,7 +519,9 @@ def get_dataset(request, phase_id, trial_id):
                 phase.save()
                 trial.dataset_link = '/home/arghavan/datasets/{}.csv'.format(i)
                 trial.save()
-                return FileResponse(open(trial.dataset_link, 'rb'))
-            else:
-
-                return FileResponse(open(trial.dataset_link, 'rb'))
+                # return FileResponse(open(trial.dataset_link, 'rb'))
+            with open(trial.dataset_link, 'rb') as pdf:
+                response = HttpResponse(pdf.read())
+                response['content_type'] = 'text/csv'
+                response['Content-Disposition'] = 'attachment;filename=dataset.csv'
+                return response
