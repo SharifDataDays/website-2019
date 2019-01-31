@@ -224,7 +224,7 @@ class Instruction(models.Model):
         ('MultipleAnswerQuestion', _('MultipleAnswerQuestion')),
         ('MultipleChoiceQuestion', _('MultipleChoiceQuestion'))
     )
-    model_name = models.CharField(max_length=200)
+    model_name = models.CharField(max_length=200, choices=MODEL_CHIOCES)
     type = models.CharField(max_length=200, null=True, blank=True, choices=TYPE_CHOICES)
     app = models.CharField(max_length=200)
     level = models.CharField(max_length=200, choices=CHOICES)
