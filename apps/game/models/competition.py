@@ -4,6 +4,7 @@ import json
 import uuid
 
 import os
+from os.path import splitext
 
 import requests
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -70,7 +71,8 @@ class Question(models.Model):
         ('text_string', _('text_string')), # single_answer, single_sufficient_answer
         ('choices', _('choices')), # multiple_choices
         ('multiple', _('multiple')), # multiple_answer
-        ('file', _('file')) # file_upload
+        ('file', _('file')), # file_upload
+        ('image_choices', _('image_choices')) #multiple_choice
     )
     group_id = models.IntegerField(null=True, blank=True)
     stmt = models.CharField(max_length=500)
@@ -89,13 +91,19 @@ class MultipleChoiceQuestion(Question):
     def save(self):
 
         self.type = 'multiple_choice'
-        self.ui_type = 'choices'
+        # self.ui_type = 'choices'
         super(MultipleChoiceQuestion, self).save()
 
 
+def user_directory_path(instance, filename):
+    file_extension = splitext(filename)[-1] # [1] or [-1] ?
+    return str('choice_images/%d/%d%s' %(instance.question.id, instance.id, file_extension))
+
+
 class Choice(models.Model):
-    text = models.CharField(max_length=200)
-    question = models.ForeignKey(MultipleChoiceQuestion, related_name='choices')
+    image = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
+    text = models.CharField(max_length=200, null=True, blank=True)
+    question = models.ForeignKey(MultipleChoiceQuestion, related_name='choices', null=True, blank=True)
 
 
 class FileUploadQuestion(Question):
@@ -224,7 +232,7 @@ class Instruction(models.Model):
         ('IntervalQuestion', _('IntervalQuestion')),
         ('FileUploadQuestion', _('FileUploadQuestion')),
         ('MultipleAnswerQuestion', _('MultipleAnswerQuestion')),
-        ('MultipleChoiceQuestion', _('MultipleChoiceQuestion'))
+        ('MultipleChoiceQuestion', _('MultipleChoiceQuestion')),
     )
     model_name = models.CharField(max_length=200, choices=MODEL_CHIOCES)
     type = models.CharField(max_length=200, null=True, blank=True, choices=TYPE_CHOICES)

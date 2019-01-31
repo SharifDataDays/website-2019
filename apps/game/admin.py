@@ -59,10 +59,16 @@ class ChoiceInline(admin.StackedInline):
     extra = 1
     show_change_link = True
 
+# class ImageChoiceInline(admin.StackedInline):
+#     model = ImageChoice
+#     extra = 1
+#     show_change_link = True
+
 
 class MultipleChoiceAdmin(admin.ModelAdmin):
     inlines = [
-        ChoiceInline
+        ChoiceInline,
+        # ImageChoiceInline
     ]
 
     fields = ['stmt', 'correct_answer', 'type', 'ui_type', 'level', 'group_id']

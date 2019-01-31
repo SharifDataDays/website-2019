@@ -92,8 +92,11 @@
                     ">
                     {{ question.stmt }}
                 </div>
-                  <div class="grouped fields" style="margin-top: 10px">
+                  <img class="grouped fields" style="margin-top: 10px">
                       {% for choice in question.choices %}
+                           {% if choice.image.url %}
+                               <img src={{ choice.image.url }}>
+                           {% endif %}
                           <div class="field">
                               <div class="ui radio checkbox" style="margin-top: 10px">
                                   <input type="radio" name="{{ trial.id  }}_{{ question.id }}">
