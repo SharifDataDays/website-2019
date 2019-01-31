@@ -81,14 +81,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.RemoveField(
-            model_name='participant',
-            name='content_type',
-        ),
-        migrations.RemoveField(
-            model_name='participant',
-            name='submission',
-        ),
-        migrations.RemoveField(
             model_name='competition',
             name='type',
         ),
