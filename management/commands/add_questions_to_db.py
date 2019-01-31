@@ -48,7 +48,8 @@ def add_questions(questions_file_path):
         definition = question['question']
         group_id = question['group_id']
         difficulty = question['level']
-        
+        question_id = question['id']
+
         save_in_database(question_id, question_type, definition, choices, answer, skill, group_id, difficulty)
         
     # TODO
@@ -63,13 +64,26 @@ def add_questions(questions_file_path):
     # this part can be automated but since the generator is another script, 
     # its better to do these instructions manually.
 
+
 def add_datasets(datasets_folder_path):
     for i, dataset in enumerate(os.listdir('{}/tds'.format(datasets_folder_path))):
         dataset_hash = dataset[:-4] # drop .csv format
         dataset_file_path = '{}/tds/{}'.format(datasets_folder_path, dataset)
         dataset_answer_path = '{}/tdsa/{}_answer'.format(datasets_folder_path, dataset)
 
-        save_in_database(i, 'file_upload', dataset_hash, '', dataset_answer_path, 'Categorization', FILE_UPLOAD_QUESTION_GROUP, 'Easy')
+        save_in_database(MAX_DOC_ID - i, 'file_upload', dataset_hash, '', dataset_answer_path, 'Categorization', FILE_UPLOAD_QUESTION_GROUP, 'Easy')
+
+
+def score_from_level(question_type, difficulty):
+    if question_type in ['multiple_choice']:
+        return {'Easy': 100, 'Medium': 200, 'Hard': 300}[difficulty]
+    elif question_type in ['file_upload']:
+        return 1000
+    else:
+        return {'Easy': 150, 'Medium': 300, 'Hard': 600}[difficulty]
+
+
+diff_map = {'Easy': 'easy', 'Medium': 'medium', 'Hard': 'difficult'}
 
 
 def save_in_database(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
@@ -82,10 +96,13 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         for c in choices:
             c = choice()
             c.text = c
-            c.question = q;
+            c.question = q
             c.save()
         q.correct_answer = answer
         q.group_id = group_id
+        q.doc_id = question_id
+        q.level = diff_map[difficulty]
+        q.max_score = score_from_level(question_type, difficulty)
         q.save()
 
     elif qt == 'interval_number':
@@ -95,6 +112,9 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q.min_range = choices[0]
         q.max_range = choices[1]
         q.group_id = group_id
+        q.max_range = score_from_level(question_type, difficulty)
+        q.level = diff_map[difficulty]
+        q.max_score = score_from_level(question_type, difficulty)
         q.save()
         
     elif qt == 'single_answer':
@@ -103,6 +123,8 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q.stmt = definition
         q.correct_answer = answer
         q.group_id = group_id
+        q.level = diff_map[difficulty]
+        q.max_score = score_from_level(question_type, difficulty)
         q.save()
 
     elif qt == 'multiple_answer':
@@ -111,6 +133,8 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q.stmt = definition
         q.group_id = group_id
         q.answer = answer
+        q.level = diff_map[difficulty]
+        q.max_score = score_from_level(question_type, difficulty)
         q.save()
 
     elif qt == 'single_number':
@@ -119,28 +143,30 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q.stmt = definition
         q.correct_answer = answer
         q.group_id = group_id
+        q.level = diff_map[difficulty]
+        q.max_score = score_from_level(question_type, difficulty)
         q.save()
     
-    elif qt == 'file':
+    elif qt == 'file_upload':
         model = apps.get_model('game', 'FileUploadQuestion')
         q = model()
-        q.stmt = definition
-        q.correct_answer = answer
+        q.stmt = ' '
+        q.correct_answer = definition
+        q.level = diff_map[difficulty]
+        q.max_score = score_from_level(question_type, difficulty)
         q.save()
-
-
-    # TODO implement in views
     
-
 
 def answer_multiple_choice(question):
     choices = '$'.join([str(x) for x in [question['choices'], question['Unnamed: 6'], question['Unnamed: 7'], question['Unnamed: 8']]])
     answer = question['answer_multiple']
     return choices, answer
 
+
 def answer_single_answer(question):
     answer = question['answer_string']
     return None, answer
+
 
 def answer_multiple_answer(question):
     answer = question['answer_string']
@@ -149,14 +175,15 @@ def answer_multiple_answer(question):
     
     return None, answer
 
+
 def answer_single_number(question):
     answer = question['answer_numeric']
     return None, answer
 
+
 def answer_interval_number(question):
     answer = '{}${}'.format(question['from'], question['to'])
     return None, answer
-
 
 
 class Command(BaseCommand):
@@ -165,7 +192,6 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('csv_file_path', nargs='+', type=str)
         parser.add_argument('ddatasets_folder_path', nargs='+', type=str)
-
 
     def handle(self, *args, **options):
         csv_file_path = options['csv_file_path']
