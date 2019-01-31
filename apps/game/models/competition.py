@@ -84,13 +84,16 @@ class Question(models.Model):
     level = models.CharField(max_length=200, choices=LEVEL_CHOICES, blank=True, null=True)
 
     def __str__(self):
-        return str('%s: %s' % (self.type, self.stmt))
+        self.type = 'single_answer'
+        self.ui_type = 'text_string'
+        return str('%s: %s: %s: %s' % (self.type, self.stmt, self.doc_id, self.max_score))
 
 
 class MultipleChoiceQuestion(Question):
 
-    def save(self):
+    imaged = models.BooleanField(default=False)
 
+    def save(self):
         self.type = 'multiple_choice'
         # self.ui_type = 'choices'
         super(MultipleChoiceQuestion, self).save()
@@ -105,6 +108,15 @@ class Choice(models.Model):
     image = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
     text = models.CharField(max_length=200, null=True, blank=True)
     question = models.ForeignKey(MultipleChoiceQuestion, related_name='choices', null=True, blank=True)
+
+    def save(self):
+        if self.question.imaged:
+            self.question.ui_type = 'image_choices'
+            self.question.save()
+        else:
+            self.question.ui_type = 'choices'
+            self.question.save()
+        super(Choice, self).save()
 
 
 class FileUploadQuestion(Question):

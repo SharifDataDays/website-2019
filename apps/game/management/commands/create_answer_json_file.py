@@ -52,7 +52,7 @@ def add_questions(questions_file_path):
         difficulty = question['level']
         question_id = question['id']
 
-        answers[question_id] = answer
+        answers[str(question_id)] = answer
         
     # TODO
     # in order to add file_upload questions to db we must run generator script and then call save_in_database
@@ -73,7 +73,7 @@ def add_datasets(datasets_folder_path):
         dataset_file_path = '{}/tds/{}'.format(datasets_folder_path, dataset)
         dataset_answer_path = '{}/tdsa/{}_answer'.format(datasets_folder_path, dataset)
 
-        answers[MAX_DOC_ID - i] = dataset_answer_path
+        answers[str(MAX_DOC_ID - i)] = dataset_answer_path
 
 
 def score_from_level(question_type, difficulty):

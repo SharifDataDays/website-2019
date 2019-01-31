@@ -80,7 +80,9 @@ def score_from_level(question_type, difficulty):
 
 diff_map = {'Easy': 'easy', 'Medium': 'medium', 'Difficult': 'difficult'}
 
+
 x = 0
+
 
 def save_in_database(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
     global x
@@ -143,7 +145,7 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q.min_range = float(answer.split('$')[0])
         q.max_range = float(answer.split('$')[1])
         q.group_id = group_id
-        q.max_range = score_from_level(question_type, difficulty)
+        q.doc_id = question_id
         q.level = diff_map[difficulty]
         q.max_score = score_from_level(question_type, difficulty)
         q.save()
@@ -154,6 +156,7 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q.stmt = definition
         q.correct_answer = answer
         q.group_id = group_id
+        q.doc_id = question_id
         q.level = diff_map[difficulty]
         q.max_score = score_from_level(question_type, difficulty)
         q.save()
@@ -164,16 +167,18 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q.stmt = definition
         q.group_id = group_id
         q.answer = answer
+        q.doc_id = question_id
         q.level = diff_map[difficulty]
         q.max_score = score_from_level(question_type, difficulty)
         q.save()
 
     elif qt == 'numeric':
-        model = apps.get_model('game', 'MultipleAnswerQuestion')
+        model = apps.get_model('game', 'Question')
         q = model()
         q.stmt = definition
         q.correct_answer = answer
         q.group_id = group_id
+        q.doc_id = question_id
         q.level = diff_map[difficulty]
         q.max_score = score_from_level(question_type, difficulty)
         q.save()
@@ -183,6 +188,7 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q = model()
         q.stmt = ' '
         q.correct_answer = definition
+        q.doc_id = question_id
         q.level = diff_map[difficulty]
         q.max_score = score_from_level(question_type, difficulty)
         q.save()
