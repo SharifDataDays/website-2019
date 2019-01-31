@@ -4,7 +4,7 @@ import os
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.forms import Form, ModelForm
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse, FileResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -487,4 +487,35 @@ def get_judge_response(request):
     return JsonResponse({'status': 'succeeded'})
 
 
-
+@login_required
+def get_dataset(request, phase_id, trial_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase is None:
+        redirect("/accounts/panel/team")
+    else:
+        team_pc = get_team_pc(request)
+        if team_pc is None:
+            return redirect_to_somewhere_better(request)
+        context = get_shared_context(request)
+        for item in context['menu_items']:
+            if item['name'] == phase.name:
+                item['active'] = True
+        context.update({
+            'participation': team_pc,
+            'phase': phase,
+        })
+        trial = Trial.objects.filter(id=trial_id).all()
+        if len(trial) is 0:
+            return render(request, '404.html')
+        else:
+            trial = trial[0]
+            if trial.submit_time is not None:
+                return redirect('accounts:panel_phase', phase_id)
+            if trial.dataset_downloaded is True:
+                return redirect('accounts:panel_trial', phase_id, trial_id)
+            i = phase.dataset_counter
+            i = i + 1
+            phase.save()
+            trial.dataset_downloaded = True
+            trial.save()
+            return FileResponse(open('/home/mrtaalebi/datasets/{}.csv'.format(i)))

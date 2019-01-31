@@ -33,6 +33,7 @@ class Competition(models.Model):
     end_time = models.DateTimeField(null=True)
     scoreboard_freeze_time = models.DateTimeField(null=True, blank=True)
     current_trial_id = models.IntegerField(default=0)
+    dataset_counter = models.IntegerField(default=0)
 
     def get_freeze_time(self):
         if self.scoreboard_freeze_time is not None:
@@ -140,6 +141,7 @@ class Trial(models.Model):
     submit_time = models.DateTimeField(null=True)
     score = models.FloatField(default=0)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials', null=True)
+    dataset_downloaded = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         super(Trial, self).save()

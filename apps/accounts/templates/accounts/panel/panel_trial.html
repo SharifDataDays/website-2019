@@ -207,7 +207,7 @@
                             "
                     >
                         {# TODO href to download file #}
-                        <a href="{{ question.download_url }}" class="ui link">
+                        <a href="{% url 'accounts:get_dataset' phase.id trial.id %}" class="ui link">
                            <i class="download icon huge"></i>
                         </a>
                         {% trans 'Download Dataset' %}
