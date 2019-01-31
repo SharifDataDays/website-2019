@@ -75,6 +75,7 @@ class Question(models.Model):
         ('image_choices', _('image_choices')) #multiple_choice
     )
     group_id = models.IntegerField(null=True, blank=True)
+    doc_id = models.IntegerField(null=True, blank=True)
     stmt = models.CharField(max_length=500)
     correct_answer = models.CharField(max_length=200)
     max_score = models.FloatField(default=0, null=True)
