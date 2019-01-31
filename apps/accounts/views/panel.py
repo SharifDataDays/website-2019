@@ -388,7 +388,7 @@ def submit_trial(request, phase_id, trial_id):
         if team_pc is None:
             return redirect_to_somewhere_better(request)
         context = get_shared_context(request)
-        file = request.FILES['file']
+        # file = request.FILES['file']
         for item in context['menu_items']:
             if item['name'] == phase.name:
                 item['active'] = True
@@ -407,7 +407,9 @@ def submit_trial(request, phase_id, trial_id):
         trial = trial[0]
         if not form.is_valid():
             return redirect('accounts:panel')
-        if file.size > 1048576:
+        # if file.size > 1048576:
+        if False:
+            pass
             error_msg = 'Max size of file is 1MB'
             context.update({
                 'error':error_msg,
@@ -428,7 +430,7 @@ def submit_trial(request, phase_id, trial_id):
                 return render(request, '403.html')
             else:
                 return render(request, 'accounts/panel/panel_trial.html', context)
-        save_to_storage(file)
+        # save_to_storage(file)
         clean = form.cleaned_data
         trial.submit_time = timezone.now()
         trial.save()
@@ -467,9 +469,15 @@ def save_to_storage(request):
 
 
 def get_judge_response(request):
-    team_id = request.POST.get('team_id')
+    team_id = request.POST['team_id']
     phase_id = request.POST['phase_id']
-    trial_id = request.POST.get('trial_id')
-    submissions = request.POST.get('submissions')
+    trial_id = request.POST['trial_id']
+    submissions = request.POST['submissions']
     trial = Trial.objects.get(id=trial_id)
+    for i in len(submissions):
+        trial.score += submissions[i]['score']
+    trial.save()
+    return JsonResponse({'status': 'succeeded'})
+
+
 
