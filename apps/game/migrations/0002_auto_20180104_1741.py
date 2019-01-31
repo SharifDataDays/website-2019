@@ -27,9 +27,4 @@ class Migration(migrations.Migration):
             name='type',
             field=models.CharField(choices=[('elim', 'Elimination'), ('double', 'Double Elimination'), ('league', 'League')], max_length=128),
         ),
-        migrations.AlterField(
-            model_name='teamsubmission',
-            name='infra_token',
-            field=models.CharField(blank=True, max_length=256, null=True, unique=True),
-        ),
     ]

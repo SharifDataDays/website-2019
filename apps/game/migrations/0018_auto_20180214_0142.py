@@ -13,9 +13,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='teamsubmission',
-            name='team',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='submissions', to='game.TeamParticipatesChallenge'),
-        ),
     ]

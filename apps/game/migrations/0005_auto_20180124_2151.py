@@ -18,19 +18,4 @@ class Migration(migrations.Migration):
             name='teamparticipateschallenge',
             options={'verbose_name_plural': 'Team Participates In Challenges'},
         ),
-        migrations.AddField(
-            model_name='teamsubmission',
-            name='infra_compile_token',
-            field=models.CharField(blank=True, max_length=256, null=True, unique=True),
-        ),
-        migrations.AddField(
-            model_name='teamsubmission',
-            name='status',
-            field=models.CharField(choices=[('uploading', 'Uploading'), ('uploaded', 'Uploaded'), ('compiling', 'Compiling'), ('compiled', 'Compiled')], default='uploading', max_length=128),
-        ),
-        migrations.AlterField(
-            model_name='teamsubmission',
-            name='language',
-            field=models.CharField(choices=[('c++', 'C++'), ('java', 'Java'), ('python2', 'Python 2'), ('python3', 'Python 3')], default='java', max_length=128),
-        ),
     ]

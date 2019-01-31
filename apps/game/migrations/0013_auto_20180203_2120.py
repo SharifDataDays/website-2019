@@ -18,14 +18,4 @@ class Migration(migrations.Migration):
             name='type',
             field=models.CharField(choices=[('elim', 'Elimination'), ('double', 'Double Elimination'), ('league', 'League'), ('friendly', 'Friendly')], max_length=128),
         ),
-        migrations.AlterField(
-            model_name='match',
-            name='competition',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='matches', to='game.Competition'),
-        ),
-        migrations.AlterField(
-            model_name='teamsubmission',
-            name='language',
-            field=models.CharField(choices=[('cpp', 'C++'), ('java', 'Java'), ('py3', 'Python 3')], default='java', max_length=128),
-        ),
     ]

@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.forms import Form, ModelForm
@@ -361,6 +363,7 @@ def render_trial(request, phase_id, trial_id):
             return render(request, '403.html')
         else:
             return render(request, 'accounts/panel/panel_trial.html', context)
+
 
 @login_required
 def submit_trial(request, phase_id, trial_id):

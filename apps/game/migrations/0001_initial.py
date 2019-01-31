@@ -59,19 +59,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='TeamSubmission',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(upload_to=apps.game.models.challenge.get_submission_file_directory)),
-                ('time', models.DateTimeField(auto_now_add=True)),
-                ('is_final', models.BooleanField(default=False)),
-                ('language', models.CharField(choices=[('c++', 'C++'), ('java', 'Java'), ('python2', 'Python 2'), ('python3', 'Python 3')], max_length=127)),
-                ('infra_compile_message', models.CharField(blank=True, max_length=1023, null=True)),
-                ('infra_token', models.CharField(blank=True, max_length=255, null=True, unique=True)),
-                ('team', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='game.TeamParticipatesChallenge')),
-            ],
-        ),
-        migrations.CreateModel(
             name='UserAcceptsTeamInChallenge',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
