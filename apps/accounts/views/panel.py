@@ -469,19 +469,19 @@ def save_to_storage(request):
         fout.write(chunk)
     fout.close()
 
+
 @csrf_exempt
 def get_judge_response(request):
     print(request.body)
     json_data = json.loads(request.body.decode('utf-8'))
-    print(json_data)
-    json_data = "'{}'".format(json_data)
-    print(type(json_data))
+    print('\033[92m{}\033[0m'.format(json_data))
     team_id = json_data['team_id']
     phase_id = json_data['phase_id']
     trial_id = json_data['trial_id']
     submissions = json_data['submissions']
     trial = Trial.objects.get(id=trial_id)
-    for i in len(submissions):
+    trial.score = 0
+    for i in range(len(submissions)):
         trial.score += submissions[i]['score']
     trial.save()
     return JsonResponse({'status': 'succeeded'})

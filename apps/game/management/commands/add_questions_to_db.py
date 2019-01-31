@@ -80,8 +80,12 @@ def score_from_level(question_type, difficulty):
 
 diff_map = {'Easy': 'easy', 'Medium': 'medium', 'Difficult': 'difficult'}
 
+x = 0
 
 def save_in_database(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
+    global x
+    print(x)
+    x = x + 1
     qt = question_type
     print('\033[91m{}\033[0m'.format(qt))
     if qt == 'multiple':
@@ -93,15 +97,34 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q.stmt = definition
         q.save()
         choice = apps.get_model('game', 'Choice')
-        print(choices.split('$'))
-        for o in choices.split('$'):
-            print(o)
-            c = choice()
-            c.text = o
-            c.question = q
-            print(c)
-            c.save()
-            print(c)
+        if skill != 'visualization':
+            print(choices.split('$'))
+            for o in choices.split('$'):
+                print(o)
+                c = choice()
+                c.text = o
+                c.question = q
+                print(c)
+                c.save()
+                print(c)
+        else:
+            aa = choice()
+            aa.text = 'A'
+            aa.question = q
+            aa.save()
+            bb = choice()
+            bb.text = 'B'
+            bb.question = q
+            bb.save()
+            cc = choice()
+            cc.text = 'C'
+            cc.question = q
+            cc.save()
+            dd = choice()
+            dd.text = 'D'
+            dd.question = q
+            dd.save()
+
         q.correct_answer = answer
         q.group_id = group_id
         q.doc_id = question_id
@@ -115,6 +138,8 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         model = apps.get_model('game', 'IntervalQuestion')
         q = model()
         q.stmt = definition
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        print(answer)
         q.min_range = float(answer.split('$')[0])
         q.max_range = float(answer.split('$')[1])
         q.group_id = group_id
