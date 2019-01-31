@@ -361,7 +361,7 @@ def render_trial(request, phase_id, trial_id):
                 'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
                                                                  , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                                         , trial.questions.filter(type='single_sufficient_number')))],
+                                                         , trial.questions.filter(type='single_sufficient_answer')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choice')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
                 'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
@@ -417,7 +417,7 @@ def submit_trial(request, phase_id, trial_id):
                 'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
                                                                  , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                                         , trial.questions.filter(type='single_sufficient_number')))],
+                                                         , trial.questions.filter(type='single_sufficient_answer')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choices')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
                 'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
