@@ -217,6 +217,13 @@ class Instruction(models.Model):
         ('interval_number', _('interval_number')),  # IntervalQuestion type=number specified in template
         ('file_upload', _('file_upload'))  # FileUploadQuestion
     )
+    MODEL_CHIOCES = (
+        ('Question', _('Question')),
+        ('IntervalQuestion', _('IntervalQuestion')),
+        ('FileUploadQuestion', _('FileUploadQuestion')),
+        ('MultipleAnswerQuestion', _('MultipleAnswerQuestion')),
+        ('MultipleChoiceQuestion', _('MultipleChoiceQuestion'))
+    )
     model_name = models.CharField(max_length=200)
     type = models.CharField(max_length=200, null=True, blank=True, choices=TYPE_CHOICES)
     app = models.CharField(max_length=200)
