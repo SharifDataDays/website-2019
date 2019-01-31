@@ -318,7 +318,7 @@ def get_new_trial(request, phase_id):
                 chosen_questions = Question.objects.filter(trial__team=team_pc)
                 for q in chosen_questions:
                     selectable_questions = selectable_questions.exclude(group_id=q.group_id)
-                if len(selectable_questions) < len(questions):
+                if len(selectable_questions) < instruction.number:
                     selectable_questions = backup_questions
                 questions = selectable_questions[:instruction.number]
                 questions = list(questions)
