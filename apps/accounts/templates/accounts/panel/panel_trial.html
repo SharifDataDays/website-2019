@@ -99,8 +99,12 @@
                            {% endif %}
                           <div class="field">
                               <div class="ui radio checkbox" style="margin-top: 10px">
-                                  <input type="radio" name="{{ trial.id  }}_{{ question.id }}">
-                                  <label>{{ choice.text }}</label>
+                                  <input type="radio" name="{{ trial.id  }}_{{ question.id }}" id="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">
+                                  {% if choice.image.url %}
+                                    <label for="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}"><img src={{ choice.image.url }}></label>
+                                  {% else %}
+                                    <label for="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">{{ choice.text }}</label>
+                                  {% endif %}
                               </div>
                           </div>
                       {% endfor %}
