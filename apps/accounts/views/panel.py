@@ -13,6 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
 from aic_site import settings
+from aic_site.settings.base import MEDIA_ROOT
 from apps.accounts.decorators import complete_team_required
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
 from apps.billing.decorators import payment_required
@@ -390,7 +391,8 @@ def submit_trial(request, phase_id, trial_id):
         if team_pc is None:
             return redirect_to_somewhere_better(request)
         context = get_shared_context(request)
-        # file = request.FILES['file']
+        file = request.FILES['file']
+        print(file)
         for item in context['menu_items']:
             if item['name'] == phase.name:
                 item['active'] = True
@@ -409,9 +411,9 @@ def submit_trial(request, phase_id, trial_id):
         trial = trial[0]
         if not form.is_valid():
             return redirect('accounts:panel')
-        # if file.size > 1048576:
-        if False:
-            pass
+        if file.size > 1048576:
+        # if False:
+        #     pass
             error_msg = 'Max size of file is 1MB'
             context.update({
                 'error':error_msg,
@@ -432,7 +434,7 @@ def submit_trial(request, phase_id, trial_id):
                 return render(request, '403.html')
             else:
                 return render(request, 'accounts/panel/panel_trial.html', context)
-        # save_to_storage(file)
+        save_to_storage(request)
         print(clean)
         trial.submit_time = timezone.now()
         trial.save()
@@ -443,7 +445,7 @@ def submit_trial(request, phase_id, trial_id):
         trialSubmit.save()
 
         for inp in clean.keys():
-            print("hail")
+            print(clean[inp])
             trial_id, question_id = inp.split("_")
             question = trial.questions.get(id=question_id)
             questionSubmit = QuestionSubmission()
@@ -459,10 +461,10 @@ def save_to_storage(request):
     folder = request.path.replace("/", "_")
     uploaded_filename = request.FILES['file'].name
     try:
-        os.mkdir(os.path.join(settings.MEDIA_ROOT, folder))
+        os.mkdir(os.path.join(MEDIA_ROOT, folder))
     except:
         pass
-    full_filename = os.path.join(settings.MEDIA_ROOT, folder, uploaded_filename)
+    full_filename = os.path.join(MEDIA_ROOT, folder, uploaded_filename)
     fout = open(full_filename, 'wb+')
     file_content = ContentFile(request.FILES['file'].read())
     for chunk in file_content.chunks():

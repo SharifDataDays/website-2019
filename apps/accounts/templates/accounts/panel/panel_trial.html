@@ -6,7 +6,7 @@
 
 {% block panel_content %}
 
-<form action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
+<form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
 
     {# Numeric Single-Answer Questions #}
@@ -94,9 +94,9 @@
                 </div>
                   <img class="grouped fields" style="margin-top: 10px">
                       {% for choice in question.choices %}
-                           {% if choice.image.url %}
-                               <img src={{ choice.image.url }}>
-                           {% endif %}
+{#                           {% if choice.image.url %}#}
+{#                               <img src={{ choice.image.url }}>#}
+{#                           {% endif %}#}
                           <div class="field">
                               <div class="ui radio checkbox" style="margin-top: 10px">
                                   <input type="radio" name="{{ trial.id  }}_{{ question.id }}" id="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">
