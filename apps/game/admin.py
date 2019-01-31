@@ -65,11 +65,11 @@ class MultipleChoiceAdmin(admin.ModelAdmin):
         ChoiceInline
     ]
 
-    fields = ['stmt', 'correct_answer', 'type', 'ui_type', 'level']
+    fields = ['stmt', 'correct_answer', 'type', 'ui_type', 'level', 'group_id']
 
 
 class QuestionAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level']
+  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'group_id']
 
 
 class AnswerInline(admin.StackedInline):
@@ -83,15 +83,15 @@ class MultipleAnswerAdmin(admin.ModelAdmin):
     inlines = [
         AnswerInline
     ]
-    fields = ['stmt', 'max_score', 'type', 'ui_type', 'level']
+    fields = ['stmt', 'max_score', 'type', 'ui_type', 'level', 'group_id']
 
 
 class FileUploadAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'max_score', 'type', 'ui_type', 'level', 'download_url', 'upload_url']
+  fields = ['stmt', 'max_score', 'type', 'ui_type', 'level', 'download_url', 'upload_url', 'group_id']
 
 
 class IntervalQuestionAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'max_score', 'type', 'ui_type', 'level', 'min_range', 'max_range']
+    fields = ['stmt', 'max_score', 'type', 'ui_type', 'level', 'min_range', 'max_range', 'group_id']
 
 
 
@@ -100,7 +100,8 @@ class PhaseInstructionSetAdmin(admin.ModelAdmin):
 
 
 class InstructionAdmin(admin.ModelAdmin):
-    fields = ['type', 'app', 'number', 'level', 'phase_instruction_set']
+    fields = ['model_name', 'type', 'app', 'number', 'level', 'phase_instruction_set']
+
 
 
 class ChallengeAdmin(admin.ModelAdmin):

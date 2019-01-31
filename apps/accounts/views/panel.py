@@ -153,7 +153,6 @@ def sortSecond(val):
     return val[1][0]
 
 @login_required
-@complete_team_required
 def render_panel_phase_scoreboard(request):
     phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
     ranks = []
@@ -188,7 +187,6 @@ def get_total_score(team_id):
 
 
 @login_required
-@complete_team_required
 def render_phase(request, phase_id):
     user = request.user
     phase = Competition.objects.get(id=phase_id)
@@ -267,7 +265,6 @@ def team_management(request, participation_id=None):
 
 
 @login_required
-@complete_team_required
 def get_new_trial(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
@@ -305,18 +302,24 @@ def get_new_trial(request, phase_id):
         phase_instruction_set = PhaseInstructionSet.objects.get(phase=phase)
         instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
         for instruction in instructions:
-            question_model = apps.get_model(instruction.app, instruction.type)
-            if question_model.type is 'file_upload':
+            question_model = apps.get_model(instruction.app, instruction.model_name)
+            if instruction.model_name == 'FileUploadQuestion':
                 questions = question_model.objects.filter(is_chosen=False).all()
                 if len(questions) is 0:
                     questions = question_model.objects.filter(trial__team=team_pc)
                 questions = questions[0]
-                questions.is_chosen(True)
+                questions.is_chosen = True
+                current_trial.questions.add(questions)
             else:
-                questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)[
-                        :instruction.number]
-            questions = list(questions)
-            current_trial.questions.add(*questions)
+                selectable_questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)
+                if instruction.model_name == 'Question':
+                    selectable_questions = selectable_questions.filter(type=instruction.type)
+                chosen_questions = Question.objects.filter(trial__team=team_pc)
+                for q in chosen_questions:
+                    selectable_questions.exclude(group_id=q.group_id)
+                questions = selectable_questions[:instruction.number]
+                questions = list(questions)
+                current_trial.questions.add(*questions)
 
         current_trial.save()
         # context.update({
@@ -326,7 +329,6 @@ def get_new_trial(request, phase_id):
 
 
 @login_required
-@complete_team_required
 def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
@@ -368,8 +370,8 @@ def render_trial(request, phase_id, trial_id):
         else:
             return render(request, 'accounts/panel/panel_trial.html', context)
 
+
 @login_required
-@complete_team_required
 def submit_trial(request, phase_id, trial_id):
     if not request.POST:
         return redirect('accounts:panel')

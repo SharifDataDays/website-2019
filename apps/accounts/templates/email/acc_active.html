@@ -12,7 +12,7 @@
 {% autoescape off %}
     <p>{% trans 'Hello' %} {{ user.username }}!</p>
     <p>{% trans 'Click on the  link below to activate your account:' %} </p>
-    <a href="http://datadays.sharif.edu/{% url 'accounts:activate' uidb64=uid token=token %}">http://datadays.sharif.edu/{% url 'accounts:activate' uidb64=uid token=token %}</a>
+    <a href="http://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}">http://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}</a>
 {% endautoescape %}
 </body>
 </html>

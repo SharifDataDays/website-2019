@@ -71,7 +71,7 @@ class Question(models.Model):
         ('multiple', _('multiple')), # multiple_answer
         ('file', _('file')) # file_upload
     )
-
+    group_id = models.IntegerField(null=True, blank=True)
     stmt = models.CharField(max_length=500)
     correct_answer = models.CharField(max_length=200)
     max_score = models.FloatField(default=0, null=True)
@@ -207,14 +207,24 @@ class Instruction(models.Model):
         ('medium', _('medium')),
         ('easy', _('easy'))
     )
-    type = models.CharField(max_length=200)
+    TYPE_CHOICES = (
+        ('multiple_choice', _('multiple_choice')),  # MultipleChoiceQuestion
+        ('single_answer', _('single_answer')),  # Question
+        ('multiple_answer', _('multiple_answer')),  # MultipleAnswerQuestion
+        ('single_sufficient_answer', _('single_sufficient_answer')),  # Question
+        ('single_number', _('single_number')),  # Question type=number specified in template
+        ('interval_number', _('interval_number')),  # IntervalQuestion type=number specified in template
+        ('file_upload', _('file_upload'))  # FileUploadQuestion
+    )
+    model_name = models.CharField(max_length=200)
+    type = models.CharField(max_length=200, null=True, blank=True, choices=TYPE_CHOICES)
     app = models.CharField(max_length=200)
     level = models.CharField(max_length=200, choices=CHOICES)
     number = models.IntegerField()
     phase_instruction_set = models.ForeignKey(PhaseInstructionSet)
 
     def __str__(self):
-        return str('%s : %s' % (self.type ,self.number))
+        return str('%s : %s' % (self.model_name , self.number))
 
 
 def get_log_file_directory(instance, filename):
