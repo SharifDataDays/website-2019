@@ -103,6 +103,7 @@ class InstructionAdmin(admin.ModelAdmin):
     fields = ['model_name', 'type', 'app', 'number', 'level', 'phase_instruction_set']
 
 
+
 class ChallengeAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Challenge', {'fields': ['title', 'description', 'registration_open', 'scoreboard_freeze_time']}),
