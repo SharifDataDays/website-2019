@@ -93,7 +93,7 @@ class MultipleAnswerAdmin(admin.ModelAdmin):
 
 
 class FileUploadAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'download_url', 'upload_url', 'group_id']
+  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'dataset_path', 'upload_url', 'group_id']
 
 
 class IntervalQuestionAdmin(admin.ModelAdmin):
