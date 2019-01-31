@@ -210,7 +210,7 @@
                             "
                     >
                         {# TODO href to download file #}
-                        <a href="{% url 'accounts:get_dataset' phase.id trial.id %}" class="ui link">
+                        <a href="{% url 'accounts:get_dataset' phase.id trial.id %}" target="_blank" class="ui link">
                            <i class="download icon huge"></i>
                         </a>
                         {% trans 'Download Dataset' %}

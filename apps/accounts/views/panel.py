@@ -511,11 +511,14 @@ def get_dataset(request, phase_id, trial_id):
             trial = trial[0]
             if trial.submit_time is not None:
                 return redirect('accounts:panel_phase', phase_id)
-            if trial.dataset_downloaded is True:
-                return redirect('accounts:panel_trial', phase_id, trial_id)
-            i = phase.dataset_counter
-            i = i + 1
-            phase.save()
-            trial.dataset_downloaded = True
-            trial.save()
-            return FileResponse(open('/home/mrtaalebi/datasets/{}.csv'.format(i)))
+            if trial.dataset_link is None:
+                i = phase.dataset_counter
+                i = i + 1
+                phase.dataset_counter = i
+                phase.save()
+                trial.dataset_link = '/home/arghavan/datasets/{}.csv'.format(i)
+                trial.save()
+                return FileResponse(open(trial.dataset_link, 'rb'))
+            else:
+
+                return FileResponse(open(trial.dataset_link, 'rb'))
