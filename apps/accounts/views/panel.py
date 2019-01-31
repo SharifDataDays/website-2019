@@ -317,7 +317,7 @@ def get_new_trial(request, phase_id):
                 selectable_questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)
                 if instruction.model_name == 'Question':
                     selectable_questions = selectable_questions.filter(type=instruction.type)
-                    backup_questions = selectable_questions
+                backup_questions = selectable_questions
                 chosen_questions = Question.objects.filter(trial__team=team_pc)
                 for q in chosen_questions:
                     selectable_questions = selectable_questions.exclude(group_id=q.group_id)
