@@ -164,7 +164,20 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
     
 
 def answer_multiple_choice(question):
-    choices = '$'.join([str(x) for x in [question['choices'], question['Unnamed: 6'], question['Unnamed: 7'], question['Unnamed: 8']]])
+    choices = []
+    if not pd.isna(question['choices']):
+        choices.append(question['choices'])
+        
+    if not pd.isna(question['Unnamed: 6']):
+        choices.append(question['Unnamed: 6'])
+
+    if not pd.isna(question['Unnamed: 7']):
+        choices.append(question['Unnamed: 7'])
+
+    if not pd.isna(question['Unnamed: 8']):
+        choices.append(question['Unnamed: 8'])
+
+    choices = '$'.join(choices)
     answer = question['answer_multiple']
     return choices, answer
 
