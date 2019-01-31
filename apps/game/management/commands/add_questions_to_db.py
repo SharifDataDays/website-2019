@@ -71,32 +71,34 @@ def add_datasets(datasets_folder_path):
 
 def score_from_level(question_type, difficulty):
     if question_type in ['multiple_choice']:
-        return {'Easy': 100, 'Medium': 200, 'Hard': 300}[difficulty]
+        return {'Easy': 100, 'Medium': 200, 'Difficult': 300}[difficulty]
     elif question_type in ['file_upload']:
         return 1000
     else:
-        return {'Easy': 150, 'Medium': 300, 'Hard': 600}[difficulty]
+        return {'Easy': 150, 'Medium': 300, 'Difficult': 600}[difficulty]
 
 
-diff_map = {'Easy': 'easy', 'Medium': 'medium', 'Hard': 'difficult'}
+diff_map = {'Easy': 'easy', 'Medium': 'medium', 'Difficult': 'difficult'}
 
 
 def save_in_database(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
     qt = question_type
-    print(qt)
+    print('\033[91m{}\033[0m'.format(qt))
     if qt == 'multiple':
         model = apps.get_model('game', 'MultipleChoiceQuestion')
         print(model)
         q = model()
-        qq = apps.get_model('game', 'Question')
         print(type(q))
         print(q)
         q.stmt = definition
+        q.save()
         choice = apps.get_model('game', 'Choice')
-        for o in choices:
+        print(choices.split('$'))
+        for o in choices.split('$'):
+            print(o)
             c = choice()
             c.text = o
-            c.question = models.ForeignKey(q)
+            c.question = q
             print(c)
             c.save()
             print(c)
@@ -113,8 +115,8 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         model = apps.get_model('game', 'IntervalQuestion')
         q = model()
         q.stmt = definition
-        q.min_range = choices[0]
-        q.max_range = choices[1]
+        q.min_range = float(answer.split('$')[0])
+        q.max_range = float(answer.split('$')[1])
         q.group_id = group_id
         q.max_range = score_from_level(question_type, difficulty)
         q.level = diff_map[difficulty]
