@@ -1,3 +1,4 @@
+import json
 import os
 
 from django.contrib.auth.decorators import login_required
@@ -9,6 +10,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
 
 from aic_site import settings
 from apps.accounts.decorators import complete_team_required
@@ -314,9 +316,12 @@ def get_new_trial(request, phase_id):
                 selectable_questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)
                 if instruction.model_name == 'Question':
                     selectable_questions = selectable_questions.filter(type=instruction.type)
+                    backup_questions = selectable_questions
                 chosen_questions = Question.objects.filter(trial__team=team_pc)
                 for q in chosen_questions:
-                    selectable_questions.exclude(group_id=q.group_id)
+                    selectable_questions = selectable_questions.exclude(group_id=q.group_id)
+                if len(selectable_questions) < instruction.number:
+                    selectable_questions = backup_questions
                 questions = selectable_questions[:instruction.number]
                 questions = list(questions)
                 current_trial.questions.add(*questions)
@@ -358,7 +363,7 @@ def render_trial(request, phase_id, trial_id):
                 'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
                                                                  , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                                         , trial.questions.filter(type='single_sufficient_number')))],
+                                                         , trial.questions.filter(type='single_sufficient_answer')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choice')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
                 'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
@@ -385,7 +390,7 @@ def submit_trial(request, phase_id, trial_id):
         if team_pc is None:
             return redirect_to_somewhere_better(request)
         context = get_shared_context(request)
-        file = request.FILES['file']
+        # file = request.FILES['file']
         for item in context['menu_items']:
             if item['name'] == phase.name:
                 item['active'] = True
@@ -404,7 +409,9 @@ def submit_trial(request, phase_id, trial_id):
         trial = trial[0]
         if not form.is_valid():
             return redirect('accounts:panel')
-        if file.size > 1048576:
+        # if file.size > 1048576:
+        if False:
+            pass
             error_msg = 'Max size of file is 1MB'
             context.update({
                 'error':error_msg,
@@ -414,7 +421,7 @@ def submit_trial(request, phase_id, trial_id):
                 'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
                                                                  , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                                         , trial.questions.filter(type='single_sufficient_number')))],
+                                                         , trial.questions.filter(type='single_sufficient_answer')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choices')],
                 'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
                 'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
@@ -425,8 +432,8 @@ def submit_trial(request, phase_id, trial_id):
                 return render(request, '403.html')
             else:
                 return render(request, 'accounts/panel/panel_trial.html', context)
-        save_to_storage(file)
-        clean = form.cleaned_data
+        # save_to_storage(file)
+        print(clean)
         trial.submit_time = timezone.now()
         trial.save()
         trialSubmit = TrialSubmission()
@@ -462,11 +469,22 @@ def save_to_storage(request):
         fout.write(chunk)
     fout.close()
 
-
+@csrf_exempt
 def get_judge_response(request):
-    team_id = request.POST.get('team_id')
-    phase_id = request.POST.get('phase_id')
-    trial_id = request.POST.get('trial_id')
-    submissions = request.POST.get('submissions')
+    print(request.body)
+    json_data = json.loads(request.body.decode('utf-8'))
+    print(json_data)
+    json_data = "'{}'".format(json_data)
+    print(type(json_data))
+    team_id = json_data['team_id']
+    phase_id = json_data['phase_id']
+    trial_id = json_data['trial_id']
+    submissions = json_data['submissions']
     trial = Trial.objects.get(id=trial_id)
+    for i in len(submissions):
+        trial.score += submissions[i]['score']
+    trial.save()
+    return JsonResponse({'status': 'succeeded'})
+
+
 

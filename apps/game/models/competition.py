@@ -191,6 +191,7 @@ class TrialSubmission(models.Model):
             else:
                 question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value
             context['submissions'].append(question_context)
+        print(context)
         requests.post(JUDGE_IP, data=context, headers={"Content-Type": "application/json"})
 
 
@@ -215,6 +216,13 @@ class Instruction(models.Model):
         ('single_number', _('single_number')),  # Question type=number specified in template
         ('interval_number', _('interval_number')),  # IntervalQuestion type=number specified in template
         ('file_upload', _('file_upload'))  # FileUploadQuestion
+    )
+    MODEL_CHIOCES = (
+        ('Question', _('Question')),
+        ('IntervalQuestion', _('IntervalQuestion')),
+        ('FileUploadQuestion', _('FileUploadQuestion')),
+        ('MultipleAnswerQuestion', _('MultipleAnswerQuestion')),
+        ('MultipleChoiceQuestion', _('MultipleChoiceQuestion'))
     )
     model_name = models.CharField(max_length=200)
     type = models.CharField(max_length=200, null=True, blank=True, choices=TYPE_CHOICES)
