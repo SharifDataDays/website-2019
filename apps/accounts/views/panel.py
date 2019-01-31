@@ -314,9 +314,12 @@ def get_new_trial(request, phase_id):
                 selectable_questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)
                 if instruction.model_name == 'Question':
                     selectable_questions = selectable_questions.filter(type=instruction.type)
+                    backup_questions = selectable_questions
                 chosen_questions = Question.objects.filter(trial__team=team_pc)
                 for q in chosen_questions:
-                    selectable_questions.exclude(group_id=q.group_id)
+                    selectable_questions = selectable_questions.exclude(group_id=q.group_id)
+                if len(selectable_questions) < len(questions):
+                    selectable_questions = backup_questions
                 questions = selectable_questions[:instruction.number]
                 questions = list(questions)
                 current_trial.questions.add(*questions)
@@ -465,7 +468,7 @@ def save_to_storage(request):
 
 def get_judge_response(request):
     team_id = request.POST.get('team_id')
-    phase_id = request.POST.get('phase_id')
+    phase_id = request.POST['phase_id']
     trial_id = request.POST.get('trial_id')
     submissions = request.POST.get('submissions')
     trial = Trial.objects.get(id=trial_id)
