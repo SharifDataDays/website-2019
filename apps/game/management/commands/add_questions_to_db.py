@@ -1,10 +1,9 @@
-from django.core.management.base import BaseCommand, CommandError
-import pandas as pd
 import os
 from sys import exit
-from django.apps import apps
-from django.db import models
 
+import pandas as pd
+from django.apps import apps
+from django.core.management.base import BaseCommand
 
 MAX_DOC_ID = 999999
 FILE_UPLOAD_QUESTION_GROUP = 93949596
@@ -46,6 +45,8 @@ def add_questions(questions_file_path):
         question_id = question['id']
 
         save_in_database(question_id, question_type, definition, choices, answer, skill, group_id, difficulty)
+
+    print(set(qts))
         
     # TODO
     # in order to add file_upload questions to db we must run generator script and then call save_in_database
@@ -83,117 +84,105 @@ diff_map = {'Easy': 'easy', 'Medium': 'medium', 'Difficult': 'difficult'}
 
 x = 0
 
+qts = []
+
+
+def multiple_add(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
+    question_model = apps.get_model('game', 'MultipleChoiceQuestion')
+    question = question_model()
+    question.stmt = definition
+    question.save()
+
+    choice_model = apps.get_model('game', 'Choice')
+
+    if 'visualization' not in skill:
+        for option in choices.split('$'):
+            choice = choice_model()
+            choice.text = option
+            choice.question = question
+            choice.save()
+
+    question.correct_answer = answer
+    question.group_id = group_id
+    question.doc_id = question_id
+    question.level = diff_map[difficulty]
+    question.max_score = score_from_level(question_type, difficulty)
+
+    question.save()
+
+
+def numeric_range_add(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
+    question_model = apps.get_model('game', 'IntervalQuestion')
+    question = question_model()
+    question.stmt = definition
+    question.min_range = float(answer.split('$')[0])
+    question.max_range = float(answer.split('$')[1])
+    question.group_id = group_id
+    question.doc_id = question_id
+    question.level = diff_map[difficulty]
+    question.max_score = score_from_level(question_type, difficulty)
+    question.save()
+
+
+def string_add(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
+    question_model = apps.get_model('game', 'Question')
+    question = question_model()
+    question.stmt = definition
+    question.correct_answer = answer
+    question.group_id = group_id
+    question.doc_id = question_id
+    question.level = diff_map[difficulty]
+    question.max_score = score_from_level(question_type, difficulty)
+    question.save()
+
+
+def multi_string_add(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
+    question_model = apps.get_model('game', 'MultipleAnswerQuestion')
+    question = question_model()
+    question.stmt = definition
+    question.group_id = group_id
+    question.correct_answer = answer
+    question.doc_id = question_id
+    question.level = diff_map[difficulty]
+    question.max_score = score_from_level(question_type, difficulty)
+    question.save()
+
+
+def numeric_add(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
+    question_model = apps.get_model('game', 'Question')
+    question = question_model()
+    question.stmt = definition
+    question.correct_answer = answer
+    question.group_id = group_id
+    question.doc_id = question_id
+    question.level = diff_map[difficulty]
+    question.max_score = score_from_level(question_type, difficulty)
+    question.save()
+
+
+def file_upload_add(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
+    model = apps.get_model('game', 'FileUploadQuestion')
+    q = model()
+    q.stmt = ' '
+    q.correct_answer = definition
+    q.doc_id = question_id
+    q.level = diff_map[difficulty]
+    q.max_score = score_from_level(question_type, difficulty)
+    q.save()
+
+
+QUESTION_TYPE_MAP = {'numeric': numeric_add,
+                     'multi_string': multi_string_add,
+                     'multiple': multiple_add,
+                     'numeric_range': numeric_range_add,
+                     'string': string_add,
+                     'file_upload': file_upload_add}
+
 
 def save_in_database(question_id, question_type, definition, choices, answer, skill, group_id, difficulty):
-    global x
-    print(x)
-    x = x + 1
-    qt = question_type
-    print('\033[91m{}\033[0m'.format(qt))
-    if qt == 'multiple':
-        model = apps.get_model('game', 'MultipleChoiceQuestion')
-        print(model)
-        q = model()
-        print(type(q))
-        print(q)
-        q.stmt = definition
-        q.save()
-        choice = apps.get_model('game', 'Choice')
-        if 'visualization' not in skill:
-            print(choices.split('$'))
-            for o in choices.split('$'):
-                print(o)
-                c = choice()
-                c.text = o
-                c.question = q
-                print(c)
-                c.save()
-                print(c)
-#        else:
-#            pass
-#            aa = choice()
-#            aa.text = 'A'
-#            aa.question = q
-#            aa.save()
-#            bb = choice()
-#            bb.text = 'B'
-#            bb.question = q
-#            bb.save()
-#            cc = choice()
-#            cc.text = 'C'
-#            cc.question = q
-#            cc.save()
-#            dd = choice()
-#            dd.text = 'D'
-#            dd.question = q
-#            dd.save()
+    QUESTION_TYPE_MAP[question_type](question_id, question_type, definition, choices, answer, skill, group_id,
+                                     difficulty)
 
-        q.correct_answer = answer
-        q.group_id = group_id
-        q.doc_id = question_id
-        q.level = diff_map[difficulty]
-        q.max_score = score_from_level(question_type, difficulty)
-        print(q)
-        q.save()
-        print(q)
-
-    elif qt == 'numeric_range':
-        model = apps.get_model('game', 'IntervalQuestion')
-        q = model()
-        q.stmt = definition
-        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        print(answer)
-        q.min_range = float(answer.split('$')[0])
-        q.max_range = float(answer.split('$')[1])
-        q.group_id = group_id
-        q.doc_id = question_id
-        q.level = diff_map[difficulty]
-        q.max_score = score_from_level(question_type, difficulty)
-        q.save()
-        
-    elif qt == 'string':
-        model = apps.get_model('game', 'Question')
-        q = model()
-        q.stmt = definition
-        q.correct_answer = answer
-        q.group_id = group_id
-        q.doc_id = question_id
-        q.level = diff_map[difficulty]
-        q.max_score = score_from_level(question_type, difficulty)
-        q.save()
-
-    elif qt == 'multi_string':
-        model = apps.get_model('game', 'MultipleAnswerQuestion')
-        q = model()
-        q.stmt = definition
-        q.group_id = group_id
-        q.answer = answer
-        q.doc_id = question_id
-        q.level = diff_map[difficulty]
-        q.max_score = score_from_level(question_type, difficulty)
-        q.save()
-
-    elif qt == 'numeric':
-        model = apps.get_model('game', 'Question')
-        q = model()
-        q.stmt = definition
-        q.correct_answer = answer
-        q.group_id = group_id
-        q.doc_id = question_id
-        q.level = diff_map[difficulty]
-        q.max_score = score_from_level(question_type, difficulty)
-        q.save()
-    
-    elif qt == 'file_upload':
-        model = apps.get_model('game', 'FileUploadQuestion')
-        q = model()
-        q.stmt = ' '
-        q.correct_answer = definition
-        q.doc_id = question_id
-        q.level = diff_map[difficulty]
-        q.max_score = score_from_level(question_type, difficulty)
-        q.save()
-    
 
 def answer_multiple_choice(question):
     choices = []
