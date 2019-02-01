@@ -23,11 +23,13 @@
         <tbody>
 
         {% for competitor in teams %}
-            <tr>
+            <tr {% if my_team == competitor.0 %}style="background-color: lightblue" {% endif %}>
                 <td>
                     <div class="ui green label">{{ competitor.2 }}</div>
                 </td>
-                <td>{{ competitor.0 }}</td>
+                <td>
+                    <div class="ui button" style="background-color: transparent!important; margin-right: -30px!important;" data-html="{{ competitor.3.0 }}<br/>{{ competitor.3.1 }}<br/>{{ competitor.3.2 }}" data-position="top center">{{ competitor.0 }}</div>
+                </td>
                 {% for phase in phases %}
                   <td>{{ competitor.1.phase.name }}</td>
                 {% endfor %}
@@ -36,5 +38,11 @@
         {% endfor %}
         </tbody>
     </table>
+    <script>
+     $('.ui.button')
+      .popup({
+        on: 'hover'
+      });
+    </script>
 
 {% endblock %}
