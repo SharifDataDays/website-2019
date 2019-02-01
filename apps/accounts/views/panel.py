@@ -323,19 +323,20 @@ def get_new_trial(request, phase_id):
                 questions.is_chosen = True
                 current_trial.questions.add(questions)
             else:
-                selectable_questions = question_model.objects.all()
-                group_ids = [x.group_id for x in question_model.objects.filter(trial__team=team_pc)]
-                if len(selectable_questions.exclude(trial__team=team_pc)) < instruction.number:
-                    chosen_set = quest(selectable_questions, instruction.number)
-                elif len(selectable_questions.exclude(trial__team=team_pc).filter(level=instruction.level)) \
-                        < instruction.number:
-                    chosen_set = quest(selectable_questions.exclude(trial__team=team_pc), instruction.number)
-                elif len(selectable_questions.exclude(trial__team=team_pc).filter(level=instruction.level).exclude(
-                        group_id=group_ids)) < instruction.number:
-                    chosen_set = selectable_questions.exclude(trial__team=team_pc).filter(
-                        level=instruction.level).exclude(group_id=group_ids)
+                selectable_questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)
+                if instruction.model_name == 'Question':
+                    selectable_questions = selectable_questions.filter(type=instruction.type)
+                backup_questions = selectable_questions
+                chosen_questions = Question.objects.filter(trial__team=team_pc)
+                for q in chosen_questions:
+                    selectable_questions = selectable_questions.exclude(group_id=q.group_id)
+                if len(selectable_questions) < instruction.number:
+                    selectable_questions = backup_questions
+                questions = list(selectable_questions)
+                random.shuffle(questions)
+                questions = questions[:instruction.number]
+                current_trial.questions.add(*questions)
 
-                current_trial.questions.add(*chosen_set)
         current_trial.save()
         # context.update({
         #     'current_trial': current_trial
