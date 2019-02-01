@@ -575,7 +575,7 @@ msgstr "جدول امتیازات"
 
 #: apps/accounts/views/panel.py:304
 msgid "You have one active trial."
-msgstr "شما باید یکی از طرفین باشید."
+msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
 #: apps/accounts/views/panel.py:309
 msgid "You can not get any new trial."

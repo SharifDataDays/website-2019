@@ -493,6 +493,8 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.save()
 
         trialSubmit.upload()
+
+
         return redirect('accounts:panel_phase', phase.id)
 
 
