@@ -6,9 +6,9 @@
 
 {% block panel_content %}
 
-<form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
+<div enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
-
+    <div class="ui top card">
     {# Numeric Single-Answer Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in numeric_questions %}
@@ -255,7 +255,7 @@
         {% trans 'Submit' %}
     </button>
 
-
+    </div>
 </form>
 <script>
 $( ".ui.radio.checkbox" ).checkbox();
