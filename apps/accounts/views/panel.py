@@ -28,7 +28,7 @@ from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 from django.apps import apps
 from itertools import chain
 
-DIR_DATASET = '/home/datadays/tds/'
+DIR_DATASET = '/home/datadays/tds'
 
 
 @login_required
@@ -560,12 +560,12 @@ def get_dataset(request, phase_id, trial_id):
                 phase.dataset_counter = i
                 phase.save()
                 try:
-                    trial.dataset_link = '{}'.format(os.listdir(DIR_DATASET)[i])
+                    trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
                 except Exception as e:
                     phase.dataset_counter = 0
                     phase.save()
                     i = 0
-                    trial.dataset_link = '{}'.format(os.listdir(DIR_DATASET)[i])
+                    trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
                 trial.save()
             with open(trial.dataset_link, 'rb') as pdf:
                 response = HttpResponse(pdf.read())
