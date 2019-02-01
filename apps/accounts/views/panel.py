@@ -68,6 +68,7 @@ def get_shared_context(request):
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
         {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'),
          'text': _('Score Board')},
+
     ]
 
     if request.user.profile:
@@ -84,6 +85,9 @@ def get_shared_context(request):
                         'text': _(comp.name)
                     }
                 )
+    context.update({
+        'last_trial': Trial.objects.first()
+    })
 
     return context
 
@@ -232,7 +236,8 @@ def render_phase(request, phase_id):
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
         context.update({
             'is_team_completed': is_team_completed,
-            'trials': trials
+            'trials': trials,
+            'count': trials.count()
         })
 
     return render(request, 'accounts/panel/panel_phase.html', context)

@@ -4,91 +4,87 @@
 
 {% block panel_content %}
 
-    {#  Get New Trial Button #}
-    <div>
-        <a
-                class="fluid ui button teal"
-                style="margin: 20px 0px"
-                href="{% url 'accounts:new_trial' phase.id %}"
-        >
-            {% trans 'Get a new trial' %}
-        </a>
-    </div>
+{#  Get New Trial Button #}
+<div>
+  <a
+      class="fluid ui button teal"
+      style="margin: 20px 0px"
+      href="{% url 'accounts:new_trial' phase.id %}"
+  >
+      {% trans 'Get a new trial' %}
+  </a>
+</div>
 
 
-    {# Trials List #}
-    <div
-            class="ui two cards "
-    >
+{# Trials List #}
+<div class="ui center aligned one column grid">
     {% for trial in trials %}
+        <div class="ui column fluid">
+            {# Trial Card : (active -> last one) #}
+        {% if forloop.revcounter == trials|length %}
+            <div  class="ui card link active panel_phase">
 
-        {# Trial Card : (active -> last one) #}
-        {% if forloop.counter == trials|length %}
-            <div class="ui card link active panel_phase">
-
-        {% else %}
+            {% else %}
             <div class="ui card panel_phase">
         {% endif %}
-    <div class="content">
-        <div class="header">
-            {% trans 'Trial' %} #{{ forloop.counter }}
+        <div class="content">
+            <div class="header">
+                {% trans 'Trial' %} #{{ forloop.revcounter }}
+            </div>
+        </div>
+        <div class="content">
+
+            {# Trial's Start Time  #}
+            <h4 class="ui sub header">
+                {% trans 'Start Time' %}
+            </h4>
+            {{ trial.start_time }}
+
+            {# Trial's Time Left #}
+            {# {% if forloop.counter == trials|length %}#}
+            {% if forloop.revcounter == trials|length %}
+                <h4 class="ui sub header">
+                {% trans 'Time Left' %}
+                </h4>
+                <span>{{ trial.end_time|timeuntil }}</span>
+            {% endif %}
+            {# {% endif %}#}
+
+            {# Trial's Submit Time : ( display None for not submitted Trials ) #}
+            <h4 class="ui sub header">
+                {% trans 'Submit Time' %}
+            </h4>
+            {% if trial.submit_time == None %}
+                {% trans 'No Submit Yet' %}
+                {% else %}
+                {{ trial.submit_time|timesince }}
+            {% endif %}
+
+            {# Trial's Score #}
+            <h4 class="ui sub header">
+                {% trans 'Score ' %}
+            </h4>
+            {{ trial.score|floatformat:2 }}
+
+            {#  Filling Content Space#}
+{#            {% if forloop.counter != trials|length %}#}
+{#                <h4 class="ui sub header" style="visibility: hidden">#}
+{#                    {% trans 'Time Left' %}#}
+{#                </h4>#}
+{#                <span style="visibility: hidden" >#}
+{#                    {{ trial.end_time|timeuntil }}#}
+{#                </span>#}
+{#            {%endif %}#}
+        </div>
+        <div class="extra content">
+            <a
+                  href="{% url 'accounts:panel_trial' phase.id trial.id %}"
+                  class="ui label bottom attached blue center aligned">
+              {% trans 'View Trial' %}
+            </a>
         </div>
     </div>
-    <div class="content">
-
-        {# Trial's Start Time  #}
-        <h4 class="ui sub header">
-            {% trans 'Start Time' %}
-        </h4>
-        {{ trial.start_time }}
-
-        {# Trial's Time Left #}
-        {# {% if forloop.counter == trials|length %}#}
-        <h4 class="ui sub header">
-            {% trans 'Time Left' %}
-        </h4>
-        <span>{{ trial.end_time|timeuntil }}</span>
-        {# {% endif %}#}
-
-        {# Trial's Submit Time : ( display None for not submitted Trials ) #}
-        <h4 class="ui sub header">
-            {% trans 'Submit Time' %}
-        </h4>
-        {% if trial.submit_time == None %}
-            {% trans 'No Submit Yet' %}
-        {% else %}
-            {{ trial.submit_time|timesince }}
-        {% endif %}
-
-        {# Trial's Score #}
-        <h4 class="ui sub header">
-            {% trans 'Score ' %}
-        </h4>
-        {% if trial.score == -1 %}
-            در حال داوری
-        {% elif trial.score == -2 %}
-ارسال نشده
-        {% else %}
-            {{ trial.score|floatformat:2 }}
-        {% endif %}
-        {#  Filling Content Space#}
-        {#            {% if forloop.counter != trials|length %}#}
-        {#                <h4 class="ui sub header" style="visibility: hidden">#}
-        {#                    {% trans 'Time Left' %}#}
-        {#                </h4>#}
-        {#                <span style="visibility: hidden" >#}
-        {#                    {{ trial.end_time|timeuntil }}#}
-        {#                </span>#}
-        {#            {%endif %}#}
-    </div>
-    <div class="extra content">
-        <a
-                href="{% url 'accounts:panel_trial' phase.id trial.id %}"
-                class="ui label bottom attached blue center aligned">
-            {% trans 'View Trial' %}
-        </a>
-    </div>
-    </div>
+        </div>
     {% endfor %}
 </div>
 
