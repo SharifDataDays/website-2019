@@ -439,14 +439,11 @@ msgid "Upload Answer"
 msgstr "بارگزاری پاسخ"
 
 #: apps/accounts/templates/accounts/panel/panel_trial.html:148
-msgid "No answer yet : Text field"
-msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
-
 #: apps/accounts/templates/accounts/panel/panel_trial.html:185
 #: apps/accounts/templates/accounts/panel/panel_trial.html:217
 #: apps/accounts/templates/accounts/panel/panel_trial.html:230
 #: apps/accounts/templates/accounts/panel/panel_trial.html:243
-msgid "No answer yet : Text field "
+msgid "No answer yet : Text field"
 msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
 
 #: apps/accounts/templates/accounts/panel/submissions.html:118
