@@ -39,7 +39,7 @@ msgstr "ابتدا یک کد قابل کامپایل ارسال کنید."
 
 #: apps/accounts/forms/panel.py:76
 msgid "You have to be one of participants."
-msgstr "شما باید یکی از طرفین باشید."
+msgstr "شما به این منبع دسترسی ندارید."
 
 #: apps/accounts/forms/panel.py:86
 #, python-format
@@ -572,7 +572,7 @@ msgstr "درخواست عضویت به هم تیمی های شما فرستاد�
 
 #: apps/accounts/views/panel.py:318
 msgid "You have one active trial."
-msgstr "شما باید یکی از طرفین باشید."
+msgstr "شما به این منبع دسترسی ندارید."
 
 #: apps/accounts/views/panel.py:323
 msgid "You can not get any new trial."
