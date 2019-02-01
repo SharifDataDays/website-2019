@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-01 07:54+0330\n"
+"POT-Creation-Date: 2019-02-01 08:02+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,4 +88,3 @@ msgstr "چیزی برای پرداخت وجود ندارد."
 #: apps/billing/views.py:61
 msgid "You have already paid."
 msgstr "شما قبلا پرداخت کرده‌اید."
-
