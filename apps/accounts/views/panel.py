@@ -30,7 +30,7 @@ from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 from django.apps import apps
 from itertools import chain
 
-DIR_DATASET = '/home/mrtaalebi/tds'
+DIR_DATASET = '/home/datadays/tds'
 
 
 @login_required
