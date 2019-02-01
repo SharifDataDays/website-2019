@@ -1,34 +1,30 @@
 import json
 import os
 import random
+from datetime import datetime
+from itertools import chain
 
+from django.apps import apps
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
-from django.forms import Form, ModelForm
-from django.http import Http404, HttpResponse, JsonResponse, FileResponse
+from django.core.paginator import Paginator
+from django.forms import Form
+from django.http import Http404, HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
-from unicodecsv import UnicodeWriter
 
-from aic_site import settings
 from aic_site.settings.base import MEDIA_ROOT
-from apps.accounts.decorators import complete_team_required
-from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
+from apps.accounts.forms.panel import SubmissionForm
 from apps.accounts.models import Profile
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
-    Instruction, MultipleChoiceQuestion, FileUploadQuestion, IntervalQuestion, MultipleAnswerQuestion, Question, \
+    Instruction, Question, \
     Choice, TrialSubmission, QuestionSubmission
-from django.core.paginator import Paginator
-from django.db.models import Q
-from datetime import datetime
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
-from django.apps import apps
-from itertools import chain
 
 DIR_DATASET = '/home/datadays/tds'
 
@@ -328,36 +324,38 @@ def get_new_trial(request, phase_id):
 
         current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(), team=team_pc)
         phase_instruction_set = PhaseInstructionSet.objects.get(phase=phase)
+
         instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
+
         for instruction in instructions:
             question_model = apps.get_model(instruction.app, instruction.model_name)
             if instruction.model_name == 'FileUploadQuestion':
                 questions = question_model.objects.filter(is_chosen=False).all()
-                if len(questions) is 0:
+                if len(questions) == 0:
                     questions = question_model.objects.filter(trial__team=team_pc)
                 questions = questions[0]
                 questions.is_chosen = True
                 questions.save()
-                current_trial.questions.add(questions)
+                current_trial.add(questions)
             else:
-                selectable_questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)
+                if len(question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)) < instruction.number:
+                    selectable_questions = question_model.objects.exclude(trial__team=team_pc)
+                else:
+                    selectable_questions = question_model.objects.filter(level=instruction.level).exclude(
+                        trial__team=team_pc)
+
                 if instruction.model_name == 'Question':
                     selectable_questions = selectable_questions.filter(type=instruction.type)
-                backup_questions = selectable_questions
-                chosen_questions = Question.objects.filter(trial__team=team_pc)
-                for q in chosen_questions:
-                    selectable_questions = selectable_questions.exclude(group_id=q.group_id)
-                if len(selectable_questions) < instruction.number:
-                    selectable_questions = backup_questions
+
                 questions = list(selectable_questions)
                 random.shuffle(questions)
                 questions = questions[:instruction.number]
                 current_trial.questions.add(*questions)
 
         current_trial.save()
-        # context.update({
-        #     'current_trial': current_trial
-        # })
+        context.update({
+            'current_trial': current_trial
+        })
     return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
 
 
@@ -389,16 +387,15 @@ def render_trial(request, phase_id, trial_id, error=None):
             context.update({
                 'phase': phase,
                 'trial': trial,
-                'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
-                                                            , trial.questions.filter(type='interval_number')))],
-                'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                                         , trial.questions.filter(type='single_sufficient_answer')))],
-                'choices': [x for x in trial.questions.filter(type='multiple_choice')],
-                'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
-                'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
+                'numeric_questions': list(trial.questions.filter(type='single_number')),
+                'interval_questions': list(trial.questions.filter(type='interval_number')),
+                'text_questions': list(trial.questions.filter(type='single_answer')),
+                'choices': list(trial.questions.filter(type='multiple_choice')),
+                'multiple': list(trial.questions.filter(type='multiple_answer')),
+                'file_based_questions': list(trial.questions.filter(type='file_upload')),
             })
         for x in context['choices']:
-            x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
+            x.choices = list(Choice.objects.filter(question_id=x.id).all())
         if trial.team.id != team_pc.id:
             return render(request, '403.html')
         else:
