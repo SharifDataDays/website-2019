@@ -325,7 +325,7 @@ def get_new_trial(request, phase_id):
                 current_trial.questions.add(questions)
             else:
                 selectable_questions = question_model.objects.all()
-                group_ids = [x.group_id for x in question_model.objects.all(trial__team=team_pc)]
+                group_ids = [x.group_id for x in question_model.objects.filter(trial__team=team_pc)]
                 if len(selectable_questions.exclude(trial__team=team_pc)) < instruction.number:
                     chosen_set = quest(selectable_questions, instruction.number)
                 elif len(selectable_questions.exclude(trial__team=team_pc).filter(level=instruction.level)) \
