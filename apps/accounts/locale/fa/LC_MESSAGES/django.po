@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-01 06:44+0330\n"
+"POT-Creation-Date: 2019-02-01 07:21+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,8 +26,6 @@ msgid "Registration is closed. See you next year."
 msgstr "ثبت نام هم‌اکنون باز نیست. به امید دیدار شما در رقابت بعدی."
 
 #: apps/accounts/forms/panel.py:44
-#, fuzzy
-#| msgid "Submissions"
 msgid "Submission is closed."
 msgstr "ارسال‌ها"
 
@@ -114,8 +111,6 @@ msgstr "رتبه"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:9
 #: apps/accounts/templates/accounts/panel/group_table.html:16
-#, fuzzy
-#| msgid "Team Name"
 msgid "Name"
 msgstr "نام تیم"
 
@@ -416,26 +411,18 @@ msgid "Start Time"
 msgstr "زمان شروع"
 
 #: apps/accounts/templates/accounts/panel/panel_phase.html:48
-#, fuzzy
-#| msgid "Time"
 msgid "Time Left"
 msgstr "زمان باقی مانده"
 
 #: apps/accounts/templates/accounts/panel/panel_phase.html:55
-#, fuzzy
-#| msgid "Submit"
 msgid "Submit Time"
 msgstr "زمان ارسال"
 
 #: apps/accounts/templates/accounts/panel/panel_phase.html:58
-#, fuzzy
-#| msgid "Submit"
 msgid "No Submit Yet"
 msgstr "هنوز هیچ ارسالی انجام نداده‌اید"
 
 #: apps/accounts/templates/accounts/panel/panel_phase.html:65
-#, fuzzy
-#| msgid "Score"
 msgid "Score "
 msgstr "امتیاز"
 
@@ -455,8 +442,6 @@ msgid "No answer yet : Text field "
 msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
 
 #: apps/accounts/templates/accounts/panel/panel_trial.html:220
-#, fuzzy
-#| msgid "Download"
 msgid "Download Dataset"
 msgstr "دانلود دادگان"
 
@@ -465,8 +450,6 @@ msgid "Upload Answer"
 msgstr "بارگزاری پاسخ"
 
 #: apps/accounts/templates/accounts/panel/submissions.html:118
-#, fuzzy
-#| msgid "We are compiling your code! Wait and refresh your page."
 msgid "Uploading, Wait and refresh the page."
 msgstr "ما در حال کامپایل کردن کد شما هستیم. صبر کنید و صفحه را مجددا ببینید."
 
@@ -590,14 +573,10 @@ msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
 #: apps/accounts/views/panel.py:69
-#, fuzzy
-#| msgid "Scoreboard"
 msgid "Score Board"
 msgstr "جدول امتیازات"
 
 #: apps/accounts/views/panel.py:304
-#, fuzzy
-#| msgid "You have to be one of participants."
 msgid "You have one active trial."
 msgstr "شما باید یکی از طرفین باشید."
 
