@@ -9,7 +9,7 @@
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
     <div class="ui" style="width: 100%; display: block">
-    <div class ="ui" style="border: 1px solid gray; border-radius:1em;">
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
     {# File Based Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in file_based_questions %}
@@ -85,7 +85,7 @@
     </div>
     </div>
 
-    <div class ="ui" style="border: 1px solid gray; border-radius:1em;">
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
     {# Multiple Choice Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in choices %}
@@ -123,7 +123,7 @@
     </div>
     </div>
 
-    <div class ="ui" style="border: 1px solid gray; border-radius:1em;">
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
     {# Numeric Single-Answer Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in numeric_questions %}
