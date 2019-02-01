@@ -172,8 +172,16 @@ class Trial(models.Model):
     def __str__(self):
         return str('%s Trial number %d' %(self.competition, self.id))
 
+    @property
+    def view_trial(self):
+        if not(self.submit_time is None) or self.end_time < timezone.now():
+            return False
+        return True
+
+
     class Meta:
         ordering = ('-pk',)
+
 
 
 class QuestionSubmission(models.Model):

@@ -75,6 +75,7 @@ def get_shared_context(request):
             if request.user.profile.panel_active_teampc.should_pay and not request.user.profile.panel_active_teampc.has_paid:
                 context['payment'] = request.user.profile.panel_active_teampc
             for comp in request.user.profile.panel_active_teampc.challenge.competitions.all():
+                pass
                 context['menu_items'].append(
                     {
                         'name': comp.name,
@@ -235,10 +236,10 @@ def render_phase(request, phase_id):
         else:
             is_team_completed = False
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
+
         context.update({
             'is_team_completed': is_team_completed,
             'trials': trials,
-            'count': trials.count()
         })
 
     return render(request, 'accounts/panel/panel_phase.html', context)

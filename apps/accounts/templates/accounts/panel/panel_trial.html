@@ -6,17 +6,17 @@
 
 {% block panel_content %}
 
-<div class="ui negative message">
-  <i></i>
-  <div class="header">
-    We're sorry we can't apply that discount
-  </div>
-  <p>That offer has expired</p>
-</div>
+
 
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
     <div class="ui" style="width: 100%; display: block">
+    <div class="ui warning message">
+        با زدن گزینه دریافت تلاش جدیداز لحظه دریافت تنها ۵ ساعت فرصت دارید. دقت کنید در طول فاز اول مسابقه تنها ۵ تلاش می توانید داشته باشید
+    </div>
+     {% if error %}
+         <div class="ui negative message">{{error}}</div>
+    {% endif %}
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
             <span style="font-weight:bold">بخش اول</span><br>
@@ -102,7 +102,6 @@
                 </div>
             </div>
         {% endfor %}
-        <p>{{error}}</p>
 
     </div>
     </div>
@@ -302,17 +301,25 @@
     </div>
     </div>
     {# Submit Button#}
-    <button
-        class="fluid ui submit blue button"
-        style="margin: 20px 0"
-        type="submit"
-    >
-        {% trans 'Submit' %}
-    </button>
 
+    <div class="fluid ui submit blue button" style="margin: 20px 0" id="button">
+        ادامه
+    </div>
+
+    <div class="ui warning message" style="display: none;" id="alert">
+      <p>شما بعد از ارسال دیگر امکان ویرایش پاسخ یا بازگشت به این صفحه را ندارید بنابراین در ارسال پاسخ دقت کنید.</p>
+        <button class="fluid ui submit blue button" style="margin: 20px 0" type="submit">
+            {% trans 'Submit' %}
+        </button>
+    </div>
+
+    </div>
     </div>
 </form>
 <script>
 $( ".ui.radio.checkbox" ).checkbox();
+$('#button').click(function (e) {
+    document.getElementById('alert').style.display = "";
+});
 </script>
 {% endblock %}
