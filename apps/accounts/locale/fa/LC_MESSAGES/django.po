@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-01 07:32+0330\n"
+"POT-Creation-Date: 2019-02-01 07:54+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,7 +189,7 @@ msgstr "نقشه:"
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:114
 #: apps/accounts/templates/accounts/oldpanel/submissions.html:151
 #: apps/accounts/templates/accounts/panel/battle_history.html:100
-#: apps/accounts/templates/accounts/panel/panel_trial.html:255
+#: apps/accounts/templates/accounts/panel/panel_trial.html:257
 #: apps/accounts/templates/accounts/panel/submissions.html:9
 #: apps/accounts/templates/accounts/panel/submissions.html:41
 msgid "Submit"
@@ -430,24 +430,24 @@ msgstr "امتیاز"
 msgid "View Trial"
 msgstr "مشاهده‌ی تلاش"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:37
-msgid "No answer yet : Numeric field"
-msgstr "هنوز پاسخی نداده‌اید: مقدار عددی"
-
-#: apps/accounts/templates/accounts/panel/panel_trial.html:74
-#: apps/accounts/templates/accounts/panel/panel_trial.html:141
-#: apps/accounts/templates/accounts/panel/panel_trial.html:154
-#: apps/accounts/templates/accounts/panel/panel_trial.html:167
-msgid "No answer yet : Text field "
-msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
-
-#: apps/accounts/templates/accounts/panel/panel_trial.html:220
+#: apps/accounts/templates/accounts/panel/panel_trial.html:58
 msgid "Download Dataset"
 msgstr "دانلود دادگان"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:233
+#: apps/accounts/templates/accounts/panel/panel_trial.html:71
 msgid "Upload Answer"
 msgstr "بارگزاری پاسخ"
+
+#: apps/accounts/templates/accounts/panel/panel_trial.html:148
+msgid "No answer yet : Text field"
+msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
+
+#: apps/accounts/templates/accounts/panel/panel_trial.html:185
+#: apps/accounts/templates/accounts/panel/panel_trial.html:217
+#: apps/accounts/templates/accounts/panel/panel_trial.html:230
+#: apps/accounts/templates/accounts/panel/panel_trial.html:243
+msgid "No answer yet : Text field "
+msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
 
 #: apps/accounts/templates/accounts/panel/submissions.html:118
 msgid "Uploading, Wait and refresh the page."
@@ -583,42 +583,3 @@ msgstr "شما باید یکی از طرفین باشید."
 #: apps/accounts/views/panel.py:309
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
-
-#~ msgid "Friendly Scoreboard"
-#~ msgstr "رده‌بندی دوستانه"
-
-#~ msgid "League"
-#~ msgstr "لیگ"
-
-#~ msgid "College/School"
-#~ msgstr "دانشگاه/مدرسه"
-
-#~ msgid "With:"
-#~ msgstr "با:"
-
-#~ msgid "In:"
-#~ msgstr "در:‌"
-
-#~ msgid "Members"
-#~ msgstr "اعضا"
-
-#~ msgid "username"
-#~ msgstr "نام کاربری"
-
-#~ msgid "Your account has been successfully verified"
-#~ msgstr "تیم شما با موفقیت ساخته شد"
-
-#~ msgid "You can now login with your account"
-#~ msgstr "شما اکنون می‌توانید به اکانت خود وارد شوید"
-
-#~ msgid "The verification link is invalid"
-#~ msgstr "لینک فعال سازی معتبر نیست"
-
-#~ msgid "your link might have expired"
-#~ msgstr "ممکن است لینک فعال سازی شما منقضی شده باشد"
-
-#~ msgid "Your user registration was successful"
-#~ msgstr "ثبت نام شما موفقیت آمیز بود"
-
-#~ msgid "a verification link has been sent to your Email"
-#~ msgstr "یک لینک فعال سازی به ایمیل شما ارسال شد"
