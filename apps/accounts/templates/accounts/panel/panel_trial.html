@@ -6,7 +6,7 @@
 
 {% block panel_content %}
 
-<div enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
+<form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
     <div class="ui" style="width: 100%; display: block">
     {# Numeric Single-Answer Questions #}
@@ -92,6 +92,7 @@
                     ">
                     {{ question.stmt }}
                 </div>
+                    <div>
                   <img class="grouped fields" style="margin-top: 10px">
                       {% for choice in question.choices %}
 {#                           {% if choice.image.url %}#}
