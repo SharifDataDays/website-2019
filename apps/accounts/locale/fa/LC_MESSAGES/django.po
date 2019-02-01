@@ -572,7 +572,7 @@ msgstr "درخواست عضویت به هم تیمی های شما فرستاد�
 
 #: apps/accounts/views/panel.py:318
 msgid "You have one active trial."
-msgstr "شما به این منبع دسترسی ندارید."
+msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
 #: apps/accounts/views/panel.py:323
 msgid "You can not get any new trial."
