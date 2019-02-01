@@ -205,6 +205,8 @@ def get_total_score(team_id):
 @login_required
 def render_phase(request, phase_id):
     user = request.user
+    if not user.is_superuser:
+        return Http404()
     phase = Competition.objects.get(id=phase_id)
     if phase == None:
         redirect(reverse('accounts:panel_team_management'))
