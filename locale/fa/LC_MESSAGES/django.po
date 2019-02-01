@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-16 13:53+0330\n"
+"POT-Creation-Date: 2019-02-01 06:44+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: aic_site/context_processors.py:12 aic_site/context_processors.py:33
+#: aic_site/context_processors.py:12 aic_site/context_processors.py:34
 msgid "Home"
 msgstr "خانه"
 
@@ -26,19 +26,19 @@ msgstr "خانه"
 msgid "Main Page"
 msgstr "صفحه‌ی اصلی"
 
-#: aic_site/context_processors.py:15 aic_site/context_processors.py:35
+#: aic_site/context_processors.py:15 aic_site/context_processors.py:36
 msgid "Introduction"
 msgstr "معرفی"
 
-#: aic_site/context_processors.py:16 aic_site/context_processors.py:36
+#: aic_site/context_processors.py:16 aic_site/context_processors.py:37
 msgid "Timeline"
 msgstr "گاه‌شمار"
 
-#: aic_site/context_processors.py:17 aic_site/context_processors.py:37
+#: aic_site/context_processors.py:17 aic_site/context_processors.py:38
 msgid "Content"
 msgstr "محتوا"
 
-#: aic_site/context_processors.py:18 aic_site/context_processors.py:38
+#: aic_site/context_processors.py:18 aic_site/context_processors.py:39
 #, fuzzy
 #| msgid "Prize"
 msgid "Prizes"
@@ -48,7 +48,7 @@ msgstr "جایزه"
 msgid "About Us"
 msgstr "درباره ما"
 
-#: aic_site/context_processors.py:20 aic_site/context_processors.py:39
+#: aic_site/context_processors.py:20 aic_site/context_processors.py:40
 msgid "Contact Us"
 msgstr "تماس با ما"
 
@@ -60,25 +60,29 @@ msgstr "دسترسی"
 msgid "Panel"
 msgstr "پنل"
 
-#: aic_site/context_processors.py:27 aic_site/context_processors.py:45
+#: aic_site/context_processors.py:27 aic_site/context_processors.py:46
 #: templates/base/navbar.html:59
 msgid "Blog and Q&A"
 msgstr "وبلاگ و پرسش و پاسخ"
 
-#: aic_site/context_processors.py:42 templates/zinnia/base.html:26
+#: aic_site/context_processors.py:28 aic_site/context_processors.py:45
+msgid "FAQ"
+msgstr "سوالات متداول"
+
+#: aic_site/context_processors.py:43 templates/zinnia/base.html:26
 msgid "Blog"
 msgstr "بلاگ"
 
-#: aic_site/context_processors.py:55 aic_site/context_processors.py:73
-#: aic_site/context_processors.py:75
+#: aic_site/context_processors.py:56 aic_site/context_processors.py:74
+#: aic_site/context_processors.py:76
 msgid "Account"
 msgstr "حساب کاربری"
 
-#: aic_site/context_processors.py:73 templates/base/navbar.html:42
+#: aic_site/context_processors.py:74 templates/base/navbar.html:42
 msgid "Logout"
 msgstr "خروج"
 
-#: aic_site/context_processors.py:75 templates/base/navbar.html:47
+#: aic_site/context_processors.py:76 templates/base/navbar.html:47
 #: templates/zinnia/login.html:34
 msgid "Login"
 msgstr "ورود"
@@ -967,9 +971,6 @@ msgstr[0] "%(entry_count)s تا پست با تگ %(tag)s"
 
 #~ msgid "Schedule"
 #~ msgstr "برنامه"
-
-#~ msgid "FAQ"
-#~ msgstr "سوالات متداول"
 
 #~ msgid "Resources"
 #~ msgstr "منابع"
