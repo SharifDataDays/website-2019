@@ -142,10 +142,8 @@
                                   <input value="{{ choice.text }}" type="radio" name="{{ trial.id  }}_{{ question.id }}" id="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">
                                   {% if choice.image and choice.image.url %}
                                     <label for="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}"><img src={{ choice.image.url }}></label>
-                                      <p> MORGH </p>
                                   {% else %}
                                     <label for="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">{{ choice.text }}</label>
-                                      <p> SHOTOR  </p>
                                   {% endif %}
                               </div>
                           </div>
