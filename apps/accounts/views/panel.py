@@ -18,6 +18,7 @@ from aic_site import settings
 from aic_site.settings.base import MEDIA_ROOT
 from apps.accounts.decorators import complete_team_required
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
+from apps.accounts.models import Profile
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
     Instruction, MultipleChoiceQuestion, FileUploadQuestion, IntervalQuestion, MultipleAnswerQuestion, Question, \
@@ -66,8 +67,7 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
-        {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'),
-         'text': _('Scoreboard')},
+        {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'), 'text': _('Scoreboard')}
     ]
 
     if request.user.profile:
@@ -84,6 +84,9 @@ def get_shared_context(request):
                         'text': _(comp.name)
                     }
                 )
+    context.update({
+        'last_trial': Trial.objects.first()
+    })
 
     return context
 
@@ -168,16 +171,22 @@ def render_panel_phase_scoreboard(request):
         if item['name'] == 'render_panel_phase_scoreboard':
             item['active'] = True
     for team in phase_scoreboard:
-        temp = (team.team.name, get_total_score(team.id), 0)
+        profiles = Profile.objects.filter(panel_active_teampc=team)
+        members = []
+        for prof in profiles:
+            members.append(prof.user)
+        temp = (team.team.name, get_total_score(team.id), 0, Profile.objects.filter(panel_active_teampc=team))
         ranks.append(temp)
     ranks.sort(key=sortSecond, reverse=True)
     for i in range(0, len(phase_scoreboard)):
         x = list(ranks[i])
         x[2] = i + 1
         ranks[i] = tuple(x)
+    my_team = get_team_pc(request).team.name
     context.update({
         'teams': ranks,
-        'phases': Competition.objects.all()
+        'phases': Competition.objects.all(),
+        'my_team': my_team,
     })
     return render(request, 'accounts/panel/group_table.html', context)
 
@@ -212,11 +221,13 @@ def render_phase(request, phase_id):
             'phase': phase,
         })
         from apps.accounts.models import Team
+        current_team = None
         for team in Team.objects.all():
             for user_participation in team.participants.all():
                 if user_participation.user == user:
                     current_team = team
                     break
+
         if len(current_team.participants.all()) == Challenge.objects.all()[0].team_size:
             is_team_completed = True
         else:
@@ -224,7 +235,8 @@ def render_phase(request, phase_id):
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
         context.update({
             'is_team_completed': is_team_completed,
-            'trials': trials
+            'trials': trials,
+            'count': trials.count()
         })
 
     return render(request, 'accounts/panel/panel_phase.html', context)
@@ -468,6 +480,7 @@ def submit_trial(request, phase_id, trial_id):
         trialSubmit.competition = phase
         trialSubmit.team = get_team_pc(request)
         trialSubmit.trial = trial
+        trialSubmit.score = -1
         trialSubmit.save()
         if qusu is not None:
             qusu.trialSubmission = trialSubmit
