@@ -5,11 +5,9 @@ Django settings for AIC18_Site project.
 import os
 import sys
 
-from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import django
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -148,12 +146,15 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, "static/root/")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
-    os.path.join(BASE_DIR, 'locale_extra'),
-    os.path.join(BASE_DIR, 'apps', 'accounts', 'locale'),
-    os.path.join(BASE_DIR, 'apps', 'accounts', 'templates', 'email', 'locale')
-)
+SITE_ROOT = os.path.dirname(os.path.realpath(__name__))
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
+
+# LOCALE_PATHS = (
+#     os.path.join(BASE_DIR, 'locale'),
+#     os.path.join(BASE_DIR, 'locale_extra'),
+#     os.path.join(BASE_DIR, 'apps', 'accounts', 'locale'),
+#     os.path.join(BASE_DIR, 'apps', 'accounts', 'templates', 'email', 'locale')
+# )
 
 NOCAPTCHA = True
 
