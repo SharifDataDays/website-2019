@@ -172,6 +172,9 @@ class Trial(models.Model):
     def __str__(self):
         return str('%s Trial number %d' %(self.competition, self.id))
 
+    class Meta:
+        ordering = ('-pk',)
+
 
 class QuestionSubmission(models.Model):
     question = models.ForeignKey(Question)

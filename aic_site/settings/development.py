@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = True
-ALLOWED_HOSTS += ['datadays.sharif.edu', 'datadays.sharif.ir', 'datadays.ir']
+ALLOWED_HOSTS += ['datadays.sharif.edu', 'datadays.sharif.ir', 'datadays.ir', '192.168.255.7', '192.168.43.170']
 
 INSTALLED_APPS += [
 
@@ -9,6 +9,7 @@ INSTALLED_APPS += [
 TESTING = True
 
 INTERNAL_IPS = ['127.0.0.1']
+
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

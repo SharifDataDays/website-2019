@@ -570,7 +570,7 @@ msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
 #: apps/accounts/views/panel.py:69
-msgid "Score Board"
+msgid "Scoreboard"
 msgstr "جدول امتیازات"
 
 #: apps/accounts/views/panel.py:304

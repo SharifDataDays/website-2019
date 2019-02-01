@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
+from unicodecsv import UnicodeWriter
 
 from aic_site import settings
 from aic_site.settings.base import MEDIA_ROOT
@@ -28,7 +29,7 @@ from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 from django.apps import apps
 from itertools import chain
 
-DIR_DATASET = '/home/datadays/tds'
+DIR_DATASET = '/home/mrtaalebi/tds'
 
 
 @login_required
@@ -66,7 +67,7 @@ def get_shared_context(request):
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
         {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'),
-         'text': _('Score Board')},
+         'text': _('Scoreboard')},
     ]
 
     if request.user.profile:
@@ -321,6 +322,7 @@ def get_new_trial(request, phase_id):
                     questions = question_model.objects.filter(trial__team=team_pc)
                 questions = questions[0]
                 questions.is_chosen = True
+                questions.save()
                 current_trial.questions.add(questions)
             else:
                 selectable_questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)
@@ -524,7 +526,7 @@ def get_judge_response(request):
     trial = Trial.objects.get(id=trial_id)
     trial.score = 0
     for i in range(len(submissions)):
-        trial.score += submissions[i]['score']
+        trial.score += submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
     trial.save()
     return JsonResponse({'status': 'succeeded'})
 
@@ -550,26 +552,25 @@ def get_dataset(request, phase_id, trial_id):
         if len(trial) is 0:
             return render(request, '404.html')
         else:
-
+            pass
             trial = trial[0]
             if trial.submit_time is not None:
                 return redirect('accounts:panel_phase', phase_id)
-            if trial.dataset_link is None:
-                i = phase.dataset_counter
-                i = i + 1
-                phase.dataset_counter = i
-                phase.save()
-                try:
-                    trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
-                except Exception as e:
-                    phase.dataset_counter = 0
-                    phase.save()
-                    i = 0
-                    trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
-                trial.save()
-            print("datasetlink {}".format(trial.dataset_link))
-            with open(trial.dataset_link, 'rb') as pdf:
-                response = HttpResponse(pdf.read())
-                response['content_type'] = 'text/csv'
+
+            question = trial.questions.get(type='file_upload')
+            if question is None:
+                return redirect('accounts:panel_phase', phase_id)
+            link = '{}/{}.csv'.format(DIR_DATASET, question.correct_answer)
+                #    try:
+                #        trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
+                #    except Exception as e:
+                #        phase.dataset_counter = 0
+                #        phase.save()
+                #        i = 0
+                #        trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
+                #    trial.save()
+            print("\033[92mdatasetlink {}\033[0m".format(link))
+            with open(link, 'rb') as pdf:
+                response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
                 response['Content-Disposition'] = 'attachment;filename=dataset.csv'
                 return response
