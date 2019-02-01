@@ -8,7 +8,7 @@
 
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
-
+    <div class="ui" style="width: 100%; display: block">
     {# Numeric Single-Answer Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in numeric_questions %}
@@ -26,7 +26,7 @@
                 <div class="ui attached input fluid" style="padding:0;">
                     <input
                        required
-                       type="number"
+                       type="text"
                        step="0.00000000001"
                        name="{{ trial.id  }}_{{ question.id }}"
                        style="margin:0;
@@ -34,7 +34,7 @@
                                 border:1px solid #d4d4d5;
                                 border-top-color: transparent;
                               "
-                       placeholder="{% trans 'No answer yet : Numeric field' %}"
+                       placeholder="{% trans 'No answer yet : Text field' %}"
                     >
                 </div>
             </div>
@@ -92,6 +92,7 @@
                     ">
                     {{ question.stmt }}
                 </div>
+                    <div>
                   <img class="grouped fields" style="margin-top: 10px">
                       {% for choice in question.choices %}
 {#                           {% if choice.image.url %}#}
@@ -255,7 +256,7 @@
         {% trans 'Submit' %}
     </button>
 
-
+    </div>
 </form>
 <script>
 $( ".ui.radio.checkbox" ).checkbox();
