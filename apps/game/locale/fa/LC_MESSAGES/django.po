@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-01 06:44+0330\n"
+"POT-Creation-Date: 2019-02-01 07:21+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,7 +190,6 @@ msgid "Losers bracket"
 msgstr "دسته بازنده‌ها"
 
 #: apps/game/templates/scoreboard/bracket.html:20
-#, fuzzy
 #| msgid "Elimination"
 msgid "Elimination bracket"
 msgstr "حذفی"
@@ -255,54 +253,3 @@ msgstr "در "
 #: apps/game/templates/scoreboard/single_matches_table.html:65
 msgid "View"
 msgstr "نمایش"
-
-#~ msgid "no selected matches!"
-#~ msgstr "تیمی انتخاب نشده است!"
-
-#~ msgid "one of selected matches is not ready!"
-#~ msgstr "یکی از بازی‌های اننخاب شده آماده نیست."
-
-#~ msgid "one of selected matches is done!"
-#~ msgstr "یکی از بازی‌های انتخاب شده انجام شده است."
-
-#~ msgid "submitted"
-#~ msgstr "ارسال کرده"
-
-#~ msgid "no selected teams!"
-#~ msgstr "تیمی انتخاب نشده است!"
-
-#~ msgid "Only teams from one challenge!"
-#~ msgstr "تنها میتوانید از تیم‌های یک چالش انتخاب کنید!"
-
-#~ msgid "Elimination"
-#~ msgstr "حذفی"
-
-#~ msgid "Double Elimination"
-#~ msgstr "دوحذفی"
-
-#~ msgid "League"
-#~ msgstr "لیگ"
-
-#~ msgid "Friendly"
-#~ msgstr "دوستانه"
-
-#~ msgid "Itself"
-#~ msgstr "خودش"
-
-#~ msgid "Running"
-#~ msgstr "در حال اجرا"
-
-#~ msgid "Done"
-#~ msgstr "انجام شده"
-
-#~ msgid "Waiting"
-#~ msgstr "در حال انتظار"
-
-#~ msgid "Team"
-#~ msgstr "تیم"
-
-#~ msgid "Group 1"
-#~ msgstr "گروه یک"
-
-#~ msgid "Python 2"
-#~ msgstr "پایتون ۲"
