@@ -172,6 +172,17 @@ class Trial(models.Model):
     def __str__(self):
         return str('%s Trial number %d' %(self.competition, self.id))
 
+    @property
+    def view_trial(self):
+        if not(self.submit_time is None) or self.end_time < timezone.now():
+            return False
+        return True
+
+
+    class Meta:
+        ordering = ('-pk',)
+
+
 
 class QuestionSubmission(models.Model):
     question = models.ForeignKey(Question)
@@ -181,7 +192,7 @@ class QuestionSubmission(models.Model):
 
 
 class TrialSubmission(models.Model):
-    score = models.FloatField(default=0)
+    score = models.FloatField(default=-2)
     competition = models.ForeignKey(Competition)
     trial = models.ForeignKey(Trial, null=True)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trialSubmissions')

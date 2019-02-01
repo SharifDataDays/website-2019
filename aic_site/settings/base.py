@@ -209,4 +209,4 @@ if TESTING:
     LANGUAGE_CODE = 'en'
 
 
-JUDGE_IP = 'http://0.0.0.0:9098'
+JUDGE_IP = 'http://localhost:9098'

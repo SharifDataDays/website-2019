@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-01 08:02+0330\n"
+"POT-Creation-Date: 2019-02-01 20:00+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr "ابتدا یک کد قابل کامپایل ارسال کنید."
 
 #: apps/accounts/forms/panel.py:76
 msgid "You have to be one of participants."
-msgstr "شما باید یکی از طرفین باشید."
+msgstr "شما به این منبع دسترسی ندارید."
 
 #: apps/accounts/forms/panel.py:86
 #, python-format
@@ -101,6 +101,7 @@ msgstr "شماره ی تلفن ثابت"
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:4
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:115
 #: apps/accounts/templates/accounts/panel/group_table.html:11
+#: apps/accounts/views/panel.py:70
 msgid "Scoreboard"
 msgstr "جدول امتیازات"
 
@@ -189,7 +190,7 @@ msgstr "نقشه:"
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:114
 #: apps/accounts/templates/accounts/oldpanel/submissions.html:151
 #: apps/accounts/templates/accounts/panel/battle_history.html:100
-#: apps/accounts/templates/accounts/panel/panel_trial.html:261
+#: apps/accounts/templates/accounts/panel/panel_trial.html:310
 #: apps/accounts/templates/accounts/panel/submissions.html:9
 #: apps/accounts/templates/accounts/panel/submissions.html:41
 msgid "Submit"
@@ -341,7 +342,7 @@ msgstr ""
 
 #: apps/accounts/templates/accounts/oldpanel/team_management.html:5
 #: apps/accounts/templates/accounts/panel/team_management.html:6
-#: apps/accounts/views/panel.py:67
+#: apps/accounts/views/panel.py:69
 msgid "Team Status"
 msgstr "وضعیت تیم"
 
@@ -410,39 +411,39 @@ msgstr "تلاش"
 msgid "Start Time"
 msgstr "زمان شروع"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:48
+#: apps/accounts/templates/accounts/panel/panel_phase.html:49
 msgid "Time Left"
 msgstr "زمان باقی مانده"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:55
+#: apps/accounts/templates/accounts/panel/panel_phase.html:57
 msgid "Submit Time"
 msgstr "زمان ارسال"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:58
+#: apps/accounts/templates/accounts/panel/panel_phase.html:60
 msgid "No Submit Yet"
 msgstr "هنوز هیچ ارسالی انجام نداده‌اید"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:65
+#: apps/accounts/templates/accounts/panel/panel_phase.html:67
 msgid "Score "
 msgstr "امتیاز"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:83
+#: apps/accounts/templates/accounts/panel/panel_phase.html:86
 msgid "View Trial"
 msgstr "مشاهده‌ی تلاش"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:58
+#: apps/accounts/templates/accounts/panel/panel_trial.html:79
 msgid "Download Dataset"
 msgstr "دانلود دادگان"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:71
+#: apps/accounts/templates/accounts/panel/panel_trial.html:92
 msgid "Upload Answer"
 msgstr "بارگزاری پاسخ"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:152
-#: apps/accounts/templates/accounts/panel/panel_trial.html:189
-#: apps/accounts/templates/accounts/panel/panel_trial.html:221
-#: apps/accounts/templates/accounts/panel/panel_trial.html:234
-#: apps/accounts/templates/accounts/panel/panel_trial.html:247
+#: apps/accounts/templates/accounts/panel/panel_trial.html:184
+#: apps/accounts/templates/accounts/panel/panel_trial.html:238
+#: apps/accounts/templates/accounts/panel/panel_trial.html:270
+#: apps/accounts/templates/accounts/panel/panel_trial.html:283
+#: apps/accounts/templates/accounts/panel/panel_trial.html:296
 msgid "No answer yet : Text field"
 msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
 
@@ -569,14 +570,10 @@ msgstr "تیم شما با موفقیت ساخته شد"
 msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
-#: apps/accounts/views/panel.py:69
-msgid "Score Board"
-msgstr "جدول امتیازات"
-
-#: apps/accounts/views/panel.py:304
+#: apps/accounts/views/panel.py:318
 msgid "You have one active trial."
 msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
-#: apps/accounts/views/panel.py:309
+#: apps/accounts/views/panel.py:323
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
