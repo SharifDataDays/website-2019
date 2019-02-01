@@ -324,16 +324,18 @@ def get_new_trial(request, phase_id):
                 current_trial.questions.add(questions)
             else:
                 selectable_questions = question_model.objects.all()
+                group_ids = [x.group_id for x in question_model.objects.all(trial__team=team_pc)]
                 if len(selectable_questions.exclude(trial__team=team_pc)) < instruction.number:
-                    set = quest(selectable_questions, instruction.number)
+                    chosen_set = quest(selectable_questions, instruction.number)
                 elif len(selectable_questions.exclude(trial__team=team_pc).filter(level=instruction.level)) \
                         < instruction.number:
-                    set = quest(selectable_questions.exclude(trial__team=team_pc), instruction.number)
-                else:
-                    set = quest(selectable_questions.exclude(trial__team=team_pc).filter(level=instruction.level), \
-                                instruction.number)
+                    chosen_set = quest(selectable_questions.exclude(trial__team=team_pc), instruction.number)
+                elif len(selectable_questions.exclude(trial__team=team_pc).filter(level=instruction.level).exclude(
+                        group_id=group_ids)) < instruction.number:
+                    chosen_set = selectable_questions.exclude(trial__team=team_pc).filter(
+                        level=instruction.level).exclude(group_id=group_ids)
 
-                current_trial.questions.add(*set)
+                current_trial.questions.add(*chosen_set)
         current_trial.save()
         # context.update({
         #     'current_trial': current_trial
