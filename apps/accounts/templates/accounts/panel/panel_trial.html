@@ -6,14 +6,18 @@
 
 {% block panel_content %}
 
-<div class="ui warning message">
-  با اون بازی نکن!!<br/>
-پر کن اون بی صابوووو
-</div>
+
 
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
     <div class="ui" style="width: 100%; display: block">
+    <div class="ui warning message">
+  با اون بازی نکن!!<br/>
+پر کن اون بی صابوووو
+    </div>
+     {% if error %}
+         <div class="ui negative message">{{error}}</div>
+    {% endif %}
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
             <span style="font-weight:bold">بخش اول</span><br>
@@ -99,7 +103,6 @@
                 </div>
             </div>
         {% endfor %}
-        <p>{{error}}</p>
 
     </div>
     </div>
@@ -304,7 +307,7 @@
         ادامه
     </div>
 
-    <div class="ui negative message" style="display: none;" id="alert">
+    <div class="ui warning message" style="display: none;" id="alert">
       <p>شما بعد از ارسال دیگر امکان ویرایش پاسخ یا بازگشت به این صفحه را ندارید بنابراین در ارسال پاسخ دقت کنید.</p>
         <button class="fluid ui submit blue button" style="margin: 20px 0" type="submit">
             {% trans 'Submit' %}
