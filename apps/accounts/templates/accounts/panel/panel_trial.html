@@ -9,7 +9,7 @@
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
     <div class="ui" style="width: 100%; display: block">
-
+    <div class ="ui" style="border: 1px solid gray; border-radius:1em;">
     {# File Based Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in file_based_questions %}
@@ -83,7 +83,9 @@
         <p>{{error}}</p>
 
     </div>
+    </div>
 
+    <div class ="ui" style="border: 1px solid gray; border-radius:1em;">
     {# Multiple Choice Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in choices %}
@@ -119,7 +121,9 @@
             </div>
         {% endfor %}
     </div>
+    </div>
 
+    <div class ="ui" style="border: 1px solid gray; border-radius:1em;">
     {# Numeric Single-Answer Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in numeric_questions %}
@@ -247,7 +251,7 @@
             </div>
         {% endfor %}
     </div>
-
+    </div>
     {# Submit Button#}
     <button
         class="fluid ui submit blue button"
