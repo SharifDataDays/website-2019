@@ -405,7 +405,7 @@ msgstr "بازگشت به پنل"
 
 #: apps/accounts/templates/accounts/panel/panel_phase.html:14
 msgid "Get a new trial"
-msgstr "دریافت یک تلاش جدید"
+msgstr "ایجاد یک تلاش جدید"
 
 #: apps/accounts/templates/accounts/panel/panel_phase.html:34
 msgid "Trial"
