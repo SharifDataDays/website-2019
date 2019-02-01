@@ -99,7 +99,7 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
         q.stmt = definition
         q.save()
         choice = apps.get_model('game', 'Choice')
-        if skill != 'visualization':
+        if 'visualization' not in skill:
             print(choices.split('$'))
             for o in choices.split('$'):
                 print(o)
@@ -109,23 +109,24 @@ def save_in_database(question_id, question_type, definition, choices, answer, sk
                 print(c)
                 c.save()
                 print(c)
-        else:
-            aa = choice()
-            aa.text = 'A'
-            aa.question = q
-            aa.save()
-            bb = choice()
-            bb.text = 'B'
-            bb.question = q
-            bb.save()
-            cc = choice()
-            cc.text = 'C'
-            cc.question = q
-            cc.save()
-            dd = choice()
-            dd.text = 'D'
-            dd.question = q
-            dd.save()
+#        else:
+#            pass
+#            aa = choice()
+#            aa.text = 'A'
+#            aa.question = q
+#            aa.save()
+#            bb = choice()
+#            bb.text = 'B'
+#            bb.question = q
+#            bb.save()
+#            cc = choice()
+#            cc.text = 'C'
+#            cc.question = q
+#            cc.save()
+#            dd = choice()
+#            dd.text = 'D'
+#            dd.question = q
+#            dd.save()
 
         q.correct_answer = answer
         q.group_id = group_id
