@@ -181,7 +181,7 @@ class QuestionSubmission(models.Model):
 
 
 class TrialSubmission(models.Model):
-    score = models.FloatField(default=0)
+    score = models.FloatField(default=-2)
     competition = models.ForeignKey(Competition)
     trial = models.ForeignKey(Trial, null=True)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trialSubmissions')

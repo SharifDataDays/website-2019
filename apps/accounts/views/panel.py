@@ -466,6 +466,7 @@ def submit_trial(request, phase_id, trial_id):
         trialSubmit.competition = phase
         trialSubmit.team = get_team_pc(request)
         trialSubmit.trial = trial
+        trialSubmit.score = -1
         trialSubmit.save()
         if qusu is not None:
             qusu.trialSubmission = trialSubmit
