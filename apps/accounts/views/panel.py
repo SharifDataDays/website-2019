@@ -1,5 +1,6 @@
 import json
 import os
+import random
 
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
@@ -26,8 +27,6 @@ from datetime import datetime
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 from django.apps import apps
 from itertools import chain
-
-
 
 
 @login_required
@@ -64,7 +63,8 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
-        {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'), 'text': _('Score Board')},
+        {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'),
+         'text': _('Score Board')},
     ]
 
     if request.user.profile:
@@ -154,6 +154,7 @@ def redirect_to_somewhere_better(request):
 
 def sortSecond(val):
     return val[1][0]
+
 
 @login_required
 def render_panel_phase_scoreboard(request):
@@ -267,6 +268,12 @@ def team_management(request, participation_id=None):
     return render(request, 'accounts/panel/team_management.html', context)
 
 
+def quest(query_set, num):
+    questions = list(query_set)
+    random.shuffle(questions)
+    return questions[:num]
+
+
 @login_required
 def get_new_trial(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
@@ -314,19 +321,17 @@ def get_new_trial(request, phase_id):
                 questions.is_chosen = True
                 current_trial.questions.add(questions)
             else:
-                selectable_questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)
-                if instruction.model_name == 'Question':
-                    selectable_questions = selectable_questions.filter(type=instruction.type)
-                backup_questions = selectable_questions
-                chosen_questions = Question.objects.filter(trial__team=team_pc)
-                for q in chosen_questions:
-                    selectable_questions = selectable_questions.exclude(group_id=q.group_id)
-                if len(selectable_questions) < instruction.number:
-                    selectable_questions = backup_questions
-                questions = selectable_questions[:instruction.number]
-                questions = list(questions)
-                current_trial.questions.add(*questions)
+                selectable_questions = question_model.objects.all()
+                if len(selectable_questions.exclude(trial__team=team_pc)) < instruction.number:
+                    set = quest(selectable_questions, instruction.number)
+                elif len(selectable_questions.exclude(trial__team=team_pc).filter(level=instruction.level)) \
+                        < instruction.number:
+                    set = quest(selectable_questions.exclude(trial__team=team_pc), instruction.number)
+                else:
+                    set = quest(selectable_questions.exclude(trial__team=team_pc).filter(level=instruction.level), \
+                                instruction.number)
 
+                current_trial.questions.add(*set)
         current_trial.save()
         # context.update({
         #     'current_trial': current_trial
@@ -362,7 +367,7 @@ def render_trial(request, phase_id, trial_id):
                 'phase': phase,
                 'trial': trial,
                 'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
-                                                                 , trial.questions.filter(type='interval_number')))],
+                                                            , trial.questions.filter(type='interval_number')))],
                 'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
                                                          , trial.questions.filter(type='single_sufficient_answer')))],
                 'choices': [x for x in trial.questions.filter(type='multiple_choice')],
@@ -391,8 +396,11 @@ def submit_trial(request, phase_id, trial_id):
         if team_pc is None:
             return redirect_to_somewhere_better(request)
         context = get_shared_context(request)
-        file = request.FILES['file']
-        print(file)
+        file = None
+        if request.FILES:
+            filename = list(request.FILES)[0]
+            file = request.FILES[filename]
+            print('\033[92m{}\033[0m'.format(file))
         for item in context['menu_items']:
             if item['name'] == phase.name:
                 item['active'] = True
@@ -405,36 +413,47 @@ def submit_trial(request, phase_id, trial_id):
         for x in form.data.keys():
             if x != 'csrfmiddlewaretoken':
                 clean[x] = form.data[x]
+        print(clean)
         trial = Trial.objects.filter(id=trial_id).all()
         if len(trial) is 0:
             return render(request, '404.html')
         trial = trial[0]
         if not form.is_valid():
             return redirect('accounts:panel')
-        if file.size > 1048576:
-        # if False:
-        #     pass
-            error_msg = 'Max size of file is 1MB'
-            context.update({
-                'error':error_msg,
-            })
-            context.update({
-                'trial': trial,
-                'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
-                                                                 , trial.questions.filter(type='interval_number')))],
-                'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                                         , trial.questions.filter(type='single_sufficient_answer')))],
-                'choices': [x for x in trial.questions.filter(type='multiple_choices')],
-                'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
-                'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
-            })
-            for x in context['choices']:
-                x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
-            if trial.team.id is not team_pc.id:
-                return render(request, '403.html')
+        qusu = None
+        if file is not None:
+            if file.size > 1048576:
+                error_msg = 'Max size of file is 1MB'
+                context.update({
+                    'error': error_msg,
+                })
+                context.update({
+                    'trial': trial,
+                    'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
+                                                                , trial.questions.filter(type='interval_number')))],
+                    'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
+                                                             ,
+                                                             trial.questions.filter(type='single_sufficient_answer')))],
+                    'choices': [x for x in trial.questions.filter(type='multiple_choices')],
+                    'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
+                    'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
+                })
+                for x in context['choices']:
+                    x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
+                if trial.team.id is not team_pc.id:
+                    return render(request, '403.html')
+                else:
+                    return render(request, 'accounts/panel/panel_trial.html', context)
             else:
-                return render(request, 'accounts/panel/panel_trial.html', context)
-        save_to_storage(request)
+                file_full_path = save_to_storage(request, filename)
+                qusu = QuestionSubmission()
+                print("aaa")
+                print(filename)
+                print("aaa")
+                print(filename.split("_"))
+                qufi = trial.questions.get(id=int(filename.split("_")[1]))
+                qusu.question = qufi
+                qusu.value = file_full_path
         print(clean)
         trial.submit_time = timezone.now()
         trial.save()
@@ -443,33 +462,49 @@ def submit_trial(request, phase_id, trial_id):
         trialSubmit.team = get_team_pc(request)
         trialSubmit.trial = trial
         trialSubmit.save()
+        if qusu is not None:
+            qusu.trialSubmission = trialSubmit
+            qusu.save()
 
+        # intiated by far
+        khar = {}
         for inp in clean.keys():
             print(clean[inp])
-            trial_id, question_id = inp.split("_")
+            ids = inp.split("_")
+            f2ids = "_".join(ids[:2])
+            if f2ids not in khar:
+                khar[f2ids] = []
+            khar[f2ids].append(clean[inp])
+
+        khar = {x: '$'.join(khar[x]) for x in khar}
+        print(khar)
+        for x in khar.keys():
+            question_id = x.split('_')[1]
             question = trial.questions.get(id=question_id)
             questionSubmit = QuestionSubmission()
             questionSubmit.question = question
-            questionSubmit.value = clean[inp]
+            questionSubmit.value = khar[x]
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
+
         trialSubmit.upload()
         return redirect('accounts:panel_phase', phase.id)
 
 
-def save_to_storage(request):
+def save_to_storage(request, filename):
     folder = request.path.replace("/", "_")
-    uploaded_filename = request.FILES['file'].name
+    uploaded_filename = request.FILES[filename].name
     try:
-        os.mkdir(os.path.join(MEDIA_ROOT, folder))
+        os.makedirs(os.path.join(MEDIA_ROOT, folder), exist_ok=True)
     except:
         pass
     full_filename = os.path.join(MEDIA_ROOT, folder, uploaded_filename)
     fout = open(full_filename, 'wb+')
-    file_content = ContentFile(request.FILES['file'].read())
+    file_content = ContentFile(request.FILES[filename].read())
     for chunk in file_content.chunks():
         fout.write(chunk)
     fout.close()
+    return full_filename
 
 
 @csrf_exempt
@@ -519,9 +554,14 @@ def get_dataset(request, phase_id, trial_id):
                 i = i + 1
                 phase.dataset_counter = i
                 phase.save()
-                trial.dataset_link = '/home/arghavan/datasets/{}.csv'.format(i)
+                try:
+                    trial.dataset_link = '/home/datadays/dst/{}'.format(os.listdir('/home/datadays/dst')[i])
+                except Exception as e:
+                    phase.dataset_counter = 0
+                    phase.save()
+                    i = 0
+                    trial.dataset_link = '/home/datadays/dst/{}'.format(os.listdir('/home/datadays/dst')[i])
                 trial.save()
-                # return FileResponse(open(trial.dataset_link, 'rb'))
             with open(trial.dataset_link, 'rb') as pdf:
                 response = HttpResponse(pdf.read())
                 response['content_type'] = 'text/csv'

@@ -206,7 +206,7 @@ class TrialSubmission(models.Model):
         }
         for q in self.trial.questions.all():
             question_context = {
-                'question_id': q.id,
+                'question_id': q.doc_id,
                 'question_type': q.type,
                 'submitted_answer': '',
             }
@@ -216,7 +216,13 @@ class TrialSubmission(models.Model):
                 question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value
             context['submissions'].append(question_context)
         print(context)
-        requests.post(JUDGE_IP, data=context, headers={"Content-Type": "application/json"})
+        context['dataset_number']=12
+        response = requests.post(JUDGE_IP, json=context)
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        print()
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        print(response.text)
+
 
 
 class PhaseInstructionSet(models.Model):
