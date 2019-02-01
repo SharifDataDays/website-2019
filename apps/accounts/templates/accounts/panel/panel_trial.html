@@ -6,12 +6,9 @@
 
 {% block panel_content %}
 
-<div class="ui negative message">
-  <i></i>
-  <div class="header">
-    We're sorry we can't apply that discount
-  </div>
-  <p>That offer has expired</p>
+<div class="ui warning message">
+  با اون بازی نکن!!<br/>
+پر کن اون بی صابوووو
 </div>
 
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
@@ -302,17 +299,25 @@
     </div>
     </div>
     {# Submit Button#}
-    <button
-        class="fluid ui submit blue button"
-        style="margin: 20px 0"
-        type="submit"
-    >
-        {% trans 'Submit' %}
-    </button>
 
+    <div class="fluid ui submit blue button" style="margin: 20px 0" id="button">
+        ادامه
+    </div>
+
+    <div class="ui negative message" style="display: none;" id="alert">
+      <p>شما بعد از ارسال دیگر امکان ویرایش پاسخ یا بازگشت به این صفحه را ندارید بنابراین در ارسال پاسخ دقت کنید.</p>
+        <button class="fluid ui submit blue button" style="margin: 20px 0" type="submit">
+            {% trans 'Submit' %}
+        </button>
+    </div>
+
+    </div>
     </div>
 </form>
 <script>
 $( ".ui.radio.checkbox" ).checkbox();
+$('#button').click(function (e) {
+    document.getElementById('alert').style.display = "";
+});
 </script>
 {% endblock %}

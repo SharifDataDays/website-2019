@@ -16,14 +16,12 @@
 </div>
 
 
-
-
 {# Trials List #}
 <div class="ui center aligned one column grid">
     {% for trial in trials %}
         <div class="ui column fluid">
             {# Trial Card : (active -> last one) #}
-        {% if forloop.revcounter == trials|length %}
+        {% if trial.view_trial %}
             <div  class="ui card link active panel_phase" style="background-color: #d1f0ff">
 
             {% else %}
@@ -44,7 +42,7 @@
 
             {# Trial's Time Left #}
             {# {% if forloop.counter == trials|length %}#}
-            {% if forloop.revcounter == trials|length %}
+            {% if trial.view_trial %}
                 <h4 class="ui sub header">
                 {% trans 'Time Left' %}
                 </h4>
@@ -78,7 +76,7 @@
 {#                </span>#}
 {#            {%endif %}#}
         </div>
-{#        {% if forloop.revcounter == trials|length %}#}
+        {% if trial.view_trial %}
         <div class="extra content">
             <a
                   href="{% url 'accounts:panel_trial' phase.id trial.id %}"
@@ -86,7 +84,7 @@
               {% trans 'View Trial' %}
             </a>
         </div>
-{#        {% endif %}#}
+        {% endif %}
     </div>
         </div>
     {% endfor %}
