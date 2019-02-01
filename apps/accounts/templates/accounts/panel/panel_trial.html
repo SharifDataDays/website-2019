@@ -8,7 +8,7 @@
 
 <div enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
-    <div class="ui top card">
+    <div class="ui" style="width: 100%; display: block">
     {# Numeric Single-Answer Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in numeric_questions %}
