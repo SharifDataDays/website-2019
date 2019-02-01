@@ -74,6 +74,7 @@ def get_shared_context(request):
             if request.user.profile.panel_active_teampc.should_pay and not request.user.profile.panel_active_teampc.has_paid:
                 context['payment'] = request.user.profile.panel_active_teampc
             for comp in request.user.profile.panel_active_teampc.challenge.competitions.all():
+                pass
                 context['menu_items'].append(
                     {
                         'name': comp.name,
