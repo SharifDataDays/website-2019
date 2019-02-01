@@ -399,7 +399,7 @@ def render_trial(request, phase_id, trial_id, error=None):
             })
         for x in context['choices']:
             x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
-        if trial.team.id is not team_pc.id:
+        if trial.team.id != team_pc.id:
             return render(request, '403.html')
         else:
             return render(request, 'accounts/panel/panel_trial.html', context)
@@ -513,6 +513,8 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
         trialSubmit.upload()
+
+
         return redirect('accounts:panel_phase', phase.id)
 
 
