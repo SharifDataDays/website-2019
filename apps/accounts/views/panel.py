@@ -567,6 +567,7 @@ def get_dataset(request, phase_id, trial_id):
                     i = 0
                     trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
                 trial.save()
+            print("datasetlink {}".format(trial.dataset_link))
             with open(trial.dataset_link, 'rb') as pdf:
                 response = HttpResponse(pdf.read())
                 response['content_type'] = 'text/csv'
