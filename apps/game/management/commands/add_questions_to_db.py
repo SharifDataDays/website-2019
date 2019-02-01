@@ -102,6 +102,9 @@ def multiple_add(question_id, question_type, definition, choices, answer, skill,
             choice.question = question
             choice.save()
 
+    question.type = 'multiple_choice'
+    question.ui_type = 'choices'
+
     question.correct_answer = answer
     question.group_id = group_id
     question.doc_id = question_id
@@ -118,6 +121,8 @@ def numeric_range_add(question_id, question_type, definition, choices, answer, s
     question.min_range = float(answer.split('$')[0])
     question.max_range = float(answer.split('$')[1])
     question.group_id = group_id
+    question.type = 'interval_number'
+    question.ui_type = 'text_number'
     question.doc_id = question_id
     question.level = diff_map[difficulty]
     question.max_score = score_from_level(question_type, difficulty)
@@ -130,6 +135,8 @@ def string_add(question_id, question_type, definition, choices, answer, skill, g
     question.stmt = definition
     question.correct_answer = answer
     question.group_id = group_id
+    question.type = 'single_answer'
+    question.ui_type = 'text_string'
     question.doc_id = question_id
     question.level = diff_map[difficulty]
     question.max_score = score_from_level(question_type, difficulty)
@@ -142,6 +149,8 @@ def multi_string_add(question_id, question_type, definition, choices, answer, sk
     question.stmt = definition
     question.group_id = group_id
     question.correct_answer = answer
+    question.type = 'multiple_answer'
+    question.ui_type = 'multiple'
     question.doc_id = question_id
     question.level = diff_map[difficulty]
     question.max_score = score_from_level(question_type, difficulty)
@@ -155,6 +164,9 @@ def numeric_add(question_id, question_type, definition, choices, answer, skill, 
     question.correct_answer = answer
     question.group_id = group_id
     question.doc_id = question_id
+    question_type.type = 'single_answer'
+    question_type.ui_type = 'text_number'
+
     question.level = diff_map[difficulty]
     question.max_score = score_from_level(question_type, difficulty)
     question.save()
@@ -165,6 +177,8 @@ def file_upload_add(question_id, question_type, definition, choices, answer, ski
     q = model()
     q.stmt = ' '
     q.correct_answer = definition
+    q.type = 'file_upload'
+    q.ui_type = 'file'
     q.doc_id = question_id
     q.level = diff_map[difficulty]
     q.max_score = score_from_level(question_type, difficulty)
