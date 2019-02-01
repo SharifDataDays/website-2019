@@ -79,8 +79,8 @@ class Question(models.Model):
     stmt = models.CharField(max_length=500)
     correct_answer = models.CharField(max_length=200)
     max_score = models.FloatField(default=0, null=True)
-    type = models.CharField(max_length=200, blank=True, choices=TYPE_CHOICES, default='single_answer')
-    ui_type = models.CharField(max_length=200, blank=True, choices=UI_TYPE_CHOICES, default='text_string')
+    type = models.CharField(max_length=200, blank=True, choices=TYPE_CHOICES)
+    ui_type = models.CharField(max_length=200, blank=True, choices=UI_TYPE_CHOICES)
     level = models.CharField(max_length=200, choices=LEVEL_CHOICES, blank=True, null=True)
 
     def __str__(self):
@@ -92,11 +92,11 @@ class Question(models.Model):
 class MultipleChoiceQuestion(Question):
 
     imaged = models.BooleanField(default=False)
-
-    def save(self):
-        self.type = 'multiple_choice'
-        self.ui_type = 'choices'
-        super(MultipleChoiceQuestion, self).save()
+    #
+    # def save(self):
+    #     self.type = 'multiple_choice'
+    #     self.ui_type = 'choices'
+    #     super(MultipleChoiceQuestion, self).save()
 
 
 def user_directory_path(instance, filename):
@@ -125,28 +125,28 @@ class FileUploadQuestion(Question):
     answer_file = models.FileField(upload_to=upload_url,null=True)
     is_chosen = models.BooleanField(default=False)
 
-    def save(self, **kwargs):
-        self.type = 'file_upload'
-        self.ui_type = 'file'
-        super(FileUploadQuestion, self).save()
+    # def save(self, **kwargs):
+    #     self.type = 'file_upload'
+    #     self.ui_type = 'file'
+    #     super(FileUploadQuestion, self).save()
 
 
 class IntervalQuestion(Question):
     min_range = models.FloatField()
     max_range = models.FloatField()
 
-    def save(self):
-        self.type = 'interval_number'
-        self.ui_type = 'text_number'
-        super(IntervalQuestion, self).save()
+    # def save(self):
+    #     self.type = 'interval_number'
+    #     self.ui_type = 'text_number'
+    #     super(IntervalQuestion, self).save()
 
 
 class MultipleAnswerQuestion(Question):
-
-    def save(self):
-        self.type = 'multiple_answer'
-        self.ui_type = 'multiple'
-        super(MultipleAnswerQuestion, self).save()
+    pass
+    # def save(self):
+    #     self.type = 'multiple_answer'
+    #     self.ui_type = 'multiple'
+    #     super(MultipleAnswerQuestion, self).save()
 
 
 class Answer(models.Model):
@@ -164,10 +164,10 @@ class Trial(models.Model):
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials', null=True)
     dataset_link = models.CharField(max_length=600, blank=True, null=True)
 
-    def save(self, *args, **kwargs):
-        super(Trial, self).save()
-        self.end_time = self.start_time + datetime.timedelta(hours=self.competition.trial_duration)
-        super(Trial, self).save()
+    # def save(self, *args, **kwargs):
+    #     super(Trial, self).save()
+    #     self.end_time = self.start_time + datetime.timedelta(hours=self.competition.trial_duration)
+    #     super(Trial, self).save()
 
     def __str__(self):
         return str('%s Trial number %d' %(self.competition, self.id))
