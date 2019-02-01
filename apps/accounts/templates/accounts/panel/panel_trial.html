@@ -9,169 +9,6 @@
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
     <div class="ui" style="width: 100%; display: block">
-    {# Numeric Single-Answer Questions #}
-    <div style="margin:0 0 45px 0 ">
-        {% for question in numeric_questions %}
-            <div class="field" style="margin:0 0 15px 0">
-                <div class="ui top attached header" style="
-                                margin:0;
-                                height: auto;
-                                display: block;
-                                word-wrap: break-word;
-                                white-space: normal;
-                                background-color: #e8e8e8;
-                            ">
-                     {{ question.stmt }}
-                </div>
-                <div class="ui attached input fluid" style="padding:0;">
-                    <input
-                       required
-                       type="text"
-                       step="0.00000000001"
-                       name="{{ trial.id  }}_{{ question.id }}"
-                       style="margin:0;
-                                border-radius: 0 0 .28571429rem .28571429rem;
-                                border:1px solid #d4d4d5;
-                                border-top-color: transparent;
-                              "
-                       placeholder="{% trans 'No answer yet : Text field' %}"
-                    >
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    {# Text-Only Short-Answer Questions #}
-    <div style="margin: 45px 0">
-        {% for question in text_questions %}
-            <div class="field"
-                 style="margin:0 0 15px 0"
-            >
-                <div class="ui top attached header"
-                            style="
-                                margin:0;
-                                height: auto;
-                                display: block;
-                                word-wrap: break-word;
-                                white-space: normal;
-                                background-color: #e8e8e8;
-                            "
-                >
-                     {{ question.stmt }}
-                </div>
-                <div class="ui attached input fluid"
-                     style="padding:0;"
-                >
-                    <input
-                       required
-                       type="text"
-                       name="{{ trial.id  }}_{{ question.id }}"
-                       style="margin:0;
-                                border-radius: 0 0 .28571429rem .28571429rem;
-                                border:1px solid #d4d4d5;
-                                border-top-color: transparent;
-                              "
-                       placeholder="{% trans 'No answer yet : Text field ' %}"
-                    >
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    {# Multiple Choice Questions #}
-    <div style="margin:0 0 45px 0 ">
-        {% for question in choices %}
-            <div class="field" style="margin:0 0 15px 0">
-                <div class="ui top attached header" style="
-                        margin:0;
-                        height: auto;
-                        display: block;
-                        word-wrap: break-word;
-                        white-space: normal;
-                        background-color: #e8e8e8;
-                    ">
-                    {{ question.stmt }}
-                </div>
-                    <div>
-                  <img class="grouped fields" style="margin-top: 10px">
-                      {% for choice in question.choices %}
-{#                           {% if choice.image.url %}#}
-{#                               <img src={{ choice.image.url }}>#}
-{#                           {% endif %}#}
-                          <div class="field">
-                              <div class="ui radio checkbox" style="margin-top: 10px">
-                                  <input value="{{ choice.text }}" type="radio" name="{{ trial.id  }}_{{ question.id }}" id="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">
-                                  {% if choice.image and choice.image.url %}
-                                    <label for="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}"><img src={{ choice.image.url }}></label>
-                                  {% else %}
-                                    <label for="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">{{ choice.text }}</label>
-                                  {% endif %}
-                              </div>
-                          </div>
-                      {% endfor %}
-                  </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    {# Multiple Answer Questions #}
-    <div style="margin:0 0 45px 0 ">
-        {% for question in multiple %}
-            <div class="field" style="margin:0 0 15px 0">
-                <div class="ui top attached header" style="
-                        margin:0;
-                        height: auto;
-                        display: block;
-                        word-wrap: break-word;
-                        white-space: normal;
-                        background-color: #e8e8e8;
-                    ">
-                    {{ question.stmt }}
-                </div>
-                <div>
-                    <div class="ui input fluid" style="padding:0;">
-                        <input
-                           required
-                           type="text"
-                           name="{{ trial.id  }}_{{ question.id }}_1"
-                           style="margin:0;
-                                    border-radius: 0 0 0 0;
-                                    border:1px solid #d4d4d5;
-                                    border-top-color: transparent;
-                                  "
-                           placeholder="{% trans 'No answer yet : Text field ' %}"
-                        >
-                    </div>
-                    <div class="ui input fluid" style="padding:0;">
-                        <input
-                           required
-                           type="text"
-                           name="{{ trial.id  }}_{{ question.id }}_2"
-                           style="margin:0;
-                                    border-radius: 0 0 0 0;
-                                    border:1px solid #d4d4d5;
-                                    border-top-color: transparent;
-                                  "
-                           placeholder="{% trans 'No answer yet : Text field ' %}"
-                        >
-                    </div>
-                    <div class="ui input fluid" style="padding:0;">
-                        <input
-                           required
-                           type="text"
-                           name="{{ trial.id  }}_{{ question.id }}_3"
-                           style="margin:0;
-                                    border-radius: 0 0 .28571429rem .28571429rem;
-                                    border:1px solid #d4d4d5;
-                                    border-top-color: transparent;
-                                  "
-                           placeholder="{% trans 'No answer yet : Text field ' %}"
-                        >
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
 
     {# File Based Questions #}
     <div style="margin:0 0 45px 0 ">
@@ -245,6 +82,170 @@
         {% endfor %}
         <p>{{error}}</p>
 
+    </div>
+
+    {# Multiple Choice Questions #}
+    <div style="margin:0 0 45px 0 ">
+        {% for question in choices %}
+            <div class="field" style="margin:0 0 15px 0">
+                <div class="ui top attached header" style="
+                        margin:0;
+                        height: auto;
+                        display: block;
+                        word-wrap: break-word;
+                        white-space: normal;
+                        background-color: #e8e8e8;
+                    ">
+                    {{ question.stmt }}
+                </div>
+                    <div>
+                  <img class="grouped fields" style="margin-top: 10px">
+                      {% for choice in question.choices %}
+{#                           {% if choice.image.url %}#}
+{#                               <img src={{ choice.image.url }}>#}
+{#                           {% endif %}#}
+                          <div class="field">
+                              <div class="ui radio checkbox" style="margin-top: 10px">
+                                  <input value="{{ choice.text }}" type="radio" name="{{ trial.id  }}_{{ question.id }}" id="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">
+                                  {% if choice.image and choice.image.url %}
+                                    <label for="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}"><img src={{ choice.image.url }}></label>
+                                  {% else %}
+                                    <label for="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">{{ choice.text }}</label>
+                                  {% endif %}
+                              </div>
+                          </div>
+                      {% endfor %}
+                  </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Numeric Single-Answer Questions #}
+    <div style="margin:0 0 45px 0 ">
+        {% for question in numeric_questions %}
+            <div class="field" style="margin:0 0 15px 0">
+                <div class="ui top attached header" style="
+                                margin:0;
+                                height: auto;
+                                display: block;
+                                word-wrap: break-word;
+                                white-space: normal;
+                                background-color: #e8e8e8;
+                            ">
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached input fluid" style="padding:0;">
+                    <input
+                       required
+                       type="text"
+                       step="0.00000000001"
+                       name="{{ trial.id  }}_{{ question.id }}"
+                       style="margin:0;
+                                border-radius: 0 0 .28571429rem .28571429rem;
+                                border:1px solid #d4d4d5;
+                                border-top-color: transparent;
+                              "
+                       placeholder="{% trans 'No answer yet : Text field' %}"
+                    >
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Text-Only Short-Answer Questions #}
+    <div style="margin: 45px 0">
+        {% for question in text_questions %}
+            <div class="field"
+                 style="margin:0 0 15px 0"
+            >
+                <div class="ui top attached header"
+                            style="
+                                margin:0;
+                                height: auto;
+                                display: block;
+                                word-wrap: break-word;
+                                white-space: normal;
+                                background-color: #e8e8e8;
+                            "
+                >
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached input fluid"
+                     style="padding:0;"
+                >
+                    <input
+                       required
+                       type="text"
+                       name="{{ trial.id  }}_{{ question.id }}"
+                       style="margin:0;
+                                border-radius: 0 0 .28571429rem .28571429rem;
+                                border:1px solid #d4d4d5;
+                                border-top-color: transparent;
+                              "
+                       placeholder="{% trans 'No answer yet : Text field ' %}"
+                    >
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Multiple Answer Questions #}
+    <div style="margin:0 0 45px 0 ">
+        {% for question in multiple %}
+            <div class="field" style="margin:0 0 15px 0">
+                <div class="ui top attached header" style="
+                        margin:0;
+                        height: auto;
+                        display: block;
+                        word-wrap: break-word;
+                        white-space: normal;
+                        background-color: #e8e8e8;
+                    ">
+                    {{ question.stmt }}
+                </div>
+                <div>
+                    <div class="ui input fluid" style="padding:0;">
+                        <input
+                           required
+                           type="text"
+                           name="{{ trial.id  }}_{{ question.id }}_1"
+                           style="margin:0;
+                                    border-radius: 0 0 0 0;
+                                    border:1px solid #d4d4d5;
+                                    border-top-color: transparent;
+                                  "
+                           placeholder="{% trans 'No answer yet : Text field ' %}"
+                        >
+                    </div>
+                    <div class="ui input fluid" style="padding:0;">
+                        <input
+                           required
+                           type="text"
+                           name="{{ trial.id  }}_{{ question.id }}_2"
+                           style="margin:0;
+                                    border-radius: 0 0 0 0;
+                                    border:1px solid #d4d4d5;
+                                    border-top-color: transparent;
+                                  "
+                           placeholder="{% trans 'No answer yet : Text field ' %}"
+                        >
+                    </div>
+                    <div class="ui input fluid" style="padding:0;">
+                        <input
+                           required
+                           type="text"
+                           name="{{ trial.id  }}_{{ question.id }}_3"
+                           style="margin:0;
+                                    border-radius: 0 0 .28571429rem .28571429rem;
+                                    border:1px solid #d4d4d5;
+                                    border-top-color: transparent;
+                                  "
+                           placeholder="{% trans 'No answer yet : Text field ' %}"
+                        >
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
     {# Submit Button#}
