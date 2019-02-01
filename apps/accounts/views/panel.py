@@ -12,11 +12,13 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
+from unicodecsv import UnicodeWriter
 
 from aic_site import settings
 from aic_site.settings.base import MEDIA_ROOT
 from apps.accounts.decorators import complete_team_required
 from apps.accounts.forms.panel import SubmissionForm, ChallengeATeamForm
+from apps.accounts.models import Profile
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
     Instruction, MultipleChoiceQuestion, FileUploadQuestion, IntervalQuestion, MultipleAnswerQuestion, Question, \
@@ -28,7 +30,7 @@ from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 from django.apps import apps
 from itertools import chain
 
-DIR_DATASET = '/home/datadays/tds'
+DIR_DATASET = '/home/mrtaalebi/tds'
 
 
 @login_required
@@ -65,8 +67,7 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
-        {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'),
-         'text': _('Score Board')},
+        {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'), 'text': _('Scoreboard')}
     ]
 
     if request.user.profile:
@@ -84,6 +85,9 @@ def get_shared_context(request):
                         'text': _(comp.name)
                     }
                 )
+    context.update({
+        'last_trial': Trial.objects.first()
+    })
 
     return context
 
@@ -168,16 +172,22 @@ def render_panel_phase_scoreboard(request):
         if item['name'] == 'render_panel_phase_scoreboard':
             item['active'] = True
     for team in phase_scoreboard:
-        temp = (team.team.name, get_total_score(team.id), 0)
+        profiles = Profile.objects.filter(panel_active_teampc=team)
+        members = []
+        for prof in profiles:
+            members.append(prof.user)
+        temp = (team.team.name, get_total_score(team.id), 0, Profile.objects.filter(panel_active_teampc=team))
         ranks.append(temp)
     ranks.sort(key=sortSecond, reverse=True)
     for i in range(0, len(phase_scoreboard)):
         x = list(ranks[i])
         x[2] = i + 1
         ranks[i] = tuple(x)
+    my_team = get_team_pc(request).team.name
     context.update({
         'teams': ranks,
-        'phases': Competition.objects.all()
+        'phases': Competition.objects.all(),
+        'my_team': my_team,
     })
     return render(request, 'accounts/panel/group_table.html', context)
 
@@ -212,11 +222,13 @@ def render_phase(request, phase_id):
             'phase': phase,
         })
         from apps.accounts.models import Team
+        current_team = None
         for team in Team.objects.all():
             for user_participation in team.participants.all():
                 if user_participation.user == user:
                     current_team = team
                     break
+
         if len(current_team.participants.all()) == Challenge.objects.all()[0].team_size:
             is_team_completed = True
         else:
@@ -224,7 +236,8 @@ def render_phase(request, phase_id):
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
         context.update({
             'is_team_completed': is_team_completed,
-            'trials': trials
+            'trials': trials,
+            'count': trials.count()
         })
 
     return render(request, 'accounts/panel/panel_phase.html', context)
@@ -322,6 +335,7 @@ def get_new_trial(request, phase_id):
                     questions = question_model.objects.filter(trial__team=team_pc)
                 questions = questions[0]
                 questions.is_chosen = True
+                questions.save()
                 current_trial.questions.add(questions)
             else:
                 selectable_questions = question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)
@@ -467,6 +481,7 @@ def submit_trial(request, phase_id, trial_id):
         trialSubmit.competition = phase
         trialSubmit.team = get_team_pc(request)
         trialSubmit.trial = trial
+        trialSubmit.score = -1
         trialSubmit.save()
         if qusu is not None:
             qusu.trialSubmission = trialSubmit
@@ -525,7 +540,7 @@ def get_judge_response(request):
     trial = Trial.objects.get(id=trial_id)
     trial.score = 0
     for i in range(len(submissions)):
-        trial.score += submissions[i]['score']
+        trial.score += submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
     trial.save()
     return JsonResponse({'status': 'succeeded'})
 
@@ -551,26 +566,25 @@ def get_dataset(request, phase_id, trial_id):
         if len(trial) is 0:
             return render(request, '404.html')
         else:
-
+            pass
             trial = trial[0]
             if trial.submit_time is not None:
                 return redirect('accounts:panel_phase', phase_id)
-            if trial.dataset_link is None:
-                i = phase.dataset_counter
-                i = i + 1
-                phase.dataset_counter = i
-                phase.save()
-                try:
-                    trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
-                except Exception as e:
-                    phase.dataset_counter = 0
-                    phase.save()
-                    i = 0
-                    trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
-                trial.save()
-            print("datasetlink {}".format(trial.dataset_link))
-            with open(trial.dataset_link, 'rb') as pdf:
-                response = HttpResponse(pdf.read())
-                response['content_type'] = 'text/csv'
+
+            question = trial.questions.get(type='file_upload')
+            if question is None:
+                return redirect('accounts:panel_phase', phase_id)
+            link = '{}/{}.csv'.format(DIR_DATASET, question.correct_answer)
+                #    try:
+                #        trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
+                #    except Exception as e:
+                #        phase.dataset_counter = 0
+                #        phase.save()
+                #        i = 0
+                #        trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
+                #    trial.save()
+            print("\033[92mdatasetlink {}\033[0m".format(link))
+            with open(link, 'rb') as pdf:
+                response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
                 response['Content-Disposition'] = 'attachment;filename=dataset.csv'
                 return response
