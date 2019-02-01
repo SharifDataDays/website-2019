@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-16 13:53+0330\n"
+"POT-Creation-Date: 2019-02-01 06:44+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: apps/intro/templates/intro/index.html:28
+msgid "seconds"
+msgstr "ثانیه"
+
+#: apps/intro/templates/intro/index.html:32
+msgid "minutes"
+msgstr "دقیقه"
+
+#: apps/intro/templates/intro/index.html:36
+msgid "hours"
+msgstr "ساعت"
+
+#: apps/intro/templates/intro/index.html:40
+msgid "days"
+msgstr "روز"
 
 #: apps/intro/templates/intro/index.html:50
 msgid "Introduction"
@@ -56,7 +72,7 @@ msgstr ""
 #: apps/intro/templates/intro/index.html:77
 #: apps/intro/templates/intro/index.html:80
 msgid "Panel"
-msgstr ""
+msgstr "پنل"
 
 #: apps/intro/templates/intro/index.html:84
 msgid "Participate"
@@ -301,10 +317,12 @@ msgid "Contact Us"
 msgstr "تماس با ما"
 
 #: apps/intro/templates/intro/index.html:362
+#: apps/intro/templates/intro/index_2.html:474
 msgid "Organizer"
 msgstr "برگزارکننده"
 
 #: apps/intro/templates/intro/index.html:366
+#: apps/intro/templates/intro/index_2.html:482
 msgid "Sponsors"
 msgstr "حامیان مالی"
 
@@ -340,15 +358,15 @@ msgstr "شماره تماس:"
 
 #: apps/intro/templates/intro/index_2.html:60
 msgid "Logout"
-msgstr ""
+msgstr "خروج"
 
 #: apps/intro/templates/intro/index_2.html:65
 msgid "Login"
-msgstr ""
+msgstr "ورود"
 
 #: apps/intro/templates/intro/index_2.html:74
 msgid "Blog and Q&A"
-msgstr ""
+msgstr "وبلاگ پرسش و پاسخ"
 
 #: apps/intro/templates/intro/staffs.html:7
 msgid "Executive"

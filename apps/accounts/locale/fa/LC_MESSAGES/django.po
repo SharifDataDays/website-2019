@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-16 13:53+0330\n"
+"POT-Creation-Date: 2019-02-01 06:44+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,25 +26,25 @@ msgstr "لطفاً شماره ی تلفن خود را درست وارد کنید
 msgid "Registration is closed. See you next year."
 msgstr "ثبت نام هم‌اکنون باز نیست. به امید دیدار شما در رقابت بعدی."
 
-#: apps/accounts/forms/panel.py:45
+#: apps/accounts/forms/panel.py:44
 #, fuzzy
 #| msgid "Submissions"
 msgid "Submission is closed."
 msgstr "ارسال‌ها"
 
-#: apps/accounts/forms/panel.py:50
+#: apps/accounts/forms/panel.py:49
 msgid "Max file size is 5MB."
 msgstr "بیشترین حجم فایل قابل استفاده ۵ مگابایت است."
 
-#: apps/accounts/forms/panel.py:74
+#: apps/accounts/forms/panel.py:73
 msgid "First submit a compilable code."
 msgstr "ابتدا یک کد قابل کامپایل ارسال کنید."
 
-#: apps/accounts/forms/panel.py:77
+#: apps/accounts/forms/panel.py:76
 msgid "You have to be one of participants."
 msgstr "شما باید یکی از طرفین باشید."
 
-#: apps/accounts/forms/panel.py:87
+#: apps/accounts/forms/panel.py:86
 #, python-format
 msgid "You have to wait at least %(minutes)s minutes between each match!"
 msgstr "بین هر دو بازی دوستانه باید حداقل %(minutes)s دقیقه صبر کنید."
@@ -103,14 +103,17 @@ msgstr "شماره ی تلفن ثابت"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:4
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:115
+#: apps/accounts/templates/accounts/panel/group_table.html:11
 msgid "Scoreboard"
 msgstr "جدول امتیازات"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:8
+#: apps/accounts/templates/accounts/panel/group_table.html:15
 msgid "Rank"
 msgstr "رتبه"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:9
+#: apps/accounts/templates/accounts/panel/group_table.html:16
 #, fuzzy
 #| msgid "Team Name"
 msgid "Name"
@@ -191,6 +194,7 @@ msgstr "نقشه:"
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:114
 #: apps/accounts/templates/accounts/oldpanel/submissions.html:151
 #: apps/accounts/templates/accounts/panel/battle_history.html:100
+#: apps/accounts/templates/accounts/panel/panel_trial.html:255
 #: apps/accounts/templates/accounts/panel/submissions.html:9
 #: apps/accounts/templates/accounts/panel/submissions.html:41
 msgid "Submit"
@@ -342,7 +346,7 @@ msgstr ""
 
 #: apps/accounts/templates/accounts/oldpanel/team_management.html:5
 #: apps/accounts/templates/accounts/panel/team_management.html:6
-#: apps/accounts/views/panel.py:49
+#: apps/accounts/views/panel.py:67
 msgid "Team Status"
 msgstr "وضعیت تیم"
 
@@ -379,6 +383,10 @@ msgstr "تمام اعضا شرکت در مسابقه را تایید کرده‌
 msgid "All users haven't accepted the challenge yet!"
 msgstr "هنوز همه اعضا شرکت در مسابقه را تایید نکرده‌اند."
 
+#: apps/accounts/templates/accounts/panel/group_table.html:20
+msgid "Total"
+msgstr "مجموع"
+
 #: apps/accounts/templates/accounts/panel/messages.html:31
 msgid "You have to complete the team and pay to continue to this challenge."
 msgstr "برای ادامه کار در این چالش باید تیم خود را تکمیل کرده و پرداخت کنید."
@@ -391,6 +399,71 @@ msgstr "پرداخت"
 msgid "Complete team"
 msgstr "تکمیل تیم"
 
+#: apps/accounts/templates/accounts/panel/no_new_trial.html:18
+msgid "Back To Panel"
+msgstr "بازگشت به پنل"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:14
+msgid "Get a new trial"
+msgstr "دریافت یک تلاش جدید"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:34
+msgid "Trial"
+msgstr "تلاش"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:41
+msgid "Start Time"
+msgstr "زمان شروع"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:48
+#, fuzzy
+#| msgid "Time"
+msgid "Time Left"
+msgstr "زمان باقی مانده"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:55
+#, fuzzy
+#| msgid "Submit"
+msgid "Submit Time"
+msgstr "زمان ارسال"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:58
+#, fuzzy
+#| msgid "Submit"
+msgid "No Submit Yet"
+msgstr "هنوز هیچ ارسالی انجام نداده‌اید"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:65
+#, fuzzy
+#| msgid "Score"
+msgid "Score "
+msgstr "امتیاز"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:83
+msgid "View Trial"
+msgstr "مشاهده‌ی تلاش"
+
+#: apps/accounts/templates/accounts/panel/panel_trial.html:37
+msgid "No answer yet : Numeric field"
+msgstr "هنوز پاسخی نداده‌اید: مقدار عددی"
+
+#: apps/accounts/templates/accounts/panel/panel_trial.html:74
+#: apps/accounts/templates/accounts/panel/panel_trial.html:141
+#: apps/accounts/templates/accounts/panel/panel_trial.html:154
+#: apps/accounts/templates/accounts/panel/panel_trial.html:167
+msgid "No answer yet : Text field "
+msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
+
+#: apps/accounts/templates/accounts/panel/panel_trial.html:220
+#, fuzzy
+#| msgid "Download"
+msgid "Download Dataset"
+msgstr "دانلود دادگان"
+
+#: apps/accounts/templates/accounts/panel/panel_trial.html:233
+msgid "Upload Answer"
+msgstr "بارگزاری پاسخ"
+
 #: apps/accounts/templates/accounts/panel/submissions.html:118
 #, fuzzy
 #| msgid "We are compiling your code! Wait and refresh your page."
@@ -399,7 +472,7 @@ msgstr "ما در حال کامپایل کردن کد شما هستیم. صبر 
 
 #: apps/accounts/templates/accounts/panel/submissions.html:119
 msgid "Uploading"
-msgstr ""
+msgstr "در حال بارگزاری"
 
 #: apps/accounts/templates/accounts/panel/team_management.html:66
 msgid "You have not participated in this challenge yet."
@@ -517,12 +590,26 @@ msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
 #: apps/accounts/views/panel.py:69
-msgid "Friendly Scoreboard"
-msgstr "رده‌بندی دوستانه"
+#, fuzzy
+#| msgid "Scoreboard"
+msgid "Score Board"
+msgstr "جدول امتیازات"
 
-#: apps/accounts/views/panel.py:82
-msgid "League"
-msgstr "لیگ"
+#: apps/accounts/views/panel.py:304
+#, fuzzy
+#| msgid "You have to be one of participants."
+msgid "You have one active trial."
+msgstr "شما باید یکی از طرفین باشید."
+
+#: apps/accounts/views/panel.py:309
+msgid "You can not get any new trial."
+msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
+
+#~ msgid "Friendly Scoreboard"
+#~ msgstr "رده‌بندی دوستانه"
+
+#~ msgid "League"
+#~ msgstr "لیگ"
 
 #~ msgid "College/School"
 #~ msgstr "دانشگاه/مدرسه"
