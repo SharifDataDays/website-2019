@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-01 07:54+0330\n"
+"POT-Creation-Date: 2019-02-01 08:02+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,7 +189,7 @@ msgstr "نقشه:"
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:114
 #: apps/accounts/templates/accounts/oldpanel/submissions.html:151
 #: apps/accounts/templates/accounts/panel/battle_history.html:100
-#: apps/accounts/templates/accounts/panel/panel_trial.html:257
+#: apps/accounts/templates/accounts/panel/panel_trial.html:261
 #: apps/accounts/templates/accounts/panel/submissions.html:9
 #: apps/accounts/templates/accounts/panel/submissions.html:41
 msgid "Submit"
@@ -438,11 +438,11 @@ msgstr "دانلود دادگان"
 msgid "Upload Answer"
 msgstr "بارگزاری پاسخ"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:148
-#: apps/accounts/templates/accounts/panel/panel_trial.html:185
-#: apps/accounts/templates/accounts/panel/panel_trial.html:217
-#: apps/accounts/templates/accounts/panel/panel_trial.html:230
-#: apps/accounts/templates/accounts/panel/panel_trial.html:243
+#: apps/accounts/templates/accounts/panel/panel_trial.html:152
+#: apps/accounts/templates/accounts/panel/panel_trial.html:189
+#: apps/accounts/templates/accounts/panel/panel_trial.html:221
+#: apps/accounts/templates/accounts/panel/panel_trial.html:234
+#: apps/accounts/templates/accounts/panel/panel_trial.html:247
 msgid "No answer yet : Text field"
 msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
 
