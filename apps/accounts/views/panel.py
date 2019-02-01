@@ -345,6 +345,7 @@ def get_new_trial(request, phase_id):
                         trial__team=team_pc)
 
                 if instruction.model_name == 'Question':
+                    print(instruction.type)
                     selectable_questions = selectable_questions.filter(type=instruction.type)
 
                 questions = list(selectable_questions)
