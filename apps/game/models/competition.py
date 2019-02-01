@@ -79,14 +79,14 @@ class Question(models.Model):
     stmt = models.CharField(max_length=500)
     correct_answer = models.CharField(max_length=200)
     max_score = models.FloatField(default=0, null=True)
-    type = models.CharField(max_length=200, blank=True, choices=TYPE_CHOICES)
-    ui_type = models.CharField(max_length=200, blank=True, choices=UI_TYPE_CHOICES)
+    type = models.CharField(max_length=200, blank=True, choices=TYPE_CHOICES, default='single_answer')
+    ui_type = models.CharField(max_length=200, blank=True, choices=UI_TYPE_CHOICES, default='text_string')
     level = models.CharField(max_length=200, choices=LEVEL_CHOICES, blank=True, null=True)
 
     def __str__(self):
-        self.type = 'single_answer'
-        self.ui_type = 'text_string'
-        return str('%s: %s: %s: %s' % (self.type, self.stmt, self.doc_id, self.max_score))
+        # self.type = 'single_answer'
+        # self.ui_type = 'text_string'
+        return str('%s: %s: %s: %s' % ('single_answer', self.stmt, self.doc_id, self.max_score))
 
 
 class MultipleChoiceQuestion(Question):
@@ -95,7 +95,7 @@ class MultipleChoiceQuestion(Question):
 
     def save(self):
         self.type = 'multiple_choice'
-        # self.ui_type = 'choices'
+        self.ui_type = 'choices'
         super(MultipleChoiceQuestion, self).save()
 
 
