@@ -336,7 +336,7 @@ def get_new_trial(request, phase_id):
                 questions = questions[0]
                 questions.is_chosen = True
                 questions.save()
-                current_trial.add(questions)
+                current_trial.questions.add(questions)
             else:
                 if len(question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)) < instruction.number:
                     selectable_questions = question_model.objects.exclude(trial__team=team_pc)
