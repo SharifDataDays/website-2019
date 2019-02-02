@@ -9,7 +9,7 @@
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
     <div class="ui" style="width: 100%; display: block">
-    <div class="ui warning message">
+    <div class="ui warning message" style="font-family: IRANSans; font-size: 1em;">
         با زدن گزینه دریافت تلاش جدیداز لحظه دریافت تنها ۵ ساعت فرصت دارید. دقت کنید در طول فاز اول مسابقه تنها ۵ تلاش می توانید داشته باشید
     </div>
      {% if error %}
