@@ -12,20 +12,21 @@
             دقت کنید در طول فاز اول مسابقه نهایتا پنج تلاش خواهید داشت
         </div>
         <div class="ui warning message" style="padding: 5%; margin-bottom: 5%; text-align: center">
-            با زدن دکمه زیر تنها پنج ساعت فرصت دارید تا جواب آن تلاش را ارسال کنید. و پس از آن نمره صفر برای تلاش ثبت می‌شود.
+            با زدن دکمه زیر تنها پنج ساعت فرصت دارید تا جواب آن تلاش را ارسال کنید. و پس از آن امتیاز صفر برای تلاش ثبت می‌شود.
         </div>
-        <div class="ui warning message" style="padding: 5%; margin-bottom: 5%; text-align: center">
-            با زدن دکمه زیر تنها پنج ساعت فرصت دارید تا جواب آن تلاش را ارسال کنید. و پس از آن نمره صفر برای تلاش ثبت می‌شود.
-        </div>
-    </div>
-    <div>
-      <a
+        <a
           class="fluid ui button teal"
           style="margin: 20px 0px"
           href="{% url 'accounts:new_trial' phase.id %}"
-      >
+        >
           {% trans 'Get a new trial' %}
       </a>
+        <div class="ui warning message" style="padding: 5%; margin-bottom: 5%; text-align: center">
+            امتیاز فاز اول مسابقه میانگین امتیاز تلاش‌ها سپ از حذف کمترین امتیاز است.
+        </div>
+    </div>
+    <div>
+
     </div>
 </div>
 
