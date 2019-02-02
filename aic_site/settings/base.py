@@ -48,6 +48,7 @@ INSTALLED_APPS += (
     'threadedcomments',
     'django_comments',
     'django.contrib.sites',
+    'django_extentions',
 )
 
 # comments
