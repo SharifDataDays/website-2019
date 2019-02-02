@@ -203,7 +203,7 @@ class QuestionSubmission(models.Model):
     question = models.ForeignKey(Question)
     value = models.CharField(max_length=1000, default=0)
     score = models.FloatField(default=0)
-    trialSubmission = models.ForeignKey('TrialSubmission', related_name='questionSubmissions')
+    trial_submission = models.ForeignKey('TrialSubmission', related_name='questionSubmissions')
 
 
 class TrialSubmission(models.Model):
