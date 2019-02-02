@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-01 20:00+0330\n"
+"POT-Creation-Date: 2019-02-02 13:45+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,43 +97,43 @@ msgstr "ناموفق!"
 msgid "This submission is not compiled yet."
 msgstr "این ارسال هنوز کامپایل نشده است."
 
-#: apps/game/models/competition.py:56 apps/game/models/competition.py:240
+#: apps/game/models/competition.py:56 apps/game/models/competition.py:248
 msgid "difficult"
 msgstr "دشوار"
 
-#: apps/game/models/competition.py:57 apps/game/models/competition.py:241
+#: apps/game/models/competition.py:57 apps/game/models/competition.py:249
 msgid "medium"
 msgstr "متوسط"
 
-#: apps/game/models/competition.py:58 apps/game/models/competition.py:242
+#: apps/game/models/competition.py:58 apps/game/models/competition.py:250
 msgid "easy"
 msgstr "آسان"
 
-#: apps/game/models/competition.py:61 apps/game/models/competition.py:245
+#: apps/game/models/competition.py:61 apps/game/models/competition.py:253
 msgid "multiple_choice"
 msgstr "چند گزینه‌ای"
 
-#: apps/game/models/competition.py:62 apps/game/models/competition.py:246
+#: apps/game/models/competition.py:62 apps/game/models/competition.py:254
 msgid "single_answer"
 msgstr "یک پاسخی"
 
-#: apps/game/models/competition.py:63 apps/game/models/competition.py:247
+#: apps/game/models/competition.py:63 apps/game/models/competition.py:255
 msgid "multiple_answer"
 msgstr "چند پاسخی"
 
-#: apps/game/models/competition.py:64 apps/game/models/competition.py:248
+#: apps/game/models/competition.py:64 apps/game/models/competition.py:256
 msgid "single_sufficient_answer"
 msgstr "یک پاسخ کافی"
 
-#: apps/game/models/competition.py:65 apps/game/models/competition.py:249
+#: apps/game/models/competition.py:65 apps/game/models/competition.py:257
 msgid "single_number"
 msgstr "عدد"
 
-#: apps/game/models/competition.py:66 apps/game/models/competition.py:250
+#: apps/game/models/competition.py:66 apps/game/models/competition.py:258
 msgid "interval_number"
 msgstr "بازه‌ی عددی"
 
-#: apps/game/models/competition.py:67 apps/game/models/competition.py:251
+#: apps/game/models/competition.py:67 apps/game/models/competition.py:259
 msgid "file_upload"
 msgstr "بارگزاری فایل"
 
@@ -161,23 +161,23 @@ msgstr "فایل"
 msgid "image_choices"
 msgstr "انتخاب تصویر"
 
-#: apps/game/models/competition.py:254
+#: apps/game/models/competition.py:262
 msgid "Question"
 msgstr "پرسش"
 
-#: apps/game/models/competition.py:255
+#: apps/game/models/competition.py:263
 msgid "IntervalQuestion"
 msgstr "پرسش بازه‌ای عددی"
 
-#: apps/game/models/competition.py:256
+#: apps/game/models/competition.py:264
 msgid "FileUploadQuestion"
 msgstr "پرسش آپلود فایل"
 
-#: apps/game/models/competition.py:257
+#: apps/game/models/competition.py:265
 msgid "MultipleAnswerQuestion"
 msgstr "پرسش چند پاسخی"
 
-#: apps/game/models/competition.py:258
+#: apps/game/models/competition.py:266
 msgid "MultipleChoiceQuestion"
 msgstr "پرسش چند گزینه‌ای"
 
