@@ -86,7 +86,7 @@ class Question(models.Model):
     def __str__(self):
         # self.type = 'single_answer'
         # self.ui_type = 'text_string'
-        return str('%s: %s: %s: %s' % ('single_answer', self.stmt, self.doc_id, self.max_score))
+        return str('%s: %s: %s: %s' % (self.type, self.stmt, self.doc_id, self.max_score))
 
 
 class MultipleChoiceQuestion(Question):
