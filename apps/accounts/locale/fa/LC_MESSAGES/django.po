@@ -404,7 +404,6 @@ msgid "Get a new trial"
 msgstr "ایجاد یک تلاش جدید"
 
 #: apps/accounts/templates/accounts/panel/panel_phase.html:21
-#, fuzzy
 msgid "Part One Score"
 msgstr "امتیاز بخش اول"
 
