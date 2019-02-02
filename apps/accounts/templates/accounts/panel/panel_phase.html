@@ -64,8 +64,11 @@
             <h4 class="ui sub header">
                 {% trans 'Score ' %}
             </h4>
+            {% if trial.score == -1 %}
             {{ trial.score|floatformat:2 }}
-
+            {% else %}
+            {% trans 'Judging ...' %}
+            {% endif %}
             {#  Filling Content Space#}
 {#            {% if forloop.counter != trials|length %}#}
 {#                <h4 class="ui sub header" style="visibility: hidden">#}
