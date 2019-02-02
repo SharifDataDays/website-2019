@@ -536,7 +536,9 @@ def save_to_storage(request, filename):
 
 @csrf_exempt
 def get_judge_response(request):
-    print(request.body)
+    print('\033[92m{}\033[0m'.format(request.body))
+    print('\033[92m{}\033[0m'.format(request.json))
+    print('\033[92m{}\033[0m'.format(request.POST))
     json_data = json.loads(request.body.decode('utf-8'))
     print('\033[92m{}\033[0m'.format(json_data))
     team_id = json_data['team_id']
