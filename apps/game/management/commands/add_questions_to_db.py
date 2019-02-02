@@ -164,7 +164,7 @@ def numeric_add(question_id, question_type, definition, choices, answer, skill, 
     question.correct_answer = answer
     question.group_id = group_id
     question.doc_id = question_id
-    question.type = 'single_answer'
+    question.type = 'single_number'
     question.ui_type = 'text_number'
 
     question.level = diff_map[difficulty]
