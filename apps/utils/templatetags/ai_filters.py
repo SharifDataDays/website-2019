@@ -1,5 +1,6 @@
 from django import template
 from apps.utils import jalali
+import random
 
 register = template.Library()
 
@@ -21,3 +22,10 @@ def georgian_to_jalali(value):
                 value = part
                 break
     return jalali.Gregorian(value).persian_string()
+
+
+@register.filter
+def shuffle(arg):
+    tmp = list(arg)[:]
+    random.shuffle(tmp)
+    return tmp
