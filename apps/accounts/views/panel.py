@@ -392,11 +392,10 @@ def render_trial(request, phase_id, trial_id, error=None):
                 'numeric_questions': list(trial.questions.filter(type='single_number')),
                 'interval_questions': list(trial.questions.filter(type='interval_number')),
                 'text_questions': list(trial.questions.filter(type='single_answer')),
-                'choices': list(trial.questions.filter(type='multiple_choice')),
+                'choices': list(trial.questions.filter(type='multiple_choice').order_by('max_score')),
                 'multiple': list(trial.questions.filter(type='multiple_answer')),
                 'file_based_questions': list(trial.questions.filter(type='file_upload')),
             })
-
 
         for x in context['choices']:
             x.choices = list(Choice.objects.filter(question_id=x.id).all())
