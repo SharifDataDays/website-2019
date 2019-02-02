@@ -496,7 +496,7 @@ def submit_trial(request, phase_id, trial_id):
         trialSubmit.score = -1
         trialSubmit.save()
         if qusu is not None:
-            qusu.trialSubmission = trialSubmit
+            qusu.trial_submission = trialSubmit
             qusu.save()
 
         # intiated by far
@@ -519,7 +519,7 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.value = khar[x]
             if questionSubmit.value is None:
                 return redirect("accounts:panel_trial", phase_id, trial_id, error="همه فیلد ها را لطفا پر کنید.")
-            questionSubmit.trialSubmission = trialSubmit
+            questionSubmit.trial_submission = trialSubmit
             questionSubmit.save()
         trialSubmit.upload()
 
@@ -554,7 +554,10 @@ def get_judge_response(request):
     trial = Trial.objects.get(id=trial_id)
     trial.score = 0
     for i in range(len(submissions)):
-        trial.score += submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
+        question_submission = QuestionSubmission.objects.get(trial_submission__trial_id=trial_id, question__doc_id=submissions[i]['question_id'])
+        question_submission.score = submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
+        question_submission.save()
+        trial.score += question_submission.score
     trial.save()
     return JsonResponse({'status': 'succeeded'})
 
