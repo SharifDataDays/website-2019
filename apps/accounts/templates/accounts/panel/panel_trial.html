@@ -12,10 +12,11 @@
 
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
-    <div class="ui" style="width: 100%; display: block">
+    <div class="ui success message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
 
+	   Trial {{ id }}
 
-    {{ id }}
+    </div>
     <div style="margin 0 0 45px 0">
      {% if error %}
          <div class="ui negative message" style="font-family: IRANSans; font-weight: 200">{{error}}</div>

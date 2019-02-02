@@ -7,25 +7,26 @@
 {#  Get New Trial Button #}
 <div>
     <div class="ui" style="font-family: IRANSans; font-weight: 200; border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
-        <div class="ui warning message" style="padding: 5%; margin-bottom: 5%; text-align: center">
+        <div class="ui warning message" style="padding: 5%; text-align: center">
 
             دقت کنید در طول فاز اول مسابقه نهایتا پنج تلاش خواهید داشت
+            <br>
+            <br>
+            با زدن دکمه زیر تنها پنج ساعت فرصت دارید تا جواب تلاش تولیدشده را ارسال کنید. و پس از آن امتیاز صفر برای تلاش ثبت می‌شود.
         </div>
-        <div class="ui warning message" style="padding: 5%; margin-bottom: 5%; text-align: center">
-            با زدن دکمه زیر تنها پنج ساعت فرصت دارید تا جواب آن تلاش را ارسال کنید. و پس از آن نمره صفر برای تلاش ثبت می‌شود.
-        </div>
-        <div class="ui warning message" style="padding: 5%; margin-bottom: 5%; text-align: center">
-            با زدن دکمه زیر تنها پنج ساعت فرصت دارید تا جواب آن تلاش را ارسال کنید. و پس از آن نمره صفر برای تلاش ثبت می‌شود.
-        </div>
-    </div>
-    <div>
-      <a
+        <a
           class="fluid ui button teal"
           style="margin: 20px 0px"
           href="{% url 'accounts:new_trial' phase.id %}"
-      >
+        >
           {% trans 'Get a new trial' %}
       </a>
+        <div class="ui warning message" style="padding: 5%; text-align: center">
+            امتیاز فاز اول مسابقه میانگین امتیاز تلاش‌ها پس از حذف کمترین امتیاز است.
+        </div>
+    </div>
+    <div>
+
     </div>
 </div>
 
@@ -48,7 +49,7 @@
         {% endif %}
         <div class="content">
             <div class="header">
-                {% trans 'Trial' %} #{{ forloop.revcounter }}
+                {% trans 'Trial' %} {{ forloop.revcounter }}
             </div>
         </div>
         <div class="content">
