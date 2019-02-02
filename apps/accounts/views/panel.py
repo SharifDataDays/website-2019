@@ -26,7 +26,7 @@ from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competit
     Choice, TrialSubmission, QuestionSubmission
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 
-DIR_DATASET = '/home/mrtaalebi/tds'
+DIR_DATASET = '/home/datadays/tds'
 
 
 @login_required
