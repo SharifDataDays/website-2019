@@ -187,7 +187,7 @@ class Trial(models.Model):
             type = question.question.type
             if type == 'file_upload':
                 score[0] += question.score
-            elif type == 'multiple_choices':
+            elif type == 'multiple_choice':
                 score[1] += question.score
             else:
                 score[2] += question.score
