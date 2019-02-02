@@ -65,9 +65,9 @@
                 {% trans 'Score ' %}
             </h4>
             {% if trial.score == -1 %}
-            {{ trial.score|floatformat:2 }}
+                {% trans 'Judging ...' %}
             {% else %}
-            {% trans 'Judging ...' %}
+                {{ trial.score|floatformat:2 }}
             {% endif %}
             {#  Filling Content Space#}
 {#            {% if forloop.counter != trials|length %}#}
