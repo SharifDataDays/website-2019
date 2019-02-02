@@ -196,8 +196,13 @@ def get_total_score(team_id):
         scores = []
         for trial in trials:
             scores.append(trial.score)
-        scores.remove(min(scores))
-        result[phase.name] = float("{0:.2f}".format(sum(scores) / len(scores)))
+        if len(scores) == 0:
+            result[phase.name] = 0
+        elif len(scores) == 1:
+            result[phase.name] = float("{0:.2f}".format(scores[0]))
+        else:
+            scores.remove(min(scores))
+            result[phase.name] = float("{0:.2f}".format(sum(scores) / len(scores)))
         result[0] += result[phase.name]
     return result
 
