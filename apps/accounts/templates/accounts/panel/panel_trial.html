@@ -6,7 +6,9 @@
 
 {% block panel_content %}
 
-
+    <p>
+        {{ khar }}
+    </p>
 
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
@@ -155,37 +157,7 @@
     </div>
 
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
-    {# Numeric Single-Answer Questions #}
-    <div style="margin:0 0 45px 0 ">
-        {% for question in numeric_questions %}
-            <div class="field" style="margin:0 0 15px 0">
-                <div class="ui top attached header" style="
-                                margin:0;
-                                height: auto;
-                                display: block;
-                                word-wrap: break-word;
-                                white-space: normal;
-                                background-color: #e8e8e8;
-                            ">
-                     {{ question.stmt }}
-                </div>
-                <div class="ui attached input fluid" style="padding:0;">
-                    <input
-                       required
-                       type="text"
-                       step="0.00000000001"
-                       name="{{ trial.id  }}_{{ question.id }}"
-                       style="margin:0;
-                                border-radius: 0 0 .28571429rem .28571429rem;
-                                border:1px solid #d4d4d5;
-                                border-top-color: transparent;
-                              "
-                       placeholder="{% trans 'No answer yet : Text field' %}"
-                    >
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+
 
      <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
@@ -203,6 +175,38 @@
 : برای سوالات عددی،‌ پاسخ خود را به صورت عدد (و نه نوشتار) وارد کنید و برای سوالات متنی پاسخ خود را فقط به صورت فارسی (و نه فینگلیش یا انگلیسی) وارد کنید.
 
         </div>
+
+         {# Numeric Single-Answer Questions #}
+    <div style="margin:0 0 45px 0 ">
+        {% for question in numeric_questions %}
+            <div class="field" style="margin:0 0 15px 0">
+                <div class="ui top attached header" style="
+                                margin:0;
+                                height: auto;
+                                display: block;
+                                word-wrap: break-word;
+                                white-space: normal;
+                                background-color: #e8e8e8;
+                            ">
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached input fluid" style="padding:0;">
+                    <input
+                       required
+                       type="number"
+                       step="0.00000000001"
+                       name="{{ trial.id  }}_{{ question.id }}"
+                       style="margin:0;
+                                border-radius: 0 0 .28571429rem .28571429rem;
+                                border:1px solid #d4d4d5;
+                                border-top-color: transparent;
+                              "
+                       placeholder="{% trans 'No answer yet : Text field' %}"
+                    >
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
     {# Text-Only Short-Answer Questions #}
     <div style="margin: 45px 0">

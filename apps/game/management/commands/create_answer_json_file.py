@@ -163,7 +163,7 @@ FUNCTION_MAP = {
     "single_answer": answer_single_answer,
     "multiple_answer": answer_multiple_answer,
     "single_number": answer_single_number,
-    "INTERVAL_NUMBER": answer_interval_number,
+    "interval_number": answer_interval_number,
 }
 
 
