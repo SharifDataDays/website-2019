@@ -88,19 +88,15 @@
                             "
                     >
                         <div style="font-family: IRANSans">
-                        <i class="upload icon huge">
-                        <div style="font-size: 1em">
-                            {% trans 'Upload Answer' %}
-                        </div>
+                            <i class="upload icon huge"></i>
                         <input
                                type="file"
                                class="link"
                                name="{{ trial.id  }}_{{ question.id }}"
                                accept="text/plain"
                                required
-                               style="display: none"
                         >
-                        </i>
+                            {% trans 'Upload Answer' %}
                         </div>
                     </div>
                 </div>
