@@ -517,7 +517,7 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.question = question
             questionSubmit.value = khar[x]
             if questionSubmit.value is None:
-                return redirect("accounts:panel_trial", phase_id, trial_id, error="بابا پر کن اون بی صاحابو")
+                return redirect("accounts:panel_trial", phase_id, trial_id, error="همه فیلد ها را لطفا پر کنید.")
             questionSubmit.trialSubmission = trialSubmit
             questionSubmit.save()
         trialSubmit.upload()
