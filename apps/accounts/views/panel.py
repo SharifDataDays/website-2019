@@ -338,15 +338,16 @@ def get_new_trial(request, phase_id):
                 questions.save()
                 current_trial.questions.add(questions)
             else:
-                if len(question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)) < instruction.number:
-                    selectable_questions = question_model.objects.exclude(trial__team=team_pc)
+                if instruction.model_name == 'Question':
+                    selectable_questions = question_model.objects.filter(type=instruction.type)
                 else:
-                    selectable_questions = question_model.objects.filter(level=instruction.level).exclude(
+                    selectable_questions = question_model.objects
+
+                if len(question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)) < instruction.number:
+                    selectable_questions = selectable_questions.exclude(trial__team=team_pc)
+                else:
+                    selectable_questions = selectable_questions.filter(level=instruction.level).exclude(
                         trial__team=team_pc)
-                #
-                # if instruction.model_name == 'Question':
-                #     print(instruction.type)
-                #     selectable_questions = selectable_questions.filter(type=instruction.type)
 
                 questions = list(selectable_questions)
                 random.shuffle(questions)
