@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-02 13:45+0330\n"
+"POT-Creation-Date: 2019-02-02 14:42+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -190,7 +190,7 @@ msgstr "نقشه:"
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:114
 #: apps/accounts/templates/accounts/oldpanel/submissions.html:151
 #: apps/accounts/templates/accounts/panel/battle_history.html:100
-#: apps/accounts/templates/accounts/panel/panel_trial.html:342
+#: apps/accounts/templates/accounts/panel/panel_trial.html:341
 #: apps/accounts/templates/accounts/panel/submissions.html:9
 #: apps/accounts/templates/accounts/panel/submissions.html:41
 msgid "Submit"
@@ -427,27 +427,31 @@ msgstr "هنوز هیچ ارسالی انجام نداده‌اید"
 msgid "Score "
 msgstr "امتیاز"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:84
+#: apps/accounts/templates/accounts/panel/panel_phase.html:70
+msgid "Judging ..."
+msgstr "در حال داوری ..."
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:87
 msgid "View Trial"
 msgstr "مشاهده‌ی تلاش"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:77
+#: apps/accounts/templates/accounts/panel/panel_trial.html:76
 msgid "Download Dataset"
 msgstr "دانلود دادگان"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:90
+#: apps/accounts/templates/accounts/panel/panel_trial.html:89
 msgid "Upload Answer"
 msgstr "بارگزاری پاسخ"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:197
+#: apps/accounts/templates/accounts/panel/panel_trial.html:196
 msgid "No answer yet : Number field"
 msgstr "هنوز پاسخی نداده‌اید: مقدار عددی"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:230
-#: apps/accounts/templates/accounts/panel/panel_trial.html:267
-#: apps/accounts/templates/accounts/panel/panel_trial.html:299
-#: apps/accounts/templates/accounts/panel/panel_trial.html:312
-#: apps/accounts/templates/accounts/panel/panel_trial.html:325
+#: apps/accounts/templates/accounts/panel/panel_trial.html:229
+#: apps/accounts/templates/accounts/panel/panel_trial.html:266
+#: apps/accounts/templates/accounts/panel/panel_trial.html:298
+#: apps/accounts/templates/accounts/panel/panel_trial.html:311
+#: apps/accounts/templates/accounts/panel/panel_trial.html:324
 msgid "No answer yet : Text field"
 msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
 
