@@ -495,7 +495,7 @@ def submit_trial(request, phase_id, trial_id):
         trialSubmit.score = -1
         trialSubmit.save()
         if qusu is not None:
-            qusu.trialSubmission = trialSubmit
+            qusu.trial_submission = trialSubmit
             qusu.save()
 
         # intiated by far
@@ -518,7 +518,7 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.value = khar[x]
             if questionSubmit.value is None:
                 return redirect("accounts:panel_trial", phase_id, trial_id, error="همه فیلد ها را لطفا پر کنید.")
-            questionSubmit.trialSubmission = trialSubmit
+            questionSubmit.trial_submission = trialSubmit
             questionSubmit.save()
         trialSubmit.upload()
 

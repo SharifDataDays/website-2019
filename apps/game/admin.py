@@ -44,7 +44,7 @@ class TrialAdmin(admin.ModelAdmin):
 
 
 class QuestionSubmissionAdmin(admin.ModelAdmin):
-    fields = ['question', 'score', 'trialSubmission']
+    fields = ['question', 'score', 'trial_submission']
 
 
 class TrialSubmissionAdmin(admin.ModelAdmin):

@@ -181,7 +181,7 @@ class Trial(models.Model):
     @property
     def scores(self):
         submitted_trial = TrialSubmission.objects.filter(trial=self)
-        questions = QuestionSubmission.objects.filter(trialSubmission=submitted_trial)
+        questions = QuestionSubmission.objects.filter(trial_submission=submitted_trial)
         score = [0, 0, 0]
         for question in questions:
             type = question.question.type
@@ -210,7 +210,7 @@ class TrialSubmission(models.Model):
     score = models.FloatField(default=-2)
     competition = models.ForeignKey(Competition)
     trial = models.ForeignKey(Trial, null=True)
-    team = models.ForeignKey(TeamParticipatesChallenge, related_name='trialSubmissions')
+    team = models.ForeignKey(TeamParticipatesChallenge, related_name='trial_submissions')
 
     def handle(self):
         if settings.TESTING:
