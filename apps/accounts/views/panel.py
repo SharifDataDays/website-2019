@@ -397,11 +397,6 @@ def render_trial(request, phase_id, trial_id, error=None):
                 'file_based_questions': list(trial.questions.filter(type='file_upload')),
             })
 
-            context.update({'khar':
-                                str(context['numeric_questions'] + context['interval_questions'] +
-                                    context['text_questions'] + context['choices'] + context['multiple'] + context[
-                                        'file_based_questions'])})
-
 
         for x in context['choices']:
             x.choices = list(Choice.objects.filter(question_id=x.id).all())

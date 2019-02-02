@@ -6,10 +6,6 @@
 
 {% block panel_content %}
 
-    <p>
-        {{ khar }}
-    </p>
-
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
     <div class="ui" style="width: 100%; display: block">
