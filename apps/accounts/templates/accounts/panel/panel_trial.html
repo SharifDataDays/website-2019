@@ -84,18 +84,22 @@
                             flex-direction: column;
                             justify-content: center;
                             align-items: center;
+                            font-family: IRANSans
                             "
                     >
-                        <i class="upload icon huge"></i>
+                        <div style="font-family: IRANSans">
+                        <i class="upload icon huge">
                         {% trans 'Upload Answer' %}
                         <input
                                type="file"
                                class="link"
                                name="{{ trial.id  }}_{{ question.id }}"
-                               {# name="file" #}
                                accept="text/plain"
                                required
+                               style="display: none"
                         >
+                        </i>
+                        </div>
                     </div>
                 </div>
             </div>
