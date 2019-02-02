@@ -136,10 +136,7 @@
                     <div>
                   <img class="grouped fields" style="margin-top: 10px">
                       {% for choice in question.choices %}
-{#                           {% if choice.image.url %}#}
-{#                               <img src={{ choice.image.url }}>#}
-{#                           {% endif %}#}
-                          <div class="field">
+                          <div class="field" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0;">
                               <div class="ui radio checkbox" style="margin-top: 10px">
                                   <input value="{{ choice.text }}" type="radio" name="{{ trial.id  }}_{{ question.id }}" id="{{ trial.id  }}_{{ question.id }}_{{ choice.id }}">
                                   {% if choice.image and choice.image.url %}
