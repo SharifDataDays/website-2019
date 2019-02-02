@@ -542,7 +542,7 @@ def get_judge_response(request):
     phase_id = json_data['phase_id']
     trial_id = json_data['trial_id']
     submissions = json_data['submissions']
-    trial = Trial.objectsv.get(id=trial_id)
+    trial = Trial.objects.get(id=trial_id)
     trial.score = 0
     for i in range(len(submissions)):
         trial.score += submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
