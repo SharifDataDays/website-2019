@@ -386,6 +386,7 @@ def render_trial(request, phase_id, trial_id, error=None):
             'participation': team_pc,
             'phase': phase,
             'error': error,
+            'id': trial_id,
         })
         trial = Trial.objects.filter(id=trial_id).all()
         if len(trial) is 0:
