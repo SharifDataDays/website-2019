@@ -189,12 +189,15 @@ def render_panel_phase_scoreboard(request):
 
 
 def get_total_score(team_id):
-    result = {}
-    result[0] = 0
+    result = {0: 0}
     for phase in Competition.objects.all():
         result[phase.name] = 0
-        for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase):
-            result[phase.name] += trial.score
+        trials = Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase).all()
+        scores = []
+        for trial in trials:
+            scores.append(trial.score)
+        scores.remove(min(scores))
+        result[phase.name] = float("{0:.2f}".format(sum(scores) / len(scores)))
         result[0] += result[phase.name]
     return result
 
