@@ -177,6 +177,7 @@ class Trial(models.Model):
         if not(self.submit_time is None) or self.end_time < timezone.now():
             return False
         return True
+
     @property
     def scores(self):
         submitted_trial = TrialSubmission.objects.filter(trial=self)
@@ -184,9 +185,9 @@ class Trial(models.Model):
         score = [0, 0, 0]
         for question in questions:
             type = question.question.type
-            if type == 'file':
+            if type == 'file_upload':
                 score[0] += question.score
-            elif type == 'choices':
+            elif type == 'multiple_choices':
                 score[1] += question.score
             else:
                 score[2] += question.score
