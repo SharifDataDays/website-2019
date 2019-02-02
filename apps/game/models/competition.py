@@ -164,10 +164,10 @@ class Trial(models.Model):
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials', null=True)
     dataset_link = models.CharField(max_length=600, blank=True, null=True)
 
-    # def save(self, *args, **kwargs):
-    #     super(Trial, self).save()
-    #     self.end_time = self.start_time + datetime.timedelta(hours=self.competition.trial_duration)
-    #     super(Trial, self).save()
+    def save(self, *args, **kwargs):
+       super(Trial, self).save()
+       self.end_time = self.start_time + datetime.timedelta(hours=self.competition.trial_duration)
+       super(Trial, self).save()
 
     def __str__(self):
         return str('%s Trial number %d' %(self.competition, self.id))
