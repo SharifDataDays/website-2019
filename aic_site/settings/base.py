@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'apps.billing',
     'apps.game',
     'apps.modir',
-    'apps.utils'
+    'apps.utils'    
 ]
 
 INSTALLED_APPS += (
