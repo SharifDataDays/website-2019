@@ -553,7 +553,10 @@ def get_judge_response(request):
     trial = Trial.objects.get(id=trial_id)
     trial.score = 0
     for i in range(len(submissions)):
-        trial.score += submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
+        question_submission = QuestionSubmission.objects.get(trial_submission__trial_id=trial_id, question__doc_id=submissions[i]['question_id'])
+        question_submission.score = submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
+        question_submission.save()
+        trial.score += question_submission.score
     trial.save()
     return JsonResponse({'status': 'succeeded'})
 
