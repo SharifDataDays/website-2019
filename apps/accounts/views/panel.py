@@ -370,7 +370,7 @@ def get_new_trial(request, phase_id):
 
 
 @login_required
-def render_trial(request, phase_id, trial_id, error=None):
+def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
@@ -385,7 +385,6 @@ def render_trial(request, phase_id, trial_id, error=None):
         context.update({
             'participation': team_pc,
             'phase': phase,
-            'error': error,
             'id': len(Trial.objects.filter(team=team_pc, competition=phase)),
         })
         trial = Trial.objects.filter(id=trial_id).all()
@@ -520,7 +519,7 @@ def submit_trial(request, phase_id, trial_id):
             if questionSubmit.value == '':
                 trial.submit_time = None
                 trial.save()
-                return redirect("accounts:panel_trial", phase_id, trial_id, "همه فیلد ها را لطفا پر کنید.")
+                return redirect("accounts:panel_trial", phase_id, trial_id)
             questionSubmit.trial_submission = trialSubmit
             questionSubmit.save()
         trialSubmit.upload()
