@@ -193,7 +193,6 @@ class Trial(models.Model):
                 score[2] += question.score
         return score
 
-
     class Meta:
         ordering = ('-pk',)
 
