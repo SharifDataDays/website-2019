@@ -517,7 +517,7 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit = QuestionSubmission()
             questionSubmit.question = question
             questionSubmit.value = khar[x]
-            if questionSubmit.value is None:
+            if questionSubmit.value == '':
                 trial.submit_time = None
                 trial.save()
                 return redirect("accounts:panel_trial", phase_id, trial_id, error="همه فیلد ها را لطفا پر کنید.")
