@@ -453,7 +453,7 @@ msgstr "دانلود دادگان"
 
 #: apps/accounts/templates/accounts/panel/panel_trial.html:89
 msgid "Upload Answer"
-msgstr "بارگزاری پاسخ"
+msgstr "بارگذاری پاسخ"
 
 #: apps/accounts/templates/accounts/panel/panel_trial.html:196
 msgid "No answer yet : Number field"
@@ -473,7 +473,7 @@ msgstr "ما در حال کامپایل کردن کد شما هستیم. صبر 
 
 #: apps/accounts/templates/accounts/panel/submissions.html:119
 msgid "Uploading"
-msgstr "در حال بارگزاری"
+msgstr "در حال بارگذاری"
 
 #: apps/accounts/templates/accounts/panel/team_management.html:66
 msgid "You have not participated in this challenge yet."
