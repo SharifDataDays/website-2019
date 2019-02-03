@@ -520,7 +520,7 @@ def submit_trial(request, phase_id, trial_id):
             if questionSubmit.value == '':
                 trial.submit_time = None
                 trial.save()
-                return redirect("accounts:panel_trial", phase_id, trial_id, error="همه فیلد ها را لطفا پر کنید.")
+                return redirect("accounts:panel_trial", phase_id, trial_id, "همه فیلد ها را لطفا پر کنید.")
             questionSubmit.trial_submission = trialSubmit
             questionSubmit.save()
         trialSubmit.upload()
