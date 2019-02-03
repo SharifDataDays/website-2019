@@ -592,16 +592,17 @@ def get_dataset(request, phase_id, trial_id):
             if question is None:
                 return redirect('accounts:panel_phase', phase_id)
             link = '{}/{}.csv'.format(DIR_DATASET, question.correct_answer)
-                #    try:
-                #        trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
-                #    except Exception as e:
-                #        phase.dataset_counter = 0
-                #        phase.save()
-                #        i = 0
-                #        trial.dataset_link = '{}/{}'.format(DIR_DATASET, os.listdir(DIR_DATASET)[i])
-                #    trial.save()
             print("\033[92mdatasetlink {}\033[0m".format(link))
             with open(link, 'rb') as pdf:
                 response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
                 response['Content-Disposition'] = 'attachment;filename=dataset.csv'
                 return response
+
+
+def get_brands(request):
+    link = '/home/datadays/brands.txt'
+    print("\033[92mdatasetlink {}\033[0m".format(link))
+    with open(link, 'rb') as pdf:
+        response = HttpResponse(content=pdf.read(), content_type='text/txt', charset='utf8')
+        response['Content-Disposition'] = 'attachment;filename=brands.txt'
+        return response
