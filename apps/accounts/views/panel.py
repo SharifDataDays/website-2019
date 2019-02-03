@@ -161,7 +161,9 @@ def sortSecond(val):
 
 @login_required
 def render_panel_phase_scoreboard(request):
-    phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
+    # phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
+    submissions = TrialSubmission.objects.filter(competition__challenge=Challenge.objects.all()[0])
+    phase_scoreboard = TeamParticipatesChallenge.objects.filter(trial_submissions__in=list(submissions)).distinct()
     ranks = []
     context = get_shared_context(request)
     for item in context['menu_items']:
