@@ -239,7 +239,7 @@ def render_phase(request, phase_id):
             is_team_completed = True
         else:
             is_team_completed = False
-        trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
+        trials = (Trial.objects.filter(team_id=team_pc.id, competition=phase))
 
         context.update({
             'is_team_completed': is_team_completed,
