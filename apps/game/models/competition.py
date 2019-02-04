@@ -183,14 +183,17 @@ class Trial(models.Model):
         submitted_trial = TrialSubmission.objects.filter(trial=self)
         questions = QuestionSubmission.objects.filter(trial_submission=submitted_trial)
         score = [0, 0, 0]
-        for question in questions:
-            type = question.question.type
-            if type == 'file_upload':
-                score[0] += question.score
-            elif type == 'multiple_choice':
-                score[1] += question.score
-            else:
-                score[2] += question.score
+        try:
+            for question in questions:
+                type = question.question.type
+                if type == 'file_upload':
+                    score[0] += question.score
+                elif type == 'multiple_choice':
+                    score[1] += question.score
+                else:
+                    score[2] += question.score
+        except:
+            pass
         return score
 
     class Meta:
