@@ -34,11 +34,11 @@
 {# Trials List #}
     {% for trial in trials %}
         <div class="ui button center aligned one column grid" style="background-color: transparent!important; margin-bottom: 7%; margin-top:3%" data-tooltip="{% trans 'Part One Score' %}:
-                {{ trial.scores0 }},
+                {{ trial|score:'1' }},
                 {% trans 'Part Two Score' %}:
-                {{ trial.scores1 }},
+                {{ trial|score:'2' }},
                 {% trans 'Part Three Score' %}:
-                {{ trial.scores2 }}" data-position="bottom center">
+                {{ trial|score:'3' }}" data-position="bottom center">
         <div>
             {# Trial Card : (active -> last one) #}
         {% if trial.view_trial %}
