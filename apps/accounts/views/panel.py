@@ -239,7 +239,7 @@ def render_phase(request, phase_id):
             is_team_completed = True
         else:
             is_team_completed = False
-        trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
+        trials = (Trial.objects.filter(team_id=team_pc.id, competition=phase))
 
         context.update({
             'is_team_completed': is_team_completed,
@@ -486,6 +486,8 @@ def submit_trial(request, phase_id, trial_id):
                 qusu.question = qufi
                 qusu.value = file_full_path
         print(clean)
+        if trial.submit_time is not None:
+            return redirect('accounts:panel_phase', phase.id)
         trial.submit_time = timezone.now()
         trial.save()
         trialSubmit = TrialSubmission()

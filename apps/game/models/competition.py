@@ -179,19 +179,36 @@ class Trial(models.Model):
         return True
 
     @property
-    def scores(self):
+    def scores0(self):
         submitted_trial = TrialSubmission.objects.filter(trial=self)
         questions = QuestionSubmission.objects.filter(trial_submission=submitted_trial)
-        score = [0, 0, 0]
+        score = 0
+        for question in questions:
+            if question.question.type == 'file_upload':
+                score += question.score
+        return score
+
+    @property
+    def scores1(self):
+        submitted_trial = TrialSubmission.objects.filter(trial=self)
+        questions = QuestionSubmission.objects.filter(trial_submission=submitted_trial)
+        score = 0
+        for question in questions:
+            if question.question.type == 'multiple_choice':
+                score += question.score
+        return score
+
+    @property
+    def scores2(self):
+        submitted_trial = TrialSubmission.objects.filter(trial=self)
+        questions = QuestionSubmission.objects.filter(trial_submission=submitted_trial)
+        score = 0
         for question in questions:
             type = question.question.type
-            if type == 'file_upload':
-                score[0] += question.score
-            elif type == 'multiple_choice':
-                score[1] += question.score
-            else:
-                score[2] += question.score
+            if type != 'multiple_choice' and type != 'file_upload':
+                score += question.score
         return score
+
 
     class Meta:
         ordering = ('-pk',)
