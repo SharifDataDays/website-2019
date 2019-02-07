@@ -486,6 +486,8 @@ def submit_trial(request, phase_id, trial_id):
                 qusu.question = qufi
                 qusu.value = file_full_path
         print(clean)
+        if trial.submit_time is not None:
+            return redirect('accounts:panel_phase', phase.id)
         trial.submit_time = timezone.now()
         trial.save()
         trialSubmit = TrialSubmission()
