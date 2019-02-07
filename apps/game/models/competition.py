@@ -223,7 +223,10 @@ class TrialSubmission(models.Model):
             if q.type is 'file_upload':
                 question_context['submitted_answer'] = q.upload_url
             else:
-                question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value
+                try:
+                    question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value
+                except:
+                    print('empty question submitted. ignoring')
             context['submissions'].append(question_context)
         print(context)
         context['dataset_number']=12
