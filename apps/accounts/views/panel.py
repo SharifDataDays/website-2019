@@ -63,7 +63,7 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
-        {'name': 'render_panel_phase_scoreboard', 'link': reverse('accounts:scoreboard_total'), 'text': _('Scoreboard')}
+        {'name': 'render_panel_phases_scoreboard', 'link': reverse('accounts:scoreboard_total'), 'text': _('Scoreboard')}
     ]
 
     if request.user.profile:
@@ -79,6 +79,15 @@ def get_shared_context(request):
                             comp.id
                         ]),
                         'text': _(comp.name)
+                    }
+                )
+                context['menu_items'].append(
+                    {
+                        'name': comp.name+" scoreboard",
+                        'link': reverse('accounts:phase_scoreboard', args=[
+                            comp.id
+                        ]),
+                        'text': _(comp.name+" scoreboard")
                     }
                 )
     context.update({
@@ -160,16 +169,16 @@ def sortSecond(val):
 
 
 @login_required
-def render_panel_phase_scoreboard(request):
+def render_panel_phases_scoreboard(request):
     # phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
     submissions = TrialSubmission.objects.filter(competition__challenge=Challenge.objects.all()[0])
-    phase_scoreboard = TeamParticipatesChallenge.objects.filter(trial_submissions__in=list(submissions)).distinct()
+    scoreboard = TeamParticipatesChallenge.objects.filter(trial_submissions__in=list(submissions)).distinct()
     ranks = []
     context = get_shared_context(request)
     for item in context['menu_items']:
         if item['name'] == 'render_panel_phase_scoreboard':
             item['active'] = True
-    for team in phase_scoreboard:
+    for team in scoreboard:
         profiles = Profile.objects.filter(panel_active_teampc=team)
         members = []
         for prof in profiles:
@@ -177,7 +186,7 @@ def render_panel_phase_scoreboard(request):
         temp = (team.team.name, get_total_score(team.id), 0, Profile.objects.filter(panel_active_teampc=team))
         ranks.append(temp)
     ranks.sort(key=sortSecond, reverse=True)
-    for i in range(0, len(phase_scoreboard)):
+    for i in range(0, len(scoreboard)):
         x = list(ranks[i])
         x[2] = i + 1
         ranks[i] = tuple(x)
@@ -246,6 +255,49 @@ def render_phase(request, phase_id):
         })
 
     return render(request, 'accounts/panel/panel_phase.html', context)
+
+
+@login_required
+def render_phase_scoreboard(request,phase_id):
+    phase = Competition.objects.get(id=phase_id)
+    phase_scoreboard = TeamParticipatesChallenge.objects.filter()
+    ranks = []
+    context = get_shared_context(request)
+    for item in context['menu_items']:
+        if item['name'] == phase.name+' scoreboard':
+            item['active'] = True
+    for team in phase_scoreboard:
+        temp = (team.team.name, get_score(team.id,phase), 0,Profile.objects.filter(panel_active_teampc=team))
+        ranks.append(temp)
+    ranks.sort(key=sortPhase, reverse=True)
+    for i in range(0, len(phase_scoreboard)):
+        x = list(ranks[i])
+        x[2] = i + 1
+        ranks[i] = tuple(x)
+    context.update({
+        'teams': ranks,
+        'phase':phase
+    })
+    return render(request, 'accounts/panel/phase_table.html', context)
+
+
+def sortPhase(val):
+    return val[1]
+
+def get_score(team_id,phase):
+    result = 0
+    import sys
+    min = sys.maxsize
+    for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase):
+        if min >= trial.score:
+            min = trial.score
+        result+= trial.score
+    if min != sys.maxsize:
+        result-=min
+    if len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase)) != 0:
+        result = int(result/len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase)))
+    return result
+
 
 
 @login_required
