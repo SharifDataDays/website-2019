@@ -5,12 +5,15 @@ from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.core.validators import RegexValidator
+from django.forms import Textarea, EmailInput, TextInput
 from django.forms.models import ModelForm
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
-from apps.accounts.models import Profile
+from zinnia.admin.widgets import MiniTextarea, MPTTFilteredSelectMultiple
+
+from apps.accounts.models import Profile, Mail
 from apps.accounts.tokens import account_activation_token
 from captcha.fields import ReCaptchaField
 
@@ -106,3 +109,15 @@ class UpdateProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ('first_name', 'last_name', 'email','phone_number','age', 'password1', 'password2')
+
+
+class MailAdminForm(ModelForm):
+
+    class Meta:
+        model = Mail
+        fields = '__all__'
+        widgets = {
+            'html': Textarea(),
+            'from_email': EmailInput(),
+            'title': TextInput()
+        }
