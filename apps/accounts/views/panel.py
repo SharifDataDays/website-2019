@@ -288,13 +288,22 @@ def get_score(team_id,phase):
     result = 0
     import sys
     min = sys.maxsize
+    if phase.final == True:
+        final = True
+    else:
+        final = False
     for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase):
-        if min >= trial.score:
-            min = trial.score
-        result+= trial.score
-    if min != sys.maxsize:
+        if final:
+            if trial.is_final == True:
+                result = trial.score
+                break
+        else:
+            if min >= trial.score:
+                min = trial.score
+            result+= trial.score
+    if min != sys.maxsize and final == False:
         result-=min
-    if len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase)) != 0:
+    if final==False and len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase)) != 0:
         result = int(result/len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase)))
     return result
 
@@ -710,12 +719,15 @@ def get_new_trial_phase_2(request, phase_id):
     return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
 
 
+
 @login_required
-def show_submissions(request, trial_id):
+def set_final_trial(request, phase_id, trial_id):
     trial = Trial.objects.get(id=trial_id)
     if trial is None:
         return render(request, '404.html')
-    phase = trial.competition
+    phase = Competition.objects.get(id=phase_id)
+    if phase is None:
+        return render(request, '404.html')
     team_pc = get_team_pc(request)
     if team_pc is None:
         return redirect_to_somewhere_better(request)
@@ -726,51 +738,22 @@ def show_submissions(request, trial_id):
     context.update({
         'participation': team_pc,
         'phase': phase,
-        'trial': trial,
     })
-    submissions = TrialSubmission.objects.filter(trial=trial)
-    final_sub = submissions.filter(is_final=True)[0]
-    context.update({
-        'submissions': submissions,
-        'final_sub': final_sub,
-    })
-    return render()#todo
-
-
-
-@login_required
-def set_final_submission(request, trial_id, submission_id):
-    trial = Trial.objects.get(id=trial_id)
-    if trial is None:
-        return render(request, '404.html')
-    phase = trial.competition
-    team_pc = get_team_pc(request)
-    if team_pc is None:
-        return redirect_to_somewhere_better(request)
-    context = get_shared_context(request)
-    for item in context['menu_items']:
-        if item['name'] == phase.name:
-            item['active'] = True
-    context.update({
-        'participation': team_pc,
-        'phase': phase,
-        'trial': trial,
-    })
-    submissions = TrialSubmission.objects.filter(trial=trial)
-    for s in submissions:
-        s.is_final = False
-        s.save()
-    final_sub = TrialSubmission.objects.get(id=submission_id)
-    if final_sub is None:
+    trials = Trial.objects.filter(team=team_pc, competition=phase)
+    for t in trials:
+        t.is_final = False
+        t.save()
+    final_trial = Trial.objects.get(id=trial_id)
+    if final_trial is None:
         context.update({
-            'submissions' : submissions,
-            'error': _('no such submission')
+            'trials': trials,
+            'error': _('no such trial')
         })
-    final_sub.is_final = True
-    final_sub.save()
+    final_trial.is_final = True
+    final_trial.save()
     context.update({
-        'submissions' : submissions,
-        'final_sub' : final_sub,
-        'success':_('final submissin changed successfuly')
+        'trials': trials,
+        'final_trial': final_trial,
+        'success': _('final trial set successfuly')
     })
-    return render()#todo
+    return redirect('accounts:panel_phase', phase_id=phase_id)

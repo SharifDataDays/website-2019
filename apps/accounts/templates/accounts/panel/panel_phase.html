@@ -89,6 +89,20 @@
             {% else %}
                 {{ trial.score|floatformat:2 }}
             {% endif %}
+
+
+            {% if trial.is_final == True %}
+            <div class="fluid ui" style="margin: 20px 0" >
+                    {% trans 'final trial' %}
+            </div>
+            {% else %}
+            <form enctype="multipart/form-data" action="{% url 'accounts:set_final_trial' phase.id trial.id %}" class="form" method="post">
+                {% csrf_token %}
+                <button class="fluid ui submit  button" style="margin: 20px 0" type="submit">
+                    {% trans 'set as final trial' %}
+                </button>
+            </form>
+            {% endif %}
             {#  Filling Content Space#}
 {#            {% if forloop.counter != trials|length %}#}
 {#                <h4 class="ui sub header" style="visibility: hidden">#}
