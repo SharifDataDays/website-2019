@@ -709,7 +709,7 @@ def get_new_trial_phase_2(request, phase_id):
             })
             return render(request, 'accounts/panel/no_new_trial.html', context)
         current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(), team=team_pc)
-        question = FileUploadQuestion.objects.last()
+        question = FileUploadQuestion.objects.get(type='triple_cat_file_upload')
         #todo dataset link in trial
         current_trial.questions.add(question)
         current_trial.save()

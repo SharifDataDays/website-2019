@@ -66,7 +66,8 @@ class Question(models.Model):
         ('single_sufficient_answer', _('single_sufficient_answer')), # Question
         ('single_number', _('single_number')), # Question type=number specified in template
         ('interval_number', _('interval_number')), # IntervalQuestion type=number specified in template
-        ('file_upload', _('file_upload')) # FileUploadQuestion
+        ('file_upload', _('file_upload')), # FileUploadQuestion
+        ('triple_cat_file_upload', _('triple_cat_file_upload'))
     )
     UI_TYPE_CHOICES = (
         ('text_number', _('text_number')), # single_number, interval_number
