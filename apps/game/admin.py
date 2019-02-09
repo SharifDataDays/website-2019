@@ -40,7 +40,7 @@ class GameAdmin(admin.ModelAdmin):
 
 
 class TrialAdmin(admin.ModelAdmin):
-    fields = ['questions', 'competition', 'start_time', 'end_time', 'team']
+    fields = ['questions', 'competition', 'start_time', 'end_time', 'team', 'is_final']
 
 
 class QuestionSubmissionAdmin(admin.ModelAdmin):
@@ -48,7 +48,7 @@ class QuestionSubmissionAdmin(admin.ModelAdmin):
 
 
 class TrialSubmissionAdmin(admin.ModelAdmin):
-    fields = ['score', 'competition', 'trial', 'team', 'is_final']
+    fields = ['score', 'competition', 'trial', 'team']
 
 # class QuestionAdmin(admin.ModelAdmin):
 #     fields = ['stmt', 'value', 'correct_answer']

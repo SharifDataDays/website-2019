@@ -164,6 +164,7 @@ class Trial(models.Model):
     score = models.FloatField(default=0)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials', null=True)
     dataset_link = models.CharField(max_length=600, blank=True, null=True)
+    is_final = models.NullBooleanField()
 
     def save(self, *args, **kwargs):
        super(Trial, self).save()
@@ -196,7 +197,6 @@ class TrialSubmission(models.Model):
     competition = models.ForeignKey(Competition)
     trial = models.ForeignKey(Trial, null=True)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trial_submissions')
-    is_final = models.NullBooleanField()
 
     def handle(self):
         if settings.TESTING:
