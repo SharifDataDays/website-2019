@@ -23,7 +23,7 @@ from apps.accounts.models import Profile
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
     Instruction, Question, \
-    Choice, TrialSubmission, QuestionSubmission
+    Choice, TrialSubmission, QuestionSubmission, FileUploadQuestion
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 
 DIR_DATASET = '/home/datadays/tds'
@@ -608,3 +608,52 @@ def get_brands(request):
         response = HttpResponse(content=pdf.read(), content_type='text/txt', charset='utf8')
         response['Content-Disposition'] = 'attachment;filename=brands.txt'
         return response
+
+
+@login_required
+def get_new_trial_phase_2(request, phase_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase is None:
+        redirect("/accounts/panel/team")
+    else:
+        team_pc = get_team_pc(request)
+        if team_pc is None:
+            return redirect_to_somewhere_better(request)
+        context = get_shared_context(request)
+        for item in context['menu_items']:
+            if item['name'] == phase.name:
+                item['active'] = True
+        context.update({
+            'participation': team_pc,
+            'phase': phase,
+        })
+        trials = Trial.objects.filter(team_id=team_pc.id)
+
+        context.update({
+            'trials': trials
+        })
+        today_trials = 0
+        for trial in trials:
+            if trial.end_time > timezone.now() and trial.submit_time is None:
+                context.update({
+                    'error': _('You have one active trial.')
+                })
+                return render(request, 'accounts/panel/no_new_trial.html', context)
+            if timezone.now()-trial.start_time < timezone.timedelta(hours=24):
+                today_trials += 1
+        print(today_trials)
+        if today_trials >= phase.trial_per_day:
+            context.update({
+                'error': _('You can not get any new trial. You have reached your limit in current day')
+            })
+            return render(request, 'accounts/panel/no_new_trial.html', context)
+        current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(), team=team_pc)
+        question = FileUploadQuestion.objects.last()
+        #todo dataset link in trial
+        current_trial.questions.add(question)
+        current_trial.save()
+        context.update({
+            'current_trial': current_trial
+        })
+    return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
+

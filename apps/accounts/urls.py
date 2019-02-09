@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^challenge_a_team/(?P<participation_id>\d+)$', views.challenge_a_team, name='challenge_a_team'),
     url(r'^panel/phase/(?P<phase_id>\d+)/$', views.render_phase,name='panel_phase'),
     url(r'^panel/phase/(?P<phase_id>\d+)/get_new_trial/$', views.get_new_trial, name='new_trial'),
+    url(r'^panel/phase/(?P<phase_id>\d+)/get_new_trial_2/$', views.get_new_trial_phase_2, name='new_trial_phase_2'),
     url(r'^panel/phase/(?P<phase_id>\d+)/trial/(?P<trial_id>\d+)/$', views.render_trial, name='panel_trial'),
     url(r'^panel/phase/(?P<phase_id>\d+)/trial/(?P<trial_id>\d+)/get_dataset$', views.get_dataset, name='get_dataset'),
     url(r'^panel/phase/(?P<phase_id>\d+)/trial/(?P<trial_id>\d+)/get_brands$', views.get_brands, name='get_brands'),

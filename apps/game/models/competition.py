@@ -35,6 +35,7 @@ class Competition(models.Model):
     scoreboard_freeze_time = models.DateTimeField(null=True, blank=True)
     current_trial_id = models.IntegerField(default=0)
     dataset_counter = models.IntegerField(default=0)
+    trial_per_day = models.IntegerField(null=True, blank=True)
 
     def get_freeze_time(self):
         if self.scoreboard_freeze_time is not None:
