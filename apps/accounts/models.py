@@ -60,3 +60,11 @@ class UserParticipatesOnTeam(models.Model):
 
     class Meta:
         unique_together = ('team', 'user')
+
+
+class Mail(models.Model):
+    title = models.CharField(max_length=100)
+    txt = models.CharField(null=True, blank=True, max_length=4000)
+    html = models.CharField(null=True, blank=True, max_length=4000)
+    from_email = models.CharField(null=True, blank=True, max_length=100)
+
