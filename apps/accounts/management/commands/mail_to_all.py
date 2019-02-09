@@ -36,7 +36,7 @@ class Command(BaseCommand):
         
     def handle(self, *args, **options):
         
-        mail_id = options['mail_id'][0]
+        mail_id = int(options['mail_id'])
         mail = Mail.objects.get(id=mail_id)
         if mail is None:
             print('NO MAIL WITH GIVEN ID FOUND')
