@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
+from django.forms import Textarea
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ExportMixin
 
+from apps.accounts import models
 from apps.accounts.models import Profile, Team, UserParticipatesOnTeam, Mail
 
 
@@ -49,7 +51,9 @@ class ProfileAdmin(ImportExportModelAdmin):
 
 class MailAdmin(ModelAdmin):
     fields = ['title', 'txt', 'html', 'from_email']
-
+    formfield_overrides = {
+        models.Mail: {'widget': Textarea},
+    }
 
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Mail, MailAdmin)
