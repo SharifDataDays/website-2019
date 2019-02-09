@@ -13,6 +13,7 @@ def send(mail, rcpt, wait):
         print('waiting for {} min in background then sending {} mails'.format(wait / 60, len(rcpt)))
         time.sleep(wait)
         send_mail(subject=mail.title,
+                  message=mail.html,
                   html_message=mail.html,
                   from_email='DataDays <datadays@sharif.edu>',
                   recipient_list=rcpt,
@@ -35,7 +36,7 @@ class Command(BaseCommand):
         
     def handle(self, *args, **options):
         
-        mail_id = options['mail_id'][0]
+        mail_id = int(options['mail_id'])
         mail = Mail.objects.get(id=mail_id)
         if mail is None:
             print('NO MAIL WITH GIVEN ID FOUND')
