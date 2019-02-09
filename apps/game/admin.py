@@ -48,7 +48,7 @@ class QuestionSubmissionAdmin(admin.ModelAdmin):
 
 
 class TrialSubmissionAdmin(admin.ModelAdmin):
-    fields = ['score', 'competition', 'trial', 'team']
+    fields = ['score', 'competition', 'trial', 'team', 'is_final']
 
 # class QuestionAdmin(admin.ModelAdmin):
 #     fields = ['stmt', 'value', 'correct_answer']
@@ -126,7 +126,7 @@ class ChallengeAdmin(admin.ModelAdmin):
 
 
 class CompetitionAdmin(admin.ModelAdmin):
-    fields = ['challenge', 'name', 'tag', 'trial_duration', 'start_time', 'end_time', 'scoreboard_freeze_time']
+    fields = ['challenge', 'name', 'tag', 'trial_duration', 'start_time', 'end_time', 'scoreboard_freeze_time', 'trial_per_day']
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
