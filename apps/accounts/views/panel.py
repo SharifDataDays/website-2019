@@ -657,3 +657,37 @@ def get_new_trial_phase_2(request, phase_id):
         })
     return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
 
+
+@login_required
+def set_final_submission(request, trial_id, submission_id):
+    trial = Trial.objects.get(id=trial_id)
+    if trial is None:
+        return render(request, '404.html')
+    phase = trial.competition
+    team_pc = get_team_pc(request)
+    if team_pc is None:
+        return redirect_to_somewhere_better(request)
+    context = get_shared_context(request)
+    for item in context['menu_items']:
+        if item['name'] == phase.name:
+            item['active'] = True
+    context.update({
+        'participation': team_pc,
+        'phase': phase,
+        'trial': trial,
+    })
+    submissions = TrialSubmission.objects.filter(trial=trial)
+    for s in submissions:
+        s.is_final = False
+        s.save()
+    final_sub = TrialSubmission.objects.get(id=submission_id)
+    if final_sub is None:
+        context.update({
+            'error': _('no such submission')
+        })
+    final_sub.is_final = True
+    final_sub.save()
+    context.update({
+        'success':_('final submissin changed successfuly')
+    })
+    return render()

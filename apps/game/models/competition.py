@@ -196,6 +196,7 @@ class TrialSubmission(models.Model):
     competition = models.ForeignKey(Competition)
     trial = models.ForeignKey(Trial, null=True)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trial_submissions')
+    is_final = models.NullBooleanField()
 
     def handle(self):
         if settings.TESTING:
