@@ -659,6 +659,34 @@ def get_new_trial_phase_2(request, phase_id):
 
 
 @login_required
+def show_submissions(request, trial_id):
+    trial = Trial.objects.get(id=trial_id)
+    if trial is None:
+        return render(request, '404.html')
+    phase = trial.competition
+    team_pc = get_team_pc(request)
+    if team_pc is None:
+        return redirect_to_somewhere_better(request)
+    context = get_shared_context(request)
+    for item in context['menu_items']:
+        if item['name'] == phase.name:
+            item['active'] = True
+    context.update({
+        'participation': team_pc,
+        'phase': phase,
+        'trial': trial,
+    })
+    submissions = TrialSubmission.objects.filter(trial=trial)
+    final_sub = submissions.filter(is_final=True)[0]
+    context.update({
+        'submissions': submissions,
+        'final_sub': final_sub,
+    })
+    return render()#todo
+
+
+
+@login_required
 def set_final_submission(request, trial_id, submission_id):
     trial = Trial.objects.get(id=trial_id)
     if trial is None:
@@ -683,11 +711,14 @@ def set_final_submission(request, trial_id, submission_id):
     final_sub = TrialSubmission.objects.get(id=submission_id)
     if final_sub is None:
         context.update({
+            'submissions' : submissions,
             'error': _('no such submission')
         })
     final_sub.is_final = True
     final_sub.save()
     context.update({
+        'submissions' : submissions,
+        'final_sub' : final_sub,
         'success':_('final submissin changed successfuly')
     })
-    return render()
+    return render()#todo
