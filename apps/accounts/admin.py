@@ -1,8 +1,9 @@
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ExportMixin
 
-from apps.accounts.models import Profile, Team, UserParticipatesOnTeam
+from apps.accounts.models import Profile, Team, UserParticipatesOnTeam, Mail
 
 
 class UserInline(admin.StackedInline):
@@ -46,4 +47,9 @@ class ProfileAdmin(ImportExportModelAdmin):
         return True
 
 
+class MailAdmin(ModelAdmin):
+    fields = ['title', 'txt', 'html', 'from_email']
+
+
 admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Mail, MailAdmin)
