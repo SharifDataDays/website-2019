@@ -127,6 +127,7 @@ class FileUploadQuestion(Question):
     upload_url = models.CharField(max_length=200, null=True, blank=True)
     answer_file = models.FileField(upload_to=upload_url,null=True)
     is_chosen = models.BooleanField(default=False)
+    score2 = models.IntegerField(default=0)
 
     # def save(self, **kwargs):
     #     self.type = 'file_upload'
