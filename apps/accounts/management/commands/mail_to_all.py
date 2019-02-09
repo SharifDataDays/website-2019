@@ -13,6 +13,7 @@ def send(mail, rcpt, wait):
         print('waiting for {} min in background then sending {} mails'.format(wait / 60, len(rcpt)))
         time.sleep(wait)
         send_mail(subject=mail.title,
+                  message=mail.html,
                   html_message=mail.html,
                   from_email='DataDays <datadays@sharif.edu>',
                   recipient_list=rcpt,
