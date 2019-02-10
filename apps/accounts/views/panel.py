@@ -17,14 +17,14 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
-
+from django.utils.translation import ugettext_lazy as _
 from aic_site.settings.base import MEDIA_ROOT
 from apps.accounts.forms.panel import SubmissionForm
 from apps.accounts.models import Profile
 from apps.billing.decorators import payment_required
 from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
     Instruction, Question, \
-    Choice, TrialSubmission, QuestionSubmission, FileUploadQuestion
+    Choice, TrialSubmission, QuestionSubmission, FileUploadQuestion, CodeUploadQuestion
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 
 DIR_DATASET = '/home/datadays/tds'
@@ -435,6 +435,10 @@ def get_new_trial(request, phase_id):
 @login_required
 def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
+    if request.POST.get('file_error'):
+        print(request.POST['file_error'])
+    if request.POST.get('code_error'):
+        print(request.POST['code_error'])
     if phase is None:
         redirect("/accounts/panel/team")
     else:
@@ -465,7 +469,8 @@ def render_trial(request, phase_id, trial_id):
                 'text_questions': list(trial.questions.filter(type='single_answer')),
                 'choices': list(trial.questions.filter(type='multiple_choice').order_by('max_score')),
                 'multiple': list(trial.questions.filter(type='multiple_answer')),
-                'file_based_questions': list(trial.questions.filter(Q(type='file_upload')|Q(type='triple_cat_file_upload'))),
+                'file_based_questions': list(trial.questions.filter(type='file_upload')),
+                'code_zip': list(trial.questions.filter(type='triple_cat_file_upload'))
             })
 
         for x in context['choices']:
@@ -492,8 +497,14 @@ def submit_trial(request, phase_id, trial_id):
         context = get_shared_context(request)
         file = None
         if request.FILES:
-            filename = list(request.FILES)[0]
-            file = request.FILES[filename]
+            names = list(request.FILES)
+            code = None
+            if names.__contains__('code'):
+                code = request.FILES['code']
+                names.remove('code')
+            if len(names) > 0:
+                filename = names[0]
+                file = request.FILES[filename]
             print('\033[92m{}\033[0m'.format(file))
         for item in context['menu_items']:
             if item['name'] == phase.name:
@@ -512,32 +523,32 @@ def submit_trial(request, phase_id, trial_id):
         if len(trial) is 0:
             return render(request, '404.html')
         trial = trial[0]
+        if trial.team.id != team_pc.id:
+            return render(request, '403.html')
         if not form.is_valid():
             return redirect('accounts:panel')
         qusu = None
+        if code is not None:
+            _, code_extension = os.path.splitext(code.name)
+            if code_extension not in ['.zip']:
+                error_msg = 'Only zip file is acceptable'
+                request.POST['code_error'] = error_msg
+                return render_trial(request, phase_id, trial_id)
+            elif file.size > 1048576:
+                error_msg = 'Max size of file is 1MB'
+                request.POST['code_error'] = error_msg
+                return render_trial(request, phase_id, trial_id)
+            else:
+                file_full_path = save_to_storage(request, 'code')
+                qusu = QuestionSubmission()
+                quzi = CodeUploadQuestion.objects.all()[0]
+                qusu.question = quzi
+                qusu.value = file_full_path
         if file is not None:
             if file.size > 1048576:
                 error_msg = 'Max size of file is 1MB'
-                context.update({
-                    'error': error_msg,
-                })
-                context.update({
-                    'trial': trial,
-                    'numeric_questions': [x for x in list(chain(trial.questions.filter(type='single_number')
-                                                                , trial.questions.filter(type='interval_number')))],
-                    'text_questions': [x for x in list(chain(trial.questions.filter(type='single_answer')
-                                                             ,
-                                                             trial.questions.filter(type='single_sufficient_answer')))],
-                    'choices': [x for x in trial.questions.filter(type='multiple_choices')],
-                    'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
-                    'file_based_questions': list(trial.questions.filter(Q(type='file_upload')|Q(type='triple_cat_file_upload'))),
-                })
-                for x in context['choices']:
-                    x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
-                if trial.team.id != team_pc.id:
-                    return render(request, '403.html')
-                else:
-                    return render(request, 'accounts/panel/panel_trial.html', context)
+                request.POST['file_error'] = error_msg
+                return render_trial(request, phase_id, trial_id)
             else:
                 file_full_path = save_to_storage(request, filename)
                 qusu = QuestionSubmission()

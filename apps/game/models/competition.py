@@ -14,7 +14,7 @@ from django.http import HttpResponseServerError, Http404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, ugettext
 import datetime
-
+from django.core.exceptions import ValidationError
 from aic_site.settings.base import JUDGE_IP
 from apps.game.tasks import handle_submission
 from apps.accounts.models import Team
@@ -67,7 +67,8 @@ class Question(models.Model):
         ('single_number', _('single_number')), # Question type=number specified in template
         ('interval_number', _('interval_number')), # IntervalQuestion type=number specified in template
         ('file_upload', _('file_upload')), # FileUploadQuestion
-        ('triple_cat_file_upload', _('triple_cat_file_upload'))
+        ('triple_cat_file_upload', _('triple_cat_file_upload')),
+        ('code_upload', _('code_upload'))
     )
     UI_TYPE_CHOICES = (
         ('text_number', _('text_number')), # single_number, interval_number
@@ -75,7 +76,8 @@ class Question(models.Model):
         ('choices', _('choices')), # multiple_choices
         ('multiple', _('multiple')), # multiple_answer
         ('file', _('file')), # file_upload
-        ('image_choices', _('image_choices')) #multiple_choice
+        ('image_choices', _('image_choices')), #multiple_choice
+        ('code', _('code'))
     )
     group_id = models.IntegerField(null=True, blank=True)
     doc_id = models.IntegerField(null=True, blank=True)
@@ -133,6 +135,9 @@ class FileUploadQuestion(Question):
     #     self.type = 'file_upload'
     #     self.ui_type = 'file'
     #     super(FileUploadQuestion, self).save()
+
+class CodeUploadQuestion(Question):
+    upload_url = models.CharField(max_length=200, null=True, blank=True)
 
 
 class IntervalQuestion(Question):
@@ -236,9 +241,6 @@ class TrialSubmission(models.Model):
         print(context)
         context['dataset_number']=12
         response = requests.post(JUDGE_IP, json=context)
-        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        print()
-        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         print(response.text)
 
 
