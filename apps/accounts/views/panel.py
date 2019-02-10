@@ -184,13 +184,13 @@ def render_panel_phases_scoreboard(request):
         members = []
         for prof in profiles:
             members.append(prof.user)
-        temp = (team.team.name, get_total_score(team.id), 0, Profile.objects.filter(panel_active_teampc=team))
+        temp = [team.team.name, get_total_score(team.id), 0, Profile.objects.filter(panel_active_teampc=team)]
         ranks.append(temp)
     ranks.sort(key=sortSecond, reverse=True)
     for i in range(0, len(scoreboard)):
         x = list(ranks[i])
         x[2] = i + 1
-        ranks[i] = tuple(x)
+        ranks[i] = list(x)
     my_team = get_team_pc(request).team.name
     context.update({
         'teams': ranks,
@@ -203,19 +203,20 @@ def render_panel_phases_scoreboard(request):
 def get_total_score(team_id):
     result = {0: 0}
     for phase in Competition.objects.all():
-        result[phase.name] = 0
+        result[phase.id] = 0
         trials = Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase).all()
         scores = []
         for trial in trials:
             scores.append(trial.score)
         if len(scores) == 0:
-            result[phase.name] = 0
+            result[phase.id] = 0
         elif len(scores) == 1:
-            result[phase.name] = float("{0:.2f}".format(scores[0]))
+            result[phase.id] = float("{0:.2f}".format(scores[0]))
         else:
             scores.remove(min(scores))
-            result[phase.name] = float("{0:.2f}".format(sum(scores) / len(scores)))
-        result[0] += result[phase.name]
+            result[phase.id] = float("{0:.2f}".format(sum(scores) / len(scores)))
+        result[0] += result[phase.id]
+        print(phase.id)
     return result
 
 
@@ -268,8 +269,8 @@ def render_phase_scoreboard(request,phase_id):
         if item['name'] == phase.name+' scoreboard':
             item['active'] = True
     for team in phase_scoreboard:
-        temp = [team.team.name, get_score(team.id,phase), 0,Profile.objects.filter(panel_active_teampc=team),True]
-        if len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team.id), competition=phase)) == 0:
+        temp = [team.team.name, get_score(team,phase), 0,Profile.objects.filter(panel_active_teampc=team),True]
+        if len(Trial.objects.filter(team=team, competition=phase)) == 0:
             temp[4] = False
         ranks.append(temp)
     ranks.sort(key=sortPhase, reverse=True)
@@ -287,15 +288,15 @@ def render_phase_scoreboard(request,phase_id):
 def sortPhase(val):
     return val[1]
 
-def get_score(team_id,phase):
+def get_score(team,phase):
     result = 0
     list = []
     if phase.final == True:
-        list.append(Trial.objects.get(is_final=True).score)
+        list.append(Trial.objects.get(is_final=True,team=team).score)
     else:
-        for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase):
+        for trial in Trial.objects.filter(team=team, competition=phase):
             list.append(trial.score)
-        if len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase))>1:
+        if len(list)>1:
             list.remove(min(list))
     for i in list:
         result+=i
