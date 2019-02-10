@@ -71,11 +71,11 @@ class MultipleChoiceAdmin(admin.ModelAdmin):
         # ImageChoiceInline
     ]
 
-    fields = ['stmt', 'correct_answer', 'type', 'ui_type', 'level', 'group_id']
+    fields = ['stmt', 'correct_answer', 'type', 'ui_type', 'level', 'group_id', 'doc_id']
 
 
 class QuestionAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'group_id']
+  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'group_id', 'doc_id']
 
 
 class AnswerInline(admin.StackedInline):
@@ -89,19 +89,19 @@ class MultipleAnswerAdmin(admin.ModelAdmin):
     inlines = [
         AnswerInline
     ]
-    fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'group_id']
+    fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'group_id', 'doc_id']
 
 
 class FileUploadAdmin(admin.ModelAdmin):
-  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'dataset_path', 'upload_url', 'group_id']
+  fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'dataset_path', 'upload_url', 'group_id', 'doc_id']
 
 
 class CodeUploadAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'group_id']
+    fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'group_id', 'doc_id']
 
 
 class IntervalQuestionAdmin(admin.ModelAdmin):
-    fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'min_range', 'max_range', 'group_id']
+    fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'min_range', 'max_range', 'group_id', 'doc_id']
 
 
 
