@@ -289,25 +289,18 @@ def sortPhase(val):
 
 def get_score(team_id,phase):
     result = 0
-    import sys
-    min = sys.maxsize
+    list = []
     if phase.final == True:
-        final = True
+        list.append(Trial.objects.get(is_final=True).score)
     else:
-        final = False
-    for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase):
-        if final:
-            if trial.is_final == True:
-                result = trial.score
-                break
-        else:
-            if min >= trial.score:
-                min = trial.score
-            result+= trial.score
-    if min != sys.maxsize and final == False and len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase))>1:
-        result-=min
-    if final==False and len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase)) != 0:
-        result = int(result/len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase)))
+        for trial in Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase):
+            list.append(trial.score)
+        if len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase))>1:
+            list.remove(min(list))
+    for i in list:
+        result+=i
+    if phase.final == False and len(list)!=0:
+        result = int(result/len(list))
     return result
 
 
