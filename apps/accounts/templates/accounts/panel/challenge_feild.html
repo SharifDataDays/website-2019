@@ -8,7 +8,7 @@
     <i class="dropdown icon"></i>
     <div class="menu">
         {% for choice in user_pcs %}
-            <a class="item{% if choice == participation %} active{% endif %}" href="{% url 'accounts:panel_change_team_pc' choice.id %}">{{ choice }}</a>
+            <a class="item{% if choice == participation %} active{% endif %}" href="{% url 'accounts:panel_change_team_pc' choice.id %}" style="font-family: IRANSans!important;">{{ choice }}</a>
         {% endfor %}
     </div>
 </div>

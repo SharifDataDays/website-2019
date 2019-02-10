@@ -232,6 +232,10 @@ class TrialSubmission(models.Model):
             }
             if q.type is 'file_upload':
                 question_context['submitted_answer'] = q.upload_url
+            elif q.type is 'triple_cat_file_upload':
+                question_context['submitted_answer'] = q.upload_url
+            elif q.type is 'code_upload':
+                pass
             else:
                 try:
                     question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value

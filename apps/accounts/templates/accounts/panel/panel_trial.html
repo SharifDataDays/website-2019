@@ -54,7 +54,6 @@
                 <div class="ui attached" style="
                         padding:0;
                         display: flex;
-
                         height: 10rem;
                         border-radius: 0 0 .28571429rem .28571429rem;
                         border:1px solid #d4d4d5;
@@ -99,6 +98,7 @@
                                required
                                id="file-in"
                         />
+                        <p id="file-up"></p>
 
                     </div>
                 </div>
@@ -428,5 +428,9 @@ $( ".ui.radio.checkbox" ).checkbox();
 $('#button').click(function (e) {
     document.getElementById('alert').style.display = "";
 });
+document.getElementById('file-in').onchange = function () {
+  document.getElementById('file-up').innerText = this.files.item(0).name
+
+};
 </script>
 {% endblock %}
