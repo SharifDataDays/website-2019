@@ -616,7 +616,7 @@ def get_brands(request):
         return response
 
 @login_required
-def get_new_trial_phase_1(request, phase_id)
+def get_new_trial_phase_1(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
