@@ -357,73 +357,10 @@ def get_new_trial(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
+    if phase.final:
+        return get_new_trial_phase_2(request, phase_id)
     else:
-        team_pc = get_team_pc(request)
-        if team_pc is None:
-            return redirect_to_somewhere_better(request)
-        context = get_shared_context(request)
-        for item in context['menu_items']:
-            if item['name'] == phase.name:
-                item['active'] = True
-        context.update({
-            'participation': team_pc,
-            'phase': phase,
-        })
-        trials = Trial.objects.filter(team_id=team_pc.id)
-
-        context.update({
-            'trials': trials
-        })
-        for trial in trials:
-            if trial.end_time > timezone.now() and trial.submit_time is None:
-                context.update({
-                    'error': _('You have one active trial.')
-                })
-                return render(request, 'accounts/panel/no_new_trial.html', context)
-        if len(trials) >= 5:
-            context.update({
-                'error': _('You can not get any new trial.')
-            })
-            return render(request, 'accounts/panel/no_new_trial.html', context)
-
-        current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(), team=team_pc)
-        phase_instruction_set = PhaseInstructionSet.objects.get(phase=phase)
-
-        instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
-
-        for instruction in instructions:
-            question_model = apps.get_model(instruction.app, instruction.model_name)
-            if instruction.model_name == 'FileUploadQuestion':
-                questions = question_model.objects.filter(is_chosen=False).all()
-                if len(questions) == 0:
-                    questions = question_model.objects.filter(trial__team=team_pc)
-                questions = questions[0]
-                questions.is_chosen = True
-                questions.save()
-                current_trial.questions.add(questions)
-            else:
-                if instruction.model_name == 'Question':
-                    selectable_questions = question_model.objects.filter(type=instruction.type)
-                else:
-                    selectable_questions = question_model.objects
-
-                if len(question_model.objects.filter(level=instruction.level).exclude(trial__team=team_pc)) < instruction.number:
-                    selectable_questions = selectable_questions.exclude(trial__team=team_pc)
-                else:
-                    selectable_questions = selectable_questions.filter(level=instruction.level).exclude(
-                        trial__team=team_pc)
-
-                questions = list(selectable_questions)
-                random.shuffle(questions)
-                questions = questions[:instruction.number]
-                current_trial.questions.add(*questions)
-
-        current_trial.save()
-        context.update({
-            'current_trial': current_trial
-        })
-    return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
-
+        return get_new_trial_phase_1(request, phase_id)
 
 @login_required
 def render_trial(request, phase_id, trial_id):
@@ -676,6 +613,79 @@ def get_brands(request):
         response = HttpResponse(content=pdf.read(), content_type='text/txt', charset='utf8')
         response['Content-Disposition'] = 'attachment;filename=brands.txt'
         return response
+
+@login_required
+def get_new_trial_phase_1(request, phase_id)
+    phase = Competition.objects.get(id=phase_id)
+    if phase is None:
+        redirect("/accounts/panel/team")
+    else:
+        team_pc = get_team_pc(request)
+        if team_pc is None:
+            return redirect_to_somewhere_better(request)
+        context = get_shared_context(request)
+        for item in context['menu_items']:
+            if item['name'] == phase.name:
+                item['active'] = True
+        context.update({
+            'participation': team_pc,
+            'phase': phase,
+        })
+        trials = Trial.objects.filter(team_id=team_pc.id)
+
+        context.update({
+            'trials': trials
+        })
+        for trial in trials:
+            if trial.end_time > timezone.now() and trial.submit_time is None:
+                context.update({
+                    'error': _('You have one active trial.')
+                })
+                return render(request, 'accounts/panel/no_new_trial.html', context)
+        if len(trials) >= 5:
+            context.update({
+                'error': _('You can not get any new trial.')
+            })
+            return render(request, 'accounts/panel/no_new_trial.html', context)
+
+        current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(), team=team_pc)
+        phase_instruction_set = PhaseInstructionSet.objects.get(phase=phase)
+
+        instructions = Instruction.objects.filter(phase_instruction_set=phase_instruction_set)
+
+        for instruction in instructions:
+            question_model = apps.get_model(instruction.app, instruction.model_name)
+            if instruction.model_name == 'FileUploadQuestion':
+                questions = question_model.objects.filter(is_chosen=False).all()
+                if len(questions) == 0:
+                    questions = question_model.objects.filter(trial__team=team_pc)
+                questions = questions[0]
+                questions.is_chosen = True
+                questions.save()
+                current_trial.questions.add(questions)
+            else:
+                if instruction.model_name == 'Question':
+                    selectable_questions = question_model.objects.filter(type=instruction.type)
+                else:
+                    selectable_questions = question_model.objects
+
+                if len(question_model.objects.filter(level=instruction.level).exclude(
+                        trial__team=team_pc)) < instruction.number:
+                    selectable_questions = selectable_questions.exclude(trial__team=team_pc)
+                else:
+                    selectable_questions = selectable_questions.filter(level=instruction.level).exclude(
+                        trial__team=team_pc)
+
+                questions = list(selectable_questions)
+                random.shuffle(questions)
+                questions = questions[:instruction.number]
+                current_trial.questions.add(*questions)
+
+        current_trial.save()
+        context.update({
+            'current_trial': current_trial
+        })
+    return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
 
 
 @login_required
