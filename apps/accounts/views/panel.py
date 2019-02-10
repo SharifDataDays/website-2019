@@ -728,7 +728,6 @@ def get_new_trial_phase_2(request, phase_id):
     return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
 
 
-
 @login_required
 def set_final_trial(request, phase_id, trial_id):
     trial = Trial.objects.get(id=trial_id)
