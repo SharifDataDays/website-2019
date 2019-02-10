@@ -1,0 +1,7 @@
+.download-hover :hover{
+    color: orangered;
+}
+
+.upload-hover :hover{
+    color: limegreen;
+}

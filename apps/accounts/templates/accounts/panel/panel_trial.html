@@ -3,6 +3,9 @@
 {% extends 'accounts/panel/panel.html' %}
 {% load static i18n ai_filters tz %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
+{% block extra_header %}
+    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
 
 {% block panel_content %}
 
@@ -17,10 +20,6 @@
 	   Trial {{ id }}
     </div>
 
-
-    <div class="ui success message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
-        {{
-    </div>
 
     {% if file_based_questions %}
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
@@ -75,7 +74,7 @@
                             font-family: IRANSans
                             ">
                         {# TODO href to download file #}
-                        <a href="{% url 'accounts:get_dataset' phase.id trial.id %}" target="_blank" class="ui link" style="color: black">
+                        <a href="{% url 'accounts:get_dataset' phase.id trial.id %}" target="_blank" class="ui link download-hover " style="color: black">
                            <i class="download icon huge"></i>
                         </a>
                         {% trans 'Download Dataset' %}
@@ -89,9 +88,9 @@
                             align-items: center;
                             font-family: IRANSans">
                         <label for="file-in">
-                            <a>
-                            <i class="upload icon huge"></i>
-                                </a>
+                            <a class="upload-hover" id="up-link">
+                                <i class="upload icon huge"></i>
+                            </a>
                         </label>
                         {% trans 'Upload Answer' %}
                         <input
@@ -441,8 +440,8 @@ $('#button').click(function (e) {
     document.getElementById('alert').style.display = "";
 });
 document.getElementById('file-in').onchange = function () {
-  document.getElementById('file-up').innerText = this.files.item(0).name
-
+    document.getElementById('file-up').innerText = this.files.item(0).name;
+    $('#up-link').css('color','forestgreen')
 };
 </script>
 {% endblock %}
