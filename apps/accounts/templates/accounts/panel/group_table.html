@@ -12,12 +12,12 @@
     <table class="ui blue selectable unstackable table">
         <thead>
             <tr>
-                <th class="collapsing">{% trans 'Rank' %}</th>
-                <th>{% trans 'Name' %}</th>
+                <th class="collapsing" style="font-family: IRANSans!important;">{% trans 'Rank' %}</th>
+                <th style="font-family: IRANSans!important;" >{% trans 'Name' %}</th>
                 {% for phase in phases %}
-                  <th>{% trans phase.name %}</th>
+                  <th style="font-family: IRANSans!important;">{% trans phase.name %}</th>
                 {% endfor %}
-                <th>{% trans 'Total' %}</th>
+                <th style="font-family: IRANSans!important;">{% trans 'Total' %}</th>
             </tr>
         </thead>
         <tbody>
