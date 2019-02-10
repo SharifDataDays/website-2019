@@ -9,7 +9,7 @@
 
 {% block panel_content %}
     <h2>{% trans 'Scoreboard' %}</h2>
-    <table class="ui red selectable unstackable table" style="margin: 50px;">
+    <table class="ui blue selectable unstackable table">
         <thead>
             <tr>
                 <th class="collapsing">{% trans 'Rank' %}</th>
@@ -25,7 +25,7 @@
         {% for competitor in teams %}
             <tr {% if my_team == competitor.0 %}style="background-color: lightblue" {% endif %}>
                 <td>
-                    <div class="ui green label">{{ competitor.2 }}</div>
+                    <div class="ui blue label">{{ competitor.2 }}</div>
                 </td>
                 <td>
                     <div class="ui button" style="background-color: transparent!important; margin-right: -30px!important;" data-html="{{ competitor.3.0.name }}<br/>{{ competitor.3.1.name }}<br/>{{ competitor.3.2.name }}" data-position="top center">{{ competitor.0 }}</div>

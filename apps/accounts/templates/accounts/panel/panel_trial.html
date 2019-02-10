@@ -32,7 +32,7 @@
 <span style="font-weight:bold">ملاحظه مهم</span>: ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا هر برند باید به شکل ارائه شده در <a href="/media/brands.txt" target="_blank" download="brands.txt">فایل پیوست</a> به سوال نوشته شود.
 
         </div>
-     File Based Questions
+    {# File Based Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in file_based_questions %}
             <div class="field"
@@ -51,8 +51,7 @@
                 >
                      {{ question.stmt }}
                 </div>
-                <div class="ui attached"
-                     style="
+                <div class="ui attached" style="
                         padding:0;
                         display: flex;
 
@@ -60,10 +59,8 @@
                         border-radius: 0 0 .28571429rem .28571429rem;
                         border:1px solid #d4d4d5;
                         border-top-color: transparent;
-                        "
-                >
-                    <div
-                        style="
+                        ">
+                    <div style="
                             width: 50%;
                             height: 100%;
                             display: flex;
@@ -72,108 +69,36 @@
                             align-items: center;
                             border-left:1px solid #d4d4d5;
                             font-family: IRANSans
-                            "
-                    >
-                         TODO href to download file
-                        <a href="{% url 'accounts:get_dataset' phase.id trial.id %}" target="_blank" class="ui link">
+                            ">
+                        {# TODO href to download file #}
+                        <a href="{% url 'accounts:get_dataset' phase.id trial.id %}" target="_blank" class="ui link" style="color: black">
                            <i class="download icon huge"></i>
                         </a>
                         {% trans 'Download Dataset' %}
                     </div>
-                    <div
-                        style="
+                    <div style="
                             width: 50%;
                             height: 100%;
                             display: flex;
                             flex-direction: column;
                             justify-content: center;
                             align-items: center;
-                            font-family: IRANSans
-                            "
-                    >
+                            font-family: IRANSans">
+                        <label for="file-in">
+                            <a>
                             <i class="upload icon huge"></i>
+                                </a>
+                        </label>
                         {% trans 'Upload Answer' %}
                         <input
                                type="file"
                                class="link"
+                               style="display: none"
                                name="{{ trial.id  }}_{{ question.id }}"
                                accept="text/plain"
                                required
-                        >
-
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-
-    </div>
-    </div>
-
-
-<div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
-        <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
-            <span style="font-weight:bold">کد</span><br>
-{#<span style="font-weight:bold">عنوان</span>: پیش‌بینی برچسب<br>#}
-{#<span style="font-weight:bold">امتیاز</span>: ۱۰۰۰ امتیاز<br>#}
-{#<span style="font-weight:bold">توانایی</span>: تحلیل متن و ایجاد جستار مناسب روی دادگان<br>#}
-{##}
-{#<span style="font-weight:bold">مسئله</span>: پیشبینی برند موبایل<br>#}
-{#            <br>#}
-{#<span style="font-weight:bold">توصیف</span>: در این بخش شما یک دادگان ۱۰۰۰ ردیفی دانلود میکنید که مربوط به آگهی‌های تلفن همراه است. هدف از این بخش پیشبینی برند تلفن همراه ارائه شده در آگهی است. در انتها شما باید یک فایل به فرمت .txt آپلود کنید که در هر خط آن برند تلفن همراه ردیف متناظر در فایل است.#}
-{#<br/>#}
-{#<span style="font-weight:bold">ملاحظه مهم</span>: ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا هر برند باید به شکل ارائه شده در <a href="/media/brands.txt" target="_blank" download="brands.txt">فایل پیوست</a> به سوال نوشته شود.#}
-
-        </div>
-    {# Code(zip) upload#}
-    <div style="margin:0 0 45px 0 ">
-        {% for question in code_zip %}
-            <div class="field"
-                 style="margin:0 0 15px 0"
-            >
-                <div
-                    class="ui top attached header"
-                    style="
-                        margin:0;
-                        height: auto;
-                        display: block;
-                        word-wrap: break-word;
-                        white-space: normal;
-                        background-color: #e8e8e8;
-                    "
-                >
-                     {{ question.stmt }}
-                </div>
-                <div class="ui attached"
-                     style="
-                        padding:0;
-                        display: flex;
-
-                        height: 10rem;
-                        border-radius: 0 0 .28571429rem .28571429rem;
-                        border:1px solid #d4d4d5;
-                        border-top-color: transparent;
-                        "
-                >
-                    <div
-                        style="
-                            width: 50%;
-                            height: 100%;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            align-items: center;
-                            font-family: IRANSans
-                            "
-                    >
-                            <i class="upload icon huge"></i>
-                        {% trans 'Upload Answer' %}
-                        <input
-                               type="file"
-                               class="link"
-                               name="{{ trial.id  }}_{{ question.id }}"
-                               accept="text/plain"
-                               required
-                        >
+                               id="file-in"
+                        />
 
                     </div>
                 </div>
