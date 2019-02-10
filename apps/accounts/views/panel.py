@@ -216,7 +216,6 @@ def get_total_score(team_id):
             scores.remove(min(scores))
             result[phase.id] = float("{0:.2f}".format(sum(scores) / len(scores)))
         result[0] += result[phase.id]
-        print(phase.id)
     return result
 
 
@@ -288,6 +287,7 @@ def render_phase_scoreboard(request,phase_id):
 def sortPhase(val):
     return val[1]
 
+
 def get_score(team,phase):
     result = 0
     list = []
@@ -303,7 +303,6 @@ def get_score(team,phase):
     if phase.final == False and len(list)!=0:
         result = int(result/len(list))
     return result
-
 
 
 @login_required
@@ -362,6 +361,7 @@ def get_new_trial(request, phase_id):
         return get_new_trial_phase_2(request, phase_id)
     else:
         return get_new_trial_phase_1(request, phase_id)
+
 
 @login_required
 def render_trial(request, phase_id, trial_id):
@@ -615,6 +615,7 @@ def get_brands(request):
         response['Content-Disposition'] = 'attachment;filename=brands.txt'
         return response
 
+
 @login_required
 def get_new_trial_phase_1(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
@@ -632,7 +633,7 @@ def get_new_trial_phase_1(request, phase_id):
             'participation': team_pc,
             'phase': phase,
         })
-        trials = Trial.objects.filter(team_id=team_pc.id)
+        trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
 
         context.update({
             'trials': trials
@@ -706,7 +707,7 @@ def get_new_trial_phase_2(request, phase_id):
             'participation': team_pc,
             'phase': phase,
         })
-        trials = Trial.objects.filter(team_id=team_pc.id)
+        trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
 
         context.update({
             'trials': trials

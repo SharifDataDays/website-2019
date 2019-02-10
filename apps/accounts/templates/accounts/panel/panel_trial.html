@@ -12,13 +12,18 @@
 
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
+
     <div class="ui success message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
-
 	   Trial {{ id }}
-
     </div>
 
-    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
+
+    <div class="ui success message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
+        {{
+    </div>
+
+    {% if file_based_questions %}
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
             <span style="font-weight:bold">بخش اول</span><br>
 <span style="font-weight:bold">عنوان</span>: پیش‌بینی برچسب<br>
@@ -107,8 +112,10 @@
 
     </div>
     </div>
+    {% endif %}
 
-    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
+    {% if code_zip %}
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
             <span style="font-weight:bold">بخش اول</span><br>
 <span style="font-weight:bold">عنوان</span>: پیش‌بینی برچسب<br>
@@ -181,7 +188,10 @@
 
     </div>
     </div>
-    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
+    {% endif %}
+
+    {% if choices %}
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
             <span style="font-weight:bold">بخش دوم</span><br>
 <span style="font-weight:bold">عنوان</span>: سوالات چندگزینه‌ای<br>
@@ -225,10 +235,10 @@
         {% endfor %}
     </div>
     </div>
+    {% endif %}
 
-    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
-
-
+    {% if numeric_question or interval_questions or text_questions or multiple %}
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
      <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
             <span style="font-weight:bold">بخش سوم</span><br>
@@ -408,19 +418,21 @@
     </div>
     </div>
     {# Submit Button#}
+    {% endif %}
 
-    <div class="fluid ui submit blue button" style="margin: 20px 0" id="button">
-        ادامه
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%">
+        <div class="fluid ui submit blue button" style="margin: 20px 0" id="button">
+            ادامه
+        </div>
+
+        <div class="ui warning message" style="display: none;" id="alert">
+          <p>شما بعد از ارسال دیگر امکان ویرایش پاسخ یا بازگشت به این صفحه را ندارید بنابراین در ارسال پاسخ دقت کنید.</p>
+            <button class="fluid ui submit blue button" style="margin: 20px 0" type="submit">
+                {% trans 'Submit' %}
+            </button>
+        </div>
     </div>
 
-    <div class="ui warning message" style="display: none;" id="alert">
-      <p>شما بعد از ارسال دیگر امکان ویرایش پاسخ یا بازگشت به این صفحه را ندارید بنابراین در ارسال پاسخ دقت کنید.</p>
-        <button class="fluid ui submit blue button" style="margin: 20px 0" type="submit">
-            {% trans 'Submit' %}
-        </button>
-    </div>
-
-    </div>
     </div>
 </form>
 <script>

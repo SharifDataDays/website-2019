@@ -230,12 +230,13 @@ class TrialSubmission(models.Model):
                 'question_type': q.type,
                 'submitted_answer': '',
             }
-            if q.type != 'code_upload':
+            print(q.type)
+            if q.type is not 'code_upload':
                 try:
                     question_context['submitted_answer'] = self.questionSubmissions.get(question_id=q.id).value
+                    context['submissions'].append(question_context)
                 except:
-                    print('empty question submitted. ignoring')
-            context['submissions'].append(question_context)
+                    print('empty question submitted. ignoring: '.format(q.type))
         print(context)
         context['dataset_number']=12
         response = requests.post(JUDGE_IP, json=context)
