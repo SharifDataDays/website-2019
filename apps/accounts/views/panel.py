@@ -8,6 +8,7 @@ from django.apps import apps
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.forms import Form
 from django.http import Http404, HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
@@ -464,7 +465,7 @@ def render_trial(request, phase_id, trial_id):
                 'text_questions': list(trial.questions.filter(type='single_answer')),
                 'choices': list(trial.questions.filter(type='multiple_choice').order_by('max_score')),
                 'multiple': list(trial.questions.filter(type='multiple_answer')),
-                'file_based_questions': list(trial.questions.filter(type='file_upload')),
+                'file_based_questions': list(trial.questions.filter(Q(type='file_upload')|Q(type='triple_cat_file_upload'))),
             })
 
         for x in context['choices']:
@@ -529,7 +530,7 @@ def submit_trial(request, phase_id, trial_id):
                                                              trial.questions.filter(type='single_sufficient_answer')))],
                     'choices': [x for x in trial.questions.filter(type='multiple_choices')],
                     'multiple': [x for x in trial.questions.filter(type='multiple_answer')],
-                    'file_based_questions': [x for x in trial.questions.filter(type='file_upload')],
+                    'file_based_questions': list(trial.questions.filter(Q(type='file_upload')|Q(type='triple_cat_file_upload'))),
                 })
                 for x in context['choices']:
                     x.choices = [y for y in Choice.objects.filter(question_id=x.id).all()]
@@ -711,7 +712,7 @@ def get_new_trial_phase_2(request, phase_id):
             })
             return render(request, 'accounts/panel/no_new_trial.html', context)
         current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(), team=team_pc)
-        question = FileUploadQuestion.objects.last()
+        question = FileUploadQuestion.objects.get(type='triple_cat_file_upload')
         #todo dataset link in trial
         current_trial.questions.add(question)
         current_trial.save()
