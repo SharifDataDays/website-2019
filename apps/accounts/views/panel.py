@@ -267,13 +267,15 @@ def render_phase_scoreboard(request,phase_id):
         if item['name'] == phase.name+' scoreboard':
             item['active'] = True
     for team in phase_scoreboard:
-        temp = (team.team.name, get_score(team.id,phase), 0,Profile.objects.filter(panel_active_teampc=team))
+        temp = [team.team.name, get_score(team.id,phase), 0,Profile.objects.filter(panel_active_teampc=team),True]
+        if len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team.id), competition=phase)) == 0:
+            temp[4] = False
         ranks.append(temp)
     ranks.sort(key=sortPhase, reverse=True)
     for i in range(0, len(phase_scoreboard)):
         x = list(ranks[i])
         x[2] = i + 1
-        ranks[i] = tuple(x)
+        ranks[i] = (x)
     context.update({
         'teams': ranks,
         'phase':phase
@@ -301,7 +303,7 @@ def get_score(team_id,phase):
             if min >= trial.score:
                 min = trial.score
             result+= trial.score
-    if min != sys.maxsize and final == False:
+    if min != sys.maxsize and final == False and len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase))>1:
         result-=min
     if final==False and len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase)) != 0:
         result = int(result/len(Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase)))

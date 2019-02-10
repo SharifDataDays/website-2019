@@ -20,6 +20,7 @@
         <tbody>
 
         {% for competitor in teams %}
+            {% if competitor.4 %}
             <tr {% if my_team == competitor.0 %}style="background-color: lightblue" {% endif %}>
                 <td>
                     <div class="ui green label">{{ competitor.2 }}</div>
@@ -29,6 +30,7 @@
                 </td>
                 <td>{{ competitor.1 }}</td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
