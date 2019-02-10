@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from apps.game.models import Challenge, Game, Competition, TeamParticipatesChallenge, TeamSubmission, Trial, Question, \
     MultipleChoiceQuestion, FileUploadQuestion, PhaseInstructionSet, Instruction, MultipleAnswerQuestion, \
-    IntervalQuestion, Choice, Answer, QuestionSubmission, TrialSubmission
+    IntervalQuestion, Choice, Answer, QuestionSubmission, TrialSubmission, CodeUploadQuestion
 
 from apps.game.models.challenge import UserAcceptsTeamInChallenge
 
@@ -94,6 +94,10 @@ class MultipleAnswerAdmin(admin.ModelAdmin):
 
 class FileUploadAdmin(admin.ModelAdmin):
   fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'dataset_path', 'upload_url', 'group_id']
+
+
+class CodeUploadAdmin(admin.ModelAdmin):
+    fields = ['stmt', 'max_score', 'correct_answer', 'type', 'ui_type', 'level', 'group_id']
 
 
 class IntervalQuestionAdmin(admin.ModelAdmin):
@@ -257,3 +261,4 @@ admin.site.register(PhaseInstructionSet, PhaseInstructionSetAdmin)
 admin.site.register(Instruction, InstructionAdmin)
 admin.site.register(QuestionSubmission, QuestionSubmissionAdmin)
 admin.site.register(TrialSubmission, TrialSubmissionAdmin)
+admin.site.register(CodeUploadQuestion, CodeUploadAdmin)

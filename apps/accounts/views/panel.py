@@ -462,8 +462,8 @@ def render_trial(request, phase_id, trial_id):
                 'text_questions': list(trial.questions.filter(type='single_answer')),
                 'choices': list(trial.questions.filter(type='multiple_choice').order_by('max_score')),
                 'multiple': list(trial.questions.filter(type='multiple_answer')),
-                'file_based_questions': list(trial.questions.filter(type='file_upload')),
-                'code_zip': list(trial.questions.filter(type='triple_cat_file_upload'))
+                'file_based_questions': list(trial.questions.filter(Q(type='file_upload')|Q(type='triple_cat_file_upload'))),
+                'code_zip': list(trial.questions.filter(type='code_upload'))
             })
 
         for x in context['choices']:
@@ -719,6 +719,8 @@ def get_new_trial_phase_2(request, phase_id):
         question = FileUploadQuestion.objects.get(type='triple_cat_file_upload')
         #todo dataset link in trial
         current_trial.questions.add(question)
+        code_upload_question = CodeUploadQuestion.objects.all()[0]
+        current_trial.questions.add(code_upload_question)
         current_trial.save()
         context.update({
             'current_trial': current_trial

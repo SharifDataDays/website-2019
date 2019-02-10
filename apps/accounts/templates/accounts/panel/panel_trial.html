@@ -32,7 +32,7 @@
 <span style="font-weight:bold">ملاحظه مهم</span>: ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا هر برند باید به شکل ارائه شده در <a href="/media/brands.txt" target="_blank" download="brands.txt">فایل پیوست</a> به سوال نوشته شود.
 
         </div>
-    {# File Based Questions #}
+     File Based Questions
     <div style="margin:0 0 45px 0 ">
         {% for question in file_based_questions %}
             <div class="field"
@@ -74,7 +74,7 @@
                             font-family: IRANSans
                             "
                     >
-                        {# TODO href to download file #}
+                         TODO href to download file
                         <a href="{% url 'accounts:get_dataset' phase.id trial.id %}" target="_blank" class="ui link">
                            <i class="download icon huge"></i>
                         </a>
@@ -112,7 +112,7 @@
 
 <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
-            <span style="font-weight:bold">بخش اول</span><br>
+            <span style="font-weight:bold">کد</span><br>
 {#<span style="font-weight:bold">عنوان</span>: پیش‌بینی برچسب<br>#}
 {#<span style="font-weight:bold">امتیاز</span>: ۱۰۰۰ امتیاز<br>#}
 {#<span style="font-weight:bold">توانایی</span>: تحلیل متن و ایجاد جستار مناسب روی دادگان<br>#}
@@ -166,11 +166,11 @@
                             "
                     >
                             <i class="upload icon huge"></i>
-                        {% trans 'Upload Code' %}
+                        {% trans 'Upload Answer' %}
                         <input
                                type="file"
                                class="link"
-                               name="code"
+                               name="{{ trial.id  }}_{{ question.id }}"
                                accept="text/plain"
                                required
                         >
