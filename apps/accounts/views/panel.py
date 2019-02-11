@@ -189,9 +189,16 @@ def get_scoreboard(phase_id):
 
     scoreboard = []
     for team in teams:
-        scoreboard.append({'team_name': team.team.name,
-                           'score': get_phase_score(team, trials, phase),
-                           'members': [user_pc.user.username for user_pc in team.team.participants.all()]})
+        team_con = {'team_name': team.team.name,
+                    'score': get_phase_score(team, trials, phase)}
+        names = []
+        for user_pc in team.team.participants.all():
+            try:
+                names.append(user_pc.user.profile.name)
+            except:
+                print('user has no profile')
+        team_con['members'] = names
+        scoreboard.append(team_con)
     scoreboard = sorted(scoreboard, key=lambda k: k['score'], reverse=True)
     return scoreboard
 
@@ -200,7 +207,7 @@ def get_phase_score(team, trials, phase):
     team_phase_trials = trials.filter(team=team)
     if phase.final:
         try:
-            return team_phase_trials.get(is_final=True).score
+            return float("{0:.2f}".format(team_phase_trials.get(is_final=True).score))
         except:
             return 0
     else:
