@@ -2,6 +2,7 @@ from django.conf.urls import url
 from apps.accounts import views
 
 app_name = "accounts"
+
 urlpatterns = [
     url(r'^signup/$', views.SignupView.as_view(), name='signup'),
     url(r'^login/$', views.LoginView.as_view(), name='login'),
@@ -29,7 +30,8 @@ urlpatterns = [
     url(r'^email_invalid$', views.email_invalid, name='email_invalid'),
     url(r'^challenge_a_team/(?P<participation_id>\d+)$', views.challenge_a_team, name='challenge_a_team'),
     url(r'^panel/phase/(?P<phase_id>\d+)/$', views.render_phase,name='panel_phase'),
-    url(r'^panel/phase/(?P<phase_id>\d+)/scoreboard/$',views.render_phase_scoreboard,name='phase_scoreboard'),
+    url(r'^panel/scoreboard/$', views.render_scoreboard, name='scoreboard'),
+    url(r'^panel/phase/(?P<phase_id>\d+)/scoreboard/$', views.render_phase_scoreboard, name='phase_scoreboard'),
     url(r'^panel/phase/(?P<phase_id>\d+)/get_new_trial/$', views.get_new_trial, name='new_trial'),
     url(r'^panel/phase/(?P<phase_id>\d+)/get_new_trial_2/$', views.get_new_trial_phase_2, name='new_trial_phase_2'),
     url(r'^panel/phase/(?P<phase_id>\d+)/trial/(?P<trial_id>\d+)/$', views.render_trial, name='panel_trial'),
@@ -40,6 +42,5 @@ urlpatterns = [
     url(r'^panel/submissions/$', views.submissions, name='panel_submissions'),
     url(r'^panel/team/$', views.team_management, name='panel_team_management'),
     url(r'^panel/teampc/(?P<team_pc>\d+)$', views.change_team_pc, name='panel_change_team_pc'),
-    url(r'^panel/scoreboard/total/$', views.render_panel_phases_scoreboard, name='scoreboard_total'),
     url(r'^panel/phase/(?P<phase_id>\d+)/set_final_trial/(?P<trial_id>\d+)/$', views.set_final_trial, name='set_final_trial'),
 ]
