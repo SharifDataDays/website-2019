@@ -246,7 +246,8 @@ def render_phase(request, phase_id):
         context.update({
             'is_team_completed': is_team_completed,
             'trials': trials,
-            'id': phase_id
+            'id': int(phase_id),
+            'name': phase.name
         })
 
     return render(request, 'accounts/panel/panel_phase.html', context)
