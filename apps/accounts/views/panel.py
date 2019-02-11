@@ -430,6 +430,7 @@ def submit_trial(request, phase_id, trial_id):
         file = None
         if request.FILES:
             names = list(request.FILES)
+            print('\033[92m{}\033[0m'.format(names))
             code = None
             if names.__contains__('code'):
                 code = request.FILES['code']
@@ -462,7 +463,10 @@ def submit_trial(request, phase_id, trial_id):
         qusu = None
         if code is not None:
             _, code_extension = os.path.splitext(code.name)
-            if code_extension not in ['.zip']:
+            print("-----------------------")
+            print(code_extension)
+            print("-----------------------")
+            if code_extension.lower() not in ['.zip']:
                 error_msg = 'Only zip file is acceptable'
                 request.POST['code_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)

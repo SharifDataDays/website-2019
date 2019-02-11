@@ -128,7 +128,7 @@
 <span style="font-weight:bold">ملاحظه مهم</span>: ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا هر برند باید به شکل ارائه شده در <a href="/media/brands.txt" target="_blank" download="brands.txt">فایل پیوست</a> به سوال نوشته شود.
 
         </div>
-    {# File Based Questions #}
+    {# Code Upload #}
     <div style="margin:0 0 45px 0 ">
         {% for question in code_zip %}
             <div class="field"
@@ -169,12 +169,12 @@
                             <i class="upload icon huge"></i>
                                 </a>
                         </label>
-                        {% trans 'Upload Answer' %}
+                        {% trans 'Upload Code' %}
                         <input
                                type="file"
                                class="link"
                                style="display: none"
-                               name="{{ trial.id  }}_{{ question.id }}"
+                               name="code"
                                accept="text/plain"
                                required
                                id="code-in"
