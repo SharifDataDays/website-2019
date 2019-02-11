@@ -199,7 +199,10 @@ def get_scoreboard(phase_id):
 def get_phase_score(team, trials, phase):
     team_phase_trials = trials.filter(team=team)
     if phase.final:
-        return team_phase_trials.get(is_final=True).score
+        try:
+            return team_phase_trials.get(is_final=True).score
+        except:
+            return 0
     else:
         scores = [trial.score for trial in team_phase_trials]
         if len(scores) == 0:
