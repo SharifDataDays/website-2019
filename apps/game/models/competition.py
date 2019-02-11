@@ -129,7 +129,6 @@ class FileUploadQuestion(Question):
     upload_url = models.CharField(max_length=200, null=True, blank=True)
     answer_file = models.FileField(upload_to=upload_url,null=True)
     is_chosen = models.BooleanField(default=False)
-    score2 = models.IntegerField(default=0)
 
     # def save(self, **kwargs):
     #     self.type = 'file_upload'
@@ -170,6 +169,7 @@ class Trial(models.Model):
     end_time = models.DateTimeField(null=True)
     submit_time = models.DateTimeField(null=True)
     score = models.FloatField(default=0)
+    score2 = models.FloatField(default=0)
     team = models.ForeignKey(TeamParticipatesChallenge, related_name='trials', null=True)
     dataset_link = models.CharField(max_length=600, blank=True, null=True)
     is_final = models.NullBooleanField()
@@ -197,6 +197,7 @@ class QuestionSubmission(models.Model):
     question = models.ForeignKey(Question)
     value = models.CharField(max_length=1000, default=0)
     score = models.FloatField(default=0)
+    score2 = models.FloatField(default=0)
     trial_submission = models.ForeignKey('TrialSubmission', related_name='questionSubmissions')
 
 

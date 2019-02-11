@@ -515,9 +515,17 @@ def get_judge_response(request):
     trial.score = 0
     for i in range(len(submissions)):
         question_submission = QuestionSubmission.objects.get(trial_submission__trial_id=trial_id, question__doc_id=submissions[i]['question_id'])
-        question_submission.score = submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
+        q = Question.objects.get(questionsubmission=question_submission)
+        if q.type == 'triple_cat_file_upload':
+            question_submission.score = submissions[i]['score'][0] * Question.objects.get(
+                doc_id=submissions[i]['question_id']).max_score
+            question_submission.score2 = submissions[i]['score'][1] * Question.objects.get(
+                doc_id=submissions[i]['question_id']).max_score
+        else:
+            question_submission.score = submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
         question_submission.save()
         trial.score += question_submission.score
+        trial.score2 += question_submission.score2
     trial.save()
     return JsonResponse({'status': 'succeeded'})
 
