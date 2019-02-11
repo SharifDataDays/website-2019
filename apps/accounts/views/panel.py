@@ -243,6 +243,12 @@ def render_phase(request, phase_id):
         else:
             is_team_completed = False
         trials = (Trial.objects.filter(team_id=team_pc.id, competition=phase))
+        for t in trials:
+            if t.end_time <= timezone.now():
+                t.submit_time = timezone.now()
+                t.save()
+                ts = TrialSubmission(trial=t, competition=phase, team=team_pc, score=-1)
+                ts.save()
         context.update({
             'is_team_completed': is_team_completed,
             'trials': trials,
@@ -337,6 +343,11 @@ def render_trial(request, phase_id, trial_id):
             return render(request, '404.html')
         else:
             trial = trial[0]
+            if trial.end_time <= timezone.now():
+                trial.submit_time = timezone.now()
+                trial.save()
+                ts = TrialSubmission(trial=trial, competition=phase, team=team_pc, score=-1)
+                ts.save()
             if trial.submit_time is not None:
                 return redirect('accounts:panel_phase', phase_id)
             context.update({
