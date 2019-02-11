@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-10 15:59+0330\n"
+"POT-Creation-Date: 2019-02-11 13:24+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,20 +100,19 @@ msgstr "شماره ی تلفن ثابت"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:4
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:115
-#: apps/accounts/templates/accounts/panel/group_table.html:11
 #: apps/accounts/templates/accounts/panel/phase_table.html:11
 #: apps/accounts/views/panel.py:67
 msgid "Scoreboard"
 msgstr "جدول امتیازات"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:8
-#: apps/accounts/templates/accounts/panel/group_table.html:15
+#: apps/accounts/templates/accounts/panel/group_table.html:21
 #: apps/accounts/templates/accounts/panel/phase_table.html:15
 msgid "Rank"
 msgstr "رتبه"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:9
-#: apps/accounts/templates/accounts/panel/group_table.html:16
+#: apps/accounts/templates/accounts/panel/group_table.html:22
 #: apps/accounts/templates/accounts/panel/phase_table.html:16
 msgid "Name"
 msgstr "نام تیم"
@@ -193,7 +192,7 @@ msgstr "نقشه:"
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:114
 #: apps/accounts/templates/accounts/oldpanel/submissions.html:151
 #: apps/accounts/templates/accounts/panel/battle_history.html:100
-#: apps/accounts/templates/accounts/panel/panel_trial.html:346
+#: apps/accounts/templates/accounts/panel/panel_trial.html:430
 #: apps/accounts/templates/accounts/panel/submissions.html:9
 #: apps/accounts/templates/accounts/panel/submissions.html:41
 msgid "Submit"
@@ -382,10 +381,6 @@ msgstr "تمام اعضا شرکت در مسابقه را تایید کرده‌
 msgid "All users haven't accepted the challenge yet!"
 msgstr "هنوز همه اعضا شرکت در مسابقه را تایید نکرده‌اند."
 
-#: apps/accounts/templates/accounts/panel/group_table.html:20
-msgid "Total"
-msgstr "مجموع"
-
 #: apps/accounts/templates/accounts/panel/messages.html:31
 msgid "You have to complete the team and pay to continue to this challenge."
 msgstr "برای ادامه کار در این چالش باید تیم خود را تکمیل کرده و پرداخت کنید."
@@ -402,81 +397,89 @@ msgstr "تکمیل تیم"
 msgid "Back To Panel"
 msgstr "بازگشت به پنل"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:22
+#: apps/accounts/templates/accounts/panel/panel_phase.html:26
 msgid "Get a new trial"
 msgstr "ایجاد یک تلاش جدید"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:36
+#: apps/accounts/templates/accounts/panel/panel_phase.html:42
 msgid "Part One Score"
 msgstr "امتیاز بخش اول"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:38
+#: apps/accounts/templates/accounts/panel/panel_phase.html:44
 msgid "Part Two Score"
 msgstr "امتیاز بخش دوم"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:40
+#: apps/accounts/templates/accounts/panel/panel_phase.html:46
 msgid "Part Three Score"
 msgstr "امتیاز بخش سوم"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:52
-msgid "Trial"
-msgstr "تلاش"
-
-#: apps/accounts/templates/accounts/panel/panel_phase.html:59
-msgid "Start Time"
-msgstr "زمان شروع"
-
-#: apps/accounts/templates/accounts/panel/panel_phase.html:67
-msgid "Time Left"
-msgstr "زمان باقی مانده"
-
-#: apps/accounts/templates/accounts/panel/panel_phase.html:75
-msgid "Submit Time"
-msgstr "زمان ارسال"
-
-#: apps/accounts/templates/accounts/panel/panel_phase.html:78
-msgid "No Submit Yet"
-msgstr "هنوز هیچ ارسالی انجام نداده‌اید"
-
-#: apps/accounts/templates/accounts/panel/panel_phase.html:85
+#: apps/accounts/templates/accounts/panel/panel_phase.html:49
+#: apps/accounts/templates/accounts/panel/panel_phase.html:115
 msgid "Score "
 msgstr "امتیاز"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:88
+#: apps/accounts/templates/accounts/panel/panel_phase.html:51
+#: apps/accounts/templates/accounts/panel/panel_phase.html:118
 msgid "Judging ..."
 msgstr "در حال داوری ..."
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:96
+#: apps/accounts/templates/accounts/panel/panel_phase.html:75
+msgid "Trial"
+msgstr "تلاش"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:79
 msgid "final trial"
 msgstr ""
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:102
+#: apps/accounts/templates/accounts/panel/panel_phase.html:88
+msgid "Start Time"
+msgstr "زمان شروع"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:96
+msgid "Time Left"
+msgstr "زمان باقی مانده"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:104
+msgid "Submit Time"
+msgstr "زمان ارسال"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:107
+msgid "No Submit Yet"
+msgstr "هنوز هیچ ارسالی انجام نداده‌اید"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:129
 #, fuzzy
 #| msgid "Get a new trial"
 msgid "set as final trial"
 msgstr "ایجاد یک تلاش جدید"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:121
+#: apps/accounts/templates/accounts/panel/panel_phase.html:148
 msgid "View Trial"
 msgstr "مشاهده‌ی تلاش"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:77
+#: apps/accounts/templates/accounts/panel/panel_trial.html:80
 msgid "Download Dataset"
 msgstr "دانلود دادگان"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:92
+#: apps/accounts/templates/accounts/panel/panel_trial.html:95
 msgid "Upload Answer"
 msgstr "بارگذاری پاسخ"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:201
+#: apps/accounts/templates/accounts/panel/panel_trial.html:172
+#, fuzzy
+#| msgid "Upload Answer"
+msgid "Upload Code"
+msgstr "بارگذاری پاسخ"
+
+#: apps/accounts/templates/accounts/panel/panel_trial.html:283
 msgid "No answer yet : Number field"
 msgstr "هنوز پاسخی نداده‌اید: مقدار عددی"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:234
-#: apps/accounts/templates/accounts/panel/panel_trial.html:271
-#: apps/accounts/templates/accounts/panel/panel_trial.html:303
 #: apps/accounts/templates/accounts/panel/panel_trial.html:316
-#: apps/accounts/templates/accounts/panel/panel_trial.html:329
+#: apps/accounts/templates/accounts/panel/panel_trial.html:353
+#: apps/accounts/templates/accounts/panel/panel_trial.html:385
+#: apps/accounts/templates/accounts/panel/panel_trial.html:398
+#: apps/accounts/templates/accounts/panel/panel_trial.html:411
 msgid "No answer yet : Text field"
 msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
 
@@ -603,29 +606,31 @@ msgstr "تیم شما با موفقیت ساخته شد"
 msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
-#: apps/accounts/views/panel.py:91
-#, fuzzy
-#| msgid "Scoreboard"
-msgid " scoreboard"
-msgstr "جدول امتیازات"
-
-#: apps/accounts/views/panel.py:380 apps/accounts/views/panel.py:707
+#: apps/accounts/views/panel.py:605 apps/accounts/views/panel.py:680
 msgid "You have one active trial."
 msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
-#: apps/accounts/views/panel.py:385
+#: apps/accounts/views/panel.py:610
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
 
-#: apps/accounts/views/panel.py:715
+#: apps/accounts/views/panel.py:688
 msgid ""
 "You can not get any new trial. You have reached your limit in current day"
 msgstr ""
 
-#: apps/accounts/views/panel.py:759
+#: apps/accounts/views/panel.py:731
 msgid "no such trial"
 msgstr ""
 
-#: apps/accounts/views/panel.py:766
+#: apps/accounts/views/panel.py:738
 msgid "final trial set successfuly"
 msgstr ""
+
+#~ msgid "Total"
+#~ msgstr "مجموع"
+
+#, fuzzy
+#~| msgid "Scoreboard"
+#~ msgid " scoreboard"
+#~ msgstr "جدول امتیازات"
