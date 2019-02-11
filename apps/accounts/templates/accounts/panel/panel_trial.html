@@ -434,7 +434,7 @@
 
         <div class="ui warning message" style="display: none;" id="alert">
           <p>شما بعد از ارسال دیگر امکان ویرایش پاسخ یا بازگشت به این صفحه را ندارید بنابراین در ارسال پاسخ دقت کنید.</p>
-            <button class="fluid ui submit blue button" style="margin: 20px 0" type="submit">
+            <button class="fluid ui submit blue button" style="margin: 20px 0" type="submit" id="submit">
                 {% trans 'Submit' %}
             </button>
         </div>
@@ -455,5 +455,10 @@ document.getElementById('code-in').onchange = function () {
     document.getElementById('code-up').innerText = this.files.item(0).name;
     $('#up-link-2').css('color','forestgreen')
 };
+document.getElementById('submit').onclick = function () {
+    if(document.getElementById('file-in').files.length == 0 || document.getElementById('code-in').files.length == 0){
+        alert('please select a file');
+    }
+}
 </script>
 {% endblock %}

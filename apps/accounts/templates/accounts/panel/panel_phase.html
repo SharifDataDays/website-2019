@@ -106,7 +106,6 @@
                             {% endif %}
 
                             {# Trial's Score #}
-                            {% if id == 1 %}
                                 <h4 class="ui sub header">
                                     {% trans 'Score ' %}
                                 </h4>
@@ -115,7 +114,6 @@
                                 {% else %}
                                     {{ trial.score|floatformat:2 }}
                                 {% endif %}
-                            {% endif %}
 
 
                             {% if trial.is_final != True and id != 1%}
