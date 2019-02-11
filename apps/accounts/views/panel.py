@@ -511,7 +511,6 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.save()
         trialSubmit.upload()
 
-
         return redirect('accounts:panel_phase', phase.id)
 
 
@@ -541,6 +540,7 @@ def get_judge_response(request):
     submissions = json_data['submissions']
     trial = Trial.objects.get(id=trial_id)
     trial.score = 0
+    phase = Competition.objects.get(id= phase_id)
     for i in range(len(submissions)):
         question_submission = QuestionSubmission.objects.get(trial_submission__trial_id=trial_id, question__doc_id=submissions[i]['question_id'])
         q = Question.objects.get(questionsubmission=question_submission)
@@ -555,6 +555,15 @@ def get_judge_response(request):
         trial.score += question_submission.score
         trial.score2 += question_submission.score2
     trial.save()
+
+    trials = Trial.objects.filter(team_id=team_id, competition=phase)
+    for t in trials:
+        t.is_final = False
+        t.save()
+    trials = trials.order_by('-score')
+    if len(trials) > 0:
+        trials[0].is_final = True
+        trials[0].save()
     return JsonResponse({'status': 'succeeded'})
 
 
