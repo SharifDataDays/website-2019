@@ -252,7 +252,8 @@ def render_phase(request, phase_id):
         context.update({
             'is_team_completed': is_team_completed,
             'trials': trials,
-            'id': phase_id
+            'id': int(phase_id),
+            'name': phase.name
         })
 
     return render(request, 'accounts/panel/panel_phase.html', context)
@@ -319,10 +320,6 @@ def get_new_trial(request, phase_id):
 @login_required
 def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
-    if request.POST.get('file_error'):
-        print(request.POST['file_error'])
-    if request.POST.get('code_error'):
-        print(request.POST['code_error'])
     if phase is None:
         redirect("/accounts/panel/team")
     else:
@@ -338,6 +335,16 @@ def render_trial(request, phase_id, trial_id):
             'phase': phase,
             'id': len(Trial.objects.filter(team=team_pc, competition=phase)),
         })
+        errors = []
+        if request.POST.get('file_error'):
+            errors.append(request.POST['file_error'])
+        if request.POST.get('code_error'):
+            errors.append(request.POST['code_error'])
+        if len(errors) > 0:
+            context.update({
+                'errors': errors
+            })
+
         trial = Trial.objects.filter(id=trial_id).all()
         if len(trial) is 0:
             return render(request, '404.html')

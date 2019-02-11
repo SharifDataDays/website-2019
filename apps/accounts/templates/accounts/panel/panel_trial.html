@@ -20,7 +20,6 @@
 	   Trial {{ id }}
     </div>
 
-
     {% if file_based_questions %}
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
@@ -147,14 +146,14 @@
                 >
                      {{ question.stmt }}
                 </div>
-                <div class="ui attached" style="
+                <div class="ui attached center aligned grid" style="
                         padding:0;
                         display: flex;
-
                         height: 10rem;
                         border-radius: 0 0 .28571429rem .28571429rem;
                         border:1px solid #d4d4d5;
                         border-top-color: transparent;
+                        margin: 0!important;
                         ">
                     <div style="
                             width: 50%;
@@ -165,7 +164,7 @@
                             align-items: center;
                             font-family: IRANSans">
                         <label for="code-in">
-                            <a>
+                            <a class="upload-hover">
                             <i class="upload icon huge"></i>
                                 </a>
                         </label>
@@ -418,6 +417,14 @@
     </div>
     {# Submit Button#}
     {% endif %}
+
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
+        {% for error in errors %}
+            <div class="ui error message" style="width: 100%; display: block; font-size: 1em; font-family: IRANSans; text-align: center">
+                {{ error }}
+            </div>
+        {% endfor %}
+    </div>
 
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%">
         <div class="fluid ui submit blue button" style="margin: 20px 0" id="button">
