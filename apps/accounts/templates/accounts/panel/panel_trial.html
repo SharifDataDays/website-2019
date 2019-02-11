@@ -164,7 +164,7 @@
                             align-items: center;
                             font-family: IRANSans">
                         <label for="code-in">
-                            <a class="upload-hover">
+                            <a class="upload-hover" id="up-link-2">
                             <i class="upload icon huge"></i>
                                 </a>
                         </label>
@@ -178,6 +178,7 @@
                                required
                                id="code-in"
                         />
+                        <p id="code-up"></p>
 
                     </div>
                 </div>
@@ -449,6 +450,10 @@ $('#button').click(function (e) {
 document.getElementById('file-in').onchange = function () {
     document.getElementById('file-up').innerText = this.files.item(0).name;
     $('#up-link').css('color','forestgreen')
+};
+document.getElementById('code-in').onchange = function () {
+    document.getElementById('code-up').innerText = this.files.item(0).name;
+    $('#up-link-2').css('color','forestgreen')
 };
 </script>
 {% endblock %}
