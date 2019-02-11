@@ -158,7 +158,7 @@ def redirect_to_somewhere_better(request):
 
 def render_scoreboard(request):
     phase_team_scores = [get_scoreboard(phase.id) for phase in Competition.objects.all()]
-    return render_phase_scoreboard(request, 4)
+    return render_phase_scoreboard(request, Competition.objects.all()[0].id)
 
 
 @login_required
