@@ -28,7 +28,7 @@
         {% for team in scoreboard %}
             <tr {% if my_team.team.name == team.team_name %} style="background-color: lightblue" {% endif %}>
                 <td>
-                    <div class="ui blue label">{{ forloop.counter }}</div>
+                    <div class="ui blue label">{{ forloop.counter|add:page_num }}</div>
                 </td>
                 <td>
                     <div class="ui button"
@@ -43,6 +43,27 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if scoreboard.has_other_pages %}
+      <ul class="ui pagination menu">
+        {% if scoreboard.has_previous %}
+          <li><a href="?page={{ scoreboard.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in scoreboard.paginator.page_range %}
+          {% if scoreboard.number == i %}
+            <li><a class="active item">{{ i }}</a></li>
+          {% else %}
+            <li><a class="item" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if scoreboard.has_next %}
+          <li><a href="?page={{ scoreboard.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+    {% endif %}
     <script>
      $('.ui.button')
       .popup({
