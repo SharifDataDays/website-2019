@@ -64,7 +64,7 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
-        {'name': 'render_panel_phases_scoreboard', 'link': reverse('accounts:scoreboard_total'), 'text': _('Scoreboard')}
+        {'name': 'render_panel_phases_scoreboard', 'link': reverse('accounts:scoreboard'), 'text': _('Scoreboard')}
     ]
 
     if request.user.profile:
@@ -80,15 +80,6 @@ def get_shared_context(request):
                             comp.id
                         ]),
                         'text': _(comp.name)
-                    }
-                )
-                context['menu_items'].append(
-                    {
-                        'name': comp.name+" scoreboard",
-                        'link': reverse('accounts:phase_scoreboard', args=[
-                            comp.id
-                        ]),
-                        'text': _(comp.name+" scoreboard")
                     }
                 )
     context.update({
@@ -165,58 +156,60 @@ def redirect_to_somewhere_better(request):
         ))
 
 
-def sortSecond(val):
-    return val[1][0]
+def render_scoreboard(request):
+    phase_team_scores = [get_scoreboard(phase.id) for phase in Competition.objects.all()]
+    return render_phase_scoreboard(request, 4)
 
 
 @login_required
-def render_panel_phases_scoreboard(request):
-    # phase_scoreboard = TeamParticipatesChallenge.objects.filter(challenge=Challenge.objects.all()[0])
-    submissions = TrialSubmission.objects.filter(competition__challenge=Challenge.objects.all()[0])
-    scoreboard = TeamParticipatesChallenge.objects.filter(trial_submissions__in=list(submissions)).distinct()
-    ranks = []
+def render_phase_scoreboard(request, phase_id):
+    scoreboard = get_scoreboard(phase_id)
+    my_team = get_team_pc(request)
     context = get_shared_context(request)
     for item in context['menu_items']:
         if item['name'] == 'render_panel_phase_scoreboard':
             item['active'] = True
-    for team in scoreboard:
-        profiles = Profile.objects.filter(panel_active_teampc=team)
-        members = []
-        for prof in profiles:
-            members.append(prof.user)
-        temp = [team.team.name, get_total_score(team.id), 0, Profile.objects.filter(panel_active_teampc=team)]
-        ranks.append(temp)
-    ranks.sort(key=sortSecond, reverse=True)
-    for i in range(0, len(scoreboard)):
-        x = list(ranks[i])
-        x[2] = i + 1
-        ranks[i] = list(x)
-    my_team = get_team_pc(request).team.name
     context.update({
-        'teams': ranks,
-        'phases': Competition.objects.all(),
+        'scoreboard': scoreboard,
+        'phases': list(Competition.objects.all()),
+        'phase': Competition.objects.get(id=phase_id),
         'my_team': my_team,
     })
     return render(request, 'accounts/panel/group_table.html', context)
 
 
-def get_total_score(team_id):
-    result = {0: 0}
-    for phase in Competition.objects.all():
-        result[phase.id] = 0
-        trials = Trial.objects.filter(team=TeamParticipatesChallenge.objects.get(id=team_id), competition=phase).all()
-        scores = []
-        for trial in trials:
-            scores.append(trial.score)
+def get_scoreboard(phase_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase is None:
+        return redirect('accounts:panel_team_management')
+    submits = TrialSubmission.objects.filter(competition=phase).select_related('trial')
+    submitted_trial_ids = [submit.trial.id for submit in submits]
+    trials = Trial.objects.filter(id__in=submitted_trial_ids)
+    teams = TeamParticipatesChallenge.objects.filter(trials__in=trials).distinct()
+
+    scoreboard = []
+    for team in teams:
+        scoreboard.append({'team_name': team.team.name,
+                           'score': get_phase_score(team, trials, phase),
+                           'members': [user_pc.user.username for user_pc in team.team.participants.all()]})
+    scoreboard = sorted(scoreboard, key=lambda k: k['score'], reverse=True)
+    return scoreboard
+
+
+def get_phase_score(team, trials, phase):
+    team_phase_trials = trials.filter(team=team)
+    if phase.final:
+        return team_phase_trials.get(is_final=True).score
+    else:
+        scores = [trial.score for trial in team_phase_trials]
         if len(scores) == 0:
-            result[phase.id] = 0
+            result = 0
         elif len(scores) == 1:
-            result[phase.id] = float("{0:.2f}".format(scores[0]))
+            result = float("{0:.2f}".format(scores[0]))
         else:
             scores.remove(min(scores))
-            result[phase.id] = float("{0:.2f}".format(sum(scores) / len(scores)))
-        result[0] += result[phase.id]
-    return result
+            result = float("{0:.2f}".format(sum(scores) / len(scores)))
+        return result
 
 
 @login_required
@@ -257,53 +250,6 @@ def render_phase(request, phase_id):
         })
 
     return render(request, 'accounts/panel/panel_phase.html', context)
-
-
-@login_required
-def render_phase_scoreboard(request,phase_id):
-    phase = Competition.objects.get(id=phase_id)
-    phase_scoreboard = TeamParticipatesChallenge.objects.filter()
-    ranks = []
-    context = get_shared_context(request)
-    for item in context['menu_items']:
-        if item['name'] == phase.name+' scoreboard':
-            item['active'] = True
-    for team in phase_scoreboard:
-        temp = [team.team.name, get_score(team,phase), 0,Profile.objects.filter(panel_active_teampc=team),True]
-        if len(Trial.objects.filter(team=team, competition=phase)) == 0:
-            temp[4] = False
-        ranks.append(temp)
-    ranks.sort(key=sortPhase, reverse=True)
-    for i in range(0, len(phase_scoreboard)):
-        x = list(ranks[i])
-        x[2] = i + 1
-        ranks[i] = (x)
-    context.update({
-        'teams': ranks,
-        'phase':phase
-    })
-    return render(request, 'accounts/panel/phase_table.html', context)
-
-
-def sortPhase(val):
-    return val[1]
-
-
-def get_score(team,phase):
-    result = 0
-    list = []
-    if phase.final == True:
-        list.append(Trial.objects.get(is_final=True,team=team).score)
-    else:
-        for trial in Trial.objects.filter(team=team, competition=phase):
-            list.append(trial.score)
-        if len(list)>1:
-            list.remove(min(list))
-    for i in list:
-        result+=i
-    if phase.final == False and len(list)!=0:
-        result = int(result/len(list))
-    return result
 
 
 @login_required
@@ -470,7 +416,8 @@ def submit_trial(request, phase_id, trial_id):
                 error_msg = 'Only zip file is acceptable'
                 request.POST['code_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)
-            elif file.size > 1048576:
+            elif file.size > 1048576 * 5:
+                print(file.size)
                 error_msg = 'Max size of file is 1MB'
                 request.POST['code_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)
@@ -481,7 +428,7 @@ def submit_trial(request, phase_id, trial_id):
                 qusu.question = quzi
                 qusu.value = file_full_path
         if file is not None:
-            if file.size > 1048576:
+            if file.size > 1048576 * 5:
                 error_msg = 'Max size of file is 1MB'
                 request.POST['file_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)
