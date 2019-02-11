@@ -8,32 +8,37 @@
 
 
 {% block panel_content %}
-    <h2>{% trans 'Scoreboard' %}</h2>
+    <div class="ui inverted buttons">
+        {% for phase in phases %}
+            <a href="{% url 'accounts:phase_scoreboard' phase.id %}">
+                <button class="ui inverted blue button">{{ phase.name }}</button>
+            </a>
+        {% endfor %}
+    </div>
     <table class="ui blue selectable unstackable table">
         <thead>
             <tr>
                 <th class="collapsing" style="font-family: IRANSans!important;">{% trans 'Rank' %}</th>
-                <th style="font-family: IRANSans!important;" >{% trans 'Name' %}</th>
-                <th style="font-family: IRANSans!important;">{% trans 'Total' %}</th>
-                {% for phase in phases %}
-                  <th style="font-family: IRANSans!important;">{% trans phase.name %}</th>
-                {% endfor %}
+                <th style="font-family: IRANSans!important;">{% trans 'Name' %}</th>
+                <th style="font-family: IRANSans!important; float: left; margin-left: 20%">{% trans phase.name %}</th>
             </tr>
         </thead>
         <tbody>
 
-        {% for competitor in teams %}
-            <tr {% if my_team == competitor.0 %}style="background-color: lightblue" {% endif %}>
+        {% for team in scoreboard %}
+            <tr {% if my_team.team.name == team.team_name %} style="background-color: lightblue" {% endif %}>
                 <td>
-                    <div class="ui blue label">{{ competitor.2 }}</div>
+                    <div class="ui blue label">{{ forloop.counter }}</div>
                 </td>
                 <td>
-                    <div class="ui button" style="background-color: transparent!important; margin-right: -30px!important;" data-html="{{ competitor.3.0.name }}<br/>{{ competitor.3.1.name }}<br/>{{ competitor.3.2.name }}" data-position="top center">{{ competitor.0 }}</div>
+                    <div class="ui button"
+                         style="background-color: transparent!important; margin-right: -5%"
+                         data-html="{% for member in team.members %}{{ member }}o<br/>{% endfor %}"
+                         data-position="top center">{{ team.team_name }}</div>
                 </td>
-                {% for i in competitor.1.values %}
-                  <td>{{ i }}</td>
-                {% endfor %}
-                <!--<td>{{ competitor.1.0 }}</td>-->
+                <td style="font-family: IRANSans!important; float: left; margin-left: 35%">
+                    {{ team.score }}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
