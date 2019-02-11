@@ -26,6 +26,7 @@ from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competit
     Instruction, Question, \
     Choice, TrialSubmission, QuestionSubmission, FileUploadQuestion, CodeUploadQuestion
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 DIR_DATASET = '/home/datadays/tds'
 
@@ -169,11 +170,20 @@ def render_phase_scoreboard(request, phase_id):
     for item in context['menu_items']:
         if item['name'] == 'render_panel_phase_scoreboard':
             item['active'] = True
+    page = request.GET.get('page')
+    paginator = Paginator(scoreboard, 30)
+    try:
+        paginated_scoreboard = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_scoreboard = paginator.page(1)
+    except EmptyPage:
+        paginated_scoreboard = paginator.page(paginator.num_pages)
     context.update({
-        'scoreboard': scoreboard,
+        'scoreboard': paginated_scoreboard,
         'phases': list(Competition.objects.all()),
         'phase': Competition.objects.get(id=phase_id),
         'my_team': my_team,
+        'page_num': (paginated_scoreboard.number - 1) * 30
     })
     return render(request, 'accounts/panel/group_table.html', context)
 
@@ -207,7 +217,11 @@ def get_phase_score(team, trials, phase):
     team_phase_trials = trials.filter(team=team)
     if phase.final:
         try:
+<<<<<<< HEAD
+            return team_phase_trials.get(is_final=True).score
+=======
             return float("{0:.2f}".format(team_phase_trials.get(is_final=True).score))
+>>>>>>> 2c255df4377fb7957499cbcadf303a9c5a28b406
         except:
             return 0
     else:

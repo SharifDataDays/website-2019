@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-11 16:41+0330\n"
+"POT-Creation-Date: 2019-02-11 13:24+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,7 +192,7 @@ msgstr "نقشه:"
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:114
 #: apps/accounts/templates/accounts/oldpanel/submissions.html:151
 #: apps/accounts/templates/accounts/panel/battle_history.html:100
-#: apps/accounts/templates/accounts/panel/panel_trial.html:438
+#: apps/accounts/templates/accounts/panel/panel_trial.html:430
 #: apps/accounts/templates/accounts/panel/submissions.html:9
 #: apps/accounts/templates/accounts/panel/submissions.html:41
 msgid "Submit"
@@ -401,67 +401,71 @@ msgstr "بازگشت به پنل"
 msgid "Get a new trial"
 msgstr "ایجاد یک تلاش جدید"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:41
-#: apps/accounts/templates/accounts/panel/panel_phase.html:103
-msgid "Score "
-msgstr "امتیاز"
-
-#: apps/accounts/templates/accounts/panel/panel_phase.html:43
-#: apps/accounts/templates/accounts/panel/panel_phase.html:106
-msgid "Judging ..."
-msgstr "در حال داوری ..."
-
-#: apps/accounts/templates/accounts/panel/panel_phase.html:48
+#: apps/accounts/templates/accounts/panel/panel_phase.html:42
 msgid "Part One Score"
 msgstr "امتیاز بخش اول"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:50
+#: apps/accounts/templates/accounts/panel/panel_phase.html:44
 msgid "Part Two Score"
 msgstr "امتیاز بخش دوم"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:52
+#: apps/accounts/templates/accounts/panel/panel_phase.html:46
 msgid "Part Three Score"
 msgstr "امتیاز بخش سوم"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:72
+#: apps/accounts/templates/accounts/panel/panel_phase.html:49
+#: apps/accounts/templates/accounts/panel/panel_phase.html:115
+msgid "Score "
+msgstr "امتیاز"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:51
+#: apps/accounts/templates/accounts/panel/panel_phase.html:118
+msgid "Judging ..."
+msgstr "در حال داوری ..."
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:75
 msgid "Trial"
 msgstr "تلاش"
 
 #: apps/accounts/templates/accounts/panel/panel_phase.html:79
+msgid "final trial"
+msgstr ""
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:88
 msgid "Start Time"
 msgstr "زمان شروع"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:87
+#: apps/accounts/templates/accounts/panel/panel_phase.html:96
 msgid "Time Left"
 msgstr "زمان باقی مانده"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:96
+#: apps/accounts/templates/accounts/panel/panel_phase.html:104
 msgid "Submit Time"
-msgstr "زمان گذشته از ارسال"
+msgstr "زمان ارسال"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:117
+#: apps/accounts/templates/accounts/panel/panel_phase.html:107
+msgid "No Submit Yet"
+msgstr "هنوز هیچ ارسالی انجام نداده‌اید"
+
+#: apps/accounts/templates/accounts/panel/panel_phase.html:129
 #, fuzzy
 #| msgid "Get a new trial"
 msgid "set as final trial"
 msgstr "ایجاد یک تلاش جدید"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:123
-msgid "final trial"
-msgstr ""
-
-#: apps/accounts/templates/accounts/panel/panel_phase.html:133
+#: apps/accounts/templates/accounts/panel/panel_phase.html:148
 msgid "View Trial"
 msgstr "مشاهده‌ی تلاش"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:79
+#: apps/accounts/templates/accounts/panel/panel_trial.html:80
 msgid "Download Dataset"
 msgstr "دانلود دادگان"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:94
+#: apps/accounts/templates/accounts/panel/panel_trial.html:95
 msgid "Upload Answer"
 msgstr "بارگذاری پاسخ"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:171
+#: apps/accounts/templates/accounts/panel/panel_trial.html:172
 #, fuzzy
 #| msgid "Upload Answer"
 msgid "Upload Code"
@@ -602,32 +606,29 @@ msgstr "تیم شما با موفقیت ساخته شد"
 msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
-#: apps/accounts/views/panel.py:625 apps/accounts/views/panel.py:700
+#: apps/accounts/views/panel.py:605 apps/accounts/views/panel.py:680
 msgid "You have one active trial."
 msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
-#: apps/accounts/views/panel.py:630
+#: apps/accounts/views/panel.py:610
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
 
-#: apps/accounts/views/panel.py:708
+#: apps/accounts/views/panel.py:688
 msgid ""
 "You can not get any new trial. You have reached your limit in current day"
 msgstr ""
 
-#: apps/accounts/views/panel.py:751
+#: apps/accounts/views/panel.py:731
 msgid "no such trial"
 msgstr ""
 
-#: apps/accounts/views/panel.py:758
+#: apps/accounts/views/panel.py:738
 msgid "final trial set successfuly"
 msgstr ""
 
 #~ msgid "Total"
 #~ msgstr "مجموع"
-
-#~ msgid "No Submit Yet"
-#~ msgstr "هنوز هیچ ارسالی انجام نداده‌اید"
 
 #, fuzzy
 #~| msgid "Scoreboard"
