@@ -243,6 +243,12 @@ def render_phase(request, phase_id):
         else:
             is_team_completed = False
         trials = (Trial.objects.filter(team_id=team_pc.id, competition=phase))
+        for t in trials:
+            if t.end_time <= timezone.now():
+                t.submit_time = timezone.now()
+                t.save()
+                ts = TrialSubmission(trial=t, competition=phase, team=team_pc, score=-1)
+                ts.save()
         context.update({
             'is_team_completed': is_team_completed,
             'trials': trials,
@@ -314,10 +320,6 @@ def get_new_trial(request, phase_id):
 @login_required
 def render_trial(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
-    if request.POST.get('file_error'):
-        print(request.POST['file_error'])
-    if request.POST.get('code_error'):
-        print(request.POST['code_error'])
     if phase is None:
         redirect("/accounts/panel/team")
     else:
@@ -333,11 +335,26 @@ def render_trial(request, phase_id, trial_id):
             'phase': phase,
             'id': len(Trial.objects.filter(team=team_pc, competition=phase)),
         })
+        errors = []
+        if request.POST.get('file_error'):
+            errors.append(request.POST['file_error'])
+        if request.POST.get('code_error'):
+            errors.append(request.POST['code_error'])
+        if len(errors) > 0:
+            context.update({
+                'errors': errors
+            })
+
         trial = Trial.objects.filter(id=trial_id).all()
         if len(trial) is 0:
             return render(request, '404.html')
         else:
             trial = trial[0]
+            if trial.end_time <= timezone.now():
+                trial.submit_time = timezone.now()
+                trial.save()
+                ts = TrialSubmission(trial=trial, competition=phase, team=team_pc, score=-1)
+                ts.save()
             if trial.submit_time is not None:
                 return redirect('accounts:panel_phase', phase_id)
             context.update({
