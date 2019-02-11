@@ -37,20 +37,20 @@
     {% for trial in trials%}
         <div class="ui button center aligned one column grid" style="cursor:initial;background-color: transparent!important; margin-bottom: 7%; margin-top:3%"
              data-tooltip="
-                {% if id == 1 %}
+                {% if phase.final  %}
+                    {% trans 'Score ' %}:
+                    {% if trial.score == -1 %}
+                        {% trans 'Judging ...' %}
+                    {% else %}
+                        {{ trial.score|floatformat:2 }}
+                    {% endif %}
+                {% else %}
                     {% trans 'Part One Score' %}:
                     {{ trial|score:'1' }},
                     {% trans 'Part Two Score' %}:
                     {{ trial|score:'2' }},
                     {% trans 'Part Three Score' %}:
                     {{ trial|score:'3' }}
-                {% else %}
-                    {% trans 'Score ' %}:
-                {% if trial.score == -1 %}
-                    {% trans 'Judging ...' %}
-                {% else %}
-                    {{ trial.score|floatformat:2 }}
-                {% endif %}
                 {% endif %}" data-position="bottom center">
 
             <div>
@@ -63,18 +63,13 @@
                             {% if trial.is_final == True %}
                                 style="background-color: rgb(49,102,155);"
                             {% endif %}
-                        >
+                            >
                             <div class="header"
                                 {% if trial.is_final == True %}
                                     style="color:white;"
                                 {% endif %}
                             >
                                 {% trans 'Trial' %} {{ forloop.revcounter }}
-                                {% if trial.is_final == True %}
-                                    <div class="ui compact  fluid label" style="background-color: #11224433; color: #aaaaaa" >
-                                        {% trans 'final trial' %}
-                                    </div>
-                                {% endif %}
                             </div>
                         </div>
                         <div class="content">
@@ -96,17 +91,14 @@
                             {# {% endif %}#}
 
                             {# Trial's Submit Time : ( display None for not submitted Trials ) #}
-                            <h4 class="ui sub header">
+                            {% if trial.submit_time != None %}
+                                <h4 class="ui sub header">
                                 {% trans 'Submit Time' %}
-                            </h4>
-                            {% if trial.submit_time == None %}
-                                {% trans 'No Submit Yet' %}
-                                {% else %}
+                                </h4>
                                 {{ trial.submit_time|timesince }}
                             {% endif %}
 
                             {# Trial's Score #}
-                            {% if id == 1 %}
                                 <h4 class="ui sub header">
                                     {% trans 'Score ' %}
                                 </h4>
@@ -115,16 +107,22 @@
                                 {% else %}
                                     {{ trial.score|floatformat:2 }}
                                 {% endif %}
-                            {% endif %}
 
 
-                            {% if trial.is_final != True and id != 1%}
-                            <form enctype="multipart/form-data" action="{% url 'accounts:set_final_trial' phase.id trial.id %}" class="form" method="post">
-                                {% csrf_token %}
-                                <button class="ui compact fluid button" style="margin: 20px 0;" type="submit">
-                                    {% trans 'set as final trial' %}
-                                </button>
-                            </form>
+                            {% if phase.final %}
+                                {% if trial.is_final == False %}
+                                <form enctype="multipart/form-data" action="{% url 'accounts:set_final_trial' phase.id trial.id %}" class="form" method="post">
+                                    {% csrf_token %}
+                                    <button class="ui compact fluid button" style="margin: 20px 0;" type="submit">
+                                        {% trans 'set as final trial' %}
+                                    </button>
+                                </form>
+                                {% endif %}
+                                {% if trial.is_final == True %}
+                                    <div class="ui compact  fluid label" style="margin: 20px 0; background-color: rgb(49,102,155); color: white" >
+                                        {% trans 'final trial' %}
+                                    </div>
+                                {% endif %}
                             {% endif %}
                         </div>
                         {% if trial.view_trial %}

@@ -199,9 +199,16 @@ def get_scoreboard(phase_id):
 
     scoreboard = []
     for team in teams:
-        scoreboard.append({'team_name': team.team.name,
-                           'score': get_phase_score(team, trials, phase),
-                           'members': [user_pc.user.username for user_pc in team.team.participants.all()]})
+        team_con = {'team_name': team.team.name,
+                    'score': get_phase_score(team, trials, phase)}
+        names = []
+        for user_pc in team.team.participants.all():
+            try:
+                names.append(user_pc.user.profile.name)
+            except:
+                print('user has no profile')
+        team_con['members'] = names
+        scoreboard.append(team_con)
     scoreboard = sorted(scoreboard, key=lambda k: k['score'], reverse=True)
     return scoreboard
 
@@ -210,7 +217,11 @@ def get_phase_score(team, trials, phase):
     team_phase_trials = trials.filter(team=team)
     if phase.final:
         try:
+<<<<<<< HEAD
             return team_phase_trials.get(is_final=True).score
+=======
+            return float("{0:.2f}".format(team_phase_trials.get(is_final=True).score))
+>>>>>>> 2c255df4377fb7957499cbcadf303a9c5a28b406
         except:
             return 0
     else:
@@ -514,7 +525,6 @@ def submit_trial(request, phase_id, trial_id):
             questionSubmit.save()
         trialSubmit.upload()
 
-
         return redirect('accounts:panel_phase', phase.id)
 
 
@@ -544,6 +554,7 @@ def get_judge_response(request):
     submissions = json_data['submissions']
     trial = Trial.objects.get(id=trial_id)
     trial.score = 0
+    phase = Competition.objects.get(id= phase_id)
     for i in range(len(submissions)):
         question_submission = QuestionSubmission.objects.get(trial_submission__trial_id=trial_id, question__doc_id=submissions[i]['question_id'])
         q = Question.objects.get(questionsubmission=question_submission)
@@ -558,6 +569,15 @@ def get_judge_response(request):
         trial.score += question_submission.score
         trial.score2 += question_submission.score2
     trial.save()
+
+    trials = Trial.objects.filter(team_id=team_id, competition=phase)
+    for t in trials:
+        t.is_final = False
+        t.save()
+    trials = trials.order_by('-score')
+    if len(trials) > 0:
+        trials[0].is_final = True
+        trials[0].save()
     return JsonResponse({'status': 'succeeded'})
 
 

@@ -10,8 +10,8 @@
 {% block panel_content %}
     <div class="ui inverted buttons">
         {% for phase in phases %}
-            <a href="{% url 'accounts:phase_scoreboard' phase.id %}">
-                <button class="ui inverted blue button">{{ phase.name }}</button>
+            <a class="ui inverted blue button" href="{% url 'accounts:phase_scoreboard' phase.id %}">
+                {{ phase.name }}
             </a>
         {% endfor %}
     </div>
@@ -33,7 +33,9 @@
                 <td>
                     <div class="ui button"
                          style="background-color: transparent!important; margin-right: -5%"
-                         data-html="{% for member in team.members %}{{ member }}o<br/>{% endfor %}"
+                         data-html="{% for member in team.members %}
+                         <p style='font-family: IRANSans; margin-top: 0.4em; margin-bottom: 0.4em; text-align: center'>
+                         {{ member }}<br/>{% endfor %}"
                          data-position="top center">{{ team.team_name }}</div>
                 </td>
                 <td style="font-family: IRANSans!important; float: left; margin-left: 35%">
