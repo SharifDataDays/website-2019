@@ -34,6 +34,15 @@ def shuffle(arg):
 
 
 @register.filter
+def equal_int(first, arg):
+    try:
+        second = int(list(arg)[0])
+        return int(first) == second
+    except:
+        return False
+
+
+@register.filter
 def score(trial, arg):
     part = list(arg)[0]
     if part == '1':
