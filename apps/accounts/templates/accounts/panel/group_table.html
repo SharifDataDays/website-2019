@@ -8,7 +8,7 @@
 
 
 {% block panel_content %}
-    <div class="ui inverted buttons">
+    <div class="ui inverted buttons two">
         {% for phase in phases %}
             <a class="ui inverted blue button" href="{% url 'accounts:phase_scoreboard' phase.id %}">
                 {{ phase.name }}

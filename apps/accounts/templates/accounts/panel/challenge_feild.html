@@ -4,11 +4,11 @@
 
 
 <div id="last_teampc" class="ui fluid selection dropdown">
-    <div class="text">{{ participation }}</div>
+    <div class="text" style="font-family: IRANSans">{{ participation }}</div>
     <i class="dropdown icon"></i>
-    <div class="menu">
+    <div class="menu" style="font-family: IRANSans">
         {% for choice in user_pcs %}
-            <a class="item{% if choice == participation %} active{% endif %}" href="{% url 'accounts:panel_change_team_pc' choice.id %}" style="font-family: IRANSans!important;">{{ choice }}</a>
+            <a class="item{% if choice == participation %} blue active{% endif %}" href="{% url 'accounts:panel_change_team_pc' choice.id %}" style="font-family: IRANSans!important;">{{ choice }}</a>
         {% endfor %}
     </div>
 </div>

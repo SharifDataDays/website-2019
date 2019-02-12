@@ -159,7 +159,7 @@ def redirect_to_somewhere_better(request):
 
 def render_scoreboard(request):
     phase_team_scores = [get_scoreboard(phase.id) for phase in Competition.objects.all()]
-    return render_phase_scoreboard(request, 4)
+    return render_phase_scoreboard(request, Competition.objects.all()[0].id)
 
 
 @login_required
@@ -236,7 +236,7 @@ def get_phase_score(team, trials, phase):
 def render_phase(request, phase_id):
     user = request.user
     phase = Competition.objects.get(id=phase_id)
-    if phase == None:
+    if phase is None:
         redirect(reverse('accounts:panel_team_management'))
     else:
         team_pc = get_team_pc(request)
