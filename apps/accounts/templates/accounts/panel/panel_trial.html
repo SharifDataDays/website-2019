@@ -16,7 +16,7 @@
 <form enctype="multipart/form-data" action="{% url 'accounts:submit_trial' phase.id trial.id %}" class="form" method="post">
     {% csrf_token %}
 
-    <div class="ui success message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
+    <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
 	   Trial {{ id }}
     </div>
 
@@ -432,7 +432,7 @@
             ادامه
         </div>
 
-        <div class="ui warning message" style="display: none;" id="alert">
+        <div class="ui blue message" style="display: none;" id="alert">
           <p>شما بعد از ارسال دیگر امکان ویرایش پاسخ یا بازگشت به این صفحه را ندارید بنابراین در ارسال پاسخ دقت کنید.</p>
             <button class="fluid ui submit blue button" style="margin: 20px 0" type="submit" id="submit">
                 {% trans 'Submit' %}
