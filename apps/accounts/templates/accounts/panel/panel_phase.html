@@ -8,31 +8,32 @@
 {#  Get New Trial Button #}
 {% if phase.final == False %}
 <div>
-    <div class="ui" style="font-family: IRANSans; font-weight: 200; border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
-        <div class="ui success message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
+    <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
             {{ name }}
         </div>
-        <div class="ui warning message" style="padding: 5%; text-align: center">
+    <div class="ui" style="font-family: IRANSans; font-weight: 200; border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
+
+        <div class="ui blue message" style="padding: 5%; text-align: center">
             دقت کنید در طول فاز اول مسابقه نهایتا پنج تلاش خواهید داشت
             <br>
             <br>
             با زدن دکمه زیر تنها پنج ساعت فرصت دارید تا جواب تلاش تولیدشده را ارسال کنید. و پس از آن امتیاز صفر برای تلاش ثبت می‌شود.
         </div>
         <a
-          class="fluid ui button teal"
+          class="fluid ui button blue"
           style="margin: 20px 0px"
           href="{% url 'accounts:new_trial' phase.id %}"
         >
           {% trans 'Get a new trial' %}
       </a>
-        <div class="ui warning message" style="padding: 5%; text-align: center">
+        <div class="ui blue message" style="padding: 5%; text-align: center">
             امتیاز فاز اول مسابقه میانگین امتیاز تلاش‌ها پس از حذف کمترین امتیاز است.
         </div>
     </div>
 </div>
 {% else %}
 <div>
-    <div class="ui black message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
+    <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
             {{ name }}
         </div>
 

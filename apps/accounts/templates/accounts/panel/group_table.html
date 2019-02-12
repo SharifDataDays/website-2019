@@ -8,9 +8,9 @@
 
 
 {% block panel_content %}
-    <div class="ui inverted buttons two">
+    <div class="ui buttons two">
         {% for phase in phases %}
-            <a class="ui inverted blue button" href="{% url 'accounts:phase_scoreboard' phase.id %}">
+            <a class="ui blue button" href="{% url 'accounts:phase_scoreboard' phase.id %}">
                 {{ phase.name }}
             </a>
         {% endfor %}
