@@ -26,7 +26,6 @@ TERMINOLOGY_MAP = {
 }
 
 
-
 def add_questions(questions_file_path):
     print(questions_file_path)
     questions = pd.read_csv(questions_file_path)
@@ -82,12 +81,14 @@ def score_from_level(question_type, difficulty):
     elif question_type in ['file_upload']:
         return 1000
     else:
-        return {'Easy': 150, 'Medium': 300, 'Difficult': 600}[difficulty]
+        return {'Easy': 50, 'Medium': 100, 'Difficult': 200}[difficulty]
 
 
 diff_map = {'Easy': 'easy', 'Medium': 'medium', 'Difficult': 'difficult'}
 
+
 x = 0
+
 
 def answer_multiple_choice(question):
     choices = []
@@ -157,6 +158,7 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS('Finished writing json file'))
         self.stdout.write(self.style.SUCCESS('DONE'))        
+
 
 FUNCTION_MAP = {
     "multiple_choice": answer_multiple_choice,
