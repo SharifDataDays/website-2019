@@ -183,7 +183,8 @@ def render_phase_scoreboard(request, phase_id):
         'phases': list(Competition.objects.all()),
         'phase': Competition.objects.get(id=phase_id),
         'my_team': my_team,
-        'page_num': (paginated_scoreboard.number - 1) * 30
+        'page_num': (paginated_scoreboard.number - 1) * 30,
+        'phase_id': phase_id
     })
     return render(request, 'accounts/panel/group_table.html', context)
 

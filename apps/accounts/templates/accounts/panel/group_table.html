@@ -10,7 +10,9 @@
 {% block panel_content %}
     <div class="ui buttons two">
         {% for phase in phases %}
-            <a class="ui blue button" href="{% url 'accounts:phase_scoreboard' phase.id %}">
+            <a class="ui button {% if phase.id == phase_id %}
+                blue
+            {% endif %}" href="{% url 'accounts:phase_scoreboard' phase.id %}">
                 {{ phase.name }}
             </a>
         {% endfor %}
