@@ -3,6 +3,7 @@ import os
 import random
 from datetime import datetime
 from itertools import chain
+from aic_site.local_settings import PHASE_2_DATASET_PATH
 
 import pandas as pd
 from django.apps import apps
@@ -458,9 +459,9 @@ def submit_trial(request, phase_id, trial_id):
                 error_msg = 'Only zip file is acceptable'
                 request.POST['code_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)
-            elif file.size > 1048576 * 5:
+            elif file.size > 1048576 * 10:
                 print(file.size)
-                error_msg = 'Max size of file is 1MB'
+                error_msg = 'Max size of csv answer is 10MB'
                 request.POST['code_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)
             else:
@@ -470,8 +471,9 @@ def submit_trial(request, phase_id, trial_id):
                 qusu.question = quzi
                 qusu.value = file_full_path
         if file is not None:
-            if file.size > 1048576 * 5:
-                error_msg = 'Max size of file is 1MB'
+            if file.size > 1048576 * 10:
+
+                error_msg = 'Max size of code zip is 10MB'
                 request.POST['file_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)
             else:
@@ -586,36 +588,66 @@ def get_dataset(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
+    if phase.final:
+        return get_dataset_2(request, phase_id, trial_id)
     else:
-        team_pc = get_team_pc(request)
-        if team_pc is None:
-            return redirect_to_somewhere_better(request)
-        context = get_shared_context(request)
-        for item in context['menu_items']:
-            if item['name'] == phase.name:
-                item['active'] = True
-        context.update({
-            'participation': team_pc,
-            'phase': phase,
-        })
-        trial = Trial.objects.filter(id=trial_id).all()
-        if len(trial) is 0:
-            return render(request, '404.html')
-        else:
-            pass
-            trial = trial[0]
-            if trial.submit_time is not None:
-                return redirect('accounts:panel_phase', phase_id)
+        return get_dataset_1(request, phase_id, trial_id)
 
-            question = trial.questions.get(type='file_upload')
-            if question is None:
-                return redirect('accounts:panel_phase', phase_id)
-            link = '{}/{}.csv'.format(DIR_DATASET, question.correct_answer)
-            print("\033[92mdatasetlink {}\033[0m".format(link))
-            with open(link, 'rb') as pdf:
-                response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
-                response['Content-Disposition'] = 'attachment;filename=dataset.csv'
-                return response
+
+@login_required
+def get_cat(request):
+    with open(PHASE_2_DATASET_PATH, 'rb') as pdf:
+        response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
+        response['Content-Disposition'] = 'attachment;filename=dataset.csv'
+        return response
+
+
+@login_required
+def get_dataset_2(request, phase_id, trial_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase is None:
+        redirect("/accounts/panel/team")
+    print("\033[92mdatasetlink {}\033[0m".format(PHASE_2_DATASET_PATH))
+    with open(PHASE_2_DATASET_PATH, 'rb') as pdf:
+        response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
+        response['Content-Disposition'] = 'attachment;filename=phase_2_dataset.csv'
+        return response
+
+
+@login_required
+def get_dataset_1(request, phase_id, trial_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase is None:
+        redirect("/accounts/panel/team")
+    team_pc = get_team_pc(request)
+    if team_pc is None:
+        return redirect_to_somewhere_better(request)
+    context = get_shared_context(request)
+    for item in context['menu_items']:
+        if item['name'] == phase.name:
+            item['active'] = True
+    context.update({
+        'participation': team_pc,
+        'phase': phase,
+    })
+    trial = Trial.objects.filter(id=trial_id).all()
+    if len(trial) is 0:
+        return render(request, '404.html')
+    else:
+        pass
+        trial = trial[0]
+        if trial.submit_time is not None:
+            return redirect('accounts:panel_phase', phase_id)
+
+        question = trial.questions.get(type='file_upload')
+        if question is None:
+            return redirect('accounts:panel_phase', phase_id)
+        link = '{}/{}.csv'.format(DIR_DATASET, question.correct_answer)
+        print("\033[92mdatasetlink {}\033[0m".format(link))
+        with open(link, 'rb') as pdf:
+            response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
+            response['Content-Disposition'] = 'attachment;filename=dataset.csv'
+            return response
 
 
 def get_brands(request):
