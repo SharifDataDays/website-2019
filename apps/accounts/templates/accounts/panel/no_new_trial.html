@@ -5,15 +5,15 @@
 {% block panel_content %}
 
     <div
-        class="ui red message"
+        class="ui blue message"
         style="text-align: center"
     >
        {% trans error %}
     </div>
     <a
-        class="fluid ui button teal"
+        class="fluid ui button blue"
         style="margin: 20px 0px"
-        href="/accounts/panel"
+        href="{% url 'accounts:panel_phase' phase.id %}"
     >
         {% trans 'Back To Panel' %}
     </a>
