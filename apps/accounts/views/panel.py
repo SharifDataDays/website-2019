@@ -217,11 +217,7 @@ def get_phase_score(team, trials, phase):
     team_phase_trials = trials.filter(team=team)
     if phase.final:
         try:
-<<<<<<< HEAD
-            return team_phase_trials.get(is_final=True).score
-=======
             return float("{0:.2f}".format(team_phase_trials.get(is_final=True).score))
->>>>>>> 2c255df4377fb7957499cbcadf303a9c5a28b406
         except:
             return 0
     else:
@@ -240,7 +236,7 @@ def get_phase_score(team, trials, phase):
 def render_phase(request, phase_id):
     user = request.user
     phase = Competition.objects.get(id=phase_id)
-    if phase == None:
+    if phase is None:
         redirect(reverse('accounts:panel_team_management'))
     else:
         team_pc = get_team_pc(request)

@@ -6,13 +6,13 @@
 
 
 {#  Get New Trial Button #}
+{% if phase.final == False %}
 <div>
     <div class="ui" style="font-family: IRANSans; font-weight: 200; border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
         <div class="ui success message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
             {{ name }}
         </div>
         <div class="ui warning message" style="padding: 5%; text-align: center">
-
             دقت کنید در طول فاز اول مسابقه نهایتا پنج تلاش خواهید داشت
             <br>
             <br>
@@ -29,10 +29,33 @@
             امتیاز فاز اول مسابقه میانگین امتیاز تلاش‌ها پس از حذف کمترین امتیاز است.
         </div>
     </div>
-    <div>
+</div>
+{% else %}
+<div>
+    <div class="ui black message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
+            {{ name }}
+        </div>
 
+    <div class="ui" style="font-family: IRANSans; font-weight: 200; border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
+
+        <div class="ui warning message blue" style="padding: 5%; text-align: center">
+دقت کنید که در هر روز تنها ۳ بار میتوانید نتایج خود را آپلود کنید.<br><br>
+توجه داشته‌باشید که امتیاز شما در جدول امتیازات، با نیمی از دادگان ارسال نهایی محاسبه ‌می‌شود.<br>
+        </div>
+        <a
+          class="fluid ui button blue"
+          style="margin: 20px 0px"
+          href="{% url 'accounts:new_trial' phase.id %}"
+        >
+          {% trans 'Get a new trial' %}
+      </a>
+        <div class="ui warning message blue" style="padding: 5%; text-align: center">
+                        امتیاز نهایی شما (مؤثر در صعود به مرحله حضوری) با نیمه دیگر دادگان ارسال نهایی محاسبه ‌خواهدشد.
+        </div>
     </div>
 </div>
+{% endif %}
+
     <div class="ui three column grid center aligned">
     {% for trial in trials%}
         <div class="ui button center aligned one column grid" style="cursor:initial;background-color: transparent!important; margin-bottom: 7%; margin-top:3%"
@@ -109,36 +132,30 @@
                                 {% endif %}
 
 
-                            {% if phase.final %}
+                            {% if phase.final and not trial.view_trial %}
                                 {% if trial.is_final == False %}
                                 <form enctype="multipart/form-data" action="{% url 'accounts:set_final_trial' phase.id trial.id %}" class="form" method="post">
                                     {% csrf_token %}
                                     <button class="ui compact fluid button" style="margin: 20px 0;" type="submit">
-                                        {% trans 'set as final trial' %}
+                                        <p>{% trans 'set as final trial' %}</p>
                                     </button>
                                 </form>
                                 {% endif %}
                                 {% if trial.is_final == True %}
-                                    <div class="ui compact  fluid label" style="margin: 20px 0; background-color: rgb(49,102,155); color: white" >
-                                        {% trans 'final trial' %}
+                                    <div class="ui compact fluid label" style="margin: 20px 0; background-color: rgb(49,102,155); color: white" >
+                                        <p>{% trans 'final trial' %}</p>
                                     </div>
                                 {% endif %}
                             {% endif %}
+                            {% if trial.view_trial %}
+                                <div class="ui compact green fluid label" style="margin: 20px 0; background-color: rgb(49,102,155); color: white" >
+                                    <a href="{% url 'accounts:panel_trial' phase.id trial.id %}">
+                                        <p style="color: white">{% trans 'View Trial' %}</p>
+                                    </a>
+                                </div>
+                            {% endif %}
                         </div>
-                        {% if trial.view_trial %}
-                            <div class="extra content">
-                                <a
-                                      href="{% url 'accounts:panel_trial' phase.id trial.id %}"
-                                      class="ui label bottom attached blue center aligned">
-                                  {% trans 'View Trial' %}
-                                </a>
-                            </div>
-                        {% endif %}
-                {% if trial.view_trial %}
                     </div>
-                {% else %}
-                    </div>
-                {% endif %}
             </div>
         </div>
     {% endfor %}

@@ -4,7 +4,7 @@
     <a onclick="$('#results_{{ table.id }}').toggle(300)"><i class="ui eye icon"></i>{% trans 'View/Hide Games' %}</a>
     <br>
 {% endif %}
-<table class="ui center aligned table" id="results_{{ table.id }}" {% if table.id %}style="display: none;"{% endif %}>
+<table class="ui center aligned table" id="results_{{ table.id }}" {% if table.id %}style="display: none;"{% endif %} style="font-family: IRANSans!important">
     {% for single_match in table.single_matches %}
         {% if single_match.status == 'done' %}
             <tr>
