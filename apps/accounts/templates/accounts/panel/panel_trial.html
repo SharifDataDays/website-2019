@@ -419,13 +419,15 @@
     {# Submit Button#}
     {% endif %}
 
-    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
-        {% for error in errors %}
-            <div class="ui error message" style="width: 100%; display: block; font-size: 1em; font-family: IRANSans; text-align: center">
-                {{ error }}
-            </div>
-        {% endfor %}
-    </div>
+    {% if errors %}
+        <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
+            {% for error in errors %}
+                <div class="ui error message" style="width: 100%; display: block; font-size: 1em; font-family: IRANSans; text-align: center">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%">
         <div class="fluid ui submit blue button" style="margin: 20px 0" id="button">
