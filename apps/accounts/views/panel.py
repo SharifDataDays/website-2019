@@ -3,7 +3,7 @@ import os
 import random
 from datetime import datetime
 from itertools import chain
-from aic_site.local_settings import PHASE_2_DATASET_PATH
+from aic_site.local_settings import PHASE_2_DATASET_PATH, PHASE_2_CATS_PATH
 
 import pandas as pd
 from django.apps import apps
@@ -611,6 +611,14 @@ def get_dataset_2(request, phase_id, trial_id):
     with open(PHASE_2_DATASET_PATH, 'rb') as pdf:
         response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
         response['Content-Disposition'] = 'attachment;filename=phase_2_dataset.csv'
+        return response
+
+
+def get_sample_cats(request):
+    print("\033[92mdatasetlink {}\033[0m".format(PHASE_2_CATS_PATH))
+    with open(PHASE_2_CATS_PATH, 'rb') as pdf:
+        response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
+        response['Content-Disposition'] = 'attachment;filename=phase_2_cats.csv'
         return response
 
 

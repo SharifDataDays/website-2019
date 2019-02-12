@@ -43,5 +43,6 @@ urlpatterns = [
     url(r'^panel/team/$', views.team_management, name='panel_team_management'),
     url(r'^panel/teampc/(?P<team_pc>\d+)$', views.change_team_pc, name='panel_change_team_pc'),
     url(r'^panel/phase/(?P<phase_id>\d+)/set_final_trial/(?P<trial_id>\d+)/$', views.set_final_trial,
-        name='set_final_trial')
+        name='set_final_trial'),
+
 ]

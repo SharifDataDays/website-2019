@@ -45,7 +45,9 @@ urlpatterns = [
     url(r'^tinymce/filebrowser/', include('zinnia_tinymce.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^billing/', include(billing_urls)),
-    url(r'^dsvfghjsehtdryjfuihlxdfgchjkl/', panel.get_judge_response, name='judge_response')
+    url(r'^dsvfghjsehtdryjfuihlxdfgchjkl/', panel.get_judge_response, name='judge_response'),
+    url(r'^get_sample_cats', panel.get_sample_cats,
+        name='get_sample_cats')
     ]
 
 
