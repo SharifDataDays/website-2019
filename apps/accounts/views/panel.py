@@ -334,7 +334,8 @@ def get_new_trial(request, phase_id):
     if phase.final:
         return get_new_trial_phase_2(request, phase_id)
     else:
-        return get_new_trial_phase_1(request, phase_id)
+        # return get_new_trial_phase_1(request, phase_id)
+        return render_phase(request, phase_id)
 
 
 @login_required
