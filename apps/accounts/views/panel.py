@@ -159,7 +159,7 @@ def redirect_to_somewhere_better(request):
 
 def render_scoreboard(request):
     phase_team_scores = [get_scoreboard(phase.id) for phase in Competition.objects.all()]
-    return render_phase_scoreboard(request, Competition.objects.all()[0].id)
+    return render_phase_scoreboard(request, Competition.objects.last().id)
 
 
 @login_required
@@ -168,7 +168,7 @@ def render_phase_scoreboard(request, phase_id):
     my_team = get_team_pc(request)
     context = get_shared_context(request)
     for item in context['menu_items']:
-        if item['name'] == 'render_panel_phase_scoreboard':
+        if item['name'] == 'render_panel_phases_scoreboard':
             item['active'] = True
     page = request.GET.get('page')
     paginator = Paginator(scoreboard, 30)
