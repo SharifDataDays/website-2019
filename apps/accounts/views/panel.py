@@ -335,10 +335,11 @@ def get_new_trial(request, phase_id):
     if phase is None:
         redirect("/accounts/panel/team")
     if phase.final:
+        # if get_team_pc(request).team.name == 'pam':
         return get_new_trial_phase_2(request, phase_id)
     else:
-        return get_new_trial_phase_1(request, phase_id)
-        #return render_phase(request, phase_id)
+        #return get_new_trial_phase_1(request, phase_id)
+        return render_phase(request, phase_id)
 
 
 @login_required
@@ -548,6 +549,7 @@ def save_to_storage(request, filename):
 
 @csrf_exempt
 def get_judge_response(request):
+    print(request.body.decode('utf-8'))
     json_data = json.loads(request.body.decode('utf-8'))
     print('\033[92m{}\033[0m'.format(json_data))
     team_id = json_data['team_id']

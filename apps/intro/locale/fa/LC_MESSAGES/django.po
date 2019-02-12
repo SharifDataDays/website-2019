@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-11 13:24+0330\n"
+"POT-Creation-Date: 2019-02-12 20:29+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,7 @@ msgid "Participate"
 msgstr "شرکت در مسابقه"
 
 #: apps/intro/templates/intro/index.html:87
-#: apps/intro/templates/intro/index_2.html:69
+#: apps/intro/templates/intro/index_2.html:68
 msgid "Register"
 msgstr "ثبت نام"
 
@@ -316,12 +316,12 @@ msgid "Contact Us"
 msgstr "تماس با ما"
 
 #: apps/intro/templates/intro/index.html:362
-#: apps/intro/templates/intro/index_2.html:474
+#: apps/intro/templates/intro/index_2.html:473
 msgid "Organizer"
 msgstr "برگزارکننده"
 
 #: apps/intro/templates/intro/index.html:366
-#: apps/intro/templates/intro/index_2.html:482
+#: apps/intro/templates/intro/index_2.html:481
 msgid "Sponsors"
 msgstr "حامیان مالی"
 
@@ -355,15 +355,15 @@ msgstr "ایمیل:"
 msgid "Phone: "
 msgstr "شماره تماس:"
 
-#: apps/intro/templates/intro/index_2.html:60
+#: apps/intro/templates/intro/index_2.html:59
 msgid "Logout"
 msgstr "خروج"
 
-#: apps/intro/templates/intro/index_2.html:65
+#: apps/intro/templates/intro/index_2.html:64
 msgid "Login"
 msgstr "ورود"
 
-#: apps/intro/templates/intro/index_2.html:74
+#: apps/intro/templates/intro/index_2.html:73
 msgid "Blog and Q&A"
 msgstr "وبلاگ پرسش و پاسخ"
 
