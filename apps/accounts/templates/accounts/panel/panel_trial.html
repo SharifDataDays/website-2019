@@ -21,20 +21,39 @@
     </div>
 
     {% if file_based_questions %}
-    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
-        <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
-            <span style="font-weight:bold">بخش اول</span><br>
-<span style="font-weight:bold">عنوان</span>: پیش‌بینی برچسب<br>
-<span style="font-weight:bold">امتیاز</span>: ۱۰۰۰ امتیاز<br>
-<span style="font-weight:bold">توانایی</span>: تحلیل متن و ایجاد جستار مناسب روی دادگان<br>
 
-<span style="font-weight:bold">مسئله</span>: پیشبینی برند موبایل<br>
-            <br>
-<span style="font-weight:bold">توصیف</span>: در این بخش شما یک دادگان ۱۰۰۰ ردیفی دانلود میکنید که مربوط به آگهی‌های تلفن همراه است. هدف از این بخش پیشبینی برند تلفن همراه ارائه شده در آگهی است. در انتها شما باید یک فایل به فرمت .txt آپلود کنید که در هر خط آن برند تلفن همراه ردیف متناظر در فایل است.
-<br/>
-<span style="font-weight:bold">ملاحظه مهم</span>: ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا هر برند باید به شکل ارائه شده در <a href="/media/brands.txt" target="_blank" download="brands.txt">فایل پیوست</a> به سوال نوشته شود.
+        {% if final == False %}
+            <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
+                <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
+                    <span style="font-weight:bold">بخش اول</span><br>
+        <span style="font-weight:bold">عنوان</span>: پیش‌بینی برچسب<br>
+        <span style="font-weight:bold">امتیاز</span>: ۱۰۰۰ امتیاز<br>
+        <span style="font-weight:bold">توانایی</span>: تحلیل متن و ایجاد جستار مناسب روی دادگان<br>
 
-        </div>
+        <span style="font-weight:bold">مسئله</span>: پیشبینی برند موبایل<br>
+                    <br>
+        <span style="font-weight:bold">توصیف</span>: در این بخش شما یک دادگان ۱۰۰۰ ردیفی دانلود میکنید که مربوط به آگهی‌های تلفن همراه است. هدف از این بخش پیشبینی برند تلفن همراه ارائه شده در آگهی است. در انتها شما باید یک فایل به فرمت .txt آپلود کنید که در هر خط آن برند تلفن همراه ردیف متناظر در فایل است.
+        <br/>
+        <span style="font-weight:bold">ملاحظه مهم</span>: ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا هر برند باید به شکل ارائه شده در <a href="/media/brands.txt" target="_blank" download="brands.txt">فایل پیوست</a> به سوال نوشته شود.
+
+                </div>
+        {% else %}
+                <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
+                <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
+                    <span style="font-weight:bold">بخش اول</span><br>
+        <span style="font-weight:bold">عنوان: </span>پیش‌بینی دسته‌بندی<br>
+        <span style="font-weight:bold">امتیاز: </span>۳۰۰۰ امتیاز<br>
+        <span style="font-weight:bold">توانایی: </span>یادگیری ماشین و تحلیل متن<br>
+
+        <span style="font-weight:bold">مسئله: </span>پیشبینی دسته بندی آگهی از روی سایر ویژگی های آن<br>
+                    <br>
+        <span style="font-weight:bold">توصیف: </span>در این بخش شما یک دیتاست شامل 200 هزار سطر دانلود میکنید که هر سطر حاوی اطلاعات مربوط به یک آگهی است. شما باید دسته بندی سلسله مراتبی هر آگهی را به دست آورید و در قالب یک فایل csv که شامل 200 هزار سطر و سه ستون cat1, cat2, cat3 است آپلود کنید.
+        <br/>
+        <span style="font-weight:bold">ملاحظه مهم: </span>ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا تمام دسته ها باید به همان شکلی که در دیتاست Train قرار دارد باشد. یک نمونه از پاسخ مطلوب در این فایل <a href="{% accounts" target="_blank" download="cats.csv">فایل پیوست</a> شده است.
+
+                </div>
+        {% endif %}
+
     {# File Based Questions #}
     <div style="margin:0 0 45px 0 ">
         {% for question in file_based_questions %}
@@ -115,17 +134,12 @@
     {% if code_zip %}
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
-            <span style="font-weight:bold">بخش اول</span><br>
-<span style="font-weight:bold">عنوان</span>: پیش‌بینی برچسب<br>
-<span style="font-weight:bold">امتیاز</span>: ۱۰۰۰ امتیاز<br>
-<span style="font-weight:bold">توانایی</span>: تحلیل متن و ایجاد جستار مناسب روی دادگان<br>
-
-<span style="font-weight:bold">مسئله</span>: پیشبینی برند موبایل<br>
-            <br>
-<span style="font-weight:bold">توصیف</span>: در این بخش شما یک دادگان ۱۰۰۰ ردیفی دانلود میکنید که مربوط به آگهی‌های تلفن همراه است. هدف از این بخش پیشبینی برند تلفن همراه ارائه شده در آگهی است. در انتها شما باید یک فایل به فرمت .txt آپلود کنید که در هر خط آن برند تلفن همراه ردیف متناظر در فایل است.
+            <span style="font-weight:bold">بخش دوم</span><br>
+<span style="font-weight:bold">عنوان: </span>آپلود کد<br>
+<span style="font-weight:bold">امتیاز: </span>۵۰۰ امتیاز<br>
+<br>
+<span style="font-weight:bold">توصیف: </span>فایل فشرده‌شده فولدر پروژه خود را با حجم حداکثر ۱۰ مگابایت و فرمت zip آپلود کنید.
 <br/>
-<span style="font-weight:bold">ملاحظه مهم</span>: ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا هر برند باید به شکل ارائه شده در <a href="/media/brands.txt" target="_blank" download="brands.txt">فایل پیوست</a> به سوال نوشته شود.
-
         </div>
     {# Code Upload #}
     <div style="margin:0 0 45px 0 ">

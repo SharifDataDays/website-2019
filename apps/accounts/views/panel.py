@@ -4,6 +4,7 @@ import random
 from datetime import datetime
 from itertools import chain
 
+import pandas as pd
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
@@ -356,6 +357,7 @@ def render_trial(request, phase_id, trial_id):
             'participation': team_pc,
             'phase': phase,
             'id': len(Trial.objects.filter(team=team_pc, competition=phase)),
+            'final': phase.final
         })
         errors = []
         if request.POST.get('file_error'):
