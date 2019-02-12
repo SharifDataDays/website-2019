@@ -620,7 +620,7 @@ def get_sample_cats(request):
     print("\033[92mdatasetlink {}\033[0m".format(PHASE_2_CATS_PATH))
     with open(PHASE_2_CATS_PATH, 'rb') as pdf:
         response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
-        response['Content-Disposition'] = 'attachment;filename=phase_2_cats.csv'
+        response['Content-Disposition'] = 'attachment;filename=phase_2_sample_answer.csv'
         return response
 
 
