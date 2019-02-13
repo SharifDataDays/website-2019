@@ -12,7 +12,7 @@
         {% trans 'Scoreboard' %}
     </div>
 
-    <div class="ui buttons two">
+    <div class="ui buttons fluid">
         {% for phase in phases %}
             {% if phase.id|equal_int:phase_id %}
             <a class="ui button blue" href="{% url 'accounts:phase_scoreboard' phase.id %}">
@@ -54,25 +54,25 @@
         </tbody>
     </table>
     {% if scoreboard.has_other_pages %}
-      <ul class="ui pagination menu">
+        <div class="ui small buttons fluid" style="font-family: IRANSans;">
         {% if scoreboard.has_previous %}
-          <li><a href="?page={{ scoreboard.previous_page_number }}">&laquo;</a></li>
+        <a class="button" href="?page={{ scoreboard.previous_page_number }}"><i class="right arrow icon"></i></a>
         {% else %}
-          <li class="disabled"><span>&laquo;</span></li>
+        <a class="button disabled"><i class="right arrow icon"></i></a>
         {% endif %}
         {% for i in scoreboard.paginator.page_range %}
-          {% if scoreboard.number == i %}
-            <li><a class="active item">{{ i }}</a></li>
-          {% else %}
-            <li><a class="item" href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
+        {% if scoreboard.number == i %}
+        <a class="button disabled">{{ i }}</a>
+        {% else %}
+        <a class="button" href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
         {% endfor %}
         {% if scoreboard.has_next %}
-          <li><a href="?page={{ scoreboard.next_page_number }}">&raquo;</a></li>
+        <a class="button" href="?page={{ scoreboard.next_page_number }}"><i class="left arrow icon"></i></a>
         {% else %}
-          <li class="disabled"><span>&raquo;</span></li>
+        <a class="disabled button">&raquo;</a>
         {% endif %}
-      </ul>
+        </div>
     {% endif %}
     <script>
      $('.ui.button')
