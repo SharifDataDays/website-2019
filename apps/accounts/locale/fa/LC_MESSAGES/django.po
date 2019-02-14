@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-14 04:42+0330\n"
+"POT-Creation-Date: 2019-02-14 05:12+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -415,7 +415,6 @@ msgstr "امتیاز"
 msgid "Judging ..."
 msgstr "در حال داوری ..."
 
-
 #: apps/accounts/templates/accounts/panel/panel_phase.html:72
 msgid "Part One Score"
 msgstr "امتیاز بخش اول"
@@ -619,24 +618,24 @@ msgstr "از ۱۰۰۰۰"
 msgid "Final Score"
 msgstr "امتیاز نهایی"
 
-#: apps/accounts/views/panel.py:728 apps/accounts/views/panel.py:803
+#: apps/accounts/views/panel.py:730 apps/accounts/views/panel.py:805
 msgid "You have one active trial."
 msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
-#: apps/accounts/views/panel.py:733
+#: apps/accounts/views/panel.py:735
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
 
-#: apps/accounts/views/panel.py:811
+#: apps/accounts/views/panel.py:813
 msgid ""
 "You can not get any new trial. You have reached your limit in current day"
 msgstr "شما حداکثر تعداد تلاش‌های روزانه خود را استفاده کرده‌اید."
 
-#: apps/accounts/views/panel.py:854
+#: apps/accounts/views/panel.py:856
 msgid "no such trial"
 msgstr "تلاشی یافت نشد."
 
-#: apps/accounts/views/panel.py:861
+#: apps/accounts/views/panel.py:863
 msgid "final trial set successfuly"
 msgstr "تلاش نهایی با موفقیت ثبت شد"
 

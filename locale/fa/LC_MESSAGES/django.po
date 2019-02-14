@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-14 04:42+0330\n"
+"POT-Creation-Date: 2019-02-14 05:12+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,6 @@ msgstr "محتوا"
 #: aic_site/context_processors.py:18 aic_site/context_processors.py:39
 msgid "Prizes"
 msgstr "جایزه"
-
 
 #: aic_site/context_processors.py:19
 msgid "About Us"
