@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-14 05:12+0330\n"
+"POT-Creation-Date: 2019-02-14 05:23+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -615,8 +615,10 @@ msgid "From 10000"
 msgstr "از ۱۰۰۰۰"
 
 #: apps/accounts/views/panel.py:208
-msgid "Final Score"
-msgstr "امتیاز نهایی"
+#, fuzzy
+#| msgid "Final Score"
+msgid "Phase 1 Final Score"
+msgstr "امتیاز نهایی فاز یک"
 
 #: apps/accounts/views/panel.py:730 apps/accounts/views/panel.py:805
 msgid "You have one active trial."
