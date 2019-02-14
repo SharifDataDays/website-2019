@@ -1,0 +1,962 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-14 04:42+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: aic_site/context_processors.py:12 aic_site/context_processors.py:34
+msgid "Home"
+msgstr "خانه"
+
+#: aic_site/context_processors.py:14
+msgid "Main Page"
+msgstr "صفحه‌ی اصلی"
+
+#: aic_site/context_processors.py:15 aic_site/context_processors.py:36
+msgid "Introduction"
+msgstr "معرفی"
+
+#: aic_site/context_processors.py:16 aic_site/context_processors.py:37
+msgid "Timeline"
+msgstr "گاه‌شمار"
+
+#: aic_site/context_processors.py:17 aic_site/context_processors.py:38
+msgid "Content"
+msgstr "محتوا"
+
+#: aic_site/context_processors.py:18 aic_site/context_processors.py:39
+msgid "Prizes"
+msgstr "جایزه"
+
+
+#: aic_site/context_processors.py:19
+msgid "About Us"
+msgstr "درباره ما"
+
+#: aic_site/context_processors.py:20 aic_site/context_processors.py:40
+msgid "Contact Us"
+msgstr "تماس با ما"
+
+#: aic_site/context_processors.py:23
+msgid "Access"
+msgstr "دسترسی"
+
+#: aic_site/context_processors.py:25
+msgid "Panel"
+msgstr "پنل"
+
+#: aic_site/context_processors.py:27 aic_site/context_processors.py:46
+#: templates/base/navbar.html:59
+msgid "Blog and Q&A"
+msgstr "وبلاگ و پرسش و پاسخ"
+
+#: aic_site/context_processors.py:28 aic_site/context_processors.py:45
+msgid "FAQ"
+msgstr "سوالات متداول"
+
+#: aic_site/context_processors.py:43 templates/zinnia/base.html:26
+msgid "Blog"
+msgstr "بلاگ"
+
+#: aic_site/context_processors.py:56 aic_site/context_processors.py:74
+#: aic_site/context_processors.py:76
+msgid "Account"
+msgstr "حساب کاربری"
+
+#: aic_site/context_processors.py:74 templates/base/navbar.html:42
+msgid "Logout"
+msgstr "خروج"
+
+#: aic_site/context_processors.py:76 templates/base/navbar.html:47
+#: templates/zinnia/login.html:34
+msgid "Login"
+msgstr "ورود"
+
+#: aic_site/settings/base.py:121
+msgid "English"
+msgstr "انگلیسی"
+
+#: aic_site/settings/base.py:122
+msgid "Persian"
+msgstr "فارسی"
+
+#: templates/400.html:6
+msgid "400"
+msgstr "۴۰۰"
+
+#: templates/400.html:7
+msgid "Bad request"
+msgstr "درخواست نادرست"
+
+#: templates/400.html:9
+msgid "Sorry, but the request was malformed."
+msgstr "متاسفیم اما درخواست شما ساختار درستی نداشت"
+
+#: templates/403.html:6
+msgid "403"
+msgstr "۴۰۳"
+
+#: templates/403.html:7
+msgid "Permission denied"
+msgstr "دسترسی ممنوع است."
+
+#: templates/403.html:9
+msgid "Sorry, but you don't have the permission to do this action."
+msgstr "متاسفیم اما شما دسترسی ندارید."
+
+#: templates/404.html:6
+msgid "404"
+msgstr "۴۰۴"
+
+#: templates/404.html:7
+msgid "Page not found"
+msgstr "صفحه مورد نظر یافت نشد."
+
+#: templates/404.html:9
+msgid "Sorry, but the requested page could not be found."
+msgstr "متاسفیم اما صفحه مورد نظر یافت نشد."
+
+#: templates/500.html:6
+msgid "500"
+msgstr "۵۰۰"
+
+#: templates/500.html:7
+msgid "Server error"
+msgstr "ایراد سرور"
+
+#: templates/500.html:8
+msgid ""
+"There's been an error. It's been reported to the site administrators via e-"
+"mail and should be fixed shortly. Thanks for your patience."
+msgstr "مشکلی داخلی در سرور رخ داد."
+
+#: templates/base/navbar.html:51
+msgid "Register"
+msgstr "ثبت نام"
+
+#: templates/base/navbar.html:56
+msgid "Change Language"
+msgstr "تغییر زبان"
+
+#: templates/comments/approve.html:4
+msgid "Approve a comment"
+msgstr "تایید نظر"
+
+#: templates/comments/approve.html:7
+msgid "Really make this comment public?"
+msgstr "این نظر رو عمومی کنیم؟‌"
+
+#: templates/comments/approve.html:13
+msgid "Approve"
+msgstr "تایید"
+
+#: templates/comments/approved.html:4
+msgid "Thanks for approving"
+msgstr "تشکر بابت تایید!"
+
+#: templates/comments/approved.html:7 templates/comments/deleted.html:7
+#: templates/comments/flagged.html:7
+msgid ""
+"Thanks for taking the time to improve the quality of discussion on our site"
+msgstr ""
+
+#: templates/comments/delete.html:4
+msgid "Remove a comment"
+msgstr "نظرات اخیر"
+
+#: templates/comments/delete.html:7
+msgid "Really remove this comment?"
+msgstr ""
+
+#: templates/comments/delete.html:13
+msgid "Remove"
+msgstr "حذف"
+
+#: templates/comments/deleted.html:4
+msgid "Thanks for removing"
+msgstr "ممنون بابت حذف کردن"
+
+#: templates/comments/flag.html:4
+#: templates/comments/zinnia/entry/email/notification.txt:10
+msgid "Flag this comment"
+msgstr ""
+
+#: templates/comments/flag.html:7
+msgid "Really flag this comment?"
+msgstr ""
+
+#: templates/comments/flag.html:13
+msgid "Flag"
+msgstr ""
+
+#: templates/comments/flagged.html:4
+msgid "Thanks for flagging"
+msgstr ""
+
+#: templates/comments/form.html:51 templates/comments/preview.html:36
+#: templates/comments/zinnia/entry/form.html:51
+msgid "Post"
+msgstr "فرستادن"
+
+#: templates/comments/posted.html:4
+msgid "Thanks for commenting"
+msgstr "با تشکر از نظر شما"
+
+#: templates/comments/posted.html:7
+msgid "Thank you for your comment"
+msgstr "با تشکر از نظر شما"
+
+#: templates/comments/posted.html:8
+msgid "Return"
+msgstr "بازگشت"
+
+#: templates/comments/preview.html:4 templates/comments/preview.html:14
+msgid "Preview your comment"
+msgstr "ماه قبل"
+
+#: templates/comments/preview.html:12
+msgid "Please correct the error below"
+msgid_plural "Please correct the errors below"
+msgstr[0] "لطفاً ارور های زیر را رفع کنید"
+
+#: templates/comments/preview.html:17
+#: templates/registration/password_reset_complete.html:9
+msgid "and"
+msgstr "و"
+
+#: templates/comments/preview.html:18
+msgid "Post your comment"
+msgstr "نظر بدهید"
+
+#. Translators: This string follows the 'Post your comment' submit button.
+#: templates/comments/preview.html:20
+msgid "or make changes"
+msgstr "یا تغییراتی انجام دهید"
+
+#: templates/comments/preview.html:37
+msgid "Preview"
+msgstr "هفته قبل"
+
+#: templates/comments/zinnia/entry/email/authors.txt:1
+#: templates/comments/zinnia/entry/email/notification.txt:1
+#: templates/comments/zinnia/entry/email/reply.txt:1
+msgid "Author"
+msgstr "نویسنده‌ها"
+
+#: templates/comments/zinnia/entry/email/authors.txt:3
+#: templates/comments/zinnia/entry/email/notification.txt:5
+#: templates/comments/zinnia/entry/email/reply.txt:3
+msgid "Comment"
+msgstr "نظرات و پرسش و پاسخ"
+
+#: templates/comments/zinnia/entry/email/authors.txt:6
+#: templates/comments/zinnia/entry/email/notification.txt:8
+#: templates/comments/zinnia/entry/email/reply.txt:6
+msgid "View this comment"
+msgstr "اولین نظر را بدهید!"
+
+#: templates/comments/zinnia/entry/email/notification.txt:2
+#: templates/registration/password_reset_form.html:11
+msgid "Email"
+msgstr "ایمیل"
+
+#: templates/comments/zinnia/entry/email/notification.txt:3
+msgid "IP"
+msgstr "آی پی"
+
+#: templates/comments/zinnia/entry/email/notification.txt:12
+msgid "Delete this comment"
+msgstr "نظرات اخیر"
+
+#: templates/comments/zinnia/entry/email/notification.txt:14
+msgid "Approve this comment"
+msgstr "این نظر را تایید کنید!"
+
+#: templates/comments/zinnia/entry/form.html:44
+msgid "Comment as"
+msgstr "نظر دادن با عنوان "
+
+#: templates/comments/zinnia/entry/form.html:45
+msgid "Log out"
+msgstr "خروج"
+
+#: templates/comments/zinnia/entry/posted.html:4
+#: templates/comments/zinnia/entry/posted.html:9
+msgid "Thanks for your comment"
+msgstr "ممنون از نظر شما!"
+
+#: templates/comments/zinnia/entry/posted.html:11
+msgid "Your comment needs to be approved before getting displayed."
+msgstr "نظر شما باید تایید شود تا نمایش داده‌شود."
+
+#: templates/comments/zinnia/entry/posted.html:19
+#, python-format
+msgid "Back to %(title)s"
+msgstr "%(title)s برگشت به "
+
+#: templates/comments/zinnia/entry/posted.html:26
+#: templates/comments/zinnia/entry/posted.html:27
+msgid "Return to entry list"
+msgstr "نوشته‌های اخیر"
+
+#: templates/comments/zinnia_entry_preview.html:4
+msgid "Comment preview"
+msgstr "نظرات بسته است."
+
+#: templates/comments/zinnia_entry_preview.html:10
+msgid "Please correct following error."
+msgid_plural "Please correct following errors."
+msgstr[0] "لطفاً ارور های زیر را رفع کنید."
+
+#: templates/comments/zinnia_entry_preview.html:12
+msgid "Preview of the comment"
+msgstr "پیش‌نمایش نظر"
+
+#: templates/comments/zinnia_entry_preview.html:19
+#, python-format
+msgid ""
+"<a href=\"%(comment_url)s\" rel=\"external nofollow\" class=\"fn url\">"
+"%(comment_name)s</a> on <time class=\"comment-published\" datetime="
+"\"%(comment_technical_date)s\"> %(comment_human_date)s </time>"
+msgstr ""
+
+#: templates/registration/password_reset_complete.html:9
+msgid "Your password has been set."
+msgstr "پسورد شما تغییر یافت."
+
+#: templates/registration/password_reset_complete.html:9
+msgid "You may go ahead"
+msgstr "شما می‌توانید ادامه دهید"
+
+#: templates/registration/password_reset_complete.html:9
+msgid "log in"
+msgstr "وارد شوید"
+
+#: templates/registration/password_reset_confirm.html:8
+#: templates/registration/password_reset_confirm.html:33
+msgid "Change password"
+msgstr "رمز"
+
+#: templates/registration/password_reset_confirm.html:11
+#: templates/zinnia/password.html:24
+msgid "Password"
+msgstr "رمز"
+
+#: templates/registration/password_reset_confirm.html:23
+msgid "Password Confirm"
+msgstr "تکرار رمز"
+
+#: templates/registration/password_reset_confirm.html:39
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"لینک بازیابی رمز نامعتبر است و احتمالا از آن قبلا استفاده شده‌است. لطفا برای "
+"بازیابی رمز مجددا درخواست دهید."
+
+#: templates/registration/password_reset_done.html:11
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+"اگر اکانتی با ایمیل داده شده وجود داشته باشد به شما دستورالعمل بازیابی رمز "
+"را ایمیل کردیم و آن را به زودی دریافت خواهید کرد."
+
+#: templates/registration/password_reset_email.html:7
+msgid "Hello"
+msgstr "سلام"
+
+#: templates/registration/password_reset_email.html:8
+msgid "Click on the link below in order to reset your password"
+msgstr "برای بازیابی رمز خود بر روی لینک زیر کلیک کنید"
+
+#: templates/registration/password_reset_form.html:7
+msgid "Forgot password"
+msgstr "فراموشی رمز"
+
+#: templates/registration/password_reset_form.html:15
+msgid "Submit"
+msgstr "ارسال"
+
+#: templates/zinnia/_entry_detail_base.html:110
+#, python-format
+msgid "%(percent)s%% of %(object)s still remains to read."
+msgstr ""
+
+#: templates/zinnia/_entry_detail_base.html:112
+msgid "Continue reading"
+msgstr "ادامه خواندن"
+
+#: templates/zinnia/_entry_detail_base.html:127 templates/zinnia/base.html:51
+#: templates/zinnia/tag_list.html:6
+msgid "Tags"
+msgstr "تگ‌ها"
+
+#: templates/zinnia/_entry_detail_base.html:131
+#: templates/zinnia/tag_list.html:17
+#, python-format
+msgid "Show all entries tagged by %(tag)s"
+msgstr "نمایش تمام نوشته‌های تگ %(tag)s"
+
+#: templates/zinnia/_entry_detail_base.html:138
+msgid "No tags"
+msgstr "بدون تگ"
+
+#: templates/zinnia/author_list.html:4 templates/zinnia/author_list.html:11
+msgid "Author list"
+msgstr "لیست نویسنده‌ها"
+
+#: templates/zinnia/author_list.html:6
+msgid "Authors"
+msgstr "نویسنده‌ها"
+
+#: templates/zinnia/author_list.html:17 templates/zinnia/tags/authors.html:6
+#, python-format
+msgid "Show all %(author)s's entries"
+msgstr "نمایش همه نوشته های %(author)s"
+
+#: templates/zinnia/author_list.html:19 templates/zinnia/category_list.html:18
+#: templates/zinnia/tag_list.html:18 templates/zinnia/tags/authors.html:8
+#: templates/zinnia/tags/categories.html:7
+#: templates/zinnia/tags/categories_tree.html:8
+#: templates/zinnia/tags/statistics.html:7
+#, python-format
+msgid "%(entry_count)s entry"
+msgid_plural "%(entry_count)s entries"
+msgstr[0] ""
+
+#: templates/zinnia/author_list.html:23 templates/zinnia/tags/authors.html:12
+msgid "No authors yet."
+msgstr "نویسنده‌ای ثبت نشده است."
+
+#: templates/zinnia/base.html:18 templates/zinnia/skeleton.html:36
+msgid "RSS feed of last entries"
+msgstr "فید RSS آخرین نوشته‌ها"
+
+#: templates/zinnia/base.html:20
+msgid "RSS feed of last discussions"
+msgstr "فید RSS آخرین بحث‌ها"
+
+#: templates/zinnia/base.html:60
+msgid "Recent entries"
+msgstr "نوشته‌های اخیر"
+
+#: templates/zinnia/base.html:68
+msgid "Recent comments"
+msgstr "نظرات اخیر"
+
+#: templates/zinnia/category_list.html:4 templates/zinnia/category_list.html:11
+msgid "Category list"
+msgstr "لیست موضوعات"
+
+#: templates/zinnia/category_list.html:6
+msgid "Categories"
+msgstr "موضوعات"
+
+#: templates/zinnia/category_list.html:17
+#: templates/zinnia/tags/categories.html:6
+#: templates/zinnia/tags/categories_tree.html:7
+#, python-format
+msgid "Show all entries in %(category)s"
+msgstr "نمایش تمام نوشته‌های موضوع %(category)s"
+
+#: templates/zinnia/category_list.html:23
+#: templates/zinnia/tags/categories.html:11
+#: templates/zinnia/tags/categories_tree.html:18
+msgid "No categories yet."
+msgstr "موضوعی ثبت نشده است."
+
+#: templates/zinnia/entry_archive.html:5 templates/zinnia/entry_archive.html:7
+msgid "Last entries"
+msgstr "نوشته‌های اخیر"
+
+#: templates/zinnia/entry_archive.html:17
+msgid "Yearly archives"
+msgstr "بایگانی سالانه"
+
+#: templates/zinnia/entry_archive_day.html:5
+#: templates/zinnia/entry_archive_day.html:7
+#: templates/zinnia/entry_archive_day.html:12
+#: templates/zinnia/entry_archive_day.html:29
+#: templates/zinnia/entry_archive_month.html:4
+#: templates/zinnia/entry_archive_month.html:6
+#: templates/zinnia/entry_archive_month.html:11
+#: templates/zinnia/entry_archive_month.html:37
+#: templates/zinnia/entry_archive_today.html:22
+#: templates/zinnia/entry_archive_week.html:43
+#: templates/zinnia/entry_archive_year.html:4
+#: templates/zinnia/entry_archive_year.html:6
+#: templates/zinnia/entry_archive_year.html:11
+#: templates/zinnia/tags/entries_archives.html:5
+#: templates/zinnia/tags/entries_archives_link.html:2
+#: templates/zinnia/tags/entries_archives_tree.html:6
+#: templates/zinnia/tags/entries_archives_tree.html:13
+#: templates/zinnia/tags/entries_archives_tree.html:23
+msgid "Archives"
+msgstr "آرشیو‌ها"
+
+#: templates/zinnia/entry_archive_day.html:17
+#: templates/zinnia/entry_archive_today.html:16
+msgid "Previous day"
+msgstr "روز قبل"
+
+#: templates/zinnia/entry_archive_day.html:23
+msgid "Next day"
+msgstr "روز بعد"
+
+#: templates/zinnia/entry_archive_day.html:36
+#: templates/zinnia/entry_archive_week.html:31
+#: templates/zinnia/entry_archive_week.html:39
+#, python-format
+msgid "Week %(week_number)s of %(year)s"
+msgstr "هفته %(week_number)s از سال %(year)s"
+
+#: templates/zinnia/entry_archive_month.html:16
+#: templates/zinnia/entry_archive_week.html:18
+msgid "Daily archives"
+msgstr "بایگانی روزانه"
+
+#: templates/zinnia/entry_archive_month.html:26
+msgid "Previous month"
+msgstr "ماه قبل"
+
+#: templates/zinnia/entry_archive_month.html:32
+msgid "Next month"
+msgstr "ماه بعد"
+
+#: templates/zinnia/entry_archive_today.html:4
+#: templates/zinnia/entry_archive_today.html:6
+#: templates/zinnia/entry_archive_today.html:11
+msgid "Today archives"
+msgstr "بایگانی امروز"
+
+#: templates/zinnia/entry_archive_week.html:5
+#: templates/zinnia/entry_archive_week.html:7
+#: templates/zinnia/entry_archive_week.html:12
+#, python-format
+msgid "Archives week %(week_number)s of %(year)s"
+msgstr ""
+
+#: templates/zinnia/entry_archive_week.html:28
+msgid "Previous week"
+msgstr "هفته قبل"
+
+#: templates/zinnia/entry_archive_week.html:36
+msgid "Next week"
+msgstr "هفته بعد"
+
+#: templates/zinnia/entry_archive_year.html:15 templates/zinnia/sitemap.html:38
+msgid "Monthly archives"
+msgstr "بایگانی ماهانه"
+
+#: templates/zinnia/entry_archive_year.html:25
+msgid "Previous year"
+msgstr "سال قبل"
+
+#: templates/zinnia/entry_archive_year.html:31
+msgid "Next year"
+msgstr "سال بعد"
+
+#: templates/zinnia/entry_detail_base.html:29
+#, python-format
+msgid "RSS feed of discussions on %(object)s"
+msgstr "فید RSS بحث %(object)s"
+
+#: templates/zinnia/entry_detail_base.html:32
+#, python-format
+msgid "RSS feed of comments on %(object)s"
+msgstr "فید RSS نظرات %(object)s"
+
+#: templates/zinnia/entry_detail_base.html:35
+#, python-format
+msgid "RSS feed of pingbacks on %(object)s"
+msgstr ""
+
+#: templates/zinnia/entry_detail_base.html:38
+#, python-format
+msgid "RSS feed of trackbacks on %(object)s"
+msgstr ""
+
+#: templates/zinnia/entry_detail_base.html:67
+msgid "Comments and Q&A"
+msgstr "پرسش و پاسخ و نظرات"
+
+#: templates/zinnia/entry_detail_base.html:89
+#, python-format
+msgid ""
+"<a href=\"#comment-%(comment_pk)s-by-%(comment_author_slug)s\" id=\"c"
+"%(comment_pk)s\" class=\"anchor-link ui header\" title=\"Direct link to this "
+"comment\" class=\"large\"> %(comment_title)s </a> <a href=\"%(comment_url)s"
+"\" rel=\"external nofollow\" class=\"fn url header\">%(comment_name)s</a> on "
+"<time class=\"comment-published\" datetime=\"%(comment_technical_date)s\"> "
+"%(comment_human_date)s </time>"
+msgstr ""
+
+#: templates/zinnia/entry_detail_base.html:131
+#, python-format
+msgid ""
+"<a href=\"#comment-%(comment_pk)s-by-%(comment_author_slug)s\" id=\"c"
+"%(comment_pk)s\" class=\"anchor-link ui header\" title=\"Direct link to this "
+"comment\">%(comment_title)s</a> <a href=\"%(comment_url)s\" rel=\"external "
+"nofollow\" class=\"fn url large\">%(comment_name)s</a> on <time class="
+"\"comment-published\" datetime=\"%(comment_technical_date)s\"> "
+"%(comment_human_date)s </time>"
+msgstr ""
+
+#: templates/zinnia/entry_detail_base.html:166
+#: templates/zinnia/entry_detail_base.html:172
+msgid "Comments are closed."
+msgstr "نظرات بسته است."
+
+#: templates/zinnia/entry_detail_base.html:170
+#: templates/zinnia/tags/comments_recent.html:18
+msgid "No comments yet."
+msgstr "بدون نظر"
+
+#: templates/zinnia/entry_detail_base.html:184
+msgid "Login To Comment"
+msgstr "برای پرسش و پاسخ وارد شوید"
+
+#: templates/zinnia/entry_detail_base.html:193
+#: templates/zinnia/entry_detail_base.html:194
+msgid "Edit the entry"
+msgstr "ویرایش نوشته"
+
+#: templates/zinnia/entry_list.html:9
+#, python-format
+msgid "The last entries categorized under %(object)s"
+msgstr "آخرین نوشته‌های دسته %(object)s"
+
+#: templates/zinnia/entry_list.html:14
+#, python-format
+msgid "The last entries tagged with %(object)s"
+msgstr "آخرین نوشته‌های تگ %(object)s"
+
+#: templates/zinnia/entry_list.html:18
+#, python-format
+msgid "The last entries by %(object)s"
+msgstr "آخرین نوشته‌های %(object)s"
+
+#: templates/zinnia/entry_list.html:23
+#, python-format
+msgid "page %(page_number)s"
+msgstr "صفحه %(page_number)s"
+
+#: templates/zinnia/entry_list.html:27
+#, python-format
+msgid "Category %(object)s"
+msgstr "دسته‌بندی %(object)s"
+
+#: templates/zinnia/entry_list.html:31
+#, python-format
+msgid "Tag %(object)s"
+msgstr "تگ %(object)s"
+
+#: templates/zinnia/entry_list.html:35
+#, python-format
+msgid "Author %(object)s"
+msgstr ""
+
+#: templates/zinnia/entry_list.html:40
+#, python-format
+msgid "Page %(object)s"
+msgstr "صفحه %(object)s"
+
+#: templates/zinnia/entry_list.html:45 templates/zinnia/entry_list.html:48
+#: templates/zinnia/entry_list.html:51 templates/zinnia/entry_list.html:65
+#: templates/zinnia/entry_list.html:66 templates/zinnia/entry_list.html:74
+#: templates/zinnia/entry_list.html:75 templates/zinnia/entry_list.html:83
+#: templates/zinnia/entry_list.html:84
+#, python-format
+msgid "RSS feed of %(object)s"
+msgstr "خوراک RSS مربوط به %(object)s"
+
+#: templates/zinnia/entry_list.html:60
+#, python-format
+msgid "Category archives: %(category)s"
+msgstr ""
+
+#: templates/zinnia/entry_list.html:72
+#, python-format
+msgid "Tag archives: %(tag)s"
+msgstr "آرشیو تگ «%(tag)s»"
+
+#: templates/zinnia/entry_list.html:81
+#, python-format
+msgid "Author archives: %(author)s"
+msgstr ""
+
+#: templates/zinnia/entry_list.html:107 templates/zinnia/sitemap.html:30
+#: templates/zinnia/tags/entries_featured.html:9
+#: templates/zinnia/tags/entries_popular.html:12
+#: templates/zinnia/tags/entries_random.html:9
+#: templates/zinnia/tags/entries_recent.html:13
+msgid "No entries yet."
+msgstr "تا کنون نوشته‌ای ثبت نشده است."
+
+#: templates/zinnia/entry_list.html:128 templates/zinnia/entry_list.html:129
+msgid "Edit the category"
+msgstr "ویرایش دسته‌بندی"
+
+#: templates/zinnia/entry_list.html:135 templates/zinnia/entry_list.html:136
+msgid "Edit the tag"
+msgstr "ویرایش تگ"
+
+#: templates/zinnia/entry_list.html:142 templates/zinnia/entry_list.html:143
+msgid "Edit the author"
+msgstr "ویرایش نویسنده"
+
+#: templates/zinnia/entry_search.html:5 templates/zinnia/entry_search.html:7
+#: templates/zinnia/entry_search.html:19
+#, python-format
+msgid "Search results for '%(pattern)s'"
+msgstr "نتایج جستجو برای %(pattern)s"
+
+#: templates/zinnia/entry_search.html:12 templates/zinnia/entry_search.html:25
+#: templates/zinnia/entry_search.html:26
+#, python-format
+msgid "RSS feed of search results for '%(pattern)s'"
+msgstr "'%(pattern)s' فید RSS نتیجه ی جست و جو برای "
+
+#: templates/zinnia/entry_search.html:33
+#, python-format
+msgid "%(entry_count)s entry found"
+msgid_plural "%(entry_count)s entries found"
+msgstr[0] ""
+
+#: templates/zinnia/entry_search.html:45
+msgid "Nothing found."
+msgstr "چیزی یافت نشد."
+
+#: templates/zinnia/login.html:4 templates/zinnia/login.html:9
+msgid "Login required"
+msgstr "باید وارد شوید"
+
+#: templates/zinnia/login.html:13
+msgid "Your username and password didn't match. Please try again."
+msgstr "نام کاربری و پسورد تطابق نداشتند. مجددا وارد کنید."
+
+#: templates/zinnia/login.html:17
+msgid "You need to be connected to view this entry."
+msgstr "برای مشاهده این نوشته باید متصل باشید."
+
+#: templates/zinnia/password.html:4 templates/zinnia/password.html:9
+msgid "Password required"
+msgstr "رمز لازم است"
+
+#: templates/zinnia/password.html:13
+msgid "The password provided is not valid. Please try again."
+msgstr "رمز وارد شده معتبر نمی‌باشد. مجددا تلاش کنید."
+
+#: templates/zinnia/password.html:17
+msgid "You need to provide a password to view this entry."
+msgstr "برای مشاهده نوشته رمز را وارد کنید."
+
+#: templates/zinnia/password.html:29
+msgid "Valid"
+msgstr "معتبر"
+
+#: templates/zinnia/sitemap.html:5 templates/zinnia/sitemap.html:12
+#: templates/zinnia/skeleton.html:31 templates/zinnia/skeleton.html:32
+#: templates/zinnia/skeleton.html:70 templates/zinnia/skeleton.html:71
+msgid "Sitemap"
+msgstr "نقشه سایت"
+
+#: templates/zinnia/sitemap.html:7
+msgid "Sitemap of the weblog"
+msgstr "نقشه سایت"
+
+#: templates/zinnia/sitemap.html:15
+msgid "Entries per categories"
+msgstr "تعداد نوشته به ازای دسته‌بندی"
+
+#: templates/zinnia/sitemap.html:24
+msgid "comment"
+msgstr "نظر"
+
+#: templates/zinnia/skeleton.html:10 templates/zinnia/skeleton.html:54
+msgid "Just another Zinnia weblog."
+msgstr "یه وبلاگ زینیا دیگه :/"
+
+#: templates/zinnia/skeleton.html:37
+msgid "RSS feed"
+msgstr "فید RSS"
+
+#: templates/zinnia/skeleton.html:44 templates/zinnia/tags/search_form.html:5
+msgid "Keywords..."
+msgstr "کلمات کلیدی..."
+
+#: templates/zinnia/skeleton.html:62
+msgid "Useful links"
+msgstr "لینک‌های مفید"
+
+#: templates/zinnia/skeleton.html:65 templates/zinnia/skeleton.html:66
+msgid "Weblog index"
+msgstr "فهرست وبلاگ"
+
+#: templates/zinnia/skeleton.html:77
+msgid "Search"
+msgstr "جستجو"
+
+#: templates/zinnia/skeleton.html:87
+#, python-format
+msgid ""
+"Powered by <a href=\"http://www.djangoproject.com\">Django</a> and <a href="
+"\"https://github.com/Fantomas42/django-blog-zinnia\">Zinnia "
+"%(ZINNIA_VERSION)s</a>."
+msgstr ""
+
+#: templates/zinnia/tag_list.html:4 templates/zinnia/tag_list.html:11
+msgid "Tag list"
+msgstr "لیست تگ‌ها"
+
+#: templates/zinnia/tag_list.html:22 templates/zinnia/tags/tag_cloud.html:12
+msgid "No tags yet."
+msgstr "تگی یافت نشد."
+
+#: templates/zinnia/tags/comments_recent.html:8
+msgid "in"
+msgstr "در"
+
+#: templates/zinnia/tags/entries_archives.html:12
+#: templates/zinnia/tags/entries_archives_tree.html:37
+msgid "No archives yet."
+msgstr "آرشیوی یافت نشد."
+
+#: templates/zinnia/tags/entries_draft.html:9
+msgid "No draft entries."
+msgstr "پیش‌نوشته‌ای یافت نشد."
+
+#: templates/zinnia/tags/entries_popular.html:7
+#, python-format
+msgid "Comments on %(object)s"
+msgstr "نظرات %(object)s"
+
+#: templates/zinnia/tags/entries_popular.html:8
+#: templates/zinnia/tags/statistics.html:16
+#, python-format
+msgid "%(comment_count)s comment"
+msgid_plural "%(comment_count)s comments"
+msgstr[0] ""
+
+#: templates/zinnia/tags/entries_similar.html:9
+msgid "No similar entries."
+msgstr "نوشته مشابهی یافت نشد."
+
+#: templates/zinnia/tags/linkbacks_recent.html:6
+#, python-format
+msgid ""
+"<a href=\"%(linkback_url)s\">%(linkback_name)s</a> in <a href="
+"\"%(entry_url)s#c%(linkback_pk)s\" title=\"Linkback on %(entry_title)s\"> "
+"%(entry_title)s </a>"
+msgstr ""
+
+#: templates/zinnia/tags/linkbacks_recent.html:18
+msgid "No linkbacks yet."
+msgstr ""
+
+#: templates/zinnia/tags/pagination.html:5
+#, python-format
+msgid "Page %(current_page)s of %(total_page)s"
+msgstr "صفحه %(current_page)s از %(total_page)s"
+
+#: templates/zinnia/tags/pagination.html:11
+msgid "More recent entries"
+msgstr "نوشته‌های بیشتر"
+
+#: templates/zinnia/tags/pagination.html:21
+#: templates/zinnia/tags/pagination.html:34
+#: templates/zinnia/tags/pagination.html:48
+msgid "Entries page"
+msgstr "صفحه نوشته‌ها"
+
+#: templates/zinnia/tags/pagination.html:57
+msgid "More old entries"
+msgstr "نوشته‌های بیشتر"
+
+#: templates/zinnia/tags/search_form.html:7
+msgid ""
+"You can use - to exclude words or phrases, &quot;double quotes&quot; for "
+"exact phrases and the AND/OR boolean operators combined with parenthesis for "
+"complex queries."
+msgstr ""
+
+#: templates/zinnia/tags/statistics.html:4
+#, python-format
+msgid "%(author_count)s author"
+msgid_plural "%(author_count)s authors"
+msgstr[0] "%(author_count)s تا نویسنده"
+
+#: templates/zinnia/tags/statistics.html:10
+#, python-format
+msgid "%(tag_count)s tag"
+msgid_plural "%(tag_count)s tags"
+msgstr[0] ""
+
+#: templates/zinnia/tags/statistics.html:13
+#, python-format
+msgid "%(category_count)s category"
+msgid_plural "%(category_count)s categories"
+msgstr[0] ""
+
+#: templates/zinnia/tags/statistics.html:19
+#, python-format
+msgid "%(pingback_count)s pingback"
+msgid_plural "%(pingback_count)s pingbacks"
+msgstr[0] ""
+
+#: templates/zinnia/tags/statistics.html:22
+#, python-format
+msgid "%(trackback_count)s trackback"
+msgid_plural "%(trackback_count)s trackbacks"
+msgstr[0] ""
+
+#: templates/zinnia/tags/statistics.html:25
+#, python-format
+msgid "%(reject_count)s rejected item"
+msgid_plural "%(reject_count)s rejected items"
+msgstr[0] ""
+
+#: templates/zinnia/tags/statistics.html:28
+#, python-format
+msgid "%(entries_per_month)s entries per month"
+msgstr "%(entries_per_month)s تا پست در هر ماه"
+
+#: templates/zinnia/tags/statistics.html:31
+#, python-format
+msgid "%(words_per_entry)s words per entry"
+msgstr "%(words_per_entry)s تا کلمه در هر پست"
+
+#: templates/zinnia/tags/statistics.html:34
+#, python-format
+msgid "%(words_per_comment)s words per comment"
+msgstr "%(words_per_comment)s تا کلمه در هر نظر"
+
+#: templates/zinnia/tags/statistics.html:37
+#, python-format
+msgid "%(comments_per_entry)s comments per entry"
+msgstr "%(comments_per_entry)s تا نظر در هر پست"
+
+#: templates/zinnia/tags/statistics.html:40
+#, python-format
+msgid "%(linkbacks_per_entry)s linkbacks per entry"
+msgstr ""
+
+#: templates/zinnia/tags/tag_cloud.html:6
+#, python-format
+msgid "%(entry_count)s entry tagged by %(tag)s"
+msgid_plural "%(entry_count)s entries tagged by %(tag)s"
+msgstr[0] "%(entry_count)s تا پست با تگ %(tag)s"
