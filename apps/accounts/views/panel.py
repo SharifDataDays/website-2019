@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import random
 from datetime import datetime
@@ -159,19 +160,27 @@ def redirect_to_somewhere_better(request):
         ))
 
 
+@login_required
 def render_scoreboard(request):
-    phase_team_scores = [get_scoreboard(phase.id) for phase in Competition.objects.all()]
-    return render_phase_scoreboard(request, Competition.objects.last().id)
-
+    return render_phase_scoreboard(request, -1)
 
 @login_required
 def render_phase_scoreboard(request, phase_id):
-    scoreboard = get_scoreboard(phase_id)
+    if phase_id == -1:
+        scoreboard = get_scoreboard(Competition.objects.get(final=False).id)
+        number_of_teams = len(scoreboard)
+        for i, team in enumerate(scoreboard):
+            team['scores'].append(int(team['scores'][0] * 10000 / 2350))
+            team['scores'].append(int(team['scores'][1] * -1 * int(math.log((i + 1) / (number_of_teams * 2), 2))))
+    else:
+        scoreboard = get_scoreboard(phase_id)
+
     my_team = get_team_pc(request)
     context = get_shared_context(request)
     for item in context['menu_items']:
         if item['name'] == 'render_panel_phases_scoreboard':
             item['active'] = True
+
     page = request.GET.get('page')
     paginator = Paginator(scoreboard, 30)
     try:
@@ -180,14 +189,34 @@ def render_phase_scoreboard(request, phase_id):
         paginated_scoreboard = paginator.page(1)
     except EmptyPage:
         paginated_scoreboard = paginator.page(paginator.num_pages)
+
     context.update({
+        'scoreboard_links':
+            [{'name': _(phase.name), 'link': reverse('accounts:phase_scoreboard', args=[phase.id])}
+             for phase in Competition.objects.all()] +
+            [{'name': _('Total Scoreboard'), 'link': reverse('accounts:scoreboard')}],
+
         'scoreboard': paginated_scoreboard,
-        'phases': list(Competition.objects.all()),
-        'phase': Competition.objects.get(id=phase_id),
         'my_team': my_team,
         'page_num': (paginated_scoreboard.number - 1) * 30,
-        'phase_id': phase_id
     })
+    if phase_id == -1:
+        context.update({
+            'scoreboard_name': _('Total Scoreboard'),
+
+            'headers': [
+                _('Rank'), _('Name'), _('Score'), _('Phase 1 Scaled to 10000'), _('After Formula')
+            ],
+        })
+    else:
+        context.update({
+            'scoreboard_name': _(Competition.objects.get(id=phase_id).name),
+
+            'headers': [
+                _('Rank'), _('Name'), _('Score')
+            ],
+        })
+
     return render(request, 'accounts/panel/group_table.html', context)
 
 
@@ -203,7 +232,7 @@ def get_scoreboard(phase_id):
     scoreboard = []
     for team in teams:
         team_con = {'team_name': team.team.name,
-                    'score': get_phase_score(team, trials, phase)}
+                    'scores': [get_phase_score(team, trials, phase)]}
         names = []
         for user_pc in team.team.participants.all():
             try:
@@ -212,7 +241,8 @@ def get_scoreboard(phase_id):
                 print('user has no profile')
         team_con['members'] = names
         scoreboard.append(team_con)
-    scoreboard = sorted(scoreboard, key=lambda k: k['score'], reverse=True)
+
+    scoreboard = sorted(scoreboard, key=lambda k: k['scores'][0], reverse=True)
     return scoreboard
 
 
@@ -338,7 +368,7 @@ def get_new_trial(request, phase_id):
         return get_new_trial_phase_2(request, phase_id)
     else:
         return get_new_trial_phase_1(request, phase_id)
-        #return render_phase(request, phase_id)
+        # return render_phase(request, phase_id)
 
 
 @login_required
@@ -390,7 +420,8 @@ def render_trial(request, phase_id, trial_id):
                 'text_questions': list(trial.questions.filter(type='single_answer')),
                 'choices': list(trial.questions.filter(type='multiple_choice').order_by('max_score')),
                 'multiple': list(trial.questions.filter(type='multiple_answer')),
-                'file_based_questions': list(trial.questions.filter(Q(type='file_upload')|Q(type='triple_cat_file_upload'))),
+                'file_based_questions': list(
+                    trial.questions.filter(Q(type='file_upload') | Q(type='triple_cat_file_upload'))),
                 'code_zip': list(trial.questions.filter(type='code_upload'))
             })
 
@@ -556,9 +587,10 @@ def get_judge_response(request):
     submissions = json_data['submissions']
     trial = Trial.objects.get(id=trial_id)
     trial.score = 0
-    phase = Competition.objects.get(id= phase_id)
+    phase = Competition.objects.get(id=phase_id)
     for i in range(len(submissions)):
-        question_submission = QuestionSubmission.objects.get(trial_submission__trial_id=trial_id, question__doc_id=submissions[i]['question_id'])
+        question_submission = QuestionSubmission.objects.get(trial_submission__trial_id=trial_id,
+                                                             question__doc_id=submissions[i]['question_id'])
         q = Question.objects.get(questionsubmission=question_submission)
         if q.type == 'triple_cat_file_upload':
             question_submission.score = submissions[i]['score'][0] * Question.objects.get(
@@ -566,7 +598,8 @@ def get_judge_response(request):
             question_submission.score2 = submissions[i]['score'][1] * Question.objects.get(
                 doc_id=submissions[i]['question_id']).max_score
         else:
-            question_submission.score = submissions[i]['score'] * Question.objects.get(doc_id=submissions[i]['question_id']).max_score
+            question_submission.score = submissions[i]['score'] * Question.objects.get(
+                doc_id=submissions[i]['question_id']).max_score
         question_submission.save()
         trial.score += question_submission.score
         trial.score2 += question_submission.score2
@@ -770,7 +803,7 @@ def get_new_trial_phase_2(request, phase_id):
                     'error': _('You have one active trial.')
                 })
                 return render(request, 'accounts/panel/no_new_trial.html', context)
-            if timezone.now()-trial.start_time < timezone.timedelta(hours=24):
+            if timezone.now() - trial.start_time < timezone.timedelta(hours=24):
                 today_trials += 1
         print(today_trials)
         if today_trials >= phase.trial_per_day:
@@ -780,7 +813,7 @@ def get_new_trial_phase_2(request, phase_id):
             return render(request, 'accounts/panel/no_new_trial.html', context)
         current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(), team=team_pc)
         question = FileUploadQuestion.objects.get(type='triple_cat_file_upload')
-        #todo dataset link in trial
+        # todo dataset link in trial
         current_trial.questions.add(question)
         code_upload_question = CodeUploadQuestion.objects.all()[0]
         current_trial.questions.add(code_upload_question)

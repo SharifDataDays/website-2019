@@ -13,29 +13,33 @@
     </div>
 
     <div class="ui buttons fluid">
-        {% for phase in phases %}
-            {% if phase.id|equal_int:phase_id %}
-            <a class="ui button blue" href="{% url 'accounts:phase_scoreboard' phase.id %}">
+        {% for scoreboard in scoreboard_links %}
+            {% if scoreboard.name == scoreboard_name %}
+            <a class="ui button blue" href="{{ scoreboard.link }}">
             {% else %}
-            <a class="ui button" href="{% url 'accounts:phase_scoreboard' phase.id %}">
+            <a class="ui button" href="{{ scoreboard.link }}">
             {% endif %}
-                {{ phase.name }}
+                {{ scoreboard.name }}
             </a>
         {% endfor %}
     </div>
     <table class="ui blue selectable unstackable table">
         <thead>
             <tr>
-                <th class="collapsing" style="font-family: IRANSans!important;">{% trans 'Rank' %}</th>
-                <th style="font-family: IRANSans!important;">{% trans 'Name' %}</th>
-                <th style="font-family: IRANSans!important; float: left; margin-left: 20%">{% trans phase.name %}</th>
+                {% for header in headers %}
+                    {% if header == _('Name') %}
+                        <th style="font-family: IRANSans!important;">{{ header }}</th>
+                    {% else %}
+                        <th style="text-align: center; font-family: IRANSans!important;">{{ header }}</th>
+                    {% endif %}
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
 
         {% for team in scoreboard %}
             <tr {% if my_team.team.name == team.team_name %} style="background-color: lightblue" {% endif %}>
-                <td>
+                <td style="text-align: center">
                     <div class="ui blue label">{{ forloop.counter|add:page_num }}</div>
                 </td>
                 <td>
@@ -46,9 +50,13 @@
                          {{ member }}<br/>{% endfor %}"
                          data-position="top center">{{ team.team_name }}</div>
                 </td>
-                <td style="font-family: IRANSans!important; float: left; margin-left: 35%">
-                    {{ team.score }}
-                </td>
+                {% for score in team.scores %}
+                    <td style="text-align: center">
+                        <div>
+                            {{ score }}
+                        </div>
+                    </td>
+                {% endfor %}
             </tr>
         {% endfor %}
         </tbody>
