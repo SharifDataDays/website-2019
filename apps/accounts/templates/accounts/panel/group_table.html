@@ -12,7 +12,7 @@
         {% trans 'Scoreboard' %}
     </div>
 
-    <div class="ui buttons fluid">
+    <div class="ui buttons five fluid">
         {% for scoreboard in scoreboard_links %}
             {% if scoreboard.name == scoreboard_name %}
             <a class="ui button blue" href="{{ scoreboard.link }}">
