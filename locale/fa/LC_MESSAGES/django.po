@@ -41,6 +41,7 @@ msgstr "محتوا"
 msgid "Prizes"
 msgstr "جایزه"
 
+
 #: aic_site/context_processors.py:19
 msgid "About Us"
 msgstr "درباره ما"

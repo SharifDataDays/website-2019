@@ -274,3 +274,4 @@ msgstr "در "
 #: apps/game/templates/scoreboard/single_matches_table.html:65
 msgid "View"
 msgstr "نمایش"
+

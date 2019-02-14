@@ -415,6 +415,7 @@ msgstr "امتیاز"
 msgid "Judging ..."
 msgstr "در حال داوری ..."
 
+
 #: apps/accounts/templates/accounts/panel/panel_phase.html:72
 msgid "Part One Score"
 msgstr "امتیاز بخش اول"

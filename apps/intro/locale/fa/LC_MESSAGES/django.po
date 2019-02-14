@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+
 #: apps/intro/templates/intro/index.html:28
 msgid "seconds"
 msgstr "ثانیه"
