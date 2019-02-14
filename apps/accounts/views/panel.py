@@ -205,7 +205,7 @@ def render_phase_scoreboard(request, phase_id):
             'scoreboard_name': _('Total Scoreboard'),
 
             'headers': [
-                _('Rank'), _('Name'), _('Score'), _('Phase 1 Scaled to 10000'), _('After Formula')
+                _('Rank'), _('Name'), _('Score'), _('From 10000'), _('Final Score')
             ],
         })
     else:

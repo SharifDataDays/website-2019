@@ -211,3 +211,5 @@ if TESTING:
 
 
 JUDGE_IP = 'http://localhost:9098'
+
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
