@@ -56,8 +56,8 @@
     </div>
 </div>
 {% endif %}
-
-    <div class="ui three column grid center aligned">
+<div style="display: block">
+    <div class="ui three column grid center aligned container stackable">
     {% for trial in trials%}
         <div class="ui button center aligned one column grid" style="cursor:initial;background-color: transparent!important; margin-bottom: 7%; margin-top:3%"
              data-tooltip="
@@ -162,3 +162,4 @@
     {% endfor %}
     </div>
 {% endblock %}
+</div>
