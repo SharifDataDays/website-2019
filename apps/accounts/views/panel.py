@@ -162,7 +162,7 @@ def redirect_to_somewhere_better(request):
 
 @login_required
 def render_scoreboard(request):
-    return render_phase_scoreboard(request, -1)
+    return render_phase_scoreboard(request, Competition.objects.get(final=True).id)
 
 @login_required
 def render_phase_scoreboard(request, phase_id):
