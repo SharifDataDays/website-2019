@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-14 05:23+0330\n"
+"POT-Creation-Date: 2019-02-25 02:40+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,21 +108,23 @@ msgstr "جدول امتیازات"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:8
 #: apps/accounts/templates/accounts/panel/phase_table.html:15
-#: apps/accounts/views/panel.py:208 apps/accounts/views/panel.py:216
+#: apps/accounts/views/panel.py:247 apps/accounts/views/panel.py:256
+#: apps/accounts/views/panel.py:264
 msgid "Rank"
 msgstr "رتبه"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:9
 #: apps/accounts/templates/accounts/panel/group_table.html:30
 #: apps/accounts/templates/accounts/panel/phase_table.html:16
-#: apps/accounts/views/panel.py:208 apps/accounts/views/panel.py:216
+#: apps/accounts/views/panel.py:247 apps/accounts/views/panel.py:256
+#: apps/accounts/views/panel.py:264
 msgid "Name"
 msgstr "نام تیم"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:10
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:11
 #: apps/accounts/templates/accounts/panel/battle_history.html:13
-#: apps/accounts/views/panel.py:208 apps/accounts/views/panel.py:216
+#: apps/accounts/views/panel.py:264
 msgid "Score"
 msgstr "امتیاز"
 
@@ -606,40 +608,61 @@ msgstr "تیم شما با موفقیت ساخته شد"
 msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
-#: apps/accounts/views/panel.py:197 apps/accounts/views/panel.py:205
+#: apps/accounts/views/panel.py:236 apps/accounts/views/panel.py:244
 msgid "Total Scoreboard"
 msgstr "امتیازات نهایی"
 
-#: apps/accounts/views/panel.py:208
-msgid "From 10000"
-msgstr "از ۱۰۰۰۰"
+#: apps/accounts/views/panel.py:247
+msgid "Phase 1 From 10000"
+msgstr "فاز یک از ۱۰۰۰۰"
 
-#: apps/accounts/views/panel.py:208
-#, fuzzy
-#| msgid "Final Score"
+#: apps/accounts/views/panel.py:247
 msgid "Phase 1 Final Score"
 msgstr "امتیاز نهایی فاز یک"
 
-#: apps/accounts/views/panel.py:730 apps/accounts/views/panel.py:805
+#: apps/accounts/views/panel.py:248
+msgid "Phase 2 From 10000"
+msgstr "فاز دو از ۱۰۰۰۰"
+
+#: apps/accounts/views/panel.py:248
+msgid "Phase 2 Final Score"
+msgstr "امتیاز نهایی فاز دو"
+
+#: apps/accounts/views/panel.py:248
+msgid "Final Score From 20000"
+msgstr "امتیاز نهایی از ۲۰۰۰۰"
+
+#: apps/accounts/views/panel.py:256
+msgid "First Half Score"
+msgstr "امتیاز نیمه اول"
+
+#: apps/accounts/views/panel.py:256
+msgid "Second Half Score"
+msgstr "امتیاز نیمه دوم"
+
+#: apps/accounts/views/panel.py:779 apps/accounts/views/panel.py:854
 msgid "You have one active trial."
 msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
-#: apps/accounts/views/panel.py:735
+#: apps/accounts/views/panel.py:784
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
 
-#: apps/accounts/views/panel.py:813
+#: apps/accounts/views/panel.py:862
 msgid ""
 "You can not get any new trial. You have reached your limit in current day"
 msgstr "شما حداکثر تعداد تلاش‌های روزانه خود را استفاده کرده‌اید."
 
-#: apps/accounts/views/panel.py:856
+#: apps/accounts/views/panel.py:905
 msgid "no such trial"
 msgstr "تلاشی یافت نشد."
 
-#: apps/accounts/views/panel.py:863
+#: apps/accounts/views/panel.py:912
 msgid "final trial set successfuly"
 msgstr "تلاش نهایی با موفقیت ثبت شد"
+
+#~ msgid "From 10000"
+#~ msgstr "از ۱۰۰۰۰"
 
 #~ msgid "No Submit Yet"
 #~ msgstr "هنوز هیچ ارسالی انجام نداده‌اید"

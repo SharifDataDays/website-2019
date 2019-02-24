@@ -164,14 +164,62 @@ def redirect_to_somewhere_better(request):
 def render_scoreboard(request):
     return render_phase_scoreboard(request, -1)
 
+
 @login_required
 def render_phase_scoreboard(request, phase_id):
     if phase_id == -1:
-        scoreboard = get_scoreboard(Competition.objects.get(final=False).id)
-        number_of_teams = len(scoreboard)
-        for i, team in enumerate(scoreboard):
-            team['scores'].append(int(team['scores'][0] * 10000 / 2350))
-            team['scores'].append(int(team['scores'][1] * -1 * int(math.log((i + 1) / (number_of_teams * 2), 2))))
+        scoreboard_phase1 = get_scoreboard(Competition.objects.get(final=False).id)
+        scoreboard_phase2 = get_scoreboard(Competition.objects.get(final=True).id)
+
+        number_of_teams_phase1 = len(scoreboard_phase1)
+        team_phase1_dict = {}
+        for i, team in enumerate(scoreboard_phase1):
+            team_phase1_dict[team['team_name']] = []
+            team_phase1_dict[team['team_name']].append(int(team['scores'][0] * 10000 / 2350))
+            team_phase1_dict[team['team_name']].append(int(team_phase1_dict[team['team_name']][0] * -1 *
+                                                          int(math.log((i + 1) / (number_of_teams_phase1 * 2), 2))))
+
+        number_of_teams_phase2 = len(scoreboard_phase2)
+        team_phase2_dict = {}
+        for i, team in enumerate(scoreboard_phase2):
+            team_phase2_dict[team['team_name']] = []
+            team_phase2_dict[team['team_name']].append(int(team['scores'][1] * 10000 / 3000))
+            team_phase2_dict[team['team_name']].append(int(team_phase2_dict[team['team_name']][0] * -1 *
+                                                          int(math.log((i + 1) / (number_of_teams_phase2 * 2), 2))))
+
+        team_names = set()
+        for team in scoreboard_phase1:
+            team_names.add(team['team_name'])
+        for team in scoreboard_phase2:
+            team_names.add(team['team_name'])
+
+        scoreboard = []
+        for team in team_names:
+            team_con = {'team_name': team,
+                        'scores': []}
+            if team in team_phase1_dict:
+                team_con['scores'] += team_phase1_dict[team]
+            else:
+                team_con['scores'] += [0, 0]
+            if team in team_phase2_dict:
+                team_con['scores'] += team_phase2_dict[team]
+            else:
+                team_con['scores'] += [0, 0]
+
+            team_con['scores'].append(team_con['scores'][1] + team_con['scores'][3])
+
+            names = []
+            for user_pc in TeamParticipatesChallenge.objects.get(team__name=team).team.participants.all():
+                try:
+                    names.append(user_pc.user.profile.name)
+                except:
+                    print('user has no profile')
+            team_con['members'] = names
+            scoreboard.append(team_con)
+
+        scoreboard = sorted(scoreboard, key=lambda k: k['scores'][4], reverse=True)
+
+
     else:
         scoreboard = get_scoreboard(phase_id)
 
@@ -205,7 +253,16 @@ def render_phase_scoreboard(request, phase_id):
             'scoreboard_name': _('Total Scoreboard'),
 
             'headers': [
-                _('Rank'), _('Name'), _('Score'), _('From 10000'), _('Phase 1 Final Score')
+                _('Rank'), _('Name'), _('Phase 1 From 10000'), _('Phase 1 Final Score'),
+                _('Phase 2 From 10000'), _('Phase 2 Final Score'), _('Final Score From 20000')
+            ],
+        })
+    elif Competition.objects.get(id=phase_id).final:
+        context.update({
+            'scoreboard_name': _(Competition.objects.get(id=phase_id).name),
+
+            'headers': [
+                _('Rank'), _('Name'), _('First Half Score'), _('Second Half Score')
             ],
         })
     else:
@@ -232,7 +289,7 @@ def get_scoreboard(phase_id):
     scoreboard = []
     for team in teams:
         team_con = {'team_name': team.team.name,
-                    'scores': [get_phase_score(team, trials, phase)]}
+                    'scores': get_phase_score(team, trials, phase)}
         names = []
         for user_pc in team.team.participants.all():
             try:
@@ -250,9 +307,10 @@ def get_phase_score(team, trials, phase):
     team_phase_trials = trials.filter(team=team)
     if phase.final:
         try:
-            return float("{0:.2f}".format(team_phase_trials.get(is_final=True).score))
+            final_trial = team_phase_trials.get(is_final=True)
+            return [float("{0:.2f}".format(final_trial.score)), float("{0:.2f}".format(final_trial.score2))]
         except:
-            return 0
+            return [0, 0]
     else:
         scores = [trial.score for trial in team_phase_trials]
         if len(scores) == 0:
@@ -262,7 +320,7 @@ def get_phase_score(team, trials, phase):
         else:
             scores.remove(min(scores))
             result = float("{0:.2f}".format(sum(scores) / len(scores)))
-        return result
+        return [result]
 
 
 @login_required
