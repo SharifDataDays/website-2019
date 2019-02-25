@@ -68,7 +68,9 @@ def get_shared_context(request):
 
     context['menu_items'] = [
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
-        {'name': 'render_panel_phases_scoreboard', 'link': reverse('accounts:scoreboard'), 'text': _('Scoreboard')}
+        {'name': 'render_panel_phases_scoreboard',
+         'link': reverse('accounts:scoreboard',
+                         args=[get_team_pc(request).challenge.id]), 'text': _('Scoreboard')}
     ]
 
     if request.user.profile:
@@ -161,15 +163,15 @@ def redirect_to_somewhere_better(request):
 
 
 @login_required
-def render_scoreboard(request):
-    return render_phase_scoreboard(request, -1)
+def render_scoreboard(request, challenge_id):
+    return render_phase_scoreboard(request, -1, challenge_id)
 
 
 @login_required
-def render_phase_scoreboard(request, phase_id):
+def render_phase_scoreboard(request, phase_id, challenge_id):
     if phase_id == -1:
-        scoreboard_phase1 = get_scoreboard(Competition.objects.get(final=False).id)
-        scoreboard_phase2 = get_scoreboard(Competition.objects.get(final=True).id)
+        scoreboard_phase1 = get_scoreboard(Competition.objects.get(final=False, challenge__id=challenge_id).id)
+        scoreboard_phase2 = get_scoreboard(Competition.objects.get(final=True, challenge__id=challenge_id).id)
 
         number_of_teams_phase1 = len(scoreboard_phase1)
         team_phase1_dict = {}
@@ -209,7 +211,8 @@ def render_phase_scoreboard(request, phase_id):
             team_con['scores'].append(team_con['scores'][1] + team_con['scores'][3])
 
             names = []
-            for user_pc in TeamParticipatesChallenge.objects.get(team__name=team).team.participants.all():
+            for user_pc in TeamParticipatesChallenge.objects.get(team__name=team, challenge__id=challenge_id)\
+                    .team.participants.all():
                 try:
                     names.append(user_pc.user.profile.name)
                 except:
@@ -219,12 +222,12 @@ def render_phase_scoreboard(request, phase_id):
 
         scoreboard = sorted(scoreboard, key=lambda k: k['scores'][4], reverse=True)
 
-
     else:
         scoreboard = get_scoreboard(phase_id)
 
     my_team = get_team_pc(request)
     context = get_shared_context(request)
+    context['participation'] = get_team_pc(request)
     for item in context['menu_items']:
         if item['name'] == 'render_panel_phases_scoreboard':
             item['active'] = True
@@ -240,9 +243,9 @@ def render_phase_scoreboard(request, phase_id):
 
     context.update({
         'scoreboard_links':
-            [{'name': _(phase.name), 'link': reverse('accounts:phase_scoreboard', args=[phase.id])}
-             for phase in Competition.objects.all()] +
-            [{'name': _('Total Scoreboard'), 'link': reverse('accounts:scoreboard')}],
+            [{'name': _(phase.name), 'link': reverse('accounts:phase_scoreboard', args=[phase.id, challenge_id])}
+             for phase in Competition.objects.filter(challenge__id=challenge_id)] +
+            [{'name': _('Total Scoreboard'), 'link': reverse('accounts:scoreboard', args=[challenge_id])}],
 
         'scoreboard': paginated_scoreboard,
         'my_team': my_team,
