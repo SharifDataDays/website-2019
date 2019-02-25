@@ -424,9 +424,10 @@ def get_new_trial(request, phase_id):
         redirect("/accounts/panel/team")
     if phase.final:
         # if get_team_pc(request).team.name == 'pam':
-        return get_new_trial_phase_2(request, phase_id)
+        return render_phase(request, phase_id)
+        # return get_new_trial_phase_2(request, phase_id)
     else:
-        #return get_new_trial_phase_1(request, phase_id)
+        # return get_new_trial_phase_1(request, phase_id)
         return render_phase(request, phase_id)
 
 
@@ -505,6 +506,9 @@ def submit_trial(request, phase_id, trial_id):
         team_pc = get_team_pc(request)
         if team_pc is None:
             return redirect_to_somewhere_better(request)
+
+        return render_phase(request, phase_id)
+
         context = get_shared_context(request)
         file = None
         if request.FILES:
