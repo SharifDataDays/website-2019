@@ -3,7 +3,7 @@ from django import template
 from apps.game.models import TrialSubmission, QuestionSubmission
 from apps.utils import jalali
 import random
-
+from django.utils.translation import ugettext_lazy as _
 register = template.Library()
 
 
@@ -72,3 +72,12 @@ def score(trial, arg):
         return str(score)
     else:
         return 'NaN'
+
+
+@register.filter
+def time_remained_payment(team_pc):
+    days = team_pc.payment_time_remained.days
+    sec = team_pc.payment_time_remained.total_seconds()
+    minutes = (sec % 3600)//60
+    hours = (sec % (3600*24))//3600
+    return _('time reamined to complete payment: %d days, %d hours, %d minutes') %(days, hours, minutes)

@@ -51,6 +51,7 @@ class Challenge(models.Model):
 class TeamParticipatesChallenge(models.Model):
     team = models.ForeignKey(Team, related_name='challenges')
     challenge = models.ForeignKey(Challenge, related_name='teams')
+    payment_time_remained = models.DurationField(null=True, blank=True)
 
     @property
     def should_pay(self):
