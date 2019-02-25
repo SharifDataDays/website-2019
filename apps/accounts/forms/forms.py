@@ -76,7 +76,8 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'organization','age', 'phone_number', 'email', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'organization', 'age', 'phone_number', 'email', 'password1',
+                  'password2')
 
 
 class UpdateProfileForm(ModelForm):
@@ -108,7 +109,7 @@ class UpdateProfileForm(ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('first_name', 'last_name', 'email','phone_number','age', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'email', 'phone_number', 'age', 'password1', 'password2')
 
 
 class MailAdminForm(ModelForm):
@@ -121,3 +122,36 @@ class MailAdminForm(ModelForm):
             'from_email': EmailInput(),
             'title': TextInput()
         }
+
+
+class OnSiteInformationForm(ModelForm):
+
+    def is_valid(self):
+        data = self.cleaned_data
+        for char in data['full_name_en']:
+            if not ('a' <= char <= 'z' or 'A' <= char <= 'Z' or char in [' ', '.']):
+                self.add_error(None,
+                               _('English name must be fully english and contain only [a-z][A-Z][ ][.] characters.'))
+                return False
+        for char in data['full_name_fa']:
+            if not ('\u0600' <= char <= '\u06FF' or char in [' ', '.']):
+                self.add_error(None,
+                               _('Persian name must be fully Persian and contain only arabic character set plus [ ]['
+                                 '.] characters.'))
+                return False
+        for char in data['student_id']:
+            if not ('0' <= char <= '9'):
+                self.add_error(None,
+                               _('Student id must only contain [0-9].'))
+                return False
+        for char in data['entrance_year']:
+            if not ('0' <= char <= '9'):
+                self.add_error(None,
+                               _('Entrance must only contain [0-9].'))
+                return False
+        return super().is_valid()
+
+    class Meta:
+        model = Profile
+        fields = ('full_name_en', 'full_name_fa', 'student_id', 'major', 'entrance_year', 'degree', 'city',
+                  't_shirt_size')
