@@ -102,7 +102,6 @@ def redirect_to_somewhere_better(request):
         ))
 
 
-
 @login_required
 def change_team_pc(request, team_pc):
     try:

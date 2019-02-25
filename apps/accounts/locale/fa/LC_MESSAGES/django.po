@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-25 17:30+0330\n"
+"POT-Creation-Date: 2019-02-25 17:44+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,23 +180,23 @@ msgstr "جدول امتیازات"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:8
 #: apps/accounts/templates/accounts/panel/phase_table.html:15
-#: apps/accounts/views/panel.py:211 apps/accounts/views/panel.py:220
-#: apps/accounts/views/panel.py:228
+#: apps/accounts/views/panel.py:210 apps/accounts/views/panel.py:219
+#: apps/accounts/views/panel.py:227
 msgid "Rank"
 msgstr "رتبه"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:9
 #: apps/accounts/templates/accounts/panel/group_table.html:30
 #: apps/accounts/templates/accounts/panel/phase_table.html:16
-#: apps/accounts/views/panel.py:211 apps/accounts/views/panel.py:220
-#: apps/accounts/views/panel.py:228
+#: apps/accounts/views/panel.py:210 apps/accounts/views/panel.py:219
+#: apps/accounts/views/panel.py:227
 msgid "Name"
 msgstr "نام تیم"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:10
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:11
 #: apps/accounts/templates/accounts/panel/battle_history.html:13
-#: apps/accounts/views/panel.py:228
+#: apps/accounts/views/panel.py:227
 msgid "Score"
 msgstr "امتیاز"
 
@@ -569,18 +569,18 @@ msgstr "در حال بارگذاری"
 msgid "You have not participated in this challenge yet."
 msgstr "شما در این چالش شرکت نکرده‌اید."
 
-#: apps/accounts/templates/accounts/profile/information.html:6
+#: apps/accounts/templates/accounts/profile/information.html:5
 #: apps/accounts/templates/accounts/profile/login.html:31
 #: apps/accounts/templates/accounts/profile/signup.html:5
 #: apps/accounts/templates/accounts/profile/update_profile.html:5
 msgid "Sign Up"
 msgstr "ثبت نام"
 
-#: apps/accounts/templates/accounts/profile/information.html:9
+#: apps/accounts/templates/accounts/profile/information.html:8
 msgid "Complete Information"
 msgstr "تکمیل اطلاعات"
 
-#: apps/accounts/templates/accounts/profile/information.html:13
+#: apps/accounts/templates/accounts/profile/information.html:12
 #: apps/accounts/templates/accounts/profile/update_profile.html:12
 msgid "Update"
 msgstr "ذخیره"
@@ -686,56 +686,56 @@ msgstr "تیم شما با موفقیت ساخته شد"
 msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
-#: apps/accounts/views/panel.py:200 apps/accounts/views/panel.py:208
+#: apps/accounts/views/panel.py:199 apps/accounts/views/panel.py:207
 msgid "Total Scoreboard"
 msgstr "امتیازات نهایی"
 
-#: apps/accounts/views/panel.py:211
+#: apps/accounts/views/panel.py:210
 msgid "Phase 1 From 10000"
 msgstr "فاز یک از ۱۰۰۰۰"
 
-#: apps/accounts/views/panel.py:211
+#: apps/accounts/views/panel.py:210
 msgid "Phase 1 Final Score"
 msgstr "امتیاز نهایی فاز یک"
 
-#: apps/accounts/views/panel.py:212
+#: apps/accounts/views/panel.py:211
 msgid "Phase 2 From 10000"
 msgstr "فاز دو از ۱۰۰۰۰"
 
-#: apps/accounts/views/panel.py:212
+#: apps/accounts/views/panel.py:211
 msgid "Phase 2 Final Score"
 msgstr "امتیاز نهایی فاز دو"
 
-#: apps/accounts/views/panel.py:212
+#: apps/accounts/views/panel.py:211
 msgid "Final Score From 20000"
 msgstr "امتیاز نهایی از ۲۰۰۰۰"
 
-#: apps/accounts/views/panel.py:220
+#: apps/accounts/views/panel.py:219
 msgid "First Half Score"
 msgstr "امتیاز نیمه اول"
 
-#: apps/accounts/views/panel.py:220
+#: apps/accounts/views/panel.py:219
 msgid "Second Half Score"
 msgstr "امتیاز نیمه دوم"
 
-#: apps/accounts/views/panel.py:747 apps/accounts/views/panel.py:822
+#: apps/accounts/views/panel.py:746 apps/accounts/views/panel.py:821
 msgid "You have one active trial."
 msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
-#: apps/accounts/views/panel.py:752
+#: apps/accounts/views/panel.py:751
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
 
-#: apps/accounts/views/panel.py:830
+#: apps/accounts/views/panel.py:829
 msgid ""
 "You can not get any new trial. You have reached your limit in current day"
 msgstr "شما حداکثر تعداد تلاش‌های روزانه خود را استفاده کرده‌اید."
 
-#: apps/accounts/views/panel.py:873
+#: apps/accounts/views/panel.py:872
 msgid "no such trial"
 msgstr "تلاشی یافت نشد."
 
-#: apps/accounts/views/panel.py:880
+#: apps/accounts/views/panel.py:879
 msgid "final trial set successfuly"
 msgstr "تلاش نهایی با موفقیت ثبت شد"
 

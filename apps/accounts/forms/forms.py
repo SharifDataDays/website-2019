@@ -128,24 +128,32 @@ class OnSiteInformationForm(ModelForm):
     def is_valid(self):
         if not super(OnSiteInformationForm, self).is_valid():
             return False
+        result = False
         data = self.cleaned_data
         for char in data['full_name_en']:
             if not ('a' <= char <= 'z' or 'A' <= char <= 'Z' or char in [' ', '.']):
-                self.add_error(None,
+                self.add_error('full_name_en',
                                _('English name must be fully english and contain only [a-z][A-Z][ ][.] characters.'))
-                return False
+                result = False
+                break
         for char in data['full_name_fa']:
             if not ('\u0600' <= char <= '\u06FF' or char in [' ', '.']):
-                self.add_error(None,
+                self.add_error('full_name_fa',
                                _('Persian name must be fully Persian and contain only arabic character set plus [ ]['
                                  '.] characters.'))
-                return False
+                result = False
+                break
         for char in data['student_id']:
             if not ('0' <= char <= '9'):
-                self.add_error(None,
+                self.add_error('student_id',
                                _('Student id must only contain [0-9].'))
-                return False
-        return super().is_valid()
+                result = False
+                break
+        if not (1385 <= data['entrance_year'] <= 1397 or 2002 <= data['entrance_year'] <= 2019):
+            self.add_error('entrance_year',
+                           _('entrance year must be between [1385, 1397] or [2002, 2019]'))
+            result = False
+        return super().is_valid() and result
 
     def save(self, commit=True):
         user = super().save(commit=False)
