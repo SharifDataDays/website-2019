@@ -3,33 +3,26 @@ import math
 import os
 import random
 from datetime import datetime
-from itertools import chain
-from aic_site.local_settings import PHASE_2_DATASET_PATH, PHASE_2_CATS_PATH
 
-import pandas as pd
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.forms import Form
 from django.http import Http404, HttpResponse, JsonResponse
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.translation import ugettext_lazy as _
+
+from aic_site.local_settings import PHASE_2_DATASET_PATH, PHASE_2_CATS_PATH
 from aic_site.settings.base import MEDIA_ROOT
-from apps.accounts.forms.panel import SubmissionForm
-from apps.accounts.models import Profile
-from apps.billing.decorators import payment_required
-from apps.game.models import TeamSubmission, TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
+from apps.game.models import TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
     Instruction, Question, \
     Choice, TrialSubmission, QuestionSubmission, FileUploadQuestion, CodeUploadQuestion
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 DIR_DATASET = '/home/datadays/tds'
 
@@ -104,62 +97,6 @@ def change_team_pc(request, team_pc):
     except TeamParticipatesChallenge.DoesNotExist:
         raise Http404
     return redirect('accounts:panel_team_management')
-
-
-@payment_required
-@login_required
-def submissions(request):
-    team_pc = get_team_pc(request)
-    if team_pc is None:
-        return redirect_to_somewhere_better(request)
-    context = get_shared_context(request)
-
-    for item in context['menu_items']:
-        if item['name'] == 'submissions':
-            item['active'] = True
-
-    page = request.GET.get('page', 1)
-    context.update({
-        'page': page,
-        'participation': team_pc,
-        'participation_id': team_pc.id,
-    })
-
-    if request.method == 'POST':
-        form = SubmissionForm(request.POST, request.FILES)
-        if form.is_valid() and form.cleaned_data['team'] == team_pc:
-            form.save()
-            return redirect('accounts:panel_submissions')
-    else:
-        form = SubmissionForm()
-
-    context['submissions'] = Paginator(
-        TeamSubmission.objects.filter(team_id=team_pc.id).order_by('-id'),
-        5
-    ).page(page)
-
-    if team_pc is not None:
-        form.initial['team'] = team_pc
-        form.fields['team'].empty_label = None
-        form.fields['file'].widget.attrs['accept'] = '.zip'
-
-    context['form'] = form
-    context['team_pc'] = team_pc
-    return render(request, 'accounts/panel/submissions.html', context)
-
-
-def redirect_to_somewhere_better(request):
-    if Challenge.objects.filter(is_submission_open=True).exists():
-        return HttpResponseRedirect(
-            reverse(
-                'accounts:create_team',
-                args=[Challenge.objects.get(is_submission_open=True).id]
-            )
-        )
-    else:
-        return HttpResponseRedirect(reverse(
-            'intro:index'
-        ))
 
 
 @login_required
