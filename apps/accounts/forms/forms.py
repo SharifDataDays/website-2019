@@ -11,7 +11,6 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
-from zinnia.admin.widgets import MiniTextarea, MPTTFilteredSelectMultiple
 
 from apps.accounts.models import Profile, Mail
 from apps.accounts.tokens import account_activation_token
@@ -127,6 +126,8 @@ class MailAdminForm(ModelForm):
 class OnSiteInformationForm(ModelForm):
 
     def is_valid(self):
+        if not super(OnSiteInformationForm, self).is_valid():
+            return False
         data = self.cleaned_data
         for char in data['full_name_en']:
             if not ('a' <= char <= 'z' or 'A' <= char <= 'Z' or char in [' ', '.']):
@@ -144,12 +145,24 @@ class OnSiteInformationForm(ModelForm):
                 self.add_error(None,
                                _('Student id must only contain [0-9].'))
                 return False
-        for char in data['entrance_year']:
-            if not ('0' <= char <= '9'):
-                self.add_error(None,
-                               _('Entrance must only contain [0-9].'))
-                return False
         return super().is_valid()
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        profile = user.profile
+        profile.full_name_en = self.cleaned_data['full_name_en']
+        profile.full_name_fa = self.cleaned_data['full_name_fa']
+        profile.student_id = self.cleaned_data['student_id']
+        profile.major = self.cleaned_data['major']
+        profile.entrance_year = self.cleaned_data['entrance_year']
+        profile.degree = self.cleaned_data['degree']
+        profile.city = self.cleaned_data['city']
+        profile.t_shirt_size = self.cleaned_data['t_shirt_size']
+
+        if commit:
+            user.save()
+            profile.save()
+        return profile
 
     class Meta:
         model = Profile

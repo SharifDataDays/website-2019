@@ -6,6 +6,7 @@ app_name = "accounts"
 urlpatterns = [
     url(r'^signup/$', views.SignupView.as_view(), name='signup'),
     url(r'^login/$', views.LoginView.as_view(), name='login'),
+    url(r'^on_site_information/$', views.OnSiteInformationView.as_view(), name='information'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
     url(r'^update_profile/$', views.UpdateProfileView.as_view(), name='update_profile'),
     url(r'^create_team/(?P<challenge_id>[0-9]+)$', views.create_team, name='create_team'),

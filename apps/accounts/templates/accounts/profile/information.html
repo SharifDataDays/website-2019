@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+{% load static i18n %}
+
+{% block title %}{% trans 'Sign Up' %}{% endblock %}
+
+{% block container %}
+  <h2>{% trans 'Complete Information' %}</h2>
+  <form method="post" class="ui form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="ui green button">{% trans 'Update' %}</button>
+  </form>
+{% endblock %}
