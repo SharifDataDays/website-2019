@@ -15,6 +15,28 @@ class Profile(models.Model):
         'game.TeamParticipatesChallenge', null=True, blank=True, default=None, on_delete=models.SET_NULL
     )
 
+    T_SHIRT_SIZE_CHOICES = (
+        ('large', _('large')),
+        ('medium', _('medium')),
+        ('small', _('small')),
+    )
+
+    DEGREE_CHOICES = (
+        ('Bachelor', _('bachelor')),
+        ('Master', _('master')),
+        ('PhD', _('phd')),
+    )
+
+    full_name_en = models.CharField(max_length=50, null=True, blank=False, verbose_name=_('Full Name EN‌'))
+    full_name_fa = models.CharField(max_length=50, null=True, blank=False, verbose_name=_('Full Name FA‌'))
+    student_id = models.CharField(max_length=20, null=True, blank=False, verbose_name=_('Student ID‌'))
+    major = models.CharField(max_length=100, null=True, blank=False, verbose_name=_('Major‌'))
+    entrance_year = models.IntegerField(null=True, blank=False, verbose_name=_('Entrance Year‌'))
+    degree = models.CharField(max_length=50, null=True, blank=False, verbose_name=_('Degree‌'), choices=DEGREE_CHOICES)
+    city = models.CharField(max_length=50, null=True, blank=False, verbose_name=_('City‌'))
+    t_shirt_size = models.CharField(max_length=50, null=True, blank=False, verbose_name=_('T-Shirt Size‌'),
+                                    choices=T_SHIRT_SIZE_CHOICES)
+
     @property
     def is_complete(self):
         if self.phone_number is None:
