@@ -184,7 +184,7 @@ def render_phase_scoreboard(request, phase_id, challenge_id):
             item['active'] = True
 
     page = request.GET.get('page')
-    paginator = Paginator(scoreboard, 30)
+    paginator = Paginator(scoreboard, 40)
     try:
         paginated_scoreboard = paginator.page(page)
     except PageNotAnInteger:
@@ -200,7 +200,7 @@ def render_phase_scoreboard(request, phase_id, challenge_id):
 
         'scoreboard': paginated_scoreboard,
         'my_team': my_team,
-        'page_num': (paginated_scoreboard.number - 1) * 30,
+        'page_num': (paginated_scoreboard.number - 1) * 40,
     })
     if phase_id == -1:
         context.update({
