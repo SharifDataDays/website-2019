@@ -119,7 +119,7 @@ def render_scoreboard(request, challenge_id):
 
 
 @login_required
-def render_phase_scoreboard(request, challenge_id, phase_id):
+def render_phase_scoreboard(request, phase_id, challenge_id):
     if phase_id == -1:
         scoreboard_phase1 = get_scoreboard(Competition.objects.get(final=False, challenge__id=challenge_id).id)
         scoreboard_phase2 = get_scoreboard(Competition.objects.get(final=True, challenge__id=challenge_id).id)
