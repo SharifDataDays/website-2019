@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-25 17:44+0330\n"
+"POT-Creation-Date: 2019-02-25 18:58+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,20 +25,24 @@ msgstr "لطفاً شماره ی تلفن خود را درست وارد کنید
 msgid "Registration is closed. See you next year."
 msgstr "ثبت نام هم‌اکنون باز نیست. به امید دیدار شما در رقابت بعدی."
 
-#: apps/accounts/forms/forms.py:135
+#: apps/accounts/forms/forms.py:136
 msgid ""
 "English name must be fully english and contain only [a-z][A-Z][ ][.] "
 "characters."
 msgstr ""
 
-#: apps/accounts/forms/forms.py:140
+#: apps/accounts/forms/forms.py:142
 msgid ""
 "Persian name must be fully Persian and contain only arabic character set "
 "plus [ ][.] characters."
 msgstr ""
 
-#: apps/accounts/forms/forms.py:146
+#: apps/accounts/forms/forms.py:149
 msgid "Student id must only contain [0-9]."
+msgstr ""
+
+#: apps/accounts/forms/forms.py:154
+msgid "entrance year must be between [1385, 1397] or [2002, 2019]"
 msgstr ""
 
 #: apps/accounts/forms/panel.py:44
