@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-25 02:40+0330\n"
+"POT-Creation-Date: 2019-02-25 17:30+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,13 +17,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps/accounts/forms/forms.py:27
+#: apps/accounts/forms/forms.py:26
 msgid "Please enter your phone number correctly!"
 msgstr "لطفاً شماره ی تلفن خود را درست وارد کنید!"
 
-#: apps/accounts/forms/forms.py:36
+#: apps/accounts/forms/forms.py:35
 msgid "Registration is closed. See you next year."
 msgstr "ثبت نام هم‌اکنون باز نیست. به امید دیدار شما در رقابت بعدی."
+
+#: apps/accounts/forms/forms.py:135
+msgid ""
+"English name must be fully english and contain only [a-z][A-Z][ ][.] "
+"characters."
+msgstr ""
+
+#: apps/accounts/forms/forms.py:140
+msgid ""
+"Persian name must be fully Persian and contain only arabic character set "
+"plus [ ][.] characters."
+msgstr ""
+
+#: apps/accounts/forms/forms.py:146
+msgid "Student id must only contain [0-9]."
+msgstr ""
 
 #: apps/accounts/forms/panel.py:44
 msgid "Submission is closed."
@@ -98,33 +114,89 @@ msgstr "کد ملی"
 msgid "Telephone number‌"
 msgstr "شماره ی تلفن ثابت"
 
+#: apps/accounts/models.py:19
+msgid "large"
+msgstr ""
+
+#: apps/accounts/models.py:20
+msgid "medium"
+msgstr ""
+
+#: apps/accounts/models.py:21
+msgid "small"
+msgstr ""
+
+#: apps/accounts/models.py:25
+msgid "bachelor"
+msgstr "کارشناسی"
+
+#: apps/accounts/models.py:26
+msgid "master"
+msgstr "کارشناسی ارشد"
+
+#: apps/accounts/models.py:27
+msgid "phd"
+msgstr "دکترا"
+
+#: apps/accounts/models.py:30
+msgid "Full Name EN‌"
+msgstr "نام و نام خانوادگی (به انگلیسی)"
+
+#: apps/accounts/models.py:31
+msgid "Full Name FA‌"
+msgstr "نام و نام خانوادگی (به فارسی)"
+
+#: apps/accounts/models.py:32
+msgid "Student ID‌"
+msgstr "شماره دانشجویی"
+
+#: apps/accounts/models.py:33
+msgid "Major‌"
+msgstr "رشته تحصیلی"
+
+#: apps/accounts/models.py:34
+msgid "Entrance Year‌"
+msgstr "سال ورودی"
+
+#: apps/accounts/models.py:35
+msgid "Degree‌"
+msgstr "مدرک تحصیلی"
+
+#: apps/accounts/models.py:36
+msgid "City‌"
+msgstr "شهر"
+
+#: apps/accounts/models.py:37
+msgid "T-Shirt Size‌"
+msgstr "سایز تی شرت"
+
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:4
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:115
 #: apps/accounts/templates/accounts/panel/group_table.html:12
 #: apps/accounts/templates/accounts/panel/phase_table.html:11
-#: apps/accounts/views/panel.py:71
+#: apps/accounts/views/panel.py:66
 msgid "Scoreboard"
 msgstr "جدول امتیازات"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:8
 #: apps/accounts/templates/accounts/panel/phase_table.html:15
-#: apps/accounts/views/panel.py:247 apps/accounts/views/panel.py:256
-#: apps/accounts/views/panel.py:264
+#: apps/accounts/views/panel.py:211 apps/accounts/views/panel.py:220
+#: apps/accounts/views/panel.py:228
 msgid "Rank"
 msgstr "رتبه"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:9
 #: apps/accounts/templates/accounts/panel/group_table.html:30
 #: apps/accounts/templates/accounts/panel/phase_table.html:16
-#: apps/accounts/views/panel.py:247 apps/accounts/views/panel.py:256
-#: apps/accounts/views/panel.py:264
+#: apps/accounts/views/panel.py:211 apps/accounts/views/panel.py:220
+#: apps/accounts/views/panel.py:228
 msgid "Name"
 msgstr "نام تیم"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:10
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:11
 #: apps/accounts/templates/accounts/panel/battle_history.html:13
-#: apps/accounts/views/panel.py:264
+#: apps/accounts/views/panel.py:228
 msgid "Score"
 msgstr "امتیاز"
 
@@ -349,7 +421,7 @@ msgstr ""
 
 #: apps/accounts/templates/accounts/oldpanel/team_management.html:5
 #: apps/accounts/templates/accounts/panel/team_management.html:6
-#: apps/accounts/views/panel.py:70
+#: apps/accounts/views/panel.py:63
 msgid "Team Status"
 msgstr "وضعیت تیم"
 
@@ -497,6 +569,22 @@ msgstr "در حال بارگذاری"
 msgid "You have not participated in this challenge yet."
 msgstr "شما در این چالش شرکت نکرده‌اید."
 
+#: apps/accounts/templates/accounts/profile/information.html:6
+#: apps/accounts/templates/accounts/profile/login.html:31
+#: apps/accounts/templates/accounts/profile/signup.html:5
+#: apps/accounts/templates/accounts/profile/update_profile.html:5
+msgid "Sign Up"
+msgstr "ثبت نام"
+
+#: apps/accounts/templates/accounts/profile/information.html:9
+msgid "Complete Information"
+msgstr "تکمیل اطلاعات"
+
+#: apps/accounts/templates/accounts/profile/information.html:13
+#: apps/accounts/templates/accounts/profile/update_profile.html:12
+msgid "Update"
+msgstr "ذخیره"
+
 #: apps/accounts/templates/accounts/profile/login.html:10
 #: apps/accounts/templates/accounts/profile/login.html:30
 msgid "Login"
@@ -506,12 +594,6 @@ msgstr "ورود"
 #: apps/accounts/templates/accounts/profile/signup.html:82
 msgid "Password"
 msgstr "رمز"
-
-#: apps/accounts/templates/accounts/profile/login.html:31
-#: apps/accounts/templates/accounts/profile/signup.html:5
-#: apps/accounts/templates/accounts/profile/update_profile.html:5
-msgid "Sign Up"
-msgstr "ثبت نام"
 
 #: apps/accounts/templates/accounts/profile/login.html:33
 msgid "I forgot my password"
@@ -552,10 +634,6 @@ msgstr "ثبت نام"
 #: apps/accounts/templates/accounts/profile/update_profile.html:8
 msgid "Sign up"
 msgstr "ثبت نام"
-
-#: apps/accounts/templates/accounts/profile/update_profile.html:12
-msgid "Update"
-msgstr "ذخیره"
 
 #: apps/accounts/templates/accounts/teams/add_member.html:8
 msgid "Add a member to"
@@ -608,58 +686,82 @@ msgstr "تیم شما با موفقیت ساخته شد"
 msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
-#: apps/accounts/views/panel.py:236 apps/accounts/views/panel.py:244
+#: apps/accounts/views/panel.py:200 apps/accounts/views/panel.py:208
 msgid "Total Scoreboard"
 msgstr "امتیازات نهایی"
 
-#: apps/accounts/views/panel.py:247
+#: apps/accounts/views/panel.py:211
 msgid "Phase 1 From 10000"
 msgstr "فاز یک از ۱۰۰۰۰"
 
-#: apps/accounts/views/panel.py:247
+#: apps/accounts/views/panel.py:211
 msgid "Phase 1 Final Score"
 msgstr "امتیاز نهایی فاز یک"
 
-#: apps/accounts/views/panel.py:248
+#: apps/accounts/views/panel.py:212
 msgid "Phase 2 From 10000"
 msgstr "فاز دو از ۱۰۰۰۰"
 
-#: apps/accounts/views/panel.py:248
+#: apps/accounts/views/panel.py:212
 msgid "Phase 2 Final Score"
 msgstr "امتیاز نهایی فاز دو"
 
-#: apps/accounts/views/panel.py:248
+#: apps/accounts/views/panel.py:212
 msgid "Final Score From 20000"
 msgstr "امتیاز نهایی از ۲۰۰۰۰"
 
-#: apps/accounts/views/panel.py:256
+#: apps/accounts/views/panel.py:220
 msgid "First Half Score"
 msgstr "امتیاز نیمه اول"
 
-#: apps/accounts/views/panel.py:256
+#: apps/accounts/views/panel.py:220
 msgid "Second Half Score"
 msgstr "امتیاز نیمه دوم"
 
-#: apps/accounts/views/panel.py:779 apps/accounts/views/panel.py:854
+#: apps/accounts/views/panel.py:747 apps/accounts/views/panel.py:822
 msgid "You have one active trial."
 msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
-#: apps/accounts/views/panel.py:784
+#: apps/accounts/views/panel.py:752
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
 
-#: apps/accounts/views/panel.py:862
+#: apps/accounts/views/panel.py:830
 msgid ""
 "You can not get any new trial. You have reached your limit in current day"
 msgstr "شما حداکثر تعداد تلاش‌های روزانه خود را استفاده کرده‌اید."
 
-#: apps/accounts/views/panel.py:905
+#: apps/accounts/views/panel.py:873
 msgid "no such trial"
 msgstr "تلاشی یافت نشد."
 
-#: apps/accounts/views/panel.py:912
+#: apps/accounts/views/panel.py:880
 msgid "final trial set successfuly"
 msgstr "تلاش نهایی با موفقیت ثبت شد"
+
+#~ msgid "Full Name EN"
+#~ msgstr "نام و نام خانوادگی (به انگلیسی)"
+
+#~ msgid "Full Name FA"
+#~ msgstr "نام و نام خانوادگی (به فارسی)"
+
+#~ msgid "Student ID"
+#~ msgstr "شماره دانشجویی"
+
+#~ msgid "Major"
+#~ msgstr "رشته تحصیلی"
+
+#~ msgid "Entrance Year"
+#~ msgstr "سال ورودی"
+
+#~ msgid "Degree"
+#~ msgstr "مدرک تحصیلی"
+
+#~ msgid "City"
+#~ msgstr "شهر"
+
+#~ msgid "T-Shirt Size"
+#~ msgstr "سایز تی شرت"
 
 #~ msgid "From 10000"
 #~ msgstr "از ۱۰۰۰۰"
