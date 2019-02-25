@@ -192,7 +192,6 @@ class Trial(models.Model):
         ordering = ('-pk',)
 
 
-
 class QuestionSubmission(models.Model):
     question = models.ForeignKey(Question)
     value = models.CharField(max_length=1000, default=0)
@@ -239,7 +238,7 @@ class TrialSubmission(models.Model):
                 except:
                     print('empty question submitted. ignoring: '.format(q.type))
         print(context)
-        context['dataset_number']=12
+        context['dataset_number'] = 12
         response = requests.post(JUDGE_IP, json=context)
         print(response.text)
 
