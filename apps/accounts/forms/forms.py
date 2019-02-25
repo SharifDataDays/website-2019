@@ -128,7 +128,7 @@ class OnSiteInformationForm(ModelForm):
     def is_valid(self):
         if not super(OnSiteInformationForm, self).is_valid():
             return False
-        result = False
+        result = True
         data = self.cleaned_data
         for char in data['full_name_en']:
             if not ('a' <= char <= 'z' or 'A' <= char <= 'Z' or char in [' ', '.']):
@@ -166,6 +166,7 @@ class OnSiteInformationForm(ModelForm):
         profile.degree = self.cleaned_data['degree']
         profile.city = self.cleaned_data['city']
         profile.t_shirt_size = self.cleaned_data['t_shirt_size']
+        profile.on_site_info_filled = True
 
         if commit:
             user.save()

@@ -352,6 +352,8 @@ def team_management(request, participation_id=None):
         'accepted_participations': []
     })
 
+    context['show_info'] = team_pc.challenge.entrance_price
+
     all_participations = TeamParticipatesChallenge.objects.filter(
         team__participants__user=request.user
     )
@@ -362,6 +364,12 @@ def team_management(request, participation_id=None):
             context['invitations'].append(challenge_participation)
         else:
             context['accepted_participations'].append(challenge_participation.team)
+    if not request.user.profile.on_site_info_filled:
+        context['complete_profile'] = {
+            'name': _('Complete Information'),
+            'link': '/accounts/on_site_information/'
+        }
+
     return render(request, 'accounts/panel/team_management.html', context)
 
 

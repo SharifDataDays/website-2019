@@ -6,4 +6,5 @@ urlpatterns = [
     url("^pay/(?P<participation_id>[0-9]+)/$", views.payment, name='request_payment'),
     url("^payments/(?P<participation_id>[0-9]+)/$", views.payments_list, name='payments_list'),
     url("^complete/(?P<participation_id>[0-9]+)$", views.complete_payment, name='complete_payment'),
+    url("^do_pay/(?P<participation_id>[0-9]+)$", views.send_payment, name='send_payment'),
 ]

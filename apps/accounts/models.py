@@ -37,6 +37,8 @@ class Profile(models.Model):
     t_shirt_size = models.CharField(max_length=50, null=True, blank=False, verbose_name=_('T-Shirt Size‌'),
                                     choices=T_SHIRT_SIZE_CHOICES)
 
+    on_site_info_filled = models.BooleanField(blank=True, default=False)
+
     @property
     def is_complete(self):
         if self.phone_number is None:
