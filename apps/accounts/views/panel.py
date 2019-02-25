@@ -10,7 +10,7 @@ from django.core.files.base import ContentFile
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.forms import Form
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -86,6 +86,21 @@ def get_shared_context(request):
     })
 
     return context
+
+
+def redirect_to_somewhere_better(request):
+    if Challenge.objects.filter(is_submission_open=True).exists():
+        return HttpResponseRedirect(
+            reverse(
+                'accounts:create_team',
+                args=[Challenge.objects.get(is_submission_open=True).id]
+            )
+        )
+    else:
+        return HttpResponseRedirect(reverse(
+            'intro:index'
+        ))
+
 
 
 @login_required
