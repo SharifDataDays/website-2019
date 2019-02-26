@@ -166,6 +166,7 @@ class OnSiteInformationForm(ModelForm):
         profile.degree = self.cleaned_data['degree']
         profile.city = self.cleaned_data['city']
         profile.t_shirt_size = self.cleaned_data['t_shirt_size']
+        profile.needs_residence = self.cleaned_data['needs_residence']
         profile.on_site_info_filled = True
 
         if commit:
@@ -176,4 +177,4 @@ class OnSiteInformationForm(ModelForm):
     class Meta:
         model = Profile
         fields = ('full_name_en', 'full_name_fa', 'student_id', 'major', 'entrance_year', 'degree', 'city',
-                  't_shirt_size')
+                  't_shirt_size', 'needs_residence')

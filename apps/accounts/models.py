@@ -38,6 +38,7 @@ class Profile(models.Model):
                                     choices=T_SHIRT_SIZE_CHOICES)
 
     on_site_info_filled = models.BooleanField(blank=True, default=False)
+    needs_residence = models.BooleanField(blank=True, default=False)
 
     @property
     def is_complete(self):
