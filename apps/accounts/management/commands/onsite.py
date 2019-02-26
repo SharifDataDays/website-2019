@@ -89,7 +89,7 @@ class Command(BaseCommand):
         emails = []
         for team_pc in newcomers:
             emails.append([team_pc.team.name,
-                           [(user_pc.user.profile.name, user_pc.user.email)
+                           [(user_pc.user.profile.name, user_pc.user.email, user_pc.user.profile.organization)
                             for user_pc in team_pc.team.participants.all()],
                            ])
 
