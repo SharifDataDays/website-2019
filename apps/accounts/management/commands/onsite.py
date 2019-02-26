@@ -4,6 +4,7 @@ from django.core.management import BaseCommand, CommandError
 from datetime import timedelta, datetime
 
 from apps.accounts.models import Team
+from apps.accounts.views import get_challenge_scoreboard
 from apps.game.models import Challenge, TeamParticipatesChallenge
 
 
@@ -15,9 +16,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            'team_count',
+            'competitors_count',
             type=int,
-            help='max number of teams to be in challenge'
+            help='max number of competitors to be in challenge'
         )
         parser.add_argument(
             'challenge_id',
@@ -42,50 +43,69 @@ class Command(BaseCommand):
         except Challenge.DoesNotExist:
             raise CommandError('Invalid challenge id')
         try:
-            deadline = datetime.datetime.now().replace(tzinfo=pytz.UTC) + timedelta(options['duration_days'])
+            deadline = datetime.now().replace(tzinfo=pytz.UTC) + timedelta(options['duration_days'])
         except Exception:
             raise ArithmeticError('Shit datetime')
 
         already_participated = TeamParticipatesChallenge.objects.filter(challenge=challenge)
-
         for team_pc in already_participated:
-            if team_pc.should_pay and not team_pc.has_paid and team_pc.payment_time_remained == 0:
+            if team_pc.should_pay and not team_pc.has_paid \
+                    and team_pc.payment_deadline < datetime.now().replace(tzinfo=pytz.UTC):
+                print('deleted team_pc for team {}'.format(team_pc.team.name))
                 team_pc.delete()
 
-        ranking = get_ranking(challenge=past_challenge)
+        paid_teams_count = TeamParticipatesChallenge.objects.filter(challenge=challenge, has_paid=True).count()
+
+        ranking = get_challenge_scoreboard(challenge_id=past_challenge.id)
         newcomers = []
 
-        for team, i in enumerate(ranking):
-            if i > challenge.invited_to_ranking:
+        for i in range(len(ranking)):
+
+            team = ranking[i]
+            if i > challenge.invited_to_ranking \
+                    and sum([len(tpc.team.participants.all())
+                             for tpc in TeamParticipatesChallenge.objects.filter(challenge=challenge)]) \
+                    < options['competitors_count']:
                 new_team_pc = TeamParticipatesChallenge(team=Team.objects.get(name=team['team_name']),
                                                         challenge=challenge,
                                                         payment_deadline=deadline
                                                         )
                 new_team_pc.save()
                 newcomers.append(new_team_pc)
+                print('added team_pc for team {}'.format(new_team_pc.team.name))
 
-                if TeamParticipatesChallenge.objects.filter(challenge=challenge).count()\
-                        == options['team_count']:
-                    challenge.invited_to_ranking = i
-                    challenge.save()
-                    break
+                challenge.invited_to_ranking = i
+        challenge.save()
+
+        print('{} new teams added\nchallenge now has {} competitors\nand {} paid teams'.format(
+            len(newcomers),
+            sum([len(tpc.team.participants.all())
+                 for tpc in TeamParticipatesChallenge.objects.filter(challenge=challenge)]),
+            paid_teams_count
+        ))
 
         emails = []
         for team_pc in newcomers:
             emails.append([team_pc.team.name,
-                           [(user.profile.name, user.email) for user in team_pc.team.participants],
+                           [(user_pc.user.profile.name, user_pc.user.email)
+                            for user_pc in team_pc.team.participants.all()],
                            ])
 
-        emails_list = open('email.list', 'w+')
-        emails_list.write('{}\n'.format(datetime.now()))
-        emails_list.write('{}'.format(emails))
+        emails_list = open('email.list', 'a')
+        emails_list.write('{}\n==============================================================================\n'.format(
+            datetime.now()))
+        emails_list.write('{}\n'.format(emails))
         emails_list.close()
+        print('emails.list file created')
 
-        emails_csv = open('emails.csv', 'w+')
-        emails_csv.write('{}\n'.format(datetime.now()))
+        emails_csv = open('emails.csv', 'a')
+        emails_csv.write('\n\n\n\n\n{}\n=====================================================================\n'.format(
+            datetime.now()))
         emails_csv.write('team_name,user_1_name,user_1_email,user_2_name,user_2_email,user_3_name,user_3_email,\n')
         for team in emails:
             emails_csv.write('{},'.format(team[0]))
             for user in team[1]:
                 emails_csv.write('{},{},'.format(user[0], user[1]))
+            emails_csv.write('\n')
         emails_csv.close()
+        print('emails.csv file created')

@@ -33,7 +33,7 @@ class Challenge(models.Model):
 
     scoreboard_freeze_time = models.DateTimeField(null=True, blank=True)
 
-    invited_to_ranking = models.IntegerField(default=0)
+    invited_to_ranking = models.IntegerField(default=-1)
 
     def __str__(self):
         return self.title
