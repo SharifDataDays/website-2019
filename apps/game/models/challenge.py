@@ -9,7 +9,7 @@ from apps.game.tasks import handle_submission
 from .game import Game
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
-from apps.accounts.models import Team
+from apps.accounts.models import Team, Profile
 # from apps.game.models.competition import Participant
 
 
@@ -56,6 +56,14 @@ class TeamParticipatesChallenge(models.Model):
 
     payment_deadline = models.DateTimeField(null=True, blank=True)
     has_paid = models.BooleanField(default=False, blank=True)
+
+    @property
+    def info_complete(self):
+        members = Profile.objects.filter(panel_active_teampc__team=self.team)
+        for m in members:
+            if not m.on_site_info_filled:
+                return False
+        return True
 
     @property
     def should_pay(self):

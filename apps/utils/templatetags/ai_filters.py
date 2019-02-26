@@ -1,3 +1,5 @@
+import datetime
+
 from django import template
 
 from apps.game.models import TrialSubmission, QuestionSubmission
@@ -75,11 +77,12 @@ def score(trial, arg):
 
 
 @register.filter
-def time_remained_payment(team_pc):
-    if team_pc.payment_deadline is None:
+def time_remained_payment(payment_deadline):
+    if payment_deadline is None:
         return ""
-    days = team_pc.payment_time_remained.days
-    sec = team_pc.payment_time_remained.total_seconds()
+    remained = datetime.datetime.now()-payment_deadline
+    days = remained.days
+    sec = remained.total_seconds()
     minutes = (sec % 3600)//60
     hours = (sec % (3600*24))//3600
     return _('time reamined to complete payment: %d days, %d hours, %d minutes') %(days, hours, minutes)
