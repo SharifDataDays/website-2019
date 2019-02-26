@@ -76,7 +76,7 @@ def score(trial, arg):
 
 @register.filter
 def time_remained_payment(team_pc):
-    if team_pc.payment_time_remained is None:
+    if team_pc.payment_deadline is None:
         return ""
     days = team_pc.payment_time_remained.days
     sec = team_pc.payment_time_remained.total_seconds()

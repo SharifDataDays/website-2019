@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load static %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
-{% load ai_filters %}
+{% load ai_filters tz %}
 
 {% for invitation in invitations %}
     <div class="ui info message">
@@ -32,10 +32,10 @@
             <p>{% trans 'You have to complete the team and pay to continue to this challenge.' %}</p>
         </div>
         <br>
-            {% if payment.is_complete %}
-                <div class="header">
-                    <p> {{ payment|time_remained_payment }} </p>
-                </div>
+            {% if payment.info_complete %}
+            <p class="ui left aligned green button">
+                {{ payment.payment_deadline|timeuntil }}
+            </p>
             <a href="{% url 'billing:send_payment' payment.id %}" class="ui right aligned orange button">
                     {% trans 'Pay' %}
             </a>

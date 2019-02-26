@@ -33,6 +33,8 @@ class Challenge(models.Model):
 
     scoreboard_freeze_time = models.DateTimeField(null=True, blank=True)
 
+    invited_to_ranking = models.IntegerField(default=0)
+
     def __str__(self):
         return self.title
 
@@ -51,16 +53,13 @@ class Challenge(models.Model):
 class TeamParticipatesChallenge(models.Model):
     team = models.ForeignKey(Team, related_name='challenges')
     challenge = models.ForeignKey(Challenge, related_name='teams')
-    payment_time_remained = models.DurationField(null=True, blank=True)
+
+    payment_deadline = models.DateTimeField(null=True, blank=True)
+    has_paid = models.BooleanField(default=False, blank=True)
 
     @property
     def should_pay(self):
         return self.challenge.entrance_price > 0
-
-    @property
-    def has_paid(self):
-        from apps.billing.models import Transaction
-        return Transaction.objects.filter(team=self, status='v').exists()
 
     @property
     def is_complete(self):
