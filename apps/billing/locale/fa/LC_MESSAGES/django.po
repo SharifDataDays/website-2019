@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-25 17:44+0330\n"
+"POT-Creation-Date: 2019-02-26 20:03+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,14 +77,14 @@ msgstr "تلاش مجدد"
 msgid "Transaction was successful. You will be returned to panel."
 msgstr "تراکنش موفق بود. شما به زودی به پنل بازخواهید گشت."
 
-#: apps/billing/views.py:57
+#: apps/billing/views.py:58
 msgid "You have unverified payment(s)."
 msgstr "شما تراکنشهایی تاییدنشده دارید."
 
-#: apps/billing/views.py:59
+#: apps/billing/views.py:60
 msgid "There is nothing to pay for."
 msgstr "چیزی برای پرداخت وجود ندارد."
 
-#: apps/billing/views.py:61
+#: apps/billing/views.py:62
 msgid "You have already paid."
 msgstr "شما قبلا پرداخت کرده‌اید."

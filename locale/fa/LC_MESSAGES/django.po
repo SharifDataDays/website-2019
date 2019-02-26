@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-25 17:44+0330\n"
+"POT-Creation-Date: 2019-02-26 20:03+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,6 +91,11 @@ msgstr "انگلیسی"
 #: aic_site/settings/base.py:122
 msgid "Persian"
 msgstr "فارسی"
+
+#: apps/utils/templatetags/ai_filters.py:85
+#, python-format
+msgid "time reamined to complete payment: %d days, %d hours, %d minutes"
+msgstr ""
 
 #: templates/400.html:6
 msgid "400"
