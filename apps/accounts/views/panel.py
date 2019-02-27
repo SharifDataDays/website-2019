@@ -74,10 +74,10 @@ def get_shared_context(request):
                     'team_pc': request.user.profile.panel_active_teampc,
                 }
                 if not context['payment']['team_pc'].has_paid:
-                    more = - context['payment']['team_pc'].get_paid_amount() \
-                            + context['payment']['team_pc'].challenge.entrance_price \
-                            // context['payment']['team_pc'].challenge.team_size \
-                            * len(context['payment']['team_pc'].team.participants.all())
+                    more = - int(context['payment']['team_pc'].get_paid_amount()) \
+                            + int(context['payment']['team_pc'].challenge.entrance_price) \
+                            // int(context['payment']['team_pc'].challenge.team_size) \
+                            * int(len(context['payment']['team_pc'].team.participants.all()))
                     print("MORE{}".format(more))
                     if more > 0:
                         context['payment']['should_pay_more'] = {
