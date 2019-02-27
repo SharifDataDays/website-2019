@@ -180,7 +180,7 @@ class OnSiteInformationForm(ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('full_name_en', 'full_name_fa', 'student_id', 'major', 'entrance_year', 'degree', 'city',
+        fields = ('full_name_en', 'full_name_fa', 'tell_number', 'student_id', 'major', 'entrance_year', 'degree', 'city',
                   't_shirt_size', 'needs_residence')
         labels = {
             'needs_residence': 'اسکان شرکت‌کنندگان ساکن غیر تهران به عهده خود شرکت‌کننده است. مطابق قوانین دانشگاه تیم برگزاری در تلاش است تا اسکانی برای شرکت‌کنندگان خانم فراهم کند. در صورتی که تمایل به استفاده از این امکان دارید گزینه زیر را انتخاب کنید. هر سؤال یا ابهامی را با اکانت تلگرام @DataDays_Info یا ایمیل datadays@sharif.edu مطرح کنید.',
