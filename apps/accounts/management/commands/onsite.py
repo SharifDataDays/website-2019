@@ -122,20 +122,21 @@ class Command(BaseCommand):
             commas += str(team[0]) + ","
         print(commas)
 
-        return
-        # send_mails
-        for team in emails:
-            email_html = render_to_string('emails/invitation.html', {
-                'team_name': team[0],
-                'team_members': [member[0] for member in team[1]]
-            })
-            try:
-                send_mail(subject='راهیابی به مرحله حضوری DataDays 2019',
-                          message=email_html,
-                          from_email='DataDays <datadays@sharif.edu>',
-                          recipient_list=[member[1] for member in team[1]],
-                          fail_silently=False,
-                          html_message=email_html
-                          )
-            except Exception:
-                print('sending mail for team {} failed'.format(team[0]))
+        if options['send_mail']:
+            # send_mails
+            for team in emails:
+                email_html = render_to_string('/home/datadays/website-2019/apps/accounts/templates/emails/invitation'
+                                              '.html', {
+                    'team_name': team[0],
+                    'team_members': [member[0] for member in team[1]]
+                })
+                try:
+                    send_mail(subject='راهیابی به مرحله حضوری DataDays 2019',
+                              message=email_html,
+                              from_email='DataDays <datadays@sharif.edu>',
+                              recipient_list=[member[1] for member in team[1]],
+                              fail_silently=False,
+                              html_message=email_html
+                              )
+                except Exception:
+                    print('sending mail for team {} failed'.format(team[0]))
