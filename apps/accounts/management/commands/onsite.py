@@ -112,6 +112,11 @@ class Command(BaseCommand):
         emails_csv.close()
         print('emails.csv file created')
 
+        commas = ""
+        for team in emails:
+            commas += str(team[0]) + ","
+        print(commas)
+
         # send_mails
         for team in emails:
             email_html = render_to_string('emails/invitation.html', {
