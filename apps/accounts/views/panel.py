@@ -77,7 +77,7 @@ def get_shared_context(request):
                     more = - context['payment']['team_pc'].get_paid_amount() \
                             + context['payment']['team_pc'].challenge.entrance_price \
                             // context['payment']['team_pc'].challenge.team_size \
-                            * context['payment']['team_pc'].team.participants.all().count()
+                            * len(context['payment']['team_pc'].team.participants.all())
                     print("MORE{}".format(more))
                     if more > 0:
                         context['payment']['should_pay_more'] = {
