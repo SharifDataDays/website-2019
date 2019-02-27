@@ -116,7 +116,6 @@ def payments_list(request, participation_id):
 
 @login_required
 def send_payment(request, participation_id):
-    participation = get_object_or_404(TeamParticipatesChallenge, id=participation_id)
-    return redirect('/accounts/panel/', request)
+    return HttpResponseRedirect('http://ssc.ce.sharif.edu/datadays2019-payment/')
 
 
