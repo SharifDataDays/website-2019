@@ -68,8 +68,24 @@ def get_shared_context(request):
 
     if request.user.profile:
         if request.user.profile.panel_active_teampc:
-            if request.user.profile.panel_active_teampc.should_pay and not request.user.profile.panel_active_teampc.has_paid:
-                context['payment'] = request.user.profile.panel_active_teampc
+            if request.user.profile.panel_active_teampc.should_pay \
+                    and not request.user.profile.panel_active_teampc.has_paid:
+                context['payment'] = {
+                    'team_pc': request.user.profile.panel_active_teampc,
+                }
+                if not context['payment']['team_pc'].has_paid:
+                    more = context['payment']['team_pc'].get_paid_amount() \
+                            - context['payment']['team_pc'].challenge.entrance_price \
+                            / context['payment']['team_pc'].challenge.team_size \
+                            * context['payment']['team_pc'].team.participants.all().count()
+                    print("MORE{}".format(more))
+                    if more < 0:
+                        context['payment']['should_pay_more'] = {
+                            'amount': more * -1
+                        }
+                    elif more < 0:
+                        context['payment']['paid_more'] = True
+
             for comp in request.user.profile.panel_active_teampc.challenge.competitions.all():
                 pass
                 context['menu_items'].append(

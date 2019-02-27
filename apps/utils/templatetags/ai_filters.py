@@ -6,6 +6,7 @@ from apps.game.models import TrialSubmission, QuestionSubmission
 from apps.utils import jalali
 import random
 from django.utils.translation import ugettext_lazy as _
+
 register = template.Library()
 
 
@@ -80,9 +81,10 @@ def score(trial, arg):
 def time_remained_payment(payment_deadline):
     if payment_deadline is None:
         return ""
-    remained = datetime.datetime.now()-payment_deadline
+    remained = datetime.datetime.now() - payment_deadline
     days = remained.days
     sec = remained.total_seconds()
-    minutes = (sec % 3600)//60
-    hours = (sec % (3600*24))//3600
-    return _('time reamined to complete payment: %d days, %d hours, %d minutes') %(days, hours, minutes)
+    minutes = (sec % 3600) // 60
+    hours = (sec % (3600 * 24)) // 3600
+    return _('time remained to complete payment: {days} days, {hours} hours, {minutes} minutes').format(
+        days=days, hours=hours, minutes=minutes)

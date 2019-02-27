@@ -1,9 +1,12 @@
+import datetime
 import os
 import uuid
 
+import pytz
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
+from selenium.webdriver.firefox.options import Options
 
 from apps.game.tasks import handle_submission
 from .game import Game
@@ -12,6 +15,7 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from apps.accounts.models import Team, Profile
 # from apps.game.models.competition import Participant
 
+from selenium import webdriver
 
 import logging
 
@@ -56,7 +60,9 @@ class TeamParticipatesChallenge(models.Model):
 
     payment_deadline = models.DateTimeField(null=True, blank=True)
     has_paid = models.BooleanField(default=False, blank=True)
+
     paid_amount = models.IntegerField(default=0, blank=True)
+    payment_last_time_checked = models.DateTimeField(null=True, blank=True)
 
     @property
     def info_complete(self):
@@ -69,6 +75,54 @@ class TeamParticipatesChallenge(models.Model):
     @property
     def should_pay(self):
         return self.challenge.entrance_price > 0
+
+    def get_paid_amount(self):
+        if self.payment_last_time_checked is None \
+                or datetime.datetime.now().replace(tzinfo=pytz.UTC) \
+                > self.payment_last_time_checked + datetime.timedelta(minutes=1):
+            self.payment_last_time_checked = datetime.datetime.now().replace(tzinfo=pytz.UTC)
+
+            driver_options = webdriver.ChromeOptions()
+            driver_options.add_argument('headless')
+            driver_options.add_argument('--no-sandbox')
+            driver_options.add_argument("--disable-dev-shm-usage")
+
+            driver = webdriver.Chrome(chrome_options=driver_options)
+
+            driver.get('http://ssc.ce.sharif.edu/en/admin/login/?next=/datadays2019-payment/')
+            driver.find_element_by_id('id_username').send_keys('staff')
+            driver.find_element_by_id('id_password').send_keys('sathsath')
+            driver.find_element_by_css_selector('input[type=submit]').click()
+
+            trs = []
+            for tr in driver.find_element_by_tag_name('tbody').find_elements_by_tag_name('tr'):
+                new_tr = []
+                for td in tr.find_elements_by_tag_name('td'):
+                    new_tr.append(td.get_attribute('innerHTML'))
+                new_tr = {
+                    'team_1': new_tr[0],
+                    'team_2': new_tr[2],
+                    'paid_amount': int(new_tr[8]) if new_tr[9] == 'true' else 0,
+                }
+                trs.append(new_tr)
+            driver.close()
+
+            self.paid_amount = 0
+            for tr in trs:
+                if tr['team_1'] != tr['team_2']:
+                    print('TEAM_NAME_MISMATCH {} / {}'.format(tr['team_1'], tr['team_2']))
+                    continue
+                if tr['team_1'] == self.team.name:
+                    self.paid_amount += tr['paid_amount']
+
+            print(self.paid_amount)
+            self.save()
+            return self.paid_amount
+
+        else:
+            return self.paid_amount
+
+
 
     @property
     def is_complete(self):
