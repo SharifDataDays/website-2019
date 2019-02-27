@@ -125,7 +125,7 @@ class Command(BaseCommand):
         if options['send_mail']:
             # send_mails
             for team in emails:
-                email_html = render_to_string('/home/datadays/website-2019/apps/accounts/templates/emails/invitation'
+                email_html = render_to_string('/home/datadays/website-2019/apps/accounts/templates/email/invitation'
                                               '.html', {
                     'team_name': team[0],
                     'team_members': [member[0] for member in team[1]]
