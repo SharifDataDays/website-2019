@@ -92,6 +92,13 @@ msgstr "انگلیسی"
 msgid "Persian"
 msgstr "فارسی"
 
+#: apps/utils/templatetags/ai_filters.py:89
+#, python-brace-format
+msgid ""
+"time remained to complete payment: {days} days, {hours} hours, {minutes} "
+"minutes"
+msgstr ""
+
 #: templates/400.html:6
 msgid "400"
 msgstr "۴۰۰"

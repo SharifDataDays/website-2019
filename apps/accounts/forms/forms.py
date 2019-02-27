@@ -125,10 +125,14 @@ class MailAdminForm(ModelForm):
 
 class OnSiteInformationForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(OnSiteInformationForm, self).__init__(*args, **kwargs)
+        self.fields['needs_residence'].help_text = ' تمایل به استفاده از اسکان مخصوص شرکت‌کننده خانم ساکن غیر تهران را دارم. <br/>'
+
     def is_valid(self):
         if not super(OnSiteInformationForm, self).is_valid():
             return False
-        result = False
+        result = True
         data = self.cleaned_data
         for char in data['full_name_en']:
             if not ('a' <= char <= 'z' or 'A' <= char <= 'Z' or char in [' ', '.']):
@@ -166,6 +170,8 @@ class OnSiteInformationForm(ModelForm):
         profile.degree = self.cleaned_data['degree']
         profile.city = self.cleaned_data['city']
         profile.t_shirt_size = self.cleaned_data['t_shirt_size']
+        profile.needs_residence = self.cleaned_data['needs_residence']
+        profile.on_site_info_filled = True
 
         if commit:
             user.save()
@@ -175,4 +181,7 @@ class OnSiteInformationForm(ModelForm):
     class Meta:
         model = Profile
         fields = ('full_name_en', 'full_name_fa', 'student_id', 'major', 'entrance_year', 'degree', 'city',
-                  't_shirt_size')
+                  't_shirt_size', 'needs_residence')
+        labels = {
+            'needs_residence': 'اسکان شرکت‌کنندگان ساکن غیر تهران به عهده خود شرکت‌کننده است. مطابق قوانین دانشگاه تیم برگزاری در تلاش است تا اسکانی برای شرکت‌کنندگان خانم فراهم کند. در صورتی که تمایل به استفاده از این امکان دارید گزینه زیر را انتخاب کنید. هر سؤال یا ابهامی را با اکانت تلگرام @DataDays_Info یا ایمیل datadays@sharif.edu مطرح کنید.',
+        }

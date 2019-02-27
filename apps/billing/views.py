@@ -7,6 +7,7 @@ from django.shortcuts import redirect, render
 from django.utils.translation import ugettext_lazy as _
 
 from apps.accounts.decorators import complete_team_required
+from apps.accounts.views import team_required_and_finalized
 from apps.billing.forms.forms import UserCompletionForm
 from apps.game.models import TeamParticipatesChallenge
 from .models import Transaction
@@ -111,3 +112,11 @@ def payments_list(request, participation_id):
         'payments': payments,
         'participation': participation
     })
+
+
+@login_required
+def send_payment(request, participation_id):
+    participation = get_object_or_404(TeamParticipatesChallenge, id=participation_id)
+    return redirect('/accounts/panel/', request)
+
+
