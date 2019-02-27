@@ -85,6 +85,9 @@ def get_shared_context(request):
                         }
                     elif more < 0:
                         context['payment']['paid_more'] = True
+                    elif more == 0:
+                        context['payment']['team_pc'].has_paid = True
+                        context['payment']['team_pc'].save()
 
             for comp in request.user.profile.panel_active_teampc.challenge.competitions.all():
                 pass
