@@ -384,7 +384,8 @@ def team_management(request, participation_id=None):
             context['invitations'].append(challenge_participation)
         else:
             context['accepted_participations'].append(challenge_participation.team)
-    if not request.user.profile.on_site_info_filled:
+    if not request.user.profile.on_site_info_filled \
+            and TeamParticipatesChallenge.objects.filter(team=team_pc.team).count() > 1:
         context['complete_profile'] = {
             'name': _('Complete Information'),
             'link': '/accounts/on_site_information/'
