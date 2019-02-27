@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-25 18:58+0330\n"
+"POT-Creation-Date: 2019-02-27 10:23+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,11 +45,9 @@ msgstr "شماره دانشجویی شما باید فقط شامل ارقام �
 
 #: apps/accounts/forms/forms.py:158
 msgid "entrance year must be between [1385, 1397] or [2002, 2019]"
-msgstr "سال ورود شما باید در بازه‌ی [۱۳۸۵،‌۱۳۹۷] و یا [۲۰۰۲،۲۰۱۹] باشد. "
-
-#: apps/accounts/forms/forms.py:154
-msgid "entrance year must be between [1385, 1397] or [2002, 2019]"
 msgstr ""
+"سال ورود به دانشگاه باید بین ۱۳۸۵ و ۱۳۹۷ یا به فرمت میلادی بین ۲۰۰۲ و ۲۰۱۹ "
+"باشد."
 
 #: apps/accounts/forms/panel.py:44
 msgid "Submission is closed."
@@ -594,10 +592,8 @@ msgid "Uploading"
 msgstr "در حال بارگذاری"
 
 #: apps/accounts/templates/accounts/panel/team_management.html:42
-#, fuzzy
-#| msgid "Complete Information"
 msgid "Has filled their information"
-msgstr "تکمیل اطلاعات"
+msgstr "اطلاعات خود را وارد کرده است"
 
 #: apps/accounts/templates/accounts/panel/team_management.html:47
 msgid "Has NOT filled their information yet"
@@ -615,7 +611,7 @@ msgid "Sign Up"
 msgstr "ثبت نام"
 
 #: apps/accounts/templates/accounts/profile/information.html:8
-#: apps/accounts/views/panel.py:389
+#: apps/accounts/views/panel.py:390
 msgid "Complete Information"
 msgstr "تکمیل اطلاعات"
 
@@ -757,24 +753,24 @@ msgstr "امتیاز نیمه اول"
 msgid "Second Half Score"
 msgstr "امتیاز نیمه دوم"
 
-#: apps/accounts/views/panel.py:774 apps/accounts/views/panel.py:849
+#: apps/accounts/views/panel.py:775 apps/accounts/views/panel.py:850
 msgid "You have one active trial."
 msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
-#: apps/accounts/views/panel.py:779
+#: apps/accounts/views/panel.py:780
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
 
-#: apps/accounts/views/panel.py:857
+#: apps/accounts/views/panel.py:858
 msgid ""
 "You can not get any new trial. You have reached your limit in current day"
 msgstr "شما حداکثر تعداد تلاش‌های روزانه خود را استفاده کرده‌اید."
 
-#: apps/accounts/views/panel.py:900
+#: apps/accounts/views/panel.py:901
 msgid "no such trial"
 msgstr "تلاشی یافت نشد."
 
-#: apps/accounts/views/panel.py:907
+#: apps/accounts/views/panel.py:908
 msgid "final trial set successfuly"
 msgstr "تلاش نهایی با موفقیت ثبت شد"
 
