@@ -56,6 +56,7 @@ class TeamParticipatesChallenge(models.Model):
 
     payment_deadline = models.DateTimeField(null=True, blank=True)
     has_paid = models.BooleanField(default=False, blank=True)
+    paid_amount = models.IntegerField(default=0, blank=True)
 
     @property
     def info_complete(self):
