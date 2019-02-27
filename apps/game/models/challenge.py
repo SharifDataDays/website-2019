@@ -102,7 +102,7 @@ class TeamParticipatesChallenge(models.Model):
                 new_tr = {
                     'team_1': new_tr[0],
                     'team_2': new_tr[2],
-                    'paid_amount': int(new_tr[8]) if new_tr[9] == 'true' else 0,
+                    'paid_amount': int(new_tr[9]) if new_tr[10] == 'true' else 0,
                 }
                 trs.append(new_tr)
             driver.close()
@@ -121,8 +121,6 @@ class TeamParticipatesChallenge(models.Model):
 
         else:
             return self.paid_amount
-
-
 
     @property
     def is_complete(self):

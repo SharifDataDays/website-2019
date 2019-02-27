@@ -37,6 +37,11 @@ class Command(BaseCommand):
             type=int,
             help='max duration in days for teams to pay'
         )
+        parser.add_argument(
+            'send_mail',
+            type=bool,
+            help='send_mail_or_not'
+        )
 
     def handle(self, *args, **options):
         try:
@@ -117,6 +122,7 @@ class Command(BaseCommand):
             commas += str(team[0]) + ","
         print(commas)
 
+        return
         # send_mails
         for team in emails:
             email_html = render_to_string('emails/invitation.html', {
