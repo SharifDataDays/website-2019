@@ -108,11 +108,14 @@ class Command(BaseCommand):
         emails_csv = open('emails.csv', 'a')
         emails_csv.write('\n\n\n\n\n{}\n=====================================================================\n'.format(
             datetime.now()))
-        emails_csv.write('team_name,user_1_name,user_1_email,user_2_name,user_2_email,user_3_name,user_3_email,\n')
+        emails_csv.write('team_name,'
+                         'user_1_name,user_1_email,user_1_uni,'
+                         'user_2_name,user_2_email,user_2_uni,'
+                         'user_3_name,user_3_email,user_3_uni,\n')
         for team in emails:
             emails_csv.write('{},'.format(team[0]))
             for user in team[1]:
-                emails_csv.write('{},{},'.format(user[0], user[1]))
+                emails_csv.write('{},{},{},'.format(user[0], user[1], user[2]))
             emails_csv.write('\n')
         emails_csv.close()
         print('emails.csv file created')
