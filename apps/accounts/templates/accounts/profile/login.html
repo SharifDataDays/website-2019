@@ -8,6 +8,8 @@
 
     <form method="post" class="ui form">
         <h3 class="ui dividing header">{% trans 'Login' %}</h3>
+
+        {{ form.errors }}
         {% csrf_token %}
 
         <div class="field ">
