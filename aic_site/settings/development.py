@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = True
-ALLOWED_HOSTS += ['datadays.sharif.edu', 'datadays.sharif.ir', 'datadays.ir', '192.168.255.7', '192.168.43.170', 'www.datadays.ir', '192.168.201.1']
+ALLOWED_HOSTS += ['datadays.sharif.edu', 'datadays.sharif.ir', 'datadays.ir', '192.168.255.7', '192.168.43.170', 'www.datadays.ir', '192.168.201.1', '92.114.17.15']
 
 INSTALLED_APPS += [
 
