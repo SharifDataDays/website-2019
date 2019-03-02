@@ -6,7 +6,7 @@
 
 
 {#  Get New Trial Button #}
-{% if phase.final == False %}
+{% if phase.type == 'online_phase_1' %}
 <div>
     <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
             {{ name }}
@@ -61,7 +61,7 @@
     {% for trial in trials%}
         <div class="ui button center aligned one column grid" style="cursor:initial;background-color: transparent!important; margin-bottom: 7%; margin-top:3%"
              data-tooltip="
-                {% if phase.final == True %}
+                {% if phase.type == 'online_phase_2' %}
                     {% trans 'Score ' %}:
                     {% if trial.score == -1 %}
                         {% trans 'Judging ...' %}
@@ -133,7 +133,7 @@
                                 {% endif %}
 
 
-                            {% if phase.final == True and not trial.view_trial %}
+                            {% if phase.type == 'online_phase_2' and not trial.view_trial %}
                                 {% if trial.is_final == False %}
                                 <form enctype="multipart/form-data" action="{% url 'accounts:set_final_trial' phase.id trial.id %}" class="form" method="post">
                                     {% csrf_token %}

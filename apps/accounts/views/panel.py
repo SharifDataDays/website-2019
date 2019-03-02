@@ -138,8 +138,8 @@ def render_scoreboard(request, challenge_id):
 
 
 def get_challenge_scoreboard(challenge_id):
-    scoreboard_phase1 = get_scoreboard(Competition.objects.get(final=False, challenge__id=challenge_id).id)
-    scoreboard_phase2 = get_scoreboard(Competition.objects.get(final=True, challenge__id=challenge_id).id)
+    scoreboard_phase1 = get_scoreboard(Competition.objects.get(type='online_phase_1', challenge__id=challenge_id).id)
+    scoreboard_phase2 = get_scoreboard(Competition.objects.get(type='online_phase_2', challenge__id=challenge_id).id)
 
     number_of_teams_phase1 = len(scoreboard_phase1)
     team_phase1_dict = {}
@@ -234,7 +234,7 @@ def render_phase_scoreboard(request, phase_id, challenge_id):
                 _('Phase 2 From 10000'), _('Phase 2 Final Score'), _('Final Score From 20000')
             ],
         })
-    elif Competition.objects.get(id=phase_id).final:
+    elif Competition.objects.get(id=phase_id).type=='online_phase_2':
         context.update({
             'scoreboard_name': _(Competition.objects.get(id=phase_id).name),
 
@@ -282,7 +282,7 @@ def get_scoreboard(phase_id):
 
 def get_phase_score(team, trials, phase):
     team_phase_trials = trials.filter(team=team)
-    if phase.final:
+    if phase.type == 'online_phase_2':
         try:
             final_trial = team_phase_trials.get(is_final=True)
             return [float("{0:.2f}".format(final_trial.score)), float("{0:.2f}".format(final_trial.score2))]
@@ -408,11 +408,12 @@ def get_new_trial(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
-    if phase.final:
+    print(phase.type)
+    if phase.type == 'online_phase_2':
         # if get_team_pc(request).team.name == 'pam':
-        return render_phase(request, phase_id)
-        # return get_new_trial_phase_2(request, phase_id)
-    else:
+        # return render_phase(request, phase_id)
+        return get_new_trial_phase_2(request, phase_id)
+    else: #elif phase.type == 'online_phase_1'
         # return get_new_trial_phase_1(request, phase_id)
         return render_phase(request, phase_id)
 
@@ -434,7 +435,7 @@ def render_trial(request, phase_id, trial_id):
             'participation': team_pc,
             'phase': phase,
             'id': len(Trial.objects.filter(team=team_pc, competition=phase)),
-            'final': phase.final
+            'type': phase.type
         })
         errors = []
         if request.POST.get('file_error'):
@@ -671,9 +672,9 @@ def get_dataset(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
-    if phase.final:
+    if phase.type =='online_phase_2':
         return get_dataset_2(request, phase_id, trial_id)
-    else:
+    else: #elif phase.type == 'online_phase_1'
         return get_dataset_1(request, phase_id, trial_id)
 
 
