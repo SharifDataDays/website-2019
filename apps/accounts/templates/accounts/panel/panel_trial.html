@@ -203,6 +203,80 @@
     </div>
     {% endif %}
 
+
+
+    {% if report %}
+    <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
+{#        <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">#}
+{#            <span style="font-weight:bold">بخش دوم</span><br>#}
+{#<span style="font-weight:bold">عنوان: </span>آپلود کد<br>#}
+{#<span style="font-weight:bold">امتیاز: </span>۰ امتیاز<br>#}
+{#<br>#}
+{#<span style="font-weight:bold">توصیف: </span>فایل فشرده‌شده فولدر پروژه خود را با حجم حداکثر ۱۰ مگابایت و فرمت zip آپلود کنید.#}
+{#<br/>#}
+{#        </div>#}
+    {# Report Upload #}
+    <div style="margin:0 0 45px 0 ">
+        {% for question in report %}
+            <div class="field"
+                 style="margin:0 0 15px 0"
+            >
+                <div
+                    class="ui top attached header"
+                    style="
+                        margin:0;
+                        height: auto;
+                        display: block;
+                        word-wrap: break-word;
+                        white-space: normal;
+                        background-color: #e8e8e8;
+                    "
+                >
+                     {{ question.stmt }}
+                </div>
+                <div class="ui attached center aligned grid" style="
+                        padding:0;
+                        display: flex;
+                        height: 10rem;
+                        border-radius: 0 0 .28571429rem .28571429rem;
+                        border:1px solid #d4d4d5;
+                        border-top-color: transparent;
+                        margin: 0!important;
+                        ">
+                    <div style="
+                            width: 50%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            font-family: IRANSans">
+                        <label for="code-in">
+                            <a class="upload-hover" id="up-link-2">
+                            <i class="upload icon huge"></i>
+                                </a>
+                        </label>
+                        {% trans 'Upload Report' %}
+                        <input
+                               type="file"
+                               class="link"
+                               style="display: none"
+                               name="report"
+                               accept="application/pdf"
+                               required
+                               id="report-in"
+                        />
+                        <p id="report-up"></p>
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+    </div>
+    {% endif %}
+
     {% if choices %}
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
