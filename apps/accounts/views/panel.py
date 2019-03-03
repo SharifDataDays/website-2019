@@ -505,9 +505,13 @@ def submit_trial(request, phase_id, trial_id):
             names = list(request.FILES)
             print('\033[92m{}\033[0m'.format(names))
             code = None
+            report = None
             if names.__contains__('code'):
                 code = request.FILES['code']
                 names.remove('code')
+            if names.__contains__('report'):
+                report = request.FILES['report']
+                names.remove('report')
             if len(names) > 0:
                 filename = names[0]
                 file = request.FILES[filename]
@@ -569,6 +573,17 @@ def submit_trial(request, phase_id, trial_id):
                 print(filename.split("_"))
                 qufi = trial.questions.get(id=int(filename.split("_")[1]))
                 qusu.question = qufi
+                qusu.value = file_full_path
+        if report is not None:
+            if report.size > 1048576 * 20:
+                error_msg = 'Max size of code zip is 20MB'
+                request.POST['report_error'] = error_msg
+                return render_trial(request, phase_id, trial_id)
+            else:
+                file_full_path = save_to_storage(request, 'report')
+                qusu = QuestionSubmission()
+                rep = ReportUploadQuestion.objects.all()[0]
+                qusu.question = rep
                 qusu.value = file_full_path
         print(clean)
         if trial.submit_time is not None:
