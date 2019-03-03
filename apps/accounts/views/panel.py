@@ -497,7 +497,6 @@ def submit_trial(request, phase_id, trial_id):
         if team_pc is None:
             return redirect_to_somewhere_better(request)
 
-        return render_phase(request, phase_id)
 
         context = get_shared_context(request)
         file = None
@@ -624,7 +623,8 @@ def submit_trial(request, phase_id, trial_id):
                 return redirect("accounts:panel_trial", phase_id, trial_id)
             questionSubmit.trial_submission = trialSubmit
             questionSubmit.save()
-        trialSubmit.upload()
+        if phase.type != 'onsite_day_1':
+            trialSubmit.upload()
 
         return redirect('accounts:panel_phase', phase.id)
 
