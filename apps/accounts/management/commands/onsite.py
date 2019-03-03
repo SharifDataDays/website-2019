@@ -10,6 +10,25 @@ from apps.accounts.views import get_challenge_scoreboard
 from apps.game.models import Challenge, TeamParticipatesChallenge
 
 
+def send_mass_email(emails, html_path, email_subject):
+    for team in emails:
+        email_html = render_to_string(html_path, {
+            'team_name': team[0],
+            'team_members': [member[0] for member in team[1]],
+            'deadline': team[2]
+        })
+        try:
+            send_mail(subject=email_subject,
+                      message=email_html,
+                      from_email='DataDays <datadays@sharif.edu>',
+                      recipient_list=[member[1] for member in team[1]],
+                      fail_silently=False,
+                      html_message=email_html
+                      )
+        except Exception:
+            print('sending mail for team {} failed'.format(team[0]))
+
+
 class Command(BaseCommand):
     help = 'Adds Max N (arg) Teams to the challenge with given id I (arg).\n' \
            'based on results of past challenge P (arg).\n' \
@@ -55,9 +74,11 @@ class Command(BaseCommand):
             raise ArithmeticError('Shit datetime')
 
         already_participated = TeamParticipatesChallenge.objects.filter(challenge=challenge)
+        deleted_teams = []
         for team_pc in already_participated:
             if team_pc.should_pay and not team_pc.has_paid \
                     and team_pc.payment_deadline < datetime.now().replace(tzinfo=pytz.UTC):
+                deleted_teams.append(team_pc.team)
                 print('deleted team_pc for team {}'.format(team_pc.team.name))
                 team_pc.delete()
 
@@ -70,6 +91,7 @@ class Command(BaseCommand):
 
             team = ranking[i]
             if i > challenge.invited_to_ranking \
+                    and Team.objects.get(name=team['team_name']) not in deleted_teams \
                     and sum([len(tpc.team.participants.all())
                              for tpc in TeamParticipatesChallenge.objects.filter(challenge=challenge)]) \
                     < options['competitors_count']:
@@ -96,7 +118,15 @@ class Command(BaseCommand):
             emails.append([team_pc.team.name,
                            [(user_pc.user.profile.name, user_pc.user.email, user_pc.user.profile.organization)
                             for user_pc in team_pc.team.participants.all()],
+                           team_pc.payment_deadline
                            ])
+        deleted_emails = []
+        for team in deleted_teams:
+            deleted_emails.append([team.name,
+                                   [(user_pc.user.profile.name, user_pc.user.email, user_pc.user.profile.organization)
+                                    for user_pc in team.participants.all()],
+                                   None
+                                   ])
 
         emails_list = open('email.list', 'a')
         emails_list.write('{}\n==============================================================================\n'.format(
@@ -125,21 +155,10 @@ class Command(BaseCommand):
             commas += str(team[0]) + ","
         print(commas)
 
-        if options['send_mail']:
-            # send_mails
-            for team in emails:
-                email_html = render_to_string('/home/datadays/website-2019/apps/accounts/templates/email/invitation'
-                                              '.html', {
-                    'team_name': team[0],
-                    'team_members': [member[0] for member in team[1]]
-                })
-                try:
-                    send_mail(subject='راهیابی به مرحله حضوری DataDays 2019',
-                              message=email_html,
-                              from_email='DataDays <datadays@sharif.edu>',
-                              recipient_list=[member[1] for member in team[1]],
-                              fail_silently=False,
-                              html_message=email_html
-                              )
-                except Exception:
-                    print('sending mail for team {} failed'.format(team[0]))
+        if bool(options['send_mail']):
+            send_mass_email(emails,
+                            '/home/datadays/website-2019/apps/accounts/templates/email/invitation.html',
+                            'راهیابی به مرحله حضوری DataDays 2019')
+            send_mass_email(deleted_emails,
+                            '/home/datadays/website-2019/apps/accounts/templates/email/deletion.html',
+                            'لغو جواز حضور شرکت در مرحله حضوری DataDays 2019')
