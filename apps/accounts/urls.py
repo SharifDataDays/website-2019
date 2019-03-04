@@ -46,4 +46,9 @@ urlpatterns = [
     url(r'^panel/phase/(?P<phase_id>\d+)/set_final_trial/(?P<trial_id>\d+)/$', views.set_final_trial,
         name='set_final_trial'),
 
+
+    url(r'^judge/$', views.manual_judge, name='manual_judge'),
+    url(r'^judge/get_download_link/$', views.get_download_link, name='judge_download_link'),
+    url(r'^judge/set_score/$', views.set_trial_score_manually, name='manual_score'),
+
 ]

@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static i18n ai_filters tz %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% block extra_header %}
+    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block container %}
+    {% for s in submissions %}
+        <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 2%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
+        <h3>{{ s.team }}</h3>
+        <div class="ui four column grid center aligned container stackable">
+        {% for q in s.questionSubmissions.all %}
+            <div class="ui button center aligned one column grid" style="cursor:initial;background-color: transparent!important; margin-bottom: 1%; margin-top:3%">
+                <P>{{ q.question.stmt }}</P>
+                <form enctype="multipart/form-data" action="{% url 'accounts:judge_download_link' %}" class="form" method="post">
+                                    {% csrf_token %}
+                                    <button class="ui compact fluid button " style="margin: 20px 0; background-color :#3d698e; " type="submit">
+                                        <p>{% trans 'download' %}</p>
+                                    </button>
+                    <input
+                               type="hidden"
+                               class="link"
+                               style="display: none"
+                               name="address"
+                               value="{{ q.value }}"
+                    />
+                    <input
+                               type="hidden"
+                               class="link"
+                               style="display: none"
+                               name="file_type"
+                               value="{{ q.question.type }}"
+                    />
+                </form>
+            </div>
+        {% endfor %}
+        <div class="ui button center aligned one column grid" style="cursor:initial;background-color: transparent!important; margin-bottom: 1%; margin-top:2%">
+        <form enctype="multipart/form-data" action="{% url 'accounts:manual_score' %}" class="form" method="post">
+        {% csrf_token %}
+             <input
+                               type="hidden"
+                               style="display: none"
+                               name="trial_id"
+                               value="{{ s.trial.id }}"
+                    />
+            <input
+                       required
+                       type="number"
+                       value="{{ s.trial.score }}"
+                       name="score"
+                       style="margin:0;
+                                border-radius: 0 0 .28571429rem .28571429rem;
+                                border:1px solid #d4d4d5;
+                                border-top-color: transparent;
+                              "
+            />
+            <button class="ui compact fluid button " style="margin: 20px 0; background-color :#3d698e; " type="submit">
+                <p>{% trans 'submit' %}</p>
+            </button>
+        </form>
+        </div>
+        </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -517,6 +517,10 @@ def submit_trial(request, phase_id, trial_id):
         if team_pc is None:
             return redirect_to_somewhere_better(request)
 
+        trialSubmit = TrialSubmission()
+        trialSubmit.competition = phase
+        trialSubmit.team = get_team_pc(request)
+        trialSubmit.save()
         context = get_shared_context(request)
         file = None
         if request.FILES:
@@ -576,6 +580,8 @@ def submit_trial(request, phase_id, trial_id):
                 quzi = CodeUploadQuestion.objects.all()[0]
                 qusu.question = quzi
                 qusu.value = file_full_path
+                qusu.trial_submission = trialSubmit
+                qusu.save()
         if file is not None:
             if file.size > 1048576 * 10:
 
@@ -592,6 +598,8 @@ def submit_trial(request, phase_id, trial_id):
                 qufi = trial.questions.get(id=int(filename.split("_")[1]))
                 qusu.question = qufi
                 qusu.value = file_full_path
+                qusu.trial_submission = trialSubmit
+                qusu.save()
         if report is not None:
             if report.size > 1048576 * 20:
                 error_msg = 'Max size of code zip is 20MB'
@@ -603,6 +611,8 @@ def submit_trial(request, phase_id, trial_id):
                 rep = ReportUploadQuestion.objects.all()[0]
                 qusu.question = rep
                 qusu.value = file_full_path
+                qusu.trial_submission = trialSubmit
+                qusu.save()
         print(clean)
         if trial.submit_time is not None:
             return redirect('accounts:panel_phase', phase.id)
@@ -613,15 +623,9 @@ def submit_trial(request, phase_id, trial_id):
         trial.submit_time = timezone.now()
         trial.is_final = True
         trial.save()
-        trialSubmit = TrialSubmission()
-        trialSubmit.competition = phase
-        trialSubmit.team = get_team_pc(request)
         trialSubmit.trial = trial
         trialSubmit.score = -1
         trialSubmit.save()
-        if qusu is not None:
-            qusu.trial_submission = trialSubmit
-            qusu.save()
 
         # intiated by far
         khar = {}
@@ -1044,8 +1048,12 @@ def set_final_trial(request, phase_id, trial_id):
 
 
 def manual_judge(request):
+    user_groups = request.user.groups.filter(name='judge')
+    if len(user_groups) == 0:
+        return render(request, '403.html')
+    submissions = TrialSubmission.objects.filter(trial__competition__type='onsite_day_1', trial__is_final=True)
     context = {
-        'trials': Trial.objects.filter(competition__type='onsite_day_1', is_final=True)
+        'submissions': submissions,
     }
     return render(request, 'accounts/manual_judge.html', context)
 
@@ -1056,11 +1064,33 @@ def set_trial_score_manually(request):
 
     form = Form(request.POST)
     trial_id = form.data['trial_id']
-    score = form.date['score']
-
+    score = form.data['score']
     trial = Trial.objects.filter(id=trial_id)
     if len(trial) == 0:
         return redirect('accounts:panel')
-
+    trial = trial[0]
     trial.score = score
     trial.save()
+    return redirect('accounts:manual_judge')
+
+
+def get_download_link(request):
+    address = request.POST['address']
+    type = request.POST['file_type']
+    print(address)
+    print(type)
+    if type == 'report_upload':
+        with open(address, 'rb') as pdf:
+            response = HttpResponse(content=pdf.read(), content_type='application/pdf', charset='utf8')
+            response['Content-Disposition'] = 'attachment;filename=report.pdf'
+            return response
+    elif type == 'onsite_code_upload':
+        with open(address, 'rb') as zip:
+            response = HttpResponse(content=zip.read(), content_type='application/zip', charset='utf8')
+            response['Content-Disposition'] = 'attachment;filename=code.zip'
+            return response
+    else:
+        with open(address, 'rb') as pdf:
+            response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
+            response['Content-Disposition'] = 'attachment;filename=file.csv'
+            return response
