@@ -318,6 +318,7 @@ def get_phase_score(team, trials, phase):
 def render_phase(request, phase_id):
     user = request.user
     phase = Competition.objects.get(id=phase_id)
+    print(phase.trial_submit_type)
     if phase is None:
         redirect(reverse('accounts:panel_team_management'))
     else:
@@ -489,7 +490,7 @@ def render_trial(request, phase_id, trial_id):
                 'multiple': list(trial.questions.filter(type='multiple_answer')),
                 'file_based_questions': list(
                     trial.questions.filter(
-                        Q(type='file_upload') | Q(type='triple_cat_file_upload') | Q(type='onsite_file_upload'))),
+                        Q(type='boolean_file_upload') |Q(type='file_upload') | Q(type='triple_cat_file_upload') | Q(type='onsite_file_upload'))),
                 'code_zip': list(trial.questions.filter(Q(type='code_upload') | Q(type='onsite_code_upload'))),
                 'report': list(trial.questions.filter(type='report_upload'))
             })
@@ -605,7 +606,12 @@ def submit_trial(request, phase_id, trial_id):
         print(clean)
         if trial.submit_time is not None:
             return redirect('accounts:panel_phase', phase.id)
+        trials = (Trial.objects.filter(team_id=team_pc.id, competition=phase))
+        for t in trials:
+            t.is_final = False
+            t.save()
         trial.submit_time = timezone.now()
+        trial.is_final = True
         trial.save()
         trialSubmit = TrialSubmission()
         trialSubmit.competition = phase
@@ -940,6 +946,7 @@ def get_new_trial_onsite_day_1(request, phase_id):
                 })
                 return render(request, 'accounts/panel/no_new_trial.html', context)
         current_trial = Trial.objects.create(competition=phase, start_time=datetime.now(), team=team_pc)
+        current_trial.save()
         question = FileUploadQuestion.objects.get(type='onsite_file_upload')
         # todo dataset link in trial
         current_trial.questions.add(question)
@@ -982,8 +989,11 @@ def get_new_trial_onsite_day_2(request, phase_id):
                 })
                 return render(request, 'accounts/panel/no_new_trial.html', context)
         current_trial = Trial(competition=phase, start_time=datetime.now(), team=team_pc)
+        current_trial.save()
         question = FileUploadQuestion.objects.get(type='boolean_file_upload')
         # todo dataset link in trial
+        print(question)
+        print(current_trial)
         current_trial.questions.add(question)
         report_upload = ReportUploadQuestion.objects.all()[1]
         current_trial.questions.add(report_upload)
