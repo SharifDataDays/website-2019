@@ -267,7 +267,6 @@ class TrialSubmission(models.Model):
         print(response.text)
 
 
-
 class PhaseInstructionSet(models.Model):
     phase = models.OneToOneField(Competition)
 

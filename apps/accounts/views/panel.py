@@ -1031,3 +1031,13 @@ def set_final_trial(request, phase_id, trial_id):
         'success': _('final trial set successfully')
     })
     return redirect('accounts:panel_phase', phase_id=phase_id)
+
+
+def manual_judge(request):
+    context = {
+        'trials': Trial.objects.filter(competition__type='onsite_day_1', is_final=True)
+    }
+
+
+def set_trial_score_manually(request, trial_id):
+    pass
