@@ -489,7 +489,7 @@ def render_trial(request, phase_id, trial_id):
                 'multiple': list(trial.questions.filter(type='multiple_answer')),
                 'file_based_questions': list(
                     trial.questions.filter(
-                        Q(type='file_upload') | Q(type='triple_cat_file_upload') | Q(type='onsite_file_upload'))),
+                        Q(type='boolean_file_upload') |Q(type='file_upload') | Q(type='triple_cat_file_upload') | Q(type='onsite_file_upload'))),
                 'code_zip': list(trial.questions.filter(Q(type='code_upload') | Q(type='onsite_code_upload'))),
                 'report': list(trial.questions.filter(type='report_upload'))
             })
