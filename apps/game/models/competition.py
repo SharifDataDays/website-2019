@@ -26,12 +26,17 @@ logger = logging.getLogger(__name__)
 
 
 class Competition(models.Model):
-    CHOICES = (
+    TYPE_CHOICES = (
         ('online_phase_1', _('online_phase_1')),
         ('online_phase_2', _('online_phase_2')),
         ('onsite_day_1', _('onsite_day_1')),
         ('onsite_day_2', _('onsite_day_2')),
     )
+    TRIAL_SUBMIT_CHOICES = (
+        ('MEAN', _('MEAN')),
+        ('FINAL', _('FINAL'))
+    )
+
     challenge = models.ForeignKey(Challenge, related_name='competitions')
     name = models.CharField(max_length=128, null=True)
     tag = models.CharField(max_length=128, null=True)
@@ -45,7 +50,8 @@ class Competition(models.Model):
 
     # final = models.NullBooleanField()
 
-    type = models.CharField(max_length=200,choices=CHOICES, null=True, blank=True)
+    type = models.CharField(max_length=200, choices=TYPE_CHOICES, null=True, blank=True)
+    trial_submit_type = models.CharField(max_length=200, choices=TRIAL_SUBMIT_CHOICES, null=True, blank=True)
 
     def get_freeze_time(self):
         if self.scoreboard_freeze_time is not None:
