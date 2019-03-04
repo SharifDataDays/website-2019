@@ -138,6 +138,15 @@ def render_scoreboard(request, challenge_id):
 
 
 def get_challenge_scoreboard(challenge_id):
+    if 1 == challenge_id:
+        get_challenge_scoreboard_challenge_1(challenge_id)
+    elif 2 == challenge_id:
+        get_challenge_scoreboard_challenge_2(challenge_id)
+    else:
+        return redirect('accounts:panel_team_management')
+
+
+def get_challenge_scoreboard_challenge_1(challenge_id):
     scoreboard_phase1 = get_scoreboard(Competition.objects.get(type='online_phase_1', challenge__id=challenge_id).id)
     scoreboard_phase2 = get_scoreboard(Competition.objects.get(type='online_phase_2', challenge__id=challenge_id).id)
 
@@ -190,6 +199,11 @@ def get_challenge_scoreboard(challenge_id):
 
     scoreboard = sorted(scoreboard, key=lambda k: k['scores'][4], reverse=True)
     return scoreboard
+
+
+def get_challenge_scoreboard_challenge_2(challenge_id):
+    # TO FUCKING DO A.K.A. TODO
+    return get_scoreboard(Competition.objects.filter(challenge__id=challenge_id).last())
 
 
 @login_required
@@ -282,13 +296,13 @@ def get_scoreboard(phase_id):
 
 def get_phase_score(team, trials, phase):
     team_phase_trials = trials.filter(team=team)
-    if phase.type == 'online_phase_2':
+    if phase.trial_submit_type == 'FINAL':
         try:
             final_trial = team_phase_trials.get(is_final=True)
             return [float("{0:.2f}".format(final_trial.score)), float("{0:.2f}".format(final_trial.score2))]
         except:
             return [0, 0]
-    else:
+    elif phase.trial_submit_type == 'MEAN':
         scores = [trial.score for trial in team_phase_trials]
         if len(scores) == 0:
             result = 0
