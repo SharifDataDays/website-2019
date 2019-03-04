@@ -1037,7 +1037,20 @@ def manual_judge(request):
     context = {
         'trials': Trial.objects.filter(competition__type='onsite_day_1', is_final=True)
     }
+    return render(request, 'accounts/manual_judge.html', context)
 
 
-def set_trial_score_manually(request, trial_id):
-    pass
+def set_trial_score_manually(request):
+    if not request.POST:
+        return redirect('accounts:panel')
+
+    form = Form(request.POST)
+    trial_id = form.data['trial_id']
+    score = form.date['score']
+
+    trial = Trial.objects.filter(id=trial_id)
+    if len(trial) == 0:
+        return redirect('accounts:panel')
+
+    trial.score = score
+    trial.save()
