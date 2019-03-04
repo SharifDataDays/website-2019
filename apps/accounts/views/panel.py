@@ -75,9 +75,9 @@ def get_shared_context(request):
                 }
                 if not context['payment']['team_pc'].has_paid:
                     more = - int(context['payment']['team_pc'].get_paid_amount()) \
-                            + int(context['payment']['team_pc'].challenge.entrance_price) \
-                            // int(context['payment']['team_pc'].challenge.team_size) \
-                            * int(len(context['payment']['team_pc'].team.participants.all()))
+                           + int(context['payment']['team_pc'].challenge.entrance_price) \
+                           // int(context['payment']['team_pc'].challenge.team_size) \
+                           * int(len(context['payment']['team_pc'].team.participants.all()))
                     print("MORE{}".format(more))
                     if more > 0:
                         context['payment']['should_pay_more'] = {
@@ -234,7 +234,7 @@ def render_phase_scoreboard(request, phase_id, challenge_id):
                 _('Phase 2 From 10000'), _('Phase 2 Final Score'), _('Final Score From 20000')
             ],
         })
-    elif Competition.objects.get(id=phase_id).type=='online_phase_2':
+    elif Competition.objects.get(id=phase_id).type == 'online_phase_2':
         context.update({
             'scoreboard_name': _(Competition.objects.get(id=phase_id).name),
 
@@ -417,7 +417,11 @@ def get_new_trial(request, phase_id):
         # return get_new_trial_phase_1(request, phase_id)
         return render_phase(request, phase_id)
     elif phase.type == 'onsite_day_1':
-        return get_new_trial_onsite_day1(request, phase_id)
+        return get_new_trial_onsite_day_1(request, phase_id)
+    elif phase.type == 'onsite_day_2':
+        return get_new_trial_onsite_day_2(request, phase_id)
+    else:
+        return render_phase(request, phase_id)
 
 
 @login_required
@@ -470,7 +474,8 @@ def render_trial(request, phase_id, trial_id):
                 'choices': list(trial.questions.filter(type='multiple_choice').order_by('max_score')),
                 'multiple': list(trial.questions.filter(type='multiple_answer')),
                 'file_based_questions': list(
-                    trial.questions.filter(Q(type='file_upload') | Q(type='triple_cat_file_upload') | Q(type='onsite_file_upload'))),
+                    trial.questions.filter(
+                        Q(type='file_upload') | Q(type='triple_cat_file_upload') | Q(type='onsite_file_upload'))),
                 'code_zip': list(trial.questions.filter(Q(type='code_upload') | Q(type='onsite_code_upload'))),
                 'report': list(trial.questions.filter(type='report_upload'))
             })
@@ -496,7 +501,6 @@ def submit_trial(request, phase_id, trial_id):
         team_pc = get_team_pc(request)
         if team_pc is None:
             return redirect_to_somewhere_better(request)
-
 
         context = get_shared_context(request)
         file = None
@@ -690,9 +694,9 @@ def get_dataset(request, phase_id, trial_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
-    if phase.type =='online_phase_2':
+    if phase.type == 'online_phase_2':
         return get_dataset_2(request, phase_id, trial_id)
-    else: #elif phase.type == 'online_phase_1'
+    else:  # elif phase.type == 'online_phase_1'
         return get_dataset_1(request, phase_id, trial_id)
 
 
@@ -894,7 +898,7 @@ def get_new_trial_phase_2(request, phase_id):
 
 
 @login_required
-def get_new_trial_onsite_day1(request, phase_id):
+def get_new_trial_onsite_day_1(request, phase_id):
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
@@ -936,6 +940,45 @@ def get_new_trial_onsite_day1(request, phase_id):
     return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
 
 
+def get_new_trial_onsite_day_2(request, phase_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase is None:
+        redirect("/accounts/panel/team")
+    else:
+        team_pc = get_team_pc(request)
+        if team_pc is None:
+            return redirect_to_somewhere_better(request)
+        context = get_shared_context(request)
+        for item in context['menu_items']:
+            if item['name'] == phase.name:
+                item['active'] = True
+        context.update({
+            'participation': team_pc,
+            'phase': phase,
+        })
+        trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
+
+        context.update({
+            'trials': trials
+        })
+        for trial in trials:
+            if trial.end_time > timezone.now() and trial.submit_time is None:
+                context.update({
+                    'error': _('You have one active trial.')
+                })
+                return render(request, 'accounts/panel/no_new_trial.html', context)
+        current_trial = Trial(competition=phase, start_time=datetime.now(), team=team_pc)
+        question = FileUploadQuestion.objects.get(type='boolean_file_upload')
+        # todo dataset link in trial
+        current_trial.questions.add(question)
+        report_upload = ReportUploadQuestion.objects.all()[1]
+        current_trial.questions.add(report_upload)
+        current_trial.save()
+        context.update({
+            'current_trial': current_trial
+        })
+    return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
+
 
 @login_required
 def set_final_trial(request, phase_id, trial_id):
@@ -971,6 +1014,6 @@ def set_final_trial(request, phase_id, trial_id):
     context.update({
         'trials': trials,
         'final_trial': final_trial,
-        'success': _('final trial set successfuly')
+        'success': _('final trial set successfully')
     })
     return redirect('accounts:panel_phase', phase_id=phase_id)

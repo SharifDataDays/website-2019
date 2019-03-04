@@ -77,6 +77,7 @@ class Question(models.Model):
         ('interval_number', _('interval_number')), # IntervalQuestion type=number specified in template
         ('file_upload', _('file_upload')), # FileUploadQuestion
         ('triple_cat_file_upload', _('triple_cat_file_upload')),
+        ('boolean_file_upload', _('boolean_file_upload')),
         ('code_upload', _('code_upload')),
         ('onsite_code_upload', _('onsite_code_upload')),
         ('onsite_file_upload', _('onsite_file_upload')),
@@ -88,7 +89,7 @@ class Question(models.Model):
         ('choices', _('choices')), # multiple_choices
         ('multiple', _('multiple')), # multiple_answer
         ('file', _('file')), # file_upload
-        ('image_choices', _('image_choices')), #multiple_choice
+        ('image_choices', _('image_choices')), # multiple_choice
         ('code', _('code'))
     )
     group_id = models.IntegerField(null=True, blank=True)
