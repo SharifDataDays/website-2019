@@ -580,7 +580,7 @@ def submit_trial(request, phase_id, trial_id):
             else:
                 file_full_path = save_to_storage(request, 'code')
                 qusu = QuestionSubmission()
-                quzi = CodeUploadQuestion.objects.all()[0]
+                quzi = CodeUploadQuestion.objects.filter(type='onsite_code_upload')[0]
                 qusu.question = quzi
                 qusu.value = file_full_path
                 qusu.trial_submission = trialSubmit
