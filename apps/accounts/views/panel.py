@@ -4,6 +4,7 @@ import os
 import random
 from datetime import datetime
 
+import pytz
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
@@ -267,17 +268,30 @@ def render_phase_scoreboard(request, phase_id, challenge_id):
 
     return render(request, 'accounts/panel/group_table.html', context)
 
+scoreboard = {}
 
 def get_scoreboard(phase_id):
+    from django.utils import timezone
+    global scoreboard
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         return redirect('accounts:panel_team_management')
+    if phase.scoreboard_freeze_time is not None:
+        p1 = phase.scoreboard_freeze_time.replace(tzinfo=pytz.UTC)
+        p2 = timezone.now()
+        print(p1)
+        print(p2)
+        print(scoreboard.keys())
+        print(phase_id)
+        if p1 < p2:
+            if phase_id in scoreboard:
+                return scoreboard[phase_id]
     submits = TrialSubmission.objects.filter(competition=phase).select_related('trial')
     submitted_trial_ids = [submit.trial.id for submit in submits]
     trials = Trial.objects.filter(id__in=submitted_trial_ids)
     teams = TeamParticipatesChallenge.objects.filter(trials__in=trials).distinct()
 
-    scoreboard = []
+    scoreboard_out = []
     for team in teams:
         team_con = {'team_name': team.team.name,
                     'scores': get_phase_score(team, trials, phase)}
@@ -288,11 +302,13 @@ def get_scoreboard(phase_id):
             except:
                 print('user has no profile')
         team_con['members'] = names
-        scoreboard.append(team_con)
+        scoreboard_out.append(team_con)
 
-
-    scoreboard = sorted(scoreboard, key=lambda k: k['scores'][0], reverse=True)
-    return scoreboard
+    scoreboard_out = sorted(scoreboard_out, key=lambda k: k['scores'][0], reverse=True)
+    scoreboard.update({
+        phase_id: scoreboard_out
+    })
+    return scoreboard_out
 
 
 def get_phase_score(team, trials, phase):
