@@ -39,6 +39,8 @@ class Challenge(models.Model):
 
     invited_to_ranking = models.IntegerField(default=-1)
 
+    onsite = models.BooleanField(default=False)
+
     def __str__(self):
         return self.title
 

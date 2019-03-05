@@ -138,12 +138,12 @@ def render_scoreboard(request, challenge_id):
 
 
 def get_challenge_scoreboard(challenge_id):
-    if 1 == challenge_id:
-        get_challenge_scoreboard_challenge_1(challenge_id)
-    elif 2 == challenge_id:
-        get_challenge_scoreboard_challenge_2(challenge_id)
+    if not Challenge.objects.get(id=challenge_id).onsite:
+        return get_challenge_scoreboard_challenge_1(challenge_id)
+    elif Challenge.objects.get(id=challenge_id).onsite:
+        return get_challenge_scoreboard_challenge_2(challenge_id)
     else:
-        return redirect('accounts:panel_team_management')
+        raise ArithmeticError
 
 
 def get_challenge_scoreboard_challenge_1(challenge_id):
@@ -290,6 +290,7 @@ def get_scoreboard(phase_id):
         team_con['members'] = names
         scoreboard.append(team_con)
 
+
     scoreboard = sorted(scoreboard, key=lambda k: k['scores'][0], reverse=True)
     return scoreboard
 
@@ -312,6 +313,8 @@ def get_phase_score(team, trials, phase):
             scores.remove(min(scores))
             result = float("{0:.2f}".format(sum(scores) / len(scores)))
         return [result]
+    else:
+        return [0]
 
 
 @login_required
