@@ -309,5 +309,9 @@ class Instruction(models.Model):
         return str('%s : %s' % (self.model_name , self.number))
 
 
+class Notification(models.Model):
+    team = models.ForeignKey(TeamParticipatesChallenge, related_name='informations')
+    content = models.CharField(max_length=600)
+
 def get_log_file_directory(instance, filename):
     return os.path.join('logs', filename + str(uuid.uuid4()))

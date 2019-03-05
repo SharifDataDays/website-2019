@@ -22,7 +22,8 @@ from aic_site.local_settings import PHASE_2_DATASET_PATH, PHASE_2_CATS_PATH
 from aic_site.settings.base import MEDIA_ROOT
 from apps.game.models import TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
     Instruction, Question, \
-    Choice, TrialSubmission, QuestionSubmission, FileUploadQuestion, CodeUploadQuestion, ReportUploadQuestion
+    Choice, TrialSubmission, QuestionSubmission, FileUploadQuestion, CodeUploadQuestion, ReportUploadQuestion, \
+    Notification
 from apps.game.models.challenge import Challenge, UserAcceptsTeamInChallenge
 
 DIR_DATASET = '/home/datadays/tds'
@@ -64,7 +65,8 @@ def get_shared_context(request):
         {'name': 'team_management', 'link': reverse('accounts:panel_team_management'), 'text': _('Team Status')},
         {'name': 'render_panel_phases_scoreboard',
          'link': reverse('accounts:scoreboard',
-                         args=[get_team_pc(request).challenge.id]), 'text': _('Scoreboard')}
+                         args=[get_team_pc(request).challenge.id]), 'text': _('Scoreboard')},
+        {'name': 'notifications', 'link': reverse('accounts:panel_notifications'), 'text': _('Notifications')}
     ]
 
     if request.user.profile:
@@ -1113,3 +1115,22 @@ def get_download_link(request):
             response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
             response['Content-Disposition'] = 'attachment;filename=file.csv'
             return response
+
+
+def get_notification(request):
+    team_pc = get_team_pc(request)
+    if team_pc is None:
+        return redirect_to_somewhere_better(request)
+    context = get_shared_context(request)
+    for item in context['menu_items']:
+        if item['name'] == 'notifications':
+            item['active'] = True
+    context.update({
+        'participation': team_pc,
+    })
+    notifs = Notification.objects.filter(team=team_pc)
+    notifs = notifs.order_by('-id')
+    context.update({
+        'notifs': notifs
+    })
+    return render(request, 'accounts/notifs.html', context)
