@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-27 10:23+0330\n"
+"POT-Creation-Date: 2019-03-05 20:06+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,41 +118,41 @@ msgstr "سن"
 msgid "National code‌"
 msgstr "کد ملی"
 
-#: apps/accounts/models.py:13
-msgid "Telephone number‌"
-msgstr "شماره ی تلفن ثابت"
-
-#: apps/accounts/models.py:19
+#: apps/accounts/models.py:18
 msgid "large"
 msgstr ""
 
-#: apps/accounts/models.py:20
+#: apps/accounts/models.py:19
 msgid "medium"
 msgstr ""
 
-#: apps/accounts/models.py:21
+#: apps/accounts/models.py:20
 msgid "small"
 msgstr ""
 
-#: apps/accounts/models.py:25
+#: apps/accounts/models.py:24
 msgid "bachelor"
 msgstr "کارشناسی"
 
-#: apps/accounts/models.py:26
+#: apps/accounts/models.py:25
 msgid "master"
 msgstr "کارشناسی ارشد"
 
-#: apps/accounts/models.py:27
+#: apps/accounts/models.py:26
 msgid "phd"
 msgstr "دکترا"
 
-#: apps/accounts/models.py:30
+#: apps/accounts/models.py:29
 msgid "Full Name EN‌"
 msgstr "نام و نام خانوادگی (به انگلیسی)"
 
-#: apps/accounts/models.py:31
+#: apps/accounts/models.py:30
 msgid "Full Name FA‌"
 msgstr "نام و نام خانوادگی (به فارسی)"
+
+#: apps/accounts/models.py:31
+msgid "Telephone number‌"
+msgstr "شماره ی تلفن ثابت"
 
 #: apps/accounts/models.py:32
 msgid "Student ID‌"
@@ -182,29 +182,29 @@ msgstr "سایز تی شرت"
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:115
 #: apps/accounts/templates/accounts/panel/group_table.html:12
 #: apps/accounts/templates/accounts/panel/phase_table.html:11
-#: apps/accounts/views/panel.py:66
+#: apps/accounts/views/panel.py:68
 msgid "Scoreboard"
 msgstr "جدول امتیازات"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:8
 #: apps/accounts/templates/accounts/panel/phase_table.html:15
-#: apps/accounts/views/panel.py:230 apps/accounts/views/panel.py:239
-#: apps/accounts/views/panel.py:247
+#: apps/accounts/views/panel.py:250 apps/accounts/views/panel.py:259
+#: apps/accounts/views/panel.py:267
 msgid "Rank"
 msgstr "رتبه"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:9
 #: apps/accounts/templates/accounts/panel/group_table.html:30
 #: apps/accounts/templates/accounts/panel/phase_table.html:16
-#: apps/accounts/views/panel.py:230 apps/accounts/views/panel.py:239
-#: apps/accounts/views/panel.py:247
+#: apps/accounts/views/panel.py:250 apps/accounts/views/panel.py:259
+#: apps/accounts/views/panel.py:267
 msgid "Name"
 msgstr "نام تیم"
 
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:10
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:11
 #: apps/accounts/templates/accounts/panel/battle_history.html:13
-#: apps/accounts/views/panel.py:247
+#: apps/accounts/views/panel.py:267
 msgid "Score"
 msgstr "امتیاز"
 
@@ -219,6 +219,18 @@ msgstr "برد"
 #: apps/accounts/templates/accounts/friendly_match_scoreboard.html:13
 msgid "lose num"
 msgstr "باخت"
+
+#: apps/accounts/templates/accounts/manual_judge.html:19
+#, fuzzy
+#| msgid "Download"
+msgid "download"
+msgstr "دانلود"
+
+#: apps/accounts/templates/accounts/manual_judge.html:59
+#, fuzzy
+#| msgid "Submit"
+msgid "submit"
+msgstr "ارسال"
 
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:4
 #: apps/accounts/templates/accounts/panel/battle_history.html:6
@@ -277,7 +289,7 @@ msgstr "نقشه:"
 #: apps/accounts/templates/accounts/oldpanel/battle_history.html:114
 #: apps/accounts/templates/accounts/oldpanel/submissions.html:151
 #: apps/accounts/templates/accounts/panel/battle_history.html:100
-#: apps/accounts/templates/accounts/panel/panel_trial.html:454
+#: apps/accounts/templates/accounts/panel/panel_trial.html:526
 #: apps/accounts/templates/accounts/panel/submissions.html:9
 #: apps/accounts/templates/accounts/panel/submissions.html:41
 msgid "Submit"
@@ -429,13 +441,13 @@ msgstr ""
 
 #: apps/accounts/templates/accounts/oldpanel/team_management.html:5
 #: apps/accounts/templates/accounts/panel/team_management.html:6
-#: apps/accounts/views/panel.py:63
+#: apps/accounts/views/panel.py:65
 msgid "Team Status"
 msgstr "وضعیت تیم"
 
 #: apps/accounts/templates/accounts/oldpanel/team_management.html:10
 #: apps/accounts/templates/accounts/panel/team_management.html:12
-#: apps/accounts/templates/accounts/profile/login.html:14
+#: apps/accounts/templates/accounts/profile/login.html:16
 #: apps/accounts/templates/accounts/profile/signup.html:19
 #: apps/accounts/templates/accounts/teams/add_member.html:12
 msgid "Username"
@@ -502,58 +514,60 @@ msgstr "بازگشت به پنل"
 
 #: apps/accounts/templates/accounts/panel/panel_phase.html:27
 #: apps/accounts/templates/accounts/panel/panel_phase.html:51
+#: apps/accounts/templates/accounts/panel/panel_phase.html:81
+#: apps/accounts/templates/accounts/panel/panel_phase.html:104
 msgid "Get a new trial"
 msgstr "ایجاد یک تلاش جدید"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:65
-#: apps/accounts/templates/accounts/panel/panel_phase.html:127
+#: apps/accounts/templates/accounts/panel/panel_phase.html:118
+#: apps/accounts/templates/accounts/panel/panel_phase.html:180
 msgid "Score "
 msgstr "امتیاز"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:67
-#: apps/accounts/templates/accounts/panel/panel_phase.html:130
+#: apps/accounts/templates/accounts/panel/panel_phase.html:120
+#: apps/accounts/templates/accounts/panel/panel_phase.html:183
 msgid "Judging ..."
 msgstr "در حال داوری ..."
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:72
+#: apps/accounts/templates/accounts/panel/panel_phase.html:125
 msgid "Part One Score"
 msgstr "امتیاز بخش اول"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:74
+#: apps/accounts/templates/accounts/panel/panel_phase.html:127
 msgid "Part Two Score"
 msgstr "امتیاز بخش دوم"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:76
+#: apps/accounts/templates/accounts/panel/panel_phase.html:129
 msgid "Part Three Score"
 msgstr "امتیاز بخش سوم"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:96
+#: apps/accounts/templates/accounts/panel/panel_phase.html:149
 msgid "Trial"
 msgstr "تلاش"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:103
+#: apps/accounts/templates/accounts/panel/panel_phase.html:156
 msgid "Start Time"
 msgstr "زمان شروع"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:111
+#: apps/accounts/templates/accounts/panel/panel_phase.html:164
 msgid "Time Left"
 msgstr "زمان باقی مانده"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:120
+#: apps/accounts/templates/accounts/panel/panel_phase.html:173
 msgid "Submit Time"
 msgstr "زمان گذشته از ارسال"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:141
+#: apps/accounts/templates/accounts/panel/panel_phase.html:194
 #, fuzzy
 #| msgid "Get a new trial"
 msgid "set as final trial"
 msgstr "انتخاب به عنوان تلاش نهایی"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:147
+#: apps/accounts/templates/accounts/panel/panel_phase.html:200
 msgid "final trial"
 msgstr "تلاش نهایی"
 
-#: apps/accounts/templates/accounts/panel/panel_phase.html:154
+#: apps/accounts/templates/accounts/panel/panel_phase.html:207
 msgid "View Trial"
 msgstr "مشاهده‌ی تلاش"
 
@@ -571,15 +585,21 @@ msgstr "بارگذاری پاسخ"
 msgid "Upload Code"
 msgstr "بارگذاری پاسخ"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:297
+#: apps/accounts/templates/accounts/panel/panel_trial.html:257
+#, fuzzy
+#| msgid "Upload Answer"
+msgid "Upload Report"
+msgstr "بارگذاری پاسخ"
+
+#: apps/accounts/templates/accounts/panel/panel_trial.html:369
 msgid "No answer yet : Number field"
 msgstr "هنوز پاسخی نداده‌اید: مقدار عددی"
 
-#: apps/accounts/templates/accounts/panel/panel_trial.html:330
-#: apps/accounts/templates/accounts/panel/panel_trial.html:367
-#: apps/accounts/templates/accounts/panel/panel_trial.html:399
-#: apps/accounts/templates/accounts/panel/panel_trial.html:412
-#: apps/accounts/templates/accounts/panel/panel_trial.html:425
+#: apps/accounts/templates/accounts/panel/panel_trial.html:402
+#: apps/accounts/templates/accounts/panel/panel_trial.html:439
+#: apps/accounts/templates/accounts/panel/panel_trial.html:471
+#: apps/accounts/templates/accounts/panel/panel_trial.html:484
+#: apps/accounts/templates/accounts/panel/panel_trial.html:497
 msgid "No answer yet : Text field"
 msgstr "هنوز پاسخی نداده‌اید: مقدار متنی"
 
@@ -604,14 +624,14 @@ msgid "You have not participated in this challenge yet."
 msgstr "شما در این چالش شرکت نکرده‌اید."
 
 #: apps/accounts/templates/accounts/profile/information.html:5
-#: apps/accounts/templates/accounts/profile/login.html:31
+#: apps/accounts/templates/accounts/profile/login.html:33
 #: apps/accounts/templates/accounts/profile/signup.html:5
 #: apps/accounts/templates/accounts/profile/update_profile.html:5
 msgid "Sign Up"
 msgstr "ثبت نام"
 
 #: apps/accounts/templates/accounts/profile/information.html:8
-#: apps/accounts/views/panel.py:390
+#: apps/accounts/views/panel.py:429
 msgid "Complete Information"
 msgstr "تکمیل اطلاعات"
 
@@ -621,16 +641,16 @@ msgid "Update"
 msgstr "ذخیره"
 
 #: apps/accounts/templates/accounts/profile/login.html:10
-#: apps/accounts/templates/accounts/profile/login.html:30
+#: apps/accounts/templates/accounts/profile/login.html:32
 msgid "Login"
 msgstr "ورود"
 
-#: apps/accounts/templates/accounts/profile/login.html:25
+#: apps/accounts/templates/accounts/profile/login.html:27
 #: apps/accounts/templates/accounts/profile/signup.html:82
 msgid "Password"
 msgstr "رمز"
 
-#: apps/accounts/templates/accounts/profile/login.html:33
+#: apps/accounts/templates/accounts/profile/login.html:35
 msgid "I forgot my password"
 msgstr "رمزم را فراموش کردم"
 
@@ -721,57 +741,64 @@ msgstr "تیم شما با موفقیت ساخته شد"
 msgid "Request messages has bee sent to your teammates"
 msgstr "درخواست عضویت به هم تیمی های شما فرستاده شد"
 
-#: apps/accounts/views/panel.py:219 apps/accounts/views/panel.py:227
+#: apps/accounts/views/panel.py:69
+msgid "Notifications"
+msgstr "اطلاعیه‌ها"
+
+#: apps/accounts/views/panel.py:239 apps/accounts/views/panel.py:247
 msgid "Total Scoreboard"
 msgstr "امتیازات نهایی"
 
-#: apps/accounts/views/panel.py:230
+#: apps/accounts/views/panel.py:250
 msgid "Phase 1 From 10000"
 msgstr "فاز یک از ۱۰۰۰۰"
 
-#: apps/accounts/views/panel.py:230
+#: apps/accounts/views/panel.py:250
 msgid "Phase 1 Final Score"
 msgstr "امتیاز نهایی فاز یک"
 
-#: apps/accounts/views/panel.py:231
+#: apps/accounts/views/panel.py:251
 msgid "Phase 2 From 10000"
 msgstr "فاز دو از ۱۰۰۰۰"
 
-#: apps/accounts/views/panel.py:231
+#: apps/accounts/views/panel.py:251
 msgid "Phase 2 Final Score"
 msgstr "امتیاز نهایی فاز دو"
 
-#: apps/accounts/views/panel.py:231
+#: apps/accounts/views/panel.py:251
 msgid "Final Score From 20000"
 msgstr "امتیاز نهایی از ۲۰۰۰۰"
 
-#: apps/accounts/views/panel.py:239
+#: apps/accounts/views/panel.py:259
 msgid "First Half Score"
 msgstr "امتیاز نیمه اول"
 
-#: apps/accounts/views/panel.py:239
+#: apps/accounts/views/panel.py:259
 msgid "Second Half Score"
 msgstr "امتیاز نیمه دوم"
 
-#: apps/accounts/views/panel.py:775 apps/accounts/views/panel.py:850
+#: apps/accounts/views/panel.py:846 apps/accounts/views/panel.py:921
+#: apps/accounts/views/panel.py:970 apps/accounts/views/panel.py:1013
 msgid "You have one active trial."
 msgstr "شما در حال حاضر یک تلاش باز شده دارید."
 
-#: apps/accounts/views/panel.py:780
+#: apps/accounts/views/panel.py:851
 msgid "You can not get any new trial."
 msgstr "شما نمی‌توانید تلاش جدیدی را شروع کنید."
 
-#: apps/accounts/views/panel.py:858
+#: apps/accounts/views/panel.py:929
 msgid ""
 "You can not get any new trial. You have reached your limit in current day"
 msgstr "شما حداکثر تعداد تلاش‌های روزانه خود را استفاده کرده‌اید."
 
-#: apps/accounts/views/panel.py:901
+#: apps/accounts/views/panel.py:1059
 msgid "no such trial"
 msgstr "تلاشی یافت نشد."
 
-#: apps/accounts/views/panel.py:908
-msgid "final trial set successfuly"
+#: apps/accounts/views/panel.py:1066
+#, fuzzy
+#| msgid "final trial set successfuly"
+msgid "final trial set successfully"
 msgstr "تلاش نهایی با موفقیت ثبت شد"
 
 #~ msgid "Complete team"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-27 10:23+0330\n"
+"POT-Creation-Date: 2019-03-05 20:06+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,187 +17,235 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps/game/admin.py:146
+#: apps/game/admin.py:155
 msgid "status"
 msgstr "وضعیت"
 
-#: apps/game/admin.py:160
+#: apps/game/admin.py:169
 msgid "running"
 msgstr "در حال اجرا"
 
-#: apps/game/admin.py:161
+#: apps/game/admin.py:170
 msgid "failed"
 msgstr "ناموفق!"
 
-#: apps/game/admin.py:162
+#: apps/game/admin.py:171
 msgid "done"
 msgstr "انجام‌شده"
 
-#: apps/game/admin.py:163
+#: apps/game/admin.py:172
 msgid "waiting"
 msgstr "در حال انتظار"
 
-#: apps/game/admin.py:191
+#: apps/game/admin.py:200
 msgid "is ready"
 msgstr "آماده‌بودن"
 
-#: apps/game/admin.py:205
+#: apps/game/admin.py:214
 msgid "True"
 msgstr "درست"
 
-#: apps/game/admin.py:206
+#: apps/game/admin.py:215
 msgid "False"
 msgstr "نادرست"
 
-#: apps/game/models/challenge.py:136 apps/game/models/challenge.py:139
+#: apps/game/models/challenge.py:138 apps/game/models/challenge.py:141
 msgid "None"
 msgstr "هیچ!"
 
-#: apps/game/models/challenge.py:142
+#: apps/game/models/challenge.py:144
 msgid "Team: "
 msgstr "تیم:‌"
 
-#: apps/game/models/challenge.py:142
+#: apps/game/models/challenge.py:144
 msgid "Challenge: "
 msgstr "چالش:‌"
 
-#: apps/game/models/challenge.py:184
+#: apps/game/models/challenge.py:186
 msgid "C++"
 msgstr "++C"
 
-#: apps/game/models/challenge.py:185
+#: apps/game/models/challenge.py:187
 msgid "Java"
 msgstr "جاوا"
 
-#: apps/game/models/challenge.py:186
+#: apps/game/models/challenge.py:188
 msgid "Python 3"
 msgstr "پایتون ۳"
 
-#: apps/game/models/challenge.py:190
+#: apps/game/models/challenge.py:192
 msgid "Uploading"
 msgstr "در حال آپلود"
 
-#: apps/game/models/challenge.py:191
+#: apps/game/models/challenge.py:193
 msgid "Uploaded"
 msgstr "آپلود شده"
 
-#: apps/game/models/challenge.py:192
+#: apps/game/models/challenge.py:194
 msgid "Compiling"
 msgstr "در حال کامپایل"
 
-#: apps/game/models/challenge.py:193
+#: apps/game/models/challenge.py:195
 msgid "Compiled"
 msgstr "کامپایل شده"
 
-#: apps/game/models/challenge.py:194
+#: apps/game/models/challenge.py:196
 msgid "Failed"
 msgstr "ناموفق!"
 
-#: apps/game/models/challenge.py:216
+#: apps/game/models/challenge.py:218
 msgid "This submission is not compiled yet."
 msgstr "این ارسال هنوز کامپایل نشده است."
 
-#: apps/game/models/competition.py:58 apps/game/models/competition.py:256
+#: apps/game/models/competition.py:30
+msgid "online_phase_1"
+msgstr "آنلاین فاز یک"
+
+#: apps/game/models/competition.py:31
+msgid "online_phase_2"
+msgstr "آنلاین فاز دو"
+
+#: apps/game/models/competition.py:32
+msgid "onsite_day_1"
+msgstr "حضوری روز اول"
+
+#: apps/game/models/competition.py:33
+msgid "onsite_day_2"
+msgstr "حضوری روز دوم"
+
+#: apps/game/models/competition.py:36
+msgid "MEAN"
+msgstr ""
+
+#: apps/game/models/competition.py:37
+msgid "FINAL"
+msgstr ""
+
+#: apps/game/models/competition.py:73 apps/game/models/competition.py:279
 msgid "difficult"
 msgstr "دشوار"
 
-#: apps/game/models/competition.py:59 apps/game/models/competition.py:257
+#: apps/game/models/competition.py:74 apps/game/models/competition.py:280
 msgid "medium"
 msgstr "متوسط"
 
-#: apps/game/models/competition.py:60 apps/game/models/competition.py:258
+#: apps/game/models/competition.py:75 apps/game/models/competition.py:281
 msgid "easy"
 msgstr "آسان"
 
-#: apps/game/models/competition.py:63 apps/game/models/competition.py:261
+#: apps/game/models/competition.py:78 apps/game/models/competition.py:284
 msgid "multiple_choice"
 msgstr "چند گزینه‌ای"
 
-#: apps/game/models/competition.py:64 apps/game/models/competition.py:262
+#: apps/game/models/competition.py:79 apps/game/models/competition.py:285
 msgid "single_answer"
 msgstr "یک پاسخی"
 
-#: apps/game/models/competition.py:65 apps/game/models/competition.py:263
+#: apps/game/models/competition.py:80 apps/game/models/competition.py:286
 msgid "multiple_answer"
 msgstr "چند پاسخی"
 
-#: apps/game/models/competition.py:66 apps/game/models/competition.py:264
+#: apps/game/models/competition.py:81 apps/game/models/competition.py:287
 msgid "single_sufficient_answer"
 msgstr "یک پاسخ کافی"
 
-#: apps/game/models/competition.py:67 apps/game/models/competition.py:265
+#: apps/game/models/competition.py:82 apps/game/models/competition.py:288
 msgid "single_number"
 msgstr "عدد"
 
-#: apps/game/models/competition.py:68 apps/game/models/competition.py:266
+#: apps/game/models/competition.py:83 apps/game/models/competition.py:289
 msgid "interval_number"
 msgstr "بازه‌ی عددی"
 
-#: apps/game/models/competition.py:69 apps/game/models/competition.py:267
+#: apps/game/models/competition.py:84 apps/game/models/competition.py:290
 msgid "file_upload"
 msgstr "بارگزاری فایل"
 
-#: apps/game/models/competition.py:70
+#: apps/game/models/competition.py:85
 #, fuzzy
 #| msgid "file_upload"
 msgid "triple_cat_file_upload"
 msgstr "بارگزاری فایل"
 
-#: apps/game/models/competition.py:71 apps/game/models/competition.py:268
+#: apps/game/models/competition.py:86
+#, fuzzy
+#| msgid "file_upload"
+msgid "boolean_file_upload"
+msgstr "بارگزاری فایل"
+
+#: apps/game/models/competition.py:87 apps/game/models/competition.py:291
 #, fuzzy
 #| msgid "file_upload"
 msgid "code_upload"
 msgstr "بارگزاری فایل"
 
-#: apps/game/models/competition.py:74
+#: apps/game/models/competition.py:88
+#, fuzzy
+#| msgid "file_upload"
+msgid "onsite_code_upload"
+msgstr "بارگزاری فایل"
+
+#: apps/game/models/competition.py:89
+#, fuzzy
+#| msgid "file_upload"
+msgid "onsite_file_upload"
+msgstr "بارگزاری فایل"
+
+#: apps/game/models/competition.py:90
+#, fuzzy
+#| msgid "file_upload"
+msgid "report_upload"
+msgstr "بارگزاری فایل"
+
+#: apps/game/models/competition.py:93
 msgid "text_number"
 msgstr "متن عددی"
 
-#: apps/game/models/competition.py:75
+#: apps/game/models/competition.py:94
 msgid "text_string"
 msgstr "متن رشته‌ای"
 
-#: apps/game/models/competition.py:76
+#: apps/game/models/competition.py:95
 msgid "choices"
 msgstr "انتخاب‌ها"
 
-#: apps/game/models/competition.py:77
+#: apps/game/models/competition.py:96
 msgid "multiple"
 msgstr "چندگانه"
 
-#: apps/game/models/competition.py:78
+#: apps/game/models/competition.py:97
 msgid "file"
 msgstr "فایل"
 
-#: apps/game/models/competition.py:79
+#: apps/game/models/competition.py:98
 msgid "image_choices"
 msgstr "انتخاب تصویر"
 
-#: apps/game/models/competition.py:80
+#: apps/game/models/competition.py:99
 msgid "code"
 msgstr ""
 
-#: apps/game/models/competition.py:271
+#: apps/game/models/competition.py:294
 msgid "Question"
 msgstr "پرسش"
 
-#: apps/game/models/competition.py:272
+#: apps/game/models/competition.py:295
 msgid "IntervalQuestion"
 msgstr "پرسش بازه‌ای عددی"
 
-#: apps/game/models/competition.py:273
+#: apps/game/models/competition.py:296
 msgid "FileUploadQuestion"
 msgstr "پرسش آپلود فایل"
 
-#: apps/game/models/competition.py:274
+#: apps/game/models/competition.py:297
 msgid "MultipleAnswerQuestion"
 msgstr "پرسش چند پاسخی"
 
-#: apps/game/models/competition.py:275
+#: apps/game/models/competition.py:298
 msgid "MultipleChoiceQuestion"
 msgstr "پرسش چند گزینه‌ای"
 
-#: apps/game/models/competition.py:276
+#: apps/game/models/competition.py:299
 #, fuzzy
 #| msgid "FileUploadQuestion"
 msgid "CodeUploadQuestion"
