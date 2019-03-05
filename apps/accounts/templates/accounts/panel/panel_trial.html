@@ -543,8 +543,12 @@ document.getElementById('code-in').onchange = function () {
     document.getElementById('code-up').innerText = this.files.item(0).name;
     $('#up-link-2').css('color','forestgreen')
 };
+document.getElementById('report-in').onchange = function () {
+    document.getElementById('report-up').innerText = this.files.item(0).name;
+    $('#up-link-3').css('color','forestgreen')
+};
 document.getElementById('submit').onclick = function () {
-    if(document.getElementById('file-in').files.length == 0 || document.getElementById('code-in').files.length == 0){
+    if(document.getElementById('file-in').files.length == 0 || document.getElementById('code-in').files.length == 0 || document.getElementById('report-in').files.length == 0){
         alert('please select a file');
     }
 }
