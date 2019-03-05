@@ -31,7 +31,7 @@
         </div>
     </div>
 </div>
-{% else %}
+{% elif phase.type == 'online_phase_2' %}
 <div>
     <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
             {{ name }}
@@ -55,13 +55,66 @@
         </div>
     </div>
 </div>
+{% elif phase.type == 'onsite_day_1' %}
+<div>
+    <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
+            {{ name }}
+        </div>
+
+    <div class="ui" style="font-family: IRANSans; font-weight: 200; border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
+
+        <div class="ui warning message blue" style="padding: 5%; text-align: center">
+            در اولین روز از مرحله حضوری، با سوالاتی روی دادگان اصلی دیوار، با محوریت تحلیل داده روبرو هستید.
+            <br>
+            <br>
+            دقت کنید که در این سوالات به هیچ عنوان یک پاسخ خاص صحیح نیست و امتیاز شما تابعی از صحت پاسخ‌های شما و کیفیت گزارش شما خواهد بود.
+            <br>
+            <br>
+            گزارش ارائه‌شده باید شامل توصیف روش، تکه‌کدهای پیاده‌سازی شده، نتایج، بحث روی نتایج و مراجع استفاده شده باشد.
+            <br>
+        </div>
+        <a
+          class="fluid ui button blue"
+          style="margin: 20px 0px"
+          href="{% url 'accounts:new_trial' phase.id %}"
+        >
+          {% trans 'Get a new trial' %}
+      </a>
+        <div class="ui warning message blue" style="padding: 5%; text-align: center">
+            امتیاز شما در این فاز تنها در پایان روز و با تلاش نهایی شما، محاسبه می‌شود و از طریق سایت در دسترس قرار می‌گیرد.
+        </div>
+    </div>
+</div>
+{% elif phase.type == 'onsite_day_2' %}
+<div>
+    <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
+            {{ name }}
+        </div>
+
+    <div class="ui" style="font-family: IRANSans; font-weight: 200; border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
+
+        <div class="ui warning message blue" style="padding: 5%; text-align: center">
+
+        </div>
+        <a
+          class="fluid ui button blue"
+          style="margin: 20px 0px"
+          href="{% url 'accounts:new_trial' phase.id %}"
+        >
+          {% trans 'Get a new trial' %}
+      </a>
+        <div class="ui warning message blue" style="padding: 5%; text-align: center">
+                        امتیاز نهایی شما (مؤثر در صعود به مرحله حضوری) با نیمه دیگر دادگان ارسال نهایی محاسبه ‌خواهدشد.
+        </div>
+    </div>
+</div>
 {% endif %}
 <div style="display: block">
     <div class="ui three column grid center aligned container stackable">
     {% for trial in trials%}
         <div class="ui button center aligned one column grid" style="cursor:initial;background-color: transparent!important; margin-bottom: 7%; margin-top:3%"
              data-tooltip="
-                {% if phase.type == 'online_phase_2' %}
+                {% if phase.trial_submit_type == 'FINAL' %}
                     {% trans 'Score ' %}:
                     {% if trial.score == -1 %}
                         {% trans 'Judging ...' %}
