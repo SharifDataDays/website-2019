@@ -41,7 +41,7 @@ class GameAdmin(admin.ModelAdmin):
 
 
 class NotifAdmin(admin.ModelAdmin):
-    fields = ['team', 'content']
+    fields = ['team', 'content', 'title']
 
 
 class TrialAdmin(admin.ModelAdmin):

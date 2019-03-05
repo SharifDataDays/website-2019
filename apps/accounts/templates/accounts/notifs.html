@@ -8,6 +8,7 @@
 {% block panel_content %}
     {% for n in notifs %}
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 2%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
+            <h2>{{ n.title }}</h2>
             {{ n.content }}
         </div>
     {% endfor %}
