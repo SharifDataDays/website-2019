@@ -4,7 +4,7 @@
 {% load static i18n ai_filters tz %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 {% block extra_header %}
-    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 
 {% block panel_content %}
@@ -19,6 +19,35 @@
     <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
 	   Trial {{ id }}
     </div>
+
+    {% if type == 'onsite_day_1' %}
+         <br class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
+         <br class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
+<br>
+فایل فشرده‌شده فولدر پروژه خود را با حجم حداکثر ۱۰ مگابایت و فرمت zip آپلود کنید.
+<br/>
+<br>
+۱-۲- ارتباط تعداد اشکالات نگارشی در متون را با تمام متغیرهای دیگر بیابید و مشخص کنید چه عواملی ممکن است با اشکالات نگارشی در متن مرتبط باشند. مثلا مشخص کنید آیا تعداد اشکالات با ساعت آگهی ارتباط معنی‌دار دارد یا نه؟
+</br>
+             <br>
+۱-۳- میخواهیم یک معیار جدید برای کیفیت توضیحات در متون تعریف کنیم. این معیار یک ترکیب خطی مناسب از تعداد اشتباهات نوشتاری، میزان استفاده از کلمات کلیدی در متن و هر کیفیت دیگری که میتوان به متن توضیحات نسبت داد است. متر ما برای سنجش این معیار این است که چقدر میتوان با آن به خوبی احتمال فروش را (با هر روش دلخواهی) پیشبینی کرد.
+</br>
+        <br>
+         ۱-۴- تبلیغات را به فضای عددی ببرید! به هر نحوی که میتوانید، تبلیغات را به فضای عددی ببرید. (راهنمایی: یک معیار مناسب برای اینکه چقدر این انتقال مناسب است،‌ تصویر سازی دو بعدی از تبلیغات خواهد بود.)
+        </br>
+        <br>
+        ۱-۵- یک خوشه‌بندی مناسب روی آگهی‌ها انجام دهید و ادعا کنید روش شما برای خوشه بندی بهترین روش ممکن برای داده است. با استفاده از نمودارهای مناسب  این خوشه ‌بندی را تصویر کنید.
+        </br>
+        <br>
+        ۱-۶- مشخص کنید آیا انتخاب عنوان مناسب تاثیری در احتمال فروش رفتن دارد؟
+        </br>
+        <br>
+        ۱-۷- سه توصیه به آگهی گذاران ارائه دهندگان بکنید و از توصیه‌های خود دفاع کنید.
+        </br>
+
+        </div>
+         </div>
+    {% endif %}
 
     {% if file_based_questions %}
 
@@ -37,7 +66,7 @@
         <span style="font-weight:bold">ملاحظه مهم</span>: ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا هر برند باید به شکل ارائه شده در <a href="/media/brands.txt" target="_blank" download="brands.txt">فایل پیوست</a> به سوال نوشته شود.
 
                 </div>
-        {% else %}
+        {% elif type == 'online_phase_2'  %}
                 <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
                 <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
                     <span style="font-weight:bold">بخش اول</span><br>
@@ -52,6 +81,21 @@
         <span style="font-weight:bold">ملاحظه مهم: </span>ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا تمام دسته ها باید به همان شکلی که در دیتاست Train قرار دارد باشد. یک نمونه از پاسخ مطلوب در این فایل <a href="/get_sample_cats" target="_blank" download="phase_2_cats.csv">فایل پیوست</a> شده است.
 
                 </div>
+{#        {% elif type == 'onsite_day_1' %}#}
+{#            <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">#}
+{#                <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">#}
+{#                    <span style="font-weight:bold">بخش اول</span><br>#}
+{#        <span style="font-weight:bold">عنوان: </span>پیش‌بینی دسته‌بندی<br>#}
+{#        <span style="font-weight:bold">امتیاز: </span>۳۰۰۰ امتیاز<br>#}
+{#        <span style="font-weight:bold">توانایی: </span>یادگیری ماشین و تحلیل متن<br>#}
+{##}
+{#        <span style="font-weight:bold">مسئله: </span>پیشبینی دسته بندی آگهی از روی سایر ویژگی های آن<br>#}
+{#                    <br>#}
+{#        <span style="font-weight:bold">توصیف: </span>در این بخش شما یک دیتاست شامل ۲۰۰ هزار سطر دانلود میکنید که هر سطر حاوی اطلاعات مربوط به یک آگهی است. شما باید دسته بندی سلسله مراتبی هر آگهی را به دست آورید و در قالب یک فایل csv که شامل ۲۰۰ هزار سطر و سه ستون cat1, cat2, cat3 است آپلود کنید.#}
+{#        <br/>#}
+{#        <span style="font-weight:bold">ملاحظه مهم: </span>ساختار پاسخ باید دقیقا به شکل اشاره شده باشد. ضمنا تمام دسته ها باید به همان شکلی که در دیتاست Train قرار دارد باشد. یک نمونه از پاسخ مطلوب در این فایل <a href="/get_sample_cats" target="_blank" download="phase_2_cats.csv">فایل پیوست</a> شده است.#}
+{##}
+{#                </div>#}
         {% endif %}
 
     {# File Based Questions #}
@@ -133,6 +177,7 @@
 
     {% if code_zip %}
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
+    {% if type != 'onsite_day_1' %} }
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
             <span style="font-weight:bold">بخش دوم</span><br>
 <span style="font-weight:bold">عنوان: </span>آپلود کد<br>
@@ -141,6 +186,7 @@
 <span style="font-weight:bold">توصیف: </span>فایل فشرده‌شده فولدر پروژه خود را با حجم حداکثر ۱۰ مگابایت و فرمت zip آپلود کنید.
 <br/>
         </div>
+    {% endif %}
     {# Code Upload #}
     <div style="margin:0 0 45px 0 ">
         {% for question in code_zip %}
