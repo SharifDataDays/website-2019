@@ -40,7 +40,7 @@ class GameAdmin(admin.ModelAdmin):
 
 
 class TrialAdmin(admin.ModelAdmin):
-    fields = ['questions', 'competition', 'start_time', 'end_time', 'team', 'is_final']
+    fields = ['questions', 'competition', 'start_time', 'end_time', 'team', 'is_final', 'score']
 
 
 class QuestionSubmissionAdmin(admin.ModelAdmin):
