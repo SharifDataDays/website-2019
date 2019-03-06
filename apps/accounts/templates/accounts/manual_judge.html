@@ -12,7 +12,7 @@
         <div class="ui four column grid center aligned container stackable">
         {% for q in s.questionSubmissions.all %}
             <div class="ui button center aligned one column grid" style="cursor:initial;background-color: transparent!important; margin-bottom: 1%; margin-top:3%">
-                <P>{{ q.question.stmt }}</P>
+                <P>{{ q.question.type }}</P>
                 <form enctype="multipart/form-data" action="{% url 'accounts:judge_download_link' %}" class="form" method="post">
                                     {% csrf_token %}
                                     <button class="ui compact fluid button " style="margin: 20px 0; background-color :#3d698e; " type="submit">

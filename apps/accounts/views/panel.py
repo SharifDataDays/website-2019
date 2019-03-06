@@ -741,8 +741,17 @@ def get_dataset(request, phase_id, trial_id):
         redirect("/accounts/panel/team")
     if phase.type == 'online_phase_2':
         return get_dataset_2(request, phase_id, trial_id)
-    else:  # elif phase.type == 'online_phase_1'
+    elif phase.type == 'online_phase_1':  # elif phase.type == 'online_phase_1'
         return get_dataset_1(request, phase_id, trial_id)
+    elif phase.type == 'onsite_day_1':
+        return get_dataset_bazzar()
+
+
+def get_dataset_bazzar():
+    with open('/home/datadays/cafe_bazaar_dataset.csv', 'r') as pdf:
+        response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
+        response['Content-Disposition'] = 'attachment;filename=dataset_baazaar.csv'
+        return response
 
 
 @login_required
