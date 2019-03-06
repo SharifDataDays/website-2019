@@ -1197,7 +1197,7 @@ def get_download_link(request):
     print(type)
     if type == 'report_upload':
         with open(address, 'rb') as pdf:
-            response = HttpResponse(content=pdf.read(), content_type='application/pdf', charset='utf8')
+            response = HttpResponse(content=pdf.read(), content_type='application', charset='utf8')
             response['Content-Disposition'] = 'attachment;filename={}'.format(address)
             return response
     elif type == 'onsite_code_upload':
@@ -1207,7 +1207,7 @@ def get_download_link(request):
             return response
     else:
         with open(address, 'rb') as pdf:
-            response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
+            response = HttpResponse(content=pdf.read(), content_type='text', charset='utf8')
             response['Content-Disposition'] = 'attachment;filename={}'.format(address)
             return response
 
