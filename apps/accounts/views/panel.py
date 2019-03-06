@@ -604,9 +604,9 @@ def submit_trial(request, phase_id, trial_id):
                 qusu.trial_submission = trialSubmit
                 qusu.save()
         if file is not None:
-            if file.size > 1048576 * 10:
+            if file.size > 1048576 * 20:
 
-                error_msg = 'Max size of code zip is 10MB'
+                error_msg = 'Max size of code zip is 20MB'
                 request.POST['file_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)
             else:
@@ -623,7 +623,7 @@ def submit_trial(request, phase_id, trial_id):
                 qusu.save()
         if report is not None:
             if report.size > 1048576 * 20:
-                error_msg = 'Max size of code zip is 20MB'
+                error_msg = 'Max size of report file is 20MB'
                 request.POST['report_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)
             else:
