@@ -315,5 +315,6 @@ class Notification(models.Model):
     content = models.CharField(max_length=600)
     title = models.CharField(max_length=200, null=True, blank=True)
 
+
 def get_log_file_directory(instance, filename):
     return os.path.join('logs', filename + str(uuid.uuid4()))

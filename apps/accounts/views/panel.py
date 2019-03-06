@@ -1198,17 +1198,17 @@ def get_download_link(request):
     if type == 'report_upload':
         with open(address, 'rb') as pdf:
             response = HttpResponse(content=pdf.read(), content_type='application/pdf', charset='utf8')
-            response['Content-Disposition'] = 'attachment;filename=report.pdf'
+            response['Content-Disposition'] = 'attachment;filename={}'.format(address)
             return response
     elif type == 'onsite_code_upload':
         with open(address, 'rb') as zip:
             response = HttpResponse(content=zip.read(), content_type='application/zip', charset='utf8')
-            response['Content-Disposition'] = 'attachment;filename=code.zip'
+            response['Content-Disposition'] = 'attachment;filename={}'.format(address)
             return response
     else:
         with open(address, 'rb') as pdf:
             response = HttpResponse(content=pdf.read(), content_type='text/csv', charset='utf8')
-            response['Content-Disposition'] = 'attachment;filename=file.csv'
+            response['Content-Disposition'] = 'attachment;filename={}'.format(address)
             return response
 
 
