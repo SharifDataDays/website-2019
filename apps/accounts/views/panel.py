@@ -940,6 +940,12 @@ def get_new_trial_phase_2(request, phase_id):
         })
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
 
+        if trials.count() >= phase.trial_per_day:
+            context.update({
+                'error': _('You have one active trial.')
+            })
+            return render(request, 'accounts/panel/no_new_trial.html', context)
+
         context.update({
             'trials': trials
         })
@@ -990,6 +996,12 @@ def get_new_trial_onsite_day_1(request, phase_id):
         })
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
 
+        if trials.count() >= phase.trial_per_day:
+            context.update({
+                'error': _('You have one active trial.')
+            })
+            return render(request, 'accounts/panel/no_new_trial.html', context)
+
         context.update({
             'trials': trials
         })
@@ -1033,6 +1045,12 @@ def get_new_trial_onsite_day_1_2(request, phase_id):
         })
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
 
+        if trials.count() >= phase.trial_per_day:
+            context.update({
+                'error': _('You have one active trial.')
+            })
+            return render(request, 'accounts/panel/no_new_trial.html', context)
+
         context.update({
             'trials': trials
         })
@@ -1074,6 +1092,12 @@ def get_new_trial_onsite_day_2(request, phase_id):
             'phase': phase,
         })
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
+
+        if trials.count() >= phase.trial_per_day:
+            context.update({
+                'error': _('You have one active trial.')
+            })
+            return render(request, 'accounts/panel/no_new_trial.html', context)
 
         context.update({
             'trials': trials
