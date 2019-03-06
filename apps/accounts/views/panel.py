@@ -1165,12 +1165,13 @@ def set_final_trial(request, phase_id, trial_id):
     return redirect('accounts:panel_phase', phase_id=phase_id)
 
 
-def manual_judge(request):
+def manual_judge(request, phase_id):
     user_groups = request.user.groups.filter(name='judge')
     if len(user_groups) == 0:
         return render(request, '403.html')
-    submissions = TrialSubmission.objects.filter(trial__competition__type='onsite_day_1', trial__is_final=True)
+    submissions = TrialSubmission.objects.filter(trial__competition__id=phase_id, trial__is_final=True)
     context = {
+        'phase': Competition.objects.get(id=phase_id),
         'submissions': submissions,
     }
     return render(request, 'accounts/manual_judge.html', context)
