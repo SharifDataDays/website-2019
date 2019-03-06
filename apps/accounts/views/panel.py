@@ -942,7 +942,7 @@ def get_new_trial_phase_2(request, phase_id):
 
         if trials.count() >= phase.trial_per_day:
             context.update({
-                'error': _('You have one active trial.')
+                'error': _('You\'ve submitted a trial before.')
             })
             return render(request, 'accounts/panel/no_new_trial.html', context)
 
@@ -998,7 +998,7 @@ def get_new_trial_onsite_day_1(request, phase_id):
 
         if trials.count() >= phase.trial_per_day:
             context.update({
-                'error': _('You have one active trial.')
+                'error': _('You\'ve submitted a trial before.')
             })
             return render(request, 'accounts/panel/no_new_trial.html', context)
 
@@ -1047,7 +1047,7 @@ def get_new_trial_onsite_day_1_2(request, phase_id):
 
         if trials.count() >= phase.trial_per_day:
             context.update({
-                'error': _('You have one active trial.')
+                'error': _('You\'ve submitted a trial before.')
             })
             return render(request, 'accounts/panel/no_new_trial.html', context)
 
@@ -1095,7 +1095,7 @@ def get_new_trial_onsite_day_2(request, phase_id):
 
         if trials.count() >= phase.trial_per_day:
             context.update({
-                'error': _('You have one active trial.')
+                'error': _('You\'ve submitted a trial before.')
             })
             return render(request, 'accounts/panel/no_new_trial.html', context)
 
