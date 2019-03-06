@@ -211,6 +211,10 @@ def get_challenge_scoreboard_challenge_2(challenge_id):
 
 @login_required
 def render_phase_scoreboard(request, phase_id, challenge_id):
+
+    if request.user.username != 'mrtaalebi':
+        return redirect("google.com")
+
     if phase_id == -1:
         scoreboard = get_challenge_scoreboard(challenge_id)
     else:
@@ -337,6 +341,10 @@ def get_phase_score(team, trials, phase):
 
 @login_required
 def render_phase(request, phase_id):
+
+    if request.user.username != 'mrtaalebi':
+        return redirect("google.com")
+
     user = request.user
     phase = Competition.objects.get(id=phase_id)
     print(phase.trial_submit_type)
@@ -468,6 +476,10 @@ def get_new_trial(request, phase_id):
 
 @login_required
 def render_trial(request, phase_id, trial_id):
+
+    if request.user.username != 'mrtaalebi':
+        return redirect("google.com")
+
     phase = Competition.objects.get(id=phase_id)
     if phase is None:
         redirect("/accounts/panel/team")
