@@ -30,6 +30,7 @@ class Competition(models.Model):
         ('online_phase_1', _('online_phase_1')),
         ('online_phase_2', _('online_phase_2')),
         ('onsite_day_1', _('onsite_day_1')),
+        ('onsite_day_1_2', _('onsite_day_1_2')),
         ('onsite_day_2', _('onsite_day_2')),
     )
     TRIAL_SUBMIT_CHOICES = (

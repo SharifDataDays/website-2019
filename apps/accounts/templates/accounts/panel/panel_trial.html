@@ -57,8 +57,7 @@
                 <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
                     <span style="font-weight:bold">خواسته‌های سوال اول:</span>
                     <br><br>
-
-۱-۱) بسیاری از متون اشکالات نگارشی دارند. یک مصداق بسیار واضح از این اشکالات علائم نگارشی هستند. این اشکالات را مطابق این فایل بیابید و متون توضیحات (ستون desc) را تصحیح کنید. در این بخش دادگان تصحیح ‌شده را به فرمت csv. بارگذاری می‌کنید.
+                    با توجه به <a href="https://irandoc.ac.ir/sites/fa/files/attach/article/punctuation-persian.pdf" target="_blank">این فایل</a>، و <a href="/media/samples.list" target="_blank">فایل راهنما</a>
 
                     <br><br>
 
@@ -82,22 +81,12 @@
 
                     <br><br>
 
-۶-۱) سه توصیه به آگهی‌گذاران ارائه کنید و با تحلیل‌ روی دادگان نشان دهید چرا این توصیه‌ها مناسب هستند.
+۱-۶) سه توصیه به آگهی‌گذاران ارائه کنید و با تحلیل‌ روی دادگان نشان دهید چرا این توصیه‌ها مناسب هستند.
 
                     <br><br>
 
                 </div>
-                </div>
-                <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
-                    <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
-                        <span style="font-weight:bold">بخش اول</span><br>
-                        <span style="font-weight:bold">عنوان: </span>دادگان<br>
-
-                        <br>
-                        <span style="font-weight:bold">توصیف: </span>دادگان را دانلود کنید و فایل ویرایش‌شده آن که تنها شامل ردیف‌های ذکر شده در <a href="/media/samples.list" target="_blank">این فایل</a> است را آپلود کنید.
-                        <br/>
-                    </div>
-        {% elif type == 'onsite_day_1_2' %}
+        {% elif type == 'onsite_day_2' %}
 
         {% endif %}
     {# File Based Questions #}
@@ -138,7 +127,7 @@
                             font-family: IRANSans
                             ">
                         {# TODO href to download file #}
-                        <a href="{% url 'accounts:get_dataset' phase.id trial.id %}" target="_blank" class="ui link download-hover " style="color: black">
+                        <a href="/media/cafe_baazaar_dataset.csv    " target="_blank" class="ui link download-hover " style="color: black">
                            <i class="download icon huge"></i>
                         </a>
                         {% trans 'Download Dataset' %}
@@ -176,6 +165,65 @@
     </div>
     </div>
     {% endif %}
+
+    {% if type_part_two %}
+        <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
+            <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
+                    <br>
+تابع شما باید به صورت زیر باشد:
+                    <br>
+                <br>
+plot (args, type)
+                    <br>
+                <br>
+که در تعریف فوق args نشان‌دهنده آرگومان‌های تابع و type  نوع تصویرسازی را نشان می‌دهد. به طور کلی چهار مقدار مختلف برای type که تعریف آن‌ها در ادامه داده‌شده مورد نظر است.
+                    <br>
+                <br>
+single: تصویرسازی از هر تک ستون موجود در دادگان به شکل مناسب (برای نوع آگهی تنها ستون cat1 را در نظر بگیرید).
+                    <br>
+مثال:
+                    <br>
+توزیع تعداد آگهی‌ها برای ساعات مختلف روز.
+                    <br>
+درصد آگهی‌های فروش رفته به ازای تمام شهر‌ها.
+                    <br>
+                <br>
+double: تصویرسازی از هر دو ستون موجود در دادگان به شکل مناسب.
+                    <br>
+مثال:
+                    <br>
+توزیع یک نوع آگهی خاص در روزهای مختلف هفته.
+                    <br>
+توزیع نوع آگهی‌های مختلف در یک شهر خاص.
+                    <br>
+                <br>
+outlier: تصویرسازی برای پیدا کردن داده‌های پرت برای هر ستون عددی.
+                    <br>
+مثال:
+                    <br>
+قیمت‌های بیش از حد پایین و یا بیش از حد بالا برای یک نوع آگهی خاص.
+                    <br>
+ساعت‌های گذاشتن آگهی که داده پرت هستند.
+                    <br>
+                <br>
+map: توزیع آگهی‌های مختلف روی نقشه ایران به شکلی که بتوان یک متغیر را محدود کرد و نقشه را تصویر کرد.
+                    <br>
+مثال:
+تعداد آگهی های فروش رفته در شهرهای مختلف.
+                    <br>
+مد ساعت فعالیت تبلیغ گذاران در شهر های مختلف
+                    <br>
+تعداد آگهی یک نوع محصول خاص در شهرهای مختلف.
+                    <br>
+توزیع ساعات آگهی‌ها در شهرهای مختلف.
+                    <br>
+                <br>
+                <br>
+توجه کنید که موارد ذکر شده صرفا ایده هایی برای تصویر سازی داده ها است و شما میتوانید بجای آنها از ایده های خود استفاده کنید.
+                    <br>
+            </div>
+        </div>
+{% endif %}
 
     {% if code_zip %}
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">

@@ -454,6 +454,12 @@ def get_new_trial(request, phase_id):
         return render_phase(request, phase_id)
     elif phase.type == 'onsite_day_1':
         return get_new_trial_onsite_day_1(request, phase_id)
+    elif phase.type == 'onsite_day_1_2':
+        tpc = get_team_pc(request)
+        if TrialSubmission.objects.filter(trial__team=tpc, trial__competition__type='onsite_day_1').exists():
+            return get_new_trial_onsite_day_1_2(request, phase_id)
+        else:
+            return redirect("/accounts/panel/team")
     elif phase.type == 'onsite_day_2':
         return get_new_trial_onsite_day_2(request, phase_id)
     else:
@@ -479,6 +485,8 @@ def render_trial(request, phase_id, trial_id):
             'id': len(Trial.objects.filter(team=team_pc, competition=phase)),
             'type': phase.type
         })
+        if phase_id == '7':
+            context['type_part_two'] = True
         errors = []
         if request.POST.get('file_error'):
             errors.append(request.POST['file_error'])
@@ -590,7 +598,7 @@ def submit_trial(request, phase_id, trial_id):
                 error_msg = 'Only zip file is acceptable'
                 request.POST['code_error'] = error_msg
                 return render_trial(request, phase_id, trial_id)
-            elif file.size > 1048576 * 10:
+            elif file is not None and file.size > 1048576 * 10:
                 print(file.size)
                 error_msg = 'Max size of csv answer is 10MB'
                 request.POST['code_error'] = error_msg
@@ -989,6 +997,48 @@ def get_new_trial_onsite_day_1(request, phase_id):
         report_upload = ReportUploadQuestion.objects.all()[0]
         current_trial.questions.add(report_upload)
         current_trial.save()
+        context.update({
+            'current_trial': current_trial
+        })
+    return redirect('accounts:panel_trial', phase_id=phase_id, trial_id=current_trial.id)
+
+
+def get_new_trial_onsite_day_1_2(request, phase_id):
+    phase = Competition.objects.get(id=phase_id)
+    if phase is None:
+        redirect("/accounts/panel/team")
+    else:
+        team_pc = get_team_pc(request)
+        if team_pc is None:
+            return redirect_to_somewhere_better(request)
+        context = get_shared_context(request)
+        for item in context['menu_items']:
+            if item['name'] == phase.name:
+                item['active'] = True
+        context.update({
+            'participation': team_pc,
+            'phase': phase,
+        })
+        trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
+
+        context.update({
+            'trials': trials
+        })
+        for trial in trials:
+            if trial.end_time > timezone.now() and trial.submit_time is None:
+                context.update({
+                    'error': _('You have one active trial.')
+                })
+                return render(request, 'accounts/panel/no_new_trial.html', context)
+        current_trial = Trial(competition=phase, start_time=datetime.now(), team=team_pc)
+        current_trial.save()
+
+        code_upload_question = CodeUploadQuestion.objects.filter(type='onsite_code_upload')[0]
+        current_trial.questions.add(code_upload_question)
+        report_upload = ReportUploadQuestion.objects.all()[0]
+        current_trial.questions.add(report_upload)
+        current_trial.save()
+
         context.update({
             'current_trial': current_trial
         })

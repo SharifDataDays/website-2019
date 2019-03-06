@@ -95,6 +95,46 @@
         </div>
     </div>
 </div>
+{% elif phase.type == 'onsite_day_1_2' %}
+<div>
+    <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
+            {{ name }}
+        </div>
+
+    <div class="ui" style="font-family: IRANSans; font-weight: 200; border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
+
+        <div class="ui warning message blue" style="padding: 5%; text-align: center">
+            در این بخش باید تابعی با توانایی تولید یک نمودار با توجه به آرگومان‌های ورودی بنویسید.
+            <br>
+            <br>
+            همچنین کدهای شما باید تا حد امکان پاکسازی شده و قابل بازتولید باشد.
+            <br>
+            <br>
+            در نهایت مهم‌ترین بخش نمره شما، مانند مسابقه قبلی، گزارش است که باید شامل توصیف روش، تکه‌کدهای استفاده‌شده، نتایج و بحث روی آن‌ها در نهایت و مراجع استفاده شده باشد.
+        </div>
+
+        <div class="ui warning message red" style="padding: 5%; text-align: center">
+            دقت کنید تنها می‌توانید یک تلاش برای هر قسمت ارسال کنید!
+            <br>
+            <br>
+            و تنها در صورتی می‌توانید در قسمت دوم شرکت کنید که برای قسمت اول یک تلاش ارسال کرده باشید.
+            <br>
+            (می‌توانید با ارسال فایل‌های خالی به قسمت اول، از آن گذر کرده و به قسمت دوم وارد شوید. منتهی امکان ارسال مجدد برای قسمت اول وجود ندارد.)
+            <br>
+        </div>
+
+        <a
+          class="fluid ui button blue"
+          style="margin: 20px 0px"
+          href="{% url 'accounts:new_trial' phase.id %}"
+        >
+          {% trans 'Get a new trial' %}
+      </a>
+        <div class="ui warning message blue" style="padding: 5%; text-align: center">
+            امتیاز شما در این فاز تنها در پایان روز و با تلاش نهایی شما، محاسبه می‌شود و از طریق سایت در دسترس قرار می‌گیرد.
+        </div>
+    </div>
+</div>
 {% elif phase.type == 'onsite_day_2' %}
 <div>
     <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
