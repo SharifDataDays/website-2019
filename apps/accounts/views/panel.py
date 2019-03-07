@@ -206,7 +206,7 @@ def get_challenge_scoreboard_challenge_1(challenge_id):
 
 def get_challenge_scoreboard_challenge_2(challenge_id):
     # TO FUCKING DO A.K.A. TODO
-    return get_scoreboard(Competition.objects.filter(challenge__id=challenge_id).last())
+    return get_scoreboard(Competition.objects.get(challenge__id=challenge_id, type='onsite_day_2').id)
 
 
 @login_required
