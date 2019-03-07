@@ -1094,7 +1094,7 @@ def get_new_trial_onsite_day_2(request, phase_id):
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
 
         for trial in trials:
-                if trial.start_time - timezone.now() < timedelta(minutes=30):
+                if (timedelta(minutes=30) + trial.start_time) > timezone.now():
                     context.update({
                         'error': _(
                             'Wait for more {} minutes to get a new trial.'.format(
@@ -1111,6 +1111,7 @@ def get_new_trial_onsite_day_2(request, phase_id):
                     'error': _('You have one active trial.')
                 })
                 return render(request, 'accounts/panel/no_new_trial.html', context)
+
         current_trial = Trial(competition=phase, start_time=datetime.now(), team=team_pc)
         current_trial.save()
         question = FileUploadQuestion.objects.get(type='boolean_file_upload')
