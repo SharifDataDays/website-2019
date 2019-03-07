@@ -11,7 +11,6 @@
     <div class="ui blue message" style="width: 100%; display: block; font-size: 2em; font-family: IRANSans; text-align: center">
         {% trans 'Scoreboard' %}
     </div>
-
     <div class="ui buttons five fluid">
         {% for scoreboard in scoreboard_links %}
             {% if scoreboard.name == scoreboard_name %}
@@ -36,7 +35,6 @@
             </tr>
         </thead>
         <tbody>
-
         {% for team in scoreboard %}
             <tr {% if my_team.team.name == team.team_name %} style="background-color: lightblue" {% endif %}>
                 <td style="text-align: center">
