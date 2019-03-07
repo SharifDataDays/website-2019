@@ -2,7 +2,7 @@ import json
 import math
 import os
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pytz
 from django.apps import apps
@@ -1093,11 +1093,14 @@ def get_new_trial_onsite_day_2(request, phase_id):
         })
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
 
-        if trials.count() >= phase.trial_per_day:
-            context.update({
-                'error': _('You\'ve submitted a trial before.')
-            })
-            return render(request, 'accounts/panel/no_new_trial.html', context)
+        for trial in trials:
+                if trial.start_time - timezone.now() < timedelta(minutes=30):
+                    context.update({
+                        'error': _(
+                            'Wait for more {} minutes to get a new trial.'.format(
+                                timedelta(minutes=30) - (timezone.now() - trial.start_time)))
+                    })
+                    return render(request, 'accounts/panel/no_new_trial.html', context)
 
         context.update({
             'trials': trials

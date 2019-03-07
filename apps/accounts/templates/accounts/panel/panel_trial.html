@@ -87,7 +87,10 @@
 
                 </div>
         {% elif type == 'onsite_day_2' %}
-
+                <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
+                <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
+                    kirekhar
+                </div>
         {% endif %}
     {# File Based Questions #}
     <div style="margin:0 0 45px 0 ">
@@ -300,11 +303,20 @@ map: توزیع آگهی‌های مختلف روی نقشه ایران به ش�
     {% if report %}
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
+            {% if type != 'onsite_day_2' %}
             <span style="font-weight:bold">بخش سوم</span><br>
 <span style="font-weight:bold">عنوان: </span>آپلود گزارش<br>
 <br>
 <span style="font-weight:bold">توصیف: </span>یک فایل pdf، html و یا ipynb را که گزارش کد و تحلیل داده‌ شماست
 <br/>
+            {% else %}
+              <span style="font-weight:bold">بخش دوم</span><br>
+<span style="font-weight:bold">عنوان: </span>گزارش و کد<br>
+            <br>
+<span style="font-weight:bold">توصیف: </span>
+            یک فایل زیپ حاوی کد و گزارش خود (مانند آنچه در روز قبل بیان شد) آپلود کنید.
+<br>
+            {% endif %}
         </div>
      {#Report Upload #}
     <div style="margin:0 0 45px 0 ">
@@ -419,6 +431,7 @@ map: توزیع آگهی‌های مختلف روی نقشه ایران به ش�
     <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-top: 1%;">
      <div class ="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%;">
         <div class="ui" style="border: 1px solid #E8E8E8; border-radius:.28571429rem .28571429rem 0 0; padding: 5%; margin-bottom: 5%; background-color: #e8e8e8; font-family: IRANSans;">
+            {% if type != 'onsite_day_2' %}
             <span style="font-weight:bold">بخش سوم</span><br>
 <span style="font-weight:bold">عنوان</span>: سوالات کوتاه پاسخ<br>
 <span style="font-weight:bold">امتیاز</span>: متغیر<br>
@@ -431,8 +444,14 @@ map: توزیع آگهی‌های مختلف روی نقشه ایران به ش�
 <br>
 <span style="font-weight:bold">ملاحظه مهم</span>
 : برای سوالات عددی،‌ پاسخ خود را به صورت عدد (و نه نوشتار) وارد کنید و برای سوالات متنی پاسخ خود را فقط به صورت فارسی یا انگلیسی (و نه فینگلیش) وارد کنید.
-
-        </div>
+            {% else %}
+            <span style="font-weight:bold">بخش دوم</span><br>
+<span style="font-weight:bold">عنوان: </span>گزارش و کد<br>
+            <br>
+<span style="font-weight:bold">توصیف</span>
+            یک فایل زیپ حاوی کد و گزارش خود (مانند آنچه در روز قبل بیان شد) آپلود کنید.
+<br>
+            {% endif %}
 
          {# Numeric Single-Answer Questions #}
     <div style="margin:0 0 45px 0 ">
