@@ -246,15 +246,26 @@ def render_phase_scoreboard(request, phase_id, challenge_id):
         'my_team': my_team,
         'page_num': (paginated_scoreboard.number - 1) * 40,
     })
-    if phase_id == -1:
-        context.update({
-            'scoreboard_name': _('Total Scoreboard'),
 
-            'headers': [
-                _('Rank'), _('Name'), _('Phase 1 From 10000'), _('Phase 1 Final Score'),
-                _('Phase 2 From 10000'), _('Phase 2 Final Score'), _('Final Score From 20000')
-            ],
-        })
+
+    if phase_id == -1:
+        if not Challenge.objects.get(id= challenge_id).onsite:
+            context.update({
+                'scoreboard_name': _('Total Scoreboard'),
+
+                'headers': [
+                    _('Rank'), _('Name'), _('Phase 1 From 10000'), _('Phase 1 Final Score'),
+                    _('Phase 2 From 10000'), _('Phase 2 Final Score'), _('Final Score From 20000')
+                ],
+            })
+        else:
+            context.update({
+                'scoreboard_name': _('Total Scoreboard'),
+
+                'headers': [
+                    _('Rank'), _('Name'), _('total'),
+                ],
+            })
     elif Competition.objects.get(id=phase_id).type == 'online_phase_2':
         context.update({
             'scoreboard_name': _(Competition.objects.get(id=phase_id).name),
@@ -263,6 +274,8 @@ def render_phase_scoreboard(request, phase_id, challenge_id):
                 _('Rank'), _('Name'), _('First Half Score'), _('Second Half Score')
             ],
         })
+    # elif Competition.objects.get(id=phase_id).type == 'onsite_day_2':
+
     else:
         context.update({
             'scoreboard_name': _(Competition.objects.get(id=phase_id).name),
