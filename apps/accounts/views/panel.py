@@ -549,6 +549,8 @@ def submit_trial(request, phase_id, trial_id):
     if not request.POST:
         return redirect('accounts:panel')
 
+    return redirect('acounts:panel')
+    
     phase = Competition.objects.get(id=phase_id)
 
     if phase is None:
