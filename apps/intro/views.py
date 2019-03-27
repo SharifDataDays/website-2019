@@ -1,11 +1,15 @@
 import logging
+from io import BytesIO
 
+from PIL import Image
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 
 from apps.accounts.models import Team
 from apps.game.models import TeamSubmission
+from apps.intro.form import StaffForm
+from apps.intro.models import Staff
 
 logger = logging.getLogger(__name__)
 
@@ -31,4 +35,31 @@ def not_found(request):
 
 
 def staffs(request):
-    return render(request, 'intro/staffs.html')
+    staff = Staff.objects.all()
+    return render(request, 'intro/staffs.html', {
+        "staff": staff,
+    })
+
+
+def add_staff(request):
+    form = StaffForm(request.POST, request.FILES)
+    if request.POST:
+        if form.is_valid():
+            image_field = form.cleaned_data['image']
+            image_file = BytesIO(image_field.file.read())
+            image = Image.open(image_file)
+            h = image.size[1]
+            w = image.size[0]
+            if w < h:
+                image = image.crop((0, (h - w) / 2, w, (h - w) / 2 + w)).resize((w, w), Image.ANTIALIAS)
+            elif w > h:
+                image = image.crop(((w - h) / 2, 0, (w - h) / 2 + h, h)).resize((h, h), Image.ANTIALIAS)
+            image = image.resize((300, 300), Image.ANTIALIAS)
+            image_file = BytesIO()
+            image.save(image_file, 'PNG')
+            image_field.file = image_file
+            image_field.image = image
+            Staff.objects.create(name=form.cleaned_data['name'], team=form.cleaned_data['team'], image=image_field)
+    return render(request, 'intro/staff-form.html', {
+        'form': form
+    })
