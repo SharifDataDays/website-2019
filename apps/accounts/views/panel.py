@@ -18,7 +18,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
-from aic_site.local_settings import PHASE_2_DATASET_PATH, PHASE_2_CATS_PATH
+# from aic_site.local_settings import PHASE_2_DATASET_PATH, PHASE_2_CATS_PATH
 from aic_site.settings.base import MEDIA_ROOT
 from apps.game.models import TeamParticipatesChallenge, Competition, Trial, PhaseInstructionSet, \
     Instruction, Question, \
