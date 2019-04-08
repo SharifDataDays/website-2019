@@ -2,7 +2,7 @@ import json
 import math
 import os
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pytz
 from django.apps import apps
@@ -206,7 +206,7 @@ def get_challenge_scoreboard_challenge_1(challenge_id):
 
 def get_challenge_scoreboard_challenge_2(challenge_id):
     # TO FUCKING DO A.K.A. TODO
-    return get_scoreboard(Competition.objects.filter(challenge__id=challenge_id).last())
+    return get_scoreboard(Competition.objects.get(challenge__id=challenge_id, type='onsite_day_2').id)
 
 
 @login_required
@@ -1095,11 +1095,14 @@ def get_new_trial_onsite_day_2(request, phase_id):
         })
         trials = Trial.objects.filter(team_id=team_pc.id, competition=phase)
 
-        if trials.count() >= phase.trial_per_day:
-            context.update({
-                'error': _('You\'ve submitted a trial before.')
-            })
-            return render(request, 'accounts/panel/no_new_trial.html', context)
+        for trial in trials:
+                if (timedelta(minutes=30) + trial.start_time) > timezone.now():
+                    context.update({
+                        'error': _(
+                            'Wait for more {} minutes to get a new trial.'.format(
+                                timedelta(minutes=30) - (timezone.now() - trial.start_time)))
+                    })
+                    return render(request, 'accounts/panel/no_new_trial.html', context)
 
         context.update({
             'trials': trials
@@ -1110,6 +1113,7 @@ def get_new_trial_onsite_day_2(request, phase_id):
                     'error': _('You have one active trial.')
                 })
                 return render(request, 'accounts/panel/no_new_trial.html', context)
+
         current_trial = Trial(competition=phase, start_time=datetime.now(), team=team_pc)
         current_trial.save()
         question = FileUploadQuestion.objects.get(type='boolean_file_upload')
