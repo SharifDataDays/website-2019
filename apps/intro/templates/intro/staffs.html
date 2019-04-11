@@ -10,29 +10,30 @@
 
 <div style="min-height: 100vh">
 
-    <div class="ui pointing secondary menu">
+    <div class="ui pointing secondary menu" style="">
 	    {% for team in staff_reborn %}
-	    	<a class="item" data-tab="{{ team.name }}">{% trans team.name %}</a>
+		    <a class={% if team.name == 'Executive' %} "item active" {% else %} "item" {% endif %} data-tab="{{ team.name }}">{% trans team.name %}</a>
 	    {% endfor %}
     </div>
 
     {% for team in staff_reborn %}
-    	<div class="ui tab segment mybackground" data-tab="{{ team.name }}">
+        <div class="ui tab segment mybackground" data-tab="{{ team.name }}">
 		{% for sub_team in team.sub_teams %}
-			<hr>
-			<p>{% trans sub_team.name %}</p>
-			{% for member in sub_team.members %}
-				<div class="d-sm-inline-block" style="margin: 3%">
-					<div class="wrap">
-						<img src="media/{{ member.image }}" alt=""/>
-						<div class="layer" onclick="">
-							<div class="caption">
-								<h3 class="text-font">{{ member.name }}</h3>
+			<p class="ui center aligned" style="height:10px;">{% trans sub_team.name %}</p>
+			<div class="ui stackable four column grid">
+				{% for member in sub_team.members %}
+					<div class="column">
+						<div class="wrap">
+							<img src="media/{{ member.image }}" alt=""/>
+							<div class="layer" onclick="">
+								<div class="caption">
+									<h3 class="text-font">{{ member.name }}</h3>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
+			</div>
 		{% endfor %}
 	</div>
     {% endfor %}

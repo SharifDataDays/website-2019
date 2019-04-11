@@ -2,6 +2,7 @@ import logging
 from io import BytesIO
 
 from PIL import Image
+import random
 
 from django.http import HttpResponseRedirect
 
@@ -50,11 +51,12 @@ def staffs(request):
             sub = {'name': sub_team.name,
                    'members': [s for s in StaffReborn.objects.filter(sub_team=sub_team)],
                    }
+            random.shuffle(sub['members'])
             team['sub_teams'].append(sub)
+        random.shuffle(team['sub_teams'])
         staff_reborn.append(team)
-
-    print(staff_reborn)
-    print("fuck you")
+    
+    
     staff = Staff.objects.all()
     return render(request, 'intro/staffs.html', {
         "staff": staff,
