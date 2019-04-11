@@ -20,7 +20,7 @@
     	<div class="ui tab segment mybackground" data-tab="{{ team.name }}">
 		{% for sub_team in team.sub_teams %}
 			<hr>
-			<h4>{% trans sub_team.name %}</h1>
+			<p>{% trans sub_team.name %}</p>
 			{% for member in sub_team.members %}
 				<div class="d-sm-inline-block" style="margin: 3%">
 					<div class="wrap">
