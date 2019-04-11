@@ -11,7 +11,7 @@
 {% endblock %}
 <body dir="rtl" style="background-color: rgb(57, 125, 197)">
 <div class="form">
-    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    <form method="post" action='/staff-add' enctype="multipart/form-data">{% csrf_token %}
         {{ form.as_ul }}
         <button type="submit" class="btn btn-primary" style="margin: 15px; margin-top: 0">Submit</button>
     </form>

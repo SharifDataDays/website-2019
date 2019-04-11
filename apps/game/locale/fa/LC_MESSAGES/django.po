@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:07+0430\n"
+"POT-Creation-Date: 2019-04-11 17:39+0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,51 +49,51 @@ msgstr "درست"
 msgid "False"
 msgstr "نادرست"
 
-#: apps/game/models/challenge.py:138 apps/game/models/challenge.py:141
+#: apps/game/models/challenge.py:139 apps/game/models/challenge.py:142
 msgid "None"
 msgstr "هیچ!"
 
-#: apps/game/models/challenge.py:144
+#: apps/game/models/challenge.py:145
 msgid "Team: "
 msgstr "تیم:‌"
 
-#: apps/game/models/challenge.py:144
+#: apps/game/models/challenge.py:145
 msgid "Challenge: "
 msgstr "چالش:‌"
 
-#: apps/game/models/challenge.py:186
+#: apps/game/models/challenge.py:187
 msgid "C++"
 msgstr "++C"
 
-#: apps/game/models/challenge.py:187
+#: apps/game/models/challenge.py:188
 msgid "Java"
 msgstr "جاوا"
 
-#: apps/game/models/challenge.py:188
+#: apps/game/models/challenge.py:189
 msgid "Python 3"
 msgstr "پایتون ۳"
 
-#: apps/game/models/challenge.py:192
+#: apps/game/models/challenge.py:193
 msgid "Uploading"
 msgstr "در حال آپلود"
 
-#: apps/game/models/challenge.py:193
+#: apps/game/models/challenge.py:194
 msgid "Uploaded"
 msgstr "آپلود شده"
 
-#: apps/game/models/challenge.py:194
+#: apps/game/models/challenge.py:195
 msgid "Compiling"
 msgstr "در حال کامپایل"
 
-#: apps/game/models/challenge.py:195
+#: apps/game/models/challenge.py:196
 msgid "Compiled"
 msgstr "کامپایل شده"
 
-#: apps/game/models/challenge.py:196
+#: apps/game/models/challenge.py:197
 msgid "Failed"
 msgstr "ناموفق!"
 
-#: apps/game/models/challenge.py:218
+#: apps/game/models/challenge.py:219
 msgid "This submission is not compiled yet."
 msgstr "این ارسال هنوز کامپایل نشده است."
 

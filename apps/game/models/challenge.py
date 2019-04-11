@@ -79,6 +79,7 @@ class TeamParticipatesChallenge(models.Model):
         return self.challenge.entrance_price > 0
 
     def get_paid_amount(self):
+        return self.team.participants.count() * self.challenge.entrance_price
         if self.payment_last_time_checked is None \
                 or datetime.datetime.now().replace(tzinfo=pytz.UTC) \
                 > self.payment_last_time_checked + datetime.timedelta(minutes=1):

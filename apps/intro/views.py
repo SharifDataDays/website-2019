@@ -2,14 +2,20 @@ import logging
 from io import BytesIO
 
 from PIL import Image
+
+from django.http import HttpResponseRedirect
+
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
+
+from django.urls import reverse
+
 
 from apps.accounts.models import Team
 from apps.game.models import TeamSubmission
 from apps.intro.form import StaffForm
-from apps.intro.models import Staff
+from apps.intro.models import Staff, StaffReborn, StaffTeam, StaffSubTeam
 
 logger = logging.getLogger(__name__)
 
@@ -35,11 +41,30 @@ def not_found(request):
 
 
 def staffs(request):
+    staff_reborn = []
+    for t in StaffTeam.objects.all():
+        team = {'name': t.name,
+                'sub_teams': [],
+                }
+        for sub_team in list(StaffSubTeam.objects.filter(parent_team=t)):
+            sub = {'name': sub_team.name,
+                   'members': [s for s in StaffReborn.objects.filter(sub_team=sub_team)],
+                   }
+            team['sub_teams'].append(sub)
+        staff_reborn.append(team)
+
+    print(staff_reborn)
+    print("fuck you")
     staff = Staff.objects.all()
     return render(request, 'intro/staffs.html', {
         "staff": staff,
+        "staff_reborn": staff_reborn
     })
 
+
+def staff_form(request):
+    form = StaffForm(request.POST, request.FILES)
+    return render(request, 'intro/staff-form.html', { 'form': form } )
 
 def add_staff(request):
     form = StaffForm(request.POST, request.FILES)
@@ -59,7 +84,11 @@ def add_staff(request):
             image.save(image_file, 'PNG')
             image_field.file = image_file
             image_field.image = image
-            Staff.objects.create(name=form.cleaned_data['name'], team=form.cleaned_data['team'], image=image_field)
-    return render(request, 'intro/staff-form.html', {
-        'form': form
-    })
+            for s in StaffSubTeam.objects.all():
+                if s.__str__() == form.cleaned_data['team']:
+                    sub_t = s
+                    break
+            StaffReborn.objects.create(name=form.cleaned_data['name'], sub_team=sub_t, image=image_field)
+            return redirect('intro:staff')
+#    return render(request, 'intro/staff-form.html', {       'form': form    })
+

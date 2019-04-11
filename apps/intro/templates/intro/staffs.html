@@ -8,108 +8,36 @@
 
 {% block container %}
 
-    {#its just a comment#}
+<div style="min-height: 100vh">
+
     <div class="ui pointing secondary menu">
-        <a class="item active" data-tab="tech">{% trans 'Technical' %}</a>
-        <a class="item" data-tab="exe">{% trans 'Executive' %}</a>
-        <a class="item" data-tab="head">{% trans 'Head' %}</a>
-        <a class="item" data-tab="sci">{% trans 'Scientific' %}</a>
-        <a class="item" data-tab="brand">{% trans 'Branding' %}</a>
-    </div>
-    <div class="ui tab segment mybackground active" data-tab="tech">
-            <div class="staff-pic stackable center aligned ui grid">
-                {% for member in staff %}
-                    {% if member.team == 'Technical' %}
-                        <div class="d-sm-inline-block">
-                            <div class="wrap">
-                                <img src="media/{{ member.image }}" alt=""/>
-                                <div class="layer" onclick="">
-                                    <div class="caption">
-                                        <h3 class="text-font">{{ member.name }}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+	    {% for team in staff_reborn %}
+	    	<a class="item" data-tab="{{ team.name }}">{% trans team.name %}</a>
+	    {% endfor %}
     </div>
 
-    <div class="ui tab segment mybackground" data-tab="exe">
-            <div class="staff-pic stackable center aligned ui grid">
-                {% for member in staff %}
-                    {% if member.team == 'Executive' %}
-                        <div class="d-sm-inline-block" style="margin: 3%">
-                           <div class="wrap">
-                                <img src="media/{{ member.image }}" alt=""/>
-                                <div class="layer" onclick="">
-                                    <div class="caption">
-                                        <h3 class="text-font">{{ member.name }}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-    </div>
+    {% for team in staff_reborn %}
+    	<div class="ui tab segment mybackground" data-tab="{{ team.name }}">
+		{% for sub_team in team.sub_teams %}
+			<hr>
+			<h4>{% trans sub_team.name %}</h1>
+			{% for member in sub_team.members %}
+				<div class="d-sm-inline-block" style="margin: 3%">
+					<div class="wrap">
+						<img src="media/{{ member.image }}" alt=""/>
+						<div class="layer" onclick="">
+							<div class="caption">
+								<h3 class="text-font">{{ member.name }}</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% endfor %}
+	</div>
+    {% endfor %}
 
-    <div class="ui tab segment mybackground" data-tab="head">
-            <div class="staff-pic stackable center aligned ui grid">
-                {% for member in staff %}
-                    {% if member.team == 'Head' %}
-                        <div class="d-sm-inline-block" style="margin: 3%">
-                            <div class="wrap">
-                                <img src="media/{{ member.image }}" alt=""/>
-                                <div class="layer" onclick="">
-                                    <div class="caption">
-                                        <h3 class="text-font">{{ member.name }}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-    </div>
-
-    <div class="ui tab segment mybackground" data-tab="sci">
-            <div class="staff-pic stackable center aligned ui grid">
-                {% for member in staff %}
-                    {% if member.team == 'Scientific' %}
-                        <div class="d-sm-inline-block" style="margin: 3%">
-                            <div class="wrap">
-                                <img src="media/{{ member.image }}" alt=""/>
-                                <div class="layer" onclick="">
-                                    <div class="caption">
-                                        <h3 class="text-font">{{ member.name }}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-    </div>
-    
-    <div class="ui tab segment mybackground" data-tab="brand">
-            <div class="staff-pic stackable center aligned ui grid">
-                {% for member in staff %}
-                    {% if member.team == 'Branding' %}
-                        <div class="d-sm-inline-block" style="margin: 3%">
-                            <div class="wrap">
-                                <img src="media/{{ member.image }}" alt=""/>
-                                <div class="layer" onclick="">
-                                    <div class="caption">
-                                        <h3 class="text-font">{{ member.name }}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-    </div>
+</div>
 
 {% endblock %}
 
