@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-05 20:06+0330\n"
+"POT-Creation-Date: 2019-04-11 17:39+0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,7 @@ msgid "Participate"
 msgstr "شرکت در مسابقه"
 
 #: apps/intro/templates/intro/index.html:87
-#: apps/intro/templates/intro/index_2.html:68
+#: apps/intro/templates/intro/index_2.html:73
 msgid "Register"
 msgstr "ثبت نام"
 
@@ -316,12 +316,12 @@ msgid "Contact Us"
 msgstr "تماس با ما"
 
 #: apps/intro/templates/intro/index.html:362
-#: apps/intro/templates/intro/index_2.html:473
+#: apps/intro/templates/intro/index_2.html:478
 msgid "Organizer"
 msgstr "برگزارکننده"
 
 #: apps/intro/templates/intro/index.html:366
-#: apps/intro/templates/intro/index_2.html:481
+#: apps/intro/templates/intro/index_2.html:486
 msgid "Sponsors"
 msgstr "حامیان مالی"
 
@@ -355,26 +355,68 @@ msgstr "ایمیل:"
 msgid "Phone: "
 msgstr "شماره تماس:"
 
-#: apps/intro/templates/intro/index_2.html:59
+#: apps/intro/templates/intro/index_2.html:64
 msgid "Logout"
 msgstr "خروج"
 
-#: apps/intro/templates/intro/index_2.html:64
+#: apps/intro/templates/intro/index_2.html:69
 msgid "Login"
 msgstr "ورود"
 
-#: apps/intro/templates/intro/index_2.html:73
+#: apps/intro/templates/intro/index_2.html:78
 msgid "Blog and Q&A"
 msgstr "وبلاگ پرسش و پاسخ"
 
-#: apps/intro/templates/intro/staffs.html:7
-msgid "Executive"
-msgstr "اجرایی"
-
-#: apps/intro/templates/intro/staffs.html:8
 msgid "Technical"
 msgstr "فنی"
 
-#: apps/intro/templates/intro/staffs.html:9
+msgid "Executive"
+msgstr "اجرایی"
+
 msgid "Head Of Committee"
 msgstr "کمیته برگزاری"
+
+msgid "Media"
+msgstr "رسانه"
+
+msgid "Procurement"
+msgstr "تدارکات"
+
+msgid "Ceremony"
+msgstr "مراسم"
+
+msgid "Reception"
+msgstr "پذیرش"
+
+msgid "Decorations"
+msgstr "تزئینات"
+
+msgid "Branding"
+msgstr "برندینگ"
+
+msgid "Financial"
+msgstr "مالی"
+
+msgid "InfraStructure"
+msgstr "زیرساخت"
+
+msgid "Judge"
+msgstr "سامانه داوری"
+
+msgid "Site"
+msgstr "سایت"
+
+msgid "Scientific"
+msgstr "علمی"
+
+msgid "Machine Learning"
+msgstr "یادگیری ماشین"
+
+msgid "Data Science"
+msgstr "علوم داده"
+
+msgid "Content"
+msgstr "محتوا"
+
+msgid "Head Committe"
+msgstr "کمیته سران"
