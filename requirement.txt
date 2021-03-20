@@ -27,7 +27,7 @@ idna==2.6
 itsdangerous==1.1.0
 itypes==1.1.0
 jdcal==1.4
-Jinja2==2.10
+Jinja2==2.11.3
 kombu==4.2.2.post1
 MarkupSafe==1.0
 mots-vides==2015.5.11
