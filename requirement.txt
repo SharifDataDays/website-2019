@@ -41,7 +41,7 @@ pyparsing==2.2.0
 django-extensions
 python-dateutil==2.7.5
 pytz==2017.3
-PyYAML==3.13
+PyYAML==5.4
 redis==2.10.6
 regex==2017.12.12
 requests==2.18.4
