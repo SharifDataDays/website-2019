@@ -51,7 +51,7 @@ suds-jurko==0.6
 tablib==0.12.1
 unicodecsv==0.14.1
 uritemplate==3.0.0
-urllib3==1.22
+urllib3==1.26.5
 uuid==1.30
 vine==1.2.0
 Werkzeug==0.14.1
