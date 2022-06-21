@@ -31,7 +31,7 @@ Jinja2==2.10
 kombu==4.2.2.post1
 MarkupSafe==1.0
 mots-vides==2015.5.11
-numpy==1.16.0
+numpy==1.22.0
 odfpy==1.4.0
 openpyxl==2.5.12
 pandas==0.24.0
